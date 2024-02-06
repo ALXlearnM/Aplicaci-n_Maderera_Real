@@ -1,0 +1,313 @@
+﻿<div class="d-flex ml-5">
+    <!-- Primera fila con los botones -->
+    <div class="row mb-1 justify-content-end w-100 ">
+        <div class="col mb-3 mr-5">
+            <img class="img-fluid" style="margin: 0.25% 3.5%;
+             width: 18.5%;
+             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+        </div>
+
+        <div class="col mb-3 ml-3 mr-3">
+            <div class="d-flex justify-content-between p-0" id="botonesbarra1">
+                <button id="guardarProd" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
+                <button id="guardarycerrarProd" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
+                <button id="cancelarProd" asp-controller="Pret16Merma" asp-action="ListadoMer" class="btn btn-danger btn-sm" role="button">Cancelar</button>
+            </div>
+        </div>
+
+        <div class="col mb-3 ml-5 mr-3">
+            <div class="form-check d-flex justify-content-start p-0">
+                @*<div class="nota-pedido container-fluid">
+                <p class="text-black text-wrap align-content-lg-around">Campaña:</p>
+                <div class="nota-pedido">
+
+                </div>
+                </div>*@
+            </div>
+        </div>
+        <div class="col mb-3 ml-3">
+            @*            <div class="form-check d-flex justify-content-start p-0">
+            <div class="">
+
+            <input class="form-check-input" type="checkbox" value="" id="checkEstado" />
+            <span class="text-black">Borrador</span>
+            </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4" />
+
+
+
+<div class="col">
+     <div class="card">
+            <div class="card-header">
+                <h4>Merma</h4>
+            </div>
+            <div class="card-body">
+           
+                <ul class="nav nav-tabs bg-light border-bottom-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark active" id="regismer-tab" data-toggle="tab" href="#regismer">
+                            <b>Merma</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="detmer-tab" data-toggle="tab" href="#detmer">
+                            <b>Detalle Merma</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="Trabajadormer-tab" data-toggle="tab" href="#Trabajadormer">
+                            <b>Trabajadores</b>
+                        </a>
+                    </li>
+                </ul>
+
+
+
+            <div class="tab-content">
+                @* PARA LA TABLA REGISTRO DE EXTRACCION*@
+                <div class="tab-pane fade in active show" id="regismer">
+
+                    <div class="form-row mt-3 container-fluid">
+                        <div class="col-md-4">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group row">
+
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Produccion :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="" required @* asp-for="FechaExtraccion" *@ class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                    <span @* asp-validation-for="FechaExtraccion" *@ class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Predio :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="altarbtotal" readonly required @* asp-for="AltArbolProTotal" *@ class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                    <span @* asp-validation-for="AltArbolProTotal" *@ class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Campaña :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nroarboltotal" required readonly @* asp-for="NroArbolesTotal" *@ class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                    <span @* asp-validation-for="NroArbolesTotal" *@ class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fecha* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nroarboltotal" required readonly @* asp-for="NroArbolesTotal" *@ class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                    <span @* asp-validation-for="NroArbolesTotal" *@ class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Tipo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nrotrozastotal" required readonly @* asp-for="NroTrozosTotal" *@ class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                    <span @* asp-validation-for="NroTrozosTotal" *@ class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Comentario :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="diamprototal" required readonly @* asp-for="DiamProTotal" *@ class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                    <span @* asp-validation-for="DiamProTotal" *@ class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                      
+                          
+
+                    
+
+
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="tab-pane fade" id="detmer">
+
+                    <div class="form-row mt-3 container-fluid">
+                      
+                        <div class="col-md-4">
+
+                            <div class="col-sm-8 mt-0 ml-3 mr-3 mb-0">
+                                <button type="button" class="btn btn-success" >
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+
+
+
+                        <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered m-0" id="">
+                            <thead class="HeadTA">
+                                <tr>
+                                    <td class="text-center">cantidad</td>
+                                    <td class="text-center">Producto Venta</td>
+                                    <td class="text-center">Unidad de Medida</td>
+
+                                    <td class="text-center">Costo Unitario Pro</td>
+                                    <td class="text-center">Costo Total</td>
+                                    <td class="text-center">Tipo de Merma</td>
+                                  
+                                    <td colspan="2" class="text-center">Opciones</td>
+                                </tr>
+                            </thead>
+                            <tbody class="BodyTA" id="tipoArbolSeleccionadosExt">
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="tab-pane fade" id="Trabajadormer">
+
+                    <div class="form-row mt-4 container-fluid">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Empleado* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <select id="empextcbo" class="form-control form-control-sm mx-sm-3 mb-2 " data-modal-target="modalempext" onchange="SelectChange(this,'modalempext')">
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div hidden> <input id="empextId" type="number" /></div>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="empextNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                        <span class="btn btn-close" id="removeempextSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeempext()"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Cargo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input readonly id="categoriaempleado" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Nro. doc Ide* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input readonly id="nrodocempleado" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Condicion* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input readonly id="condicionempleado" class="form-control form-control-sm mx-sm-3 mb-2">
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Teléfono* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input readonly id="telefonoempleado" class="form-control form-control-sm mx-sm-3 mb-2">
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-8 mt-0 ml-3 mr-3 mb-0">
+                                    <button type="button" class="btn btn-success" onclick="agregarextemp()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+
+                        <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered m-0" id="">
+                            <thead class="HeadTA">
+                                <tr>
+                                    <td class="text-center">Empleado</td>
+
+                                    <td class="text-center">Condicion</td>
+                                    <td class="text-center">Teléfono</td>
+                                    <td class="text-center">Nro. Doc. Ident.</td>
+                                    <td class="text-center">Cargo</td>
+
+                                    <td colspan="2" class="text-center">Opciones</td>
+                                </tr>
+                            </thead>
+                            <tbody class="BodyTA" id="empSeleccionadosExt">
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+             </div>
+
+
+
+
+            </div>
+
+    </div>
+</div>

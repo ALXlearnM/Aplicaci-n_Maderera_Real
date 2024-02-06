@@ -1,0 +1,639 @@
+﻿@model Maderera_Aplicacion_Web.Models.Pret01Predio
+
+@{
+    ViewData["Title"] = "Create";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Título de la página</title>
+
+
+</head>
+<body>
+
+<div class="d-flex ml-5">
+    <!-- Primera fila con los botones -->
+    <div class="row mb-1 justify-content-end w-100 ">
+        <div class="col mb-2 mr-5">
+            <img class="img-fluid" style="margin: 0.25% 3.5%;
+             width: 15%;
+             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+        </div>
+
+        <div class="col mb-2 ml-3 mr-3">
+            <div class="d-flex justify-content-between p-0" id="botonesbarra1">
+                    <button id="crearPredioBtn" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
+                    <button id="crearPredioyCerrarBtn" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
+                    <button id="cancelarPred" class="btn btn-danger btn-sm" role="button">Cancelar</button>
+            </div>
+        </div>
+            <div class="col mb-3 ml-3 mr-3">
+                <div class="form-check d-flex justify-content-start p-0">
+                    <div class="nota-pedido">
+                       
+
+<!-- Resto de tu contenido de la vista aquí -->
+
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<hr class="mt-5" />
+
+
+
+
+
+
+            <div class="col">
+                <div class="card">
+            <div class="card-header">
+                <h4>Predio</h4>
+            </div>
+            <div class="card-body">
+            <form id="FormPredio">
+
+                <ul class="nav nav-tabs bg-light border-bottom-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark active" id="regispre-tab" data-toggle="tab" href="#regispre">
+                            <b>Registro de Predio</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="medar-tab" data-toggle="tab" href="#medar">
+                            <b>Medida y Archivos</b>
+                        </a>
+                    </li>
+                   
+                </ul>
+               
+
+                <div class="tab-content">
+        @* PARA LA TABLA REGISTRO DE PREDIO*@
+        <div class="tab-pane fade in active show" id="regispre">
+         <div class="container-fluid">
+
+       
+        <div class="form-row" >
+            <div class="col-md-4 mt-2">
+               
+                    <div class="form-group" hidden>
+                        <input asp-for="IdInversionista" type="number"  id="inversionistaID" class="form-control" required>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Nro. Predio* :</label>
+                    <div class="col-sm-5 ml-5">
+                        <input asp-for="NroSitio" type="text" style="margin-left:120px;" class="form-control form-control-sm mx-sm-3 mb-2" id="nrositioPredio" required />
+                            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                            {
+                                <div class="alert alert-danger">
+                                    @ViewBag.ErrorMessage
+                                </div>
+                            }
+
+                            <!-- Resto del contenido de la vista "Predio" -->
+
+                    </div>
+                        
+                    </div>
+
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap " style="font-size:16px;">Nro Comprobante:</label>
+                    <div class="col-sm-5 ml-5">
+
+                        <input asp-for="NroComprobante" style="margin-left:120px;" class="form-control form-control-sm mx-sm-3 mb-2" id="nrocomprobantepred" />
+                    </div>
+                    </div>
+
+                  
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Unidad Catastral* :</label>
+                    <div class="col-sm-5 ml-5">
+                        <input asp-for="UnidadCatastral" style="margin-left:120px;" class="form-control form-control-sm mx-sm-3 mb-2" id="unidadcat" required />
+                        <span asp-validation-for="UnidadCatastral" class="text-danger"></span>
+                    </div>
+                    </div>
+
+                  
+                </div>
+
+
+            <div class="col-md-4 mt-2">
+                <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Tipo Predio* :</label>
+                    <div class="col-sm-5 ml-4">
+                            <select asp-for="IdTipoPredio" class="form-control form-control-sm mx-sm-3 mb-2" id="tipopredio" class="form-control form-control-sm" asp-items="ViewBag.IdTipoPredio" required></select>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">
+                        Departamento* :
+                    </label>
+                    <div class="col-sm-5 ml-4">
+                        <select id="departamentopredio" class="form-control form-control-sm mx-sm-3 mb-2" asp-items="ViewBag.IdDep" required></select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Provincia* :</label>
+                    <div class="col-sm-5 ml-4">
+                        <select id="provinciapredio" class="form-control form-control-sm mx-sm-3 mb-2" required></select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                        <label asp-for="IdDistrito" class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Distrito* :</label>
+                    <div class="col-sm-5 ml-4">
+                        <select id="distritopredio" class="form-control form-control-sm mx-sm-3 mb-2" name="distritopredio" required></select>
+                    </div>
+                </div>
+                   
+
+
+
+            </div>
+
+
+            <div class="col-md-4 mt-2">
+                   
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Fecha Adquisición* :</label>
+                    <div class="col-sm-5 ml-5">
+                        <input asp-for="FechaAdquisicion" type="date" class="form-control form-control-sm mx-sm-3 mb-2" id="fechaAdquisicion" required />
+                    </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Fecha Compra* :</label>
+                    <div class="col-sm-5 ml-5">
+                        <input asp-for="FechaCompra" type="date" class="form-control form-control-sm mx-sm-3 mb-2" id="fechaCompra" required />
+                    </div>
+                    </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Inversionista* :</label>
+                                            <div class="col-sm-5 ml-5">
+                                                <select id="incbo" class="custom-select  mx-sm-3 mb-2" data-modal-target="modalinversionista" onchange="SelectChange(this,'modalinversionista')" required>
+                                                    <option selected value="none">Seleccionar opción</option>
+                                                    <option value="buscar">Buscar</option>
+                                                </select>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span id="inversionistaNombre" class="spaninversionista" style="display: none;"></span>
+                                                    <span class="equis" id="removeInversionistaSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeInversionista()">X</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Part Reg :</label>
+                                            <div class="col-sm-5 ml-5">
+                                                <input placeholder="Patida Registral" asp-for="PartidaRegistral" style="margin-left:120px;" class="form-control form-control-sm mx-sm-3 mb-2" id="partidareg" />
+                                                <span asp-validation-for="PartidaRegistral" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                </div>
+
+        </div>
+        
+    
+
+        </div>
+
+
+
+
+
+
+
+
+        @* PARA LA TABLA DE MEDIDA Y ARCHIVOS*@
+        <div class="tab-pane fade " id="medar">
+
+                            <div class="col-md-12 mt-2">
+                            <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Nro. Hectáreas* :</label>
+                                    <div class="col-sm-2 text-lg-start">
+                                        <input asp-for="NroHectareas" type="number" class="form-control form-control-sm mx-sm-2 mb-2" id="numhectareapredios" oninput="multiplicarPorMil('numhectareapredios','areapredio')" required />
+                                        <span asp-validation-for="NroHectareas" class="text-danger"></span>
+                                    </div>
+
+                                
+
+                               
+
+
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Coordenada 1 :</label>
+                                    <div class="col-sm-2 ">
+                                            <input asp-for="Latitud" class="form-control form-control-sm p-0 mx-sm-2 mb-2 " id="latitudpred" type="text" step="any" />
+                                        <span asp-validation-for="Latitud" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-4">
+
+                                    <!-- Enlace para abrir el modal -->
+                                    <a class="btn btn-primary text-decoration-underline" href="#" id="verArchivosLink" onclick="abrirModalArchivos()">Ver Archivos</a>
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Área(m²)* :</label>
+                                    <div class="col-sm-2">
+                                        <input readonly asp-for="Area" type="number" class="form-control form-control-sm mx-sm-2 mb-2" id="areapredio" required>
+                                        <span asp-validation-for="Area" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Coordenada 2 :</label>
+                                    <div class="col-sm-2">
+                                            <input asp-for="Longitud" class="form-control form-control-sm p-0 mx-sm-2 mb-2 " id="longitudpred" type="text" step="any" />
+                                        <span asp-validation-for="Longitud" class="text-danger"></span>
+                                    </div>
+                                    
+                                    
+
+                            </div>
+
+                            
+                            <!-- Modal para agregar y ver archivos -->
+                            <div class="modal fade modal-xl container-fluid" id="modalArchivos" tabindex="-1" role="dialog" aria-labelledby="modalArchivosLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalArchivosLabel">Archivos Cargados</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body ">
+                                            <div class="container-fluid">
+
+
+                                                <div class="m-3">
+                                                    <input type="file" id="nuevoArchivo" multiple>
+                                                </div>
+                                                <div class="d-inline-flex">
+                                                    <div class="text-start m-2">
+                                                        <button type="button" class="btn btn-success" onclick="agregarArchivo()">Añadir</button>
+                                                    </div>
+                                                    <div class="text-end m-2">
+                                                        <button type="button" class="btn btn-outline-secondary" onclick="vaciarArregloYActualizarTabla()">Vaciar archivos</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Tabla para mostrar la lista de archivos en el modal -->
+                                            <table class="table container-fluid">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Archivo</th>
+                                                        <th>Tipo</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="container-fluid small" id="tablaArchivosBody"></tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+        </div>
+        </div>
+        </div>
+
+        </form>
+        </div>
+      
+        
+
+
+
+
+  
+       
+
+
+
+ 
+
+                            
+
+                            <div class="modal modal-xl custom-modal"  id="modalinversionista" tabindex="-1" role="dialog" aria-labelledby="modalinversionistaLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalinversionistaLabel">Inversionista</h5>
+                                            <button type="button" onclick="closeModal('modalinversionista','incbo')" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body custom">
+                                            <div class="inversionista-container">
+                                                <div class="row">
+                                                 
+                                                    <div class="col-lg-4">
+                                                        <!-- Create New Inversionista button and form -->
+                                                        <button type="button" class="btn btn-primary mb-3" onclick="openSecondModal('createInversionistaModal')">
+                                                            Crear Nuevo Inversionista
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <table class="display" id="tablaInversionista">
+                                                    <thead>
+                                                        <tr align="center">
+                                                            <th class="client-cell text-center">Inversionista</th>
+                                                            <th class="client-cell text-center">Teléfono</th>
+                                                            <th class="client-cell text-center">Doc. Identidad</th>
+                                                            <th class="client-cell text-center">Opciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="bodyinversionista">
+                                                        @foreach (var inversionista in ViewBag.Inversionista)
+                                                        {
+                                                            <tr>
+                                                                <td align="center" class="client-cell">@inversionista.NombreCompleto</td>
+                                                                <td align="center" class="client-cell">@inversionista.Telefono</td>
+                                                                <td align="center" class="client-cell">@inversionista.ruc</td>
+                                                                <td align="center" class="client-cell">
+                                                                    <button class="btn btn-primary" onclick="seleccionarInversionista('modalinversionista','incbo','inversionistaID','inversionistaNombre', '@inversionista.IdInversionista', '@inversionista.NombreCompleto')">Seleccionar</button>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" onclick="closeModal('modalinversionista', 'incbo')" class="btn btn-secondary">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+    <div class="modal fade bd-example-modal-lg" id="createInversionistaModal" tabindex="-1" role="dialog" aria-labelledby="createInversionistaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createInversionistaModalLabel">Crear Nuevo Inversionista</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body container-fluid">
+                    <form id="createInversionistaForm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="prim_nombreinversionista">Primer Nombre:</label>
+                                    <input type="text" class="form-control" id="prim_nombreinversionista" placeholder="Primer Nombre ....">
+                                </div>
+                                <div class="form-group">
+                                    <label for="seg_nombreinversionista">Segundo Nombre:</label>
+                                    <input type="text" class="form-control" id="seg_nombreinversionista" placeholder="Segundo Nombre...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="patapellidoinversionista">Apellido Paterno:</label>
+                                    <input type="text" class="form-control" id="patapellidoinversionista" placeholder="Apellido Paterno...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="matapellidoinversionista">Apellido Materno:</label>
+                                    <input type="text" class="form-control" id="matapellidoinversionista" placeholder="Apellido Materno...">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="razonSocialinversionista">Razón Social:</label>
+                                    <input type="text" class="form-control" id="razonSocialinversionista" placeholder="Razón Social....">
+                                </div>
+                                <div class="form-group" style="display: none;">
+                                    <label for="estadoinversionista">Estado:</label>
+                                    <input value="1" type="text" class="form-control" id="estadoinversionista">
+                                </div>
+                                <div class="form-group" style="display: none;">
+                                    <label for="txtestadoinversionista">Estado:</label>
+                                    <input value="ACTIVO" type="text" class="form-control" id="txtestadoinversionista">
+                                </div>
+                                <div class="form-group">
+                                    <label for="TipoNroDocinversionista">Tipo de Doc. Identidad:</label>
+                                    <select class="form-control" id="TipoNroDocinversionista">
+                                        <option value="2" selected>Dni</option>
+                                        <option value="4">Ruc</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="nroDocinversionista">DOC. Identidad:</label>
+                                    <input type="text" maxlength="11" class="form-control" id="nroDocinversionista" placeholder="Doc. identidad">
+                                </div>
+                                <div class="form-group">
+                                    <label for="celinversionista">Celular:</label>
+                                    <input type="text" class="form-control" name="celinversionista" id="celinversionista" placeholder="Celular..." required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="direccioninversionista">Dirección:</label>
+                                    <input type="text" id="direccioninversionista" name="direccioninversionista" class="form-control" placeholder="Direccion..." required>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="crearInversionistaBtn">Crear Inversionista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+    
+
+ 
+
+
+
+
+
+    <script>
+       
+
+           
+                
+
+          
+        document.addEventListener("DOMContentLoaded", function () {
+            
+            var table = jQuery('#tablaInversionista').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Inversionistas",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Inversionistas",
+                        "infoFiltered": "(Filtrado de _MAX_ total Inversionistas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Inversionistas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                }
+            
+            
+            
+            
+            
+            
+            );
+            var predio = @Html.Raw(Json.Serialize(ViewBag.Predio));
+            var CompParsed = JSON.parse(predio);
+            var archivosParaVista = @Html.Raw(Json.Serialize(ViewBag.ArchivosParaVista));
+
+            if (CompParsed !== null) {
+                console.log(CompParsed);
+                console.log(archivosParaVista);
+
+                for (var i = 0; i < archivosParaVista.length; i++) {
+                    var archivoInfo = archivosParaVista[i];
+
+                    // Crea un Blob a partir de la cadena base64
+                    var byteCharacters = atob(archivoInfo.fileContents);
+                    var byteArrays = [new Uint8Array(byteCharacters.length)];
+
+                    for (var j = 0; j < byteCharacters.length; j++) {
+                        byteArrays[0][j] = byteCharacters.charCodeAt(j);
+                    }
+
+                    var blob = new Blob(byteArrays, { type: archivoInfo.contentType });
+
+                    // Crea un nuevo objeto de archivo y almacénalo en tu arreglo
+                    archivos.push(new File([blob], archivoInfo.fileDownloadName, { type: archivoInfo.contentType }));
+                }
+
+                mostrarArchivosEnTabla();
+
+                
+                $('#nrositioPredio').val(CompParsed.Predio.NroSitio);
+                $('#tipopredio').val(CompParsed.Predio.IdTipoPredio);
+                $('#inversionistaID').val(CompParsed.Predio.IdInversionista);
+
+                $('#nrocomprobantepred').val(CompParsed.Predio.NroComprobante);
+                $('#areapredio').val(CompParsed.Predio.Area);
+                $('#unidadcat').val(CompParsed.Predio.UnidadCatastral);
+
+                $('#numhectareapredios').val(CompParsed.Predio.NroHectareas);
+                $('#partidareg').val(CompParsed.Predio.PartidaRegistral);
+
+                $('#fechaAdquisicion').val(new Date(CompParsed.Predio.FechaAdquisicion).toISOString().split('T')[0]);
+                $('#fechaCompra').val(new Date(CompParsed.Predio.FechaCompra).toISOString().split('T')[0]);
+                $('#latitudpred').val(CompParsed.Predio.Latitud);
+                $('#longitudpred').val(CompParsed.Predio.Longitud);
+
+                //Inversionista
+                var inversionistaNombreSpan = document.getElementById('inversionistaNombre');
+                var removeInversionistaSpan = document.getElementById('removeInversionistaSpan');
+                inversionistaNombreSpan.innerText = CompParsed.nombreInv;
+                inversionistaNombreSpan.style.display = 'inline-block';
+                removeInversionistaSpan.style.display = 'inline-block';
+                // Ocultar el select
+                var selectElement = document.getElementById('incbo');
+                selectElement.style.display = 'none';
+
+
+                cargarProvinciasYDistritosPredio(CompParsed.dptopre, CompParsed.provpre, CompParsed.IdDistrito)
+                $('#distritopredio').val(CompParsed.IdDistrito);
+
+
+            } else {
+                document.getElementById("fechaAdquisicion").value = returndatenow();
+                document.getElementById("fechaCompra").value = returndatenow();
+
+                $(document).ready(function () {
+                    // Manejador de cambio para el departamento
+                    $('#departamentopredio').change(function () {
+                        var departamentoId = $(this).val();
+
+                        // Realiza una solicitud AJAX para obtener las provincias
+                        $.ajax({
+                            url: '/Pret01Predio/ObtenerProvincias',
+                            type: 'GET',
+                            data: { departamentoId: departamentoId },
+                            success: function (data) {
+                                // Actualiza el contenido del select de provincia
+                                $('#provinciapredio').empty();
+                                $.each(data, function (index, item) {
+                                    $('#provinciapredio').append($('<option>').text(item.txtDesc).attr('value', item.idProv));
+                                });
+
+                                // Llama al evento change para actualizar los distritos
+                                $('#provinciapredio').change();
+                            },
+                            error: function () {
+                                console.error('Error al obtener provincias.');
+                            }
+                        });
+                    });
+
+                    // Manejador de cambio para la provincia
+                    $('#provinciapredio').change(function () {
+                        var provinciaId = $(this).val();
+
+                        // Realiza una solicitud AJAX para obtener los distritos
+                        $.ajax({
+                            url: '/Pret01Predio/ObtenerDistritos',
+                            type: 'GET',
+                            data: { provinciaId: provinciaId },
+                            success: function (data) {
+                                // Actualiza el contenido del select de distrito
+                                $('#distritopredio').empty();
+                                $.each(data, function (index, item) {
+                                    $('#distritopredio').append($('<option>').text(item.txtDesc).attr('value', item.idDist));
+                                });
+                            },
+                            error: function () {
+                                console.error('Error al obtener distritos.');
+                            }
+                        });
+                    });
+                });
+            }
+
+
+
+
+
+        });
+    </script>
+
+
+</body>
+</html>

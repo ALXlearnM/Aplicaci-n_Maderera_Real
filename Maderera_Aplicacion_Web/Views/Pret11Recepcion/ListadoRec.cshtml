@@ -1,0 +1,180 @@
+﻿@model IEnumerable<Maderera_Aplicacion_Web.Models.Pret11Recepcion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container-fluid">
+    <div class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between w-100">
+            <div class="mt-3">
+                <h1>Listado de Recepción</h1>
+            </div>
+            <div class="d-flex flex-row mt-3">
+                <div class="nav-item " style="margin-right: 10px;">
+                    
+                        <a asp-action="Recepcion" class="btn btn-success btn-sm">Crear</a>
+                    
+                </div>
+                <div class="nav-item r">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-danger btn-sm">Salir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mx-3" style="align-items:center;justify-content:center;text-align:center;margin-right:90px;margin-left:80px; margin-top:20px;">
+
+
+    <table class="display" id="recepciontabla" style="border: 1px solid black; ">
+        <thead style="font-size:16px;">
+        <tr class="table-primary">
+            <th class="text-center">
+                Cod Recepcion
+            </th>
+                <th class="text-center">
+                    Cant. Recepcionada
+                </th>
+                <th class="text-center">
+                    Codigo Envío
+                </th>
+                <th class="text-center">
+                Estado
+                </th>
+            <th class="text-center">
+               Fecha Recepción
+            </th>
+
+
+            <th class="text-center">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroRecepcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecepcionCant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEnvioNavigation.NroEnvio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TxtEstado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaRecepcion)
+            </td>
+
+            <td>
+                        @if (item.IdEstado == 3)
+                        {
+
+                            <a asp-action="EditarRecepcion" asp-route-idrecepcion="@item.IdRecepcion"><i class="fas fa-edit" data-placement="top" title="Edit"></i></a>
+                            <text>|</text>
+                                }
+                        <a asp-action="Details" asp-route-id="@item.IdRecepcion"> <i class="fas fa-eye" data-placement="top" title="Details"></i></a> |
+                        @if (item.IdEstado == 3)
+                        {
+
+                            <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarEliminarRecepcion" data-id="@item.IdRecepcion">
+                                <i class="fas fa-trash alt"></i>
+                            </a>
+                        }
+
+
+
+                        <div class="modal fade" id="confirmarEliminarRecepcion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro de que desea eliminar esta Recepción?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-danger" onclick="eliminarRecepcion()">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (item.IdEstado == 4)
+                        {
+
+                            <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarAnularRecepcion" data-id="@item.IdRecepcion">
+                                <i class="fas fa-ban"></i>
+
+                            </a>
+                        }
+                        <div class="modal fade" id="confirmarAnularRecepcion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmar Anulación</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de que desea anular esta recepción?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-danger" onclick="anularRecepcion()">Anular</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = jQuery('#recepciontabla').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Recepciones",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Recepciones",
+                    "infoFiltered": "(Filtrado de _MAX_ total Recepciones)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Recepciones",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+
+        );
+
+
+
+    });
+</script>

@@ -1,0 +1,61 @@
+﻿@model Maderera_Aplicacion_Web.Models.Pert01Usuario
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div style="margin-top:180px;">
+            <form method="post" asp-action="Login" asp-controller="Pert01Usuario" class="container container-fluid align-items-center">
+
+                <section class="container-fluid">
+                    <div class="container ">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-12 col-md-8 col-lg-6 col-xl-5 ">
+                                <div class="card shadow-2-strong" style="border-radius: 1rem">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <!-- Agrega una imagen a la derecha dentro del card shadow al inicio -->
+                                            <img src="~/jhyperionm.png" alt="Imagen a la derecha" class="imglogin " />
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="card-body p-4 text-center">
+
+                                                <h3 class="mb-5" style="color: #76b5c5; font-size:40px;">Log In</h3>
+
+                                                <div class="form-outline mb-4">
+                                                    <input type="text" class="form-control" required asp-for="TxtUsuario" id="TxtUsuario" placeholder="Ingresar Usuario">
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    <input type="password" class="form-control" required asp-for="TxtClave" id="TxtClave" placeholder="Ingresar Clave">
+                                                </div>
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" asp-for="MantenerActivo" id="MantenerActivo">
+                                                    <label class="form-check-label" for="MantenerActivo">Recordar sesión</label>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary h-100 w-100">Ingresar</button>
+                                                <label class="text-danger">@ViewBag.Error</label>
+                                                <label class="text-danger">@ViewBag.Paso1</label>
+                                                <label class="text-danger">@ViewBag.Paso2</label>
+                                                <label class="text-danger">@ViewBag.Paso3</label>
+                                                <label class="text-danger">@ViewBag.Paso4</label>
+                                                <label class="text-danger">@ViewBag.Paso5</label>
+                                                <label class="text-danger">@ViewBag.Paso6</label>
+                                                <label class="text-danger">@ViewBag.Paso7</label>
+                                                <label class="text-danger">@ViewBag.Paso8</label>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

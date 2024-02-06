@@ -1,0 +1,586 @@
+@model Maderera_Aplicacion_Web.Models.Tnst01CompRecibido
+
+@{
+    @if (Model != null)
+    {
+        Layout = "_Layout"; // Nombre del layout que deseas aplicar
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Título de la página</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+
+
+    <div hidden>
+        <input asp-for="IdProveedor" id="proveedorID" />
+
+        @if (Model != null)
+        {
+            var idUsuario = @ViewBag.idUsuario;
+            var txtUsuario = @ViewBag.txtUsuario;
+            <!-- Esto se mostrará si el comprobante no es nulo (se está editando) -->
+            <input asp-for="IdCompRecibido" type="text" id="comprobanteIdInputC" name="comprobanteId" />
+            @*  <input asp-for="IdTipoComp" id="idtipoComp" class="form-control" /> *@
+            @*  <input asp-for="NroCompRecibido" id="NroCompRecibido" class="form-control" /> *@
+            @*  <input asp-for="TxtNumero" id="TxtNumero" class="form-control" /> *@
+            <input asp-for="TxtSerie" id="TxtSerie" class="form-control" />
+            <input asp-for="MtoTcVta" type="number" id="mto_tc_vta" class="form-control" readonly />
+            <input asp-for="IdUsuario" value=@idUsuario type="number" id="iduserC" class="form-control" readonly />
+            <input asp-for="IdUsuarioModificador" value=@idUsuario type="number" id="idusermodC" class="form-control" readonly />
+            <input asp-for="TxtUsuario" value=@txtUsuario type="text" id="txtuserC" class="form-control" readonly />
+            <input asp-for="TxtUsuarioModificador" value=@txtUsuario type="text" id="txtusermodC" class="form-control" readonly />
+            <input asp-for="FechaModificacion" type="date" id="idfecmodC" class="form-control" readonly />
+
+            <!-- ... -->
+        }
+        else
+        {
+            int cantidad = ViewBag.cantidad + 1;
+            string nrocom = "001-" + cantidad.ToString().PadLeft(7, '0');
+            var idUsuario = @ViewBag.idUsuario;
+            var txtUsuario = @ViewBag.txtUsuario;
+
+            <input asp-for="IdCompRecibido" type="text" id="comprobanteIdInputC" name="comprobanteId" />
+            @*  <input asp-for="NroCompRecibido" id="NroCompRecibido" value="@nrocom" class="form-control" /> *@
+            @*  <input asp-for="IdTipoComp" id="idtipoComp" value=4 class="form-control" /> *@
+
+            <input asp-for="TxtSerie" id="TxtSerie" value="001" class="form-control" />
+            <input asp-for="MtoTcVta" type="number" value=1.0 id="mto_tc_vta" class="form-control" readonly />
+            <input asp-for="IdUsuario" type="number" value=@idUsuario id="iduserC" class="form-control" readonly />
+            <input asp-for="IdUsuarioModificador" type="number" id="idusermodC" class="form-control" readonly />
+            <input asp-for="TxtUsuario" value=@txtUsuario type="text" id="txtuserC" class="form-control" readonly />
+            <input asp-for="TxtUsuarioModificador" type="text" id="txtusermodC" class="form-control" readonly />
+            <input asp-for="FechaModificacion" type="date" id="idfecmodC" class="form-control" readonly />
+            <!-- Otros campos específicos para la creación -->
+            <!-- ... -->
+        }
+        <!-- Campos comunes a ambas situaciones -->
+        <input asp-for="IdProveedor" type="text" id="proveedorID" class="form-control" readonly />
+        <input id="FecNegocio" hidden asp-for="MtoNoAfecto" type="date" />
+        <input id="FecRegistro" hidden asp-for="FecRegistro" type="date" />
+        <input id="FecRegEmitido" hidden asp-for="FecEmi" type="date" />
+        <input asp-for="IdLocation" type="text" id="Locationid" class="form-control" readonly />
+
+    </div>
+
+    <div class="d-flex ml-5">
+        <!-- Primera fila con los botones -->
+        <div class="row mb-1 justify-content-end w-100 ">
+            <div class="col mb-2 mr-5">
+                <img class="img-fluid" style="margin: 0.25% 3.5%;
+             width: 7%;
+             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+            </div>
+
+            <div class="col mb-3 ml-3 mr-3">
+                <div class="d-flex justify-content-between p-0" id="botonesbarra1">
+                    <button id="guardarC" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
+                    <button id="guardarycerrarC" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
+                    <button id="cancelarC" class="btn btn-danger btn-sm" role="button">Cancelar</button>
+                </div>
+            </div>
+
+
+
+            @* <div class="col mb-3 ml-3 mr-3">
+            <div class="form-check d-flex justify-content-start p-0">
+            <div class="nota-pedido">
+
+            </div>
+            </div>
+            </div> *@
+            @* <div class="col mb-3 ml-3">
+            <div class="form-check d-flex justify-content-start p-0">
+            <div class="">
+            <input class="form-check-input" type="checkbox" value="" id="checkEstado" />
+            <span class="text-black">Borrador</span>
+            </div>
+            </div>
+            </div> *@
+        </div>
+    </div>
+
+
+
+    <hr class="text-decoration-line-through" />
+
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h4>COMPRAS</h4>
+            </div>
+            <div class="card-body">
+
+
+                <ul class="nav nav-tabs bg-light border-bottom-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark active" id="datcompra-tab" data-toggle="tab" href="#datcompra">
+                            <b>Datos de la Compra</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="prodcom-tab" data-toggle="tab" href="#prodcom">
+                            <b>Producto</b>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content">
+                    @* PARA LA TABLA REGISTRO DE COMPRA*@
+                    <div class="tab-pane fade in active show" id="datcompra">
+
+
+                        <div class="container-fluid">
+
+                            <div class="form-row">
+                                <div class="col-md-4 mt-5">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Tipo compra*:</label>
+                                        <div class="col-sm-5 ml-5">
+                                            <select asp-for="TipoCompra" class="form-control form-control-sm mx-sm-3 mb-2" id="idtipoCompra">
+                                                <option value="ESTANDAR">Estandar</option>
+                                                <option value="GASTO">Gasto</option>
+                                            </select>
+                                            <span asp-validation-for="TipoCompra" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Tipo comprobante*:</label>
+                                        <div class="col-sm-5 ml-5">
+                                            <select class="form-control form-control-sm mx-sm-3 mb-2" id="idtipoComp">
+                                                <option value="4">Boleta</option>
+                                                <option value="2">Factura</option>
+                                                <option value="62">Nota de Pedido</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Nro Comprobante*:</label>
+                                        <div class="col-sm-5 ml-5">
+                                            <input asp-for="NroCompRecibido" class="form-control form-control-sm mx-sm-3 mb-2" id="nroComp" oninput="convertirAMayusculas()">
+                                            <span asp-validation-for="NroCompRecibido" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4 mt-5">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Proveedor*:</label>
+                                        <div class="col-sm-5 ml-5">
+                                            <select id="provcbo" class="form-control form-control-sm mx-sm-3 mb-2" data-modal-target="modalprov" onchange="SelectChange(this,'modalprov')">
+                                                <option selected value="none">Seleccionar opción</option>
+                                                <option value="buscar">Buscar</option>
+                                            </select>
+                                            <div style="display: flex; align-items: center;">
+                                                <span id="proveedorrazon" class="spanproveedor" style="display: none;"></span>
+                                                <span class="equis" id="removeProveedorSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeProveedor()">X</span>
+                                            </div>
+                                            <div class="modal modal-xl custom-modal" id="modalprov" tabindex="-1" role="dialog" aria-labelledby="modalprovLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalprovLabel">Proveedor</h5>
+                                                            <button type="button" onclick="closeModal('modalprov','provcbo')" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body custom">
+                                                            <div class="client-container">
+                                                                <div class="row">
+
+
+                                                                    <div class="col-lg-4">
+                                                                        <!-- Create New Client button and form -->
+                                                                        <button type="button" class="btn btn-primary mb-3" onclick="openSecondModal('createProveedorModal')">
+                                                                            Crear Nuevo Proveedor
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <table class="display" id="tabproveedor">
+                                                                    <thead>
+                                                                        <tr align="center">
+                                                                            <th class="client-cell text-center">Razon Social</th>
+                                                                            <th class="client-cell text-center">RUC</th>
+                                                                            <th class="client-cell text-center">Opciones</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="bodyprov">
+                                                                        @foreach (var proveedor in ViewBag.Proveedor)
+                                                                        {
+                                                                            <tr>
+                                                                                <td align="center" class="client-cell">@proveedor.razon</td>
+                                                                                <td align="center" class="client-cell">@proveedor.RUC</td>
+
+                                                                                <td align="center" class="client-cell">
+                                                                                    <button class="btn btn-primary" onclick="seleccionarProveedor('modalprov','provcbo','proveedorID','proveedorruc','proveedorrazon','proveedordireccion','@proveedor.IdProveedor','@proveedor.RUC' , '@proveedor.razon','@proveedor.direccion')">Seleccionar</button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+
+
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" onclick="closeModal('modalprov', 'provcbo')" class="btn btn-secondary">Cerrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade show" id="createProveedorModal" tabindex="-1" role="dialog" aria-labelledby="createClientModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="createClientModalLabel">Crear Nuevo Proveedor</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body custom1">
+
+                                                            <form id="createProveedorForm">
+
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="Pnombre">Razon Social:</label>
+                                                                        <input type="text" class="form-control" id="razonprov" placeholder="Razón social ....">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="Pruc">RUC:</label>
+                                                                        <input type="text" class="form-control" id="rucprov" placeholder="RUC ...">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="Pdireccion">Dirección:</label>
+                                                                    <input type="text" class="form-control" id="direccionprov" placeholder="Dirección ...">
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                            <button type="button" class="btn btn-primary" id="crearProveedorBtn">Crear Proveedor</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">RUC*:</label>
+                                        <div class="col-sm-5 ml-5">
+                                            <span class="form-control form-control-sm mx-sm-3 mb-2" id="proveedorruc"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label col-form-label-sm text-nowrap">Comentario:</label>
+                                        <div class="col-sm-5 mr-5">
+                                            @Html.TextArea("Message", new { rows = 1, cols = 80})
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="col-md-4 mt-5">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Fecha Emisión*:</label>
+                                        <div class="col-sm-5 ml-5">
+                                            <input asp-for="FecEmi" type="date" id="fechaEmision" class="form-control form-control-sm mx-sm-3 mb-2" name="fechaEmision">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Direccion*:</label>
+                                        <div class="col-sm-5 ml-5">
+                                            <span class="form-control form-control-sm mx-sm-3 mb-2" id="proveedordireccion"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+
+                    @* PARA LA TABLA REGISTRO DE PRODUCTO COMPRA*@
+                    <div class="tab-pane fade " id="prodcom">
+                        <div class="contenedorProd">
+                            <table class="tablaProductoG" style="margin-top:30px;">
+                                <tr>
+                                    <td> <label class="text-nowrap">Producto</label></td>
+                                    <td>
+                                        <select id="procbo" class="custom-select" data-modal-target="modalpro" onchange="SelectChange(this,'modalpro')">
+                                            <option selected value="none">Seleccionar opción</option>
+                                            <option value="buscar">Buscar</option>
+                                        </select>
+                                        <div style="display: flex; align-items: center;">
+                                            <span id="ProductoNombre" class="spanproducto" style="display: none;"></span>
+                                            <span id="removeProductoSpan" class="equisproducto" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeProducto()">X</span>
+                                        </div>
+                                        <div class="modal modal-l custom-modal" id="modalpro" tabindex="-1" role="dialog" aria-labelledby="modalproLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalproLabel">Producto</h5>
+                                                        <button type="button" onclick="closeModal('modalpro','procbo')" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="client-container">
+                                                            <form id="FormAñadirProd">
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="Tipoprocom">Tipo producto</label>
+                                                                        <select id="TipoProCom" class="form-control" asp-items="ViewBag.IdTip" required></select>
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="TipoMarc">Marca</label>
+                                                                        <select id="TipoMarc" class="form-control" asp-items="ViewBag.IdMar" required></select>
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="TipoMode">Modelo</label>
+                                                                        <select id="TipoMode" class="form-control" asp-items="ViewBag.IdMod" required></select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="productocom">Producto:</label>
+                                                                        <input class="form-control" type="text" name="txt_desc" id="txt_desc">
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="cantidadcom">Cantidad:</label>
+                                                                        <input class="form-control" type="number" name="cantidad" id="cantidad" required min="1">
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="productocom">Total</label>
+                                                                        <input class="form-control" type="text" name="txt_cigv" id="txt_cigv">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+
+                                                                    <input class="form-control" type="hidden" readonly name="txt_igv" id="txt_igv">
+
+                                                                </div>
+                                                                <div class="form-group">
+
+                                                                    <input class="form-control" type="hidden" readonly name="txt_sigv" id="txt_sigv">
+
+                                                                </div>
+                                                                <div>
+                                                                    <input type="button" value="Agregar" class="btn btn-success btn-sm" id="crearProductoBtn">
+
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    @* <div class="modal-footer">
+                                                    <button type="button" onclick="closeModal('modalpro','procbo')" class="btn btn-secondary">Cerrar</button>
+                                                    </div> *@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <input hidden type="text" id="ProductoId" readonly required />
+
+                                    <!-- Modal para editar cantidad y descuento -->
+                                    <div id="editarModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h2 class="modal-title">Editar Producto</h2>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label>Producto:</label>
+                                                    <input readonly id="Productoinput" class="form-control">
+                                                    <input hidden id="IdEditarProducto" class="form-control">
+                                                    <label for="nuevaCantidad">Nueva Cantidad:</label>
+                                                    <input type="number" id="nuevaCantidad" class="form-control">
+                                                    <label for="nuevoDescuento">Nuevo Descuento (%):</label>
+                                                    <input type="number" id="nuevoDescuento" class="form-control">
+                                                    <label for="nuevoDescuento">Observación:</label>
+                                                    <input type="text" id="observacionP" class="form-control">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" onclick="aplicarCambios()" data-dismiss="modal">Guardar</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                            </table>
+                            <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered" id="tablageneral">
+                                <thead class="HeadP">
+                                <td style="font-size:16px">Producto</td>
+                                <td style="font-size:16px">Tipo Producto</td>
+                                <td style="font-size:16px">Marca</td>
+                                <td style="font-size:16px">Modelo</td>
+                                <td style="font-size:16px">Cantidad</td>
+                                <td style="font-size:16px">Precio sin IGV</td>
+                                <td style="font-size:16px">IGV</td>
+                                <td style="font-size:16px">Precio Total</td>
+                                <td colspan="2" style="font-size:16px">Opciones</td>
+                                </tr>
+                                </thead>
+                                <tbody class="BodyP" id="productosSeleccionados">
+                                </tbody>
+                            </table>
+                            <table class="tablatotal">
+                                <tr>
+                                    <td class="letra">Neto:</td>
+                                    <td><input class="form-control" type="text" name="neto" id="neto" readonly></td>
+
+                                </tr>
+                                <tr>
+                                    <td class="letra">IGV</td>
+                                    <td><input class="form-control" type="text" name="igv" id="igv" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td class="letra">Total</td>
+                                    <td><input class="form-control" type="text" name="total" id="total" readonly></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var table = jQuery('#tabproveedor').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando START a END de TOTAL Proveedores",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Ventas",
+                        "infoFiltered": "(Filtrado de MAX total Proveedores)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar MENU Proveedores",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                }
+
+
+            );
+            var comprobante = @Html.Raw(Json.Serialize(ViewBag.Comprobante));
+            var detalles = @Html.Raw(Json.Serialize(ViewBag.Detalles));
+            var CompParsed = JSON.parse(comprobante);
+            var detallesParsed = JSON.parse(detalles); // Convierte la cadena JSON a un objeto JavaScript
+            if (CompParsed !== null) {
+                console.log(CompParsed);
+                //Cliente
+                document.getElementById('proveedorruc').innerText = CompParsed.RUCproveedor;
+                document.getElementById('proveedorrazon').innerText = CompParsed.Razon;
+                document.getElementById('proveedordireccion').innerText = CompParsed.direccion;
+                document.getElementById('proveedorID').value = CompParsed.IdProveedor;
+                // Mostrar el span con el nombre del cliente y el botón para remover
+                var proveedorNombreSpan = document.getElementById('proveedorrazon');
+                var proveedorDireccionSpan = document.getElementById('proveedordireccion');
+                var removeProveedorSpan = document.getElementById('removeProveedorSpan');
+
+                proveedorNombreSpan.style.display = 'inline-block';
+                proveedorDireccionSpan.style.display = 'inline-block';
+                removeProveedorSpan.style.display = 'inline-block';
+
+                // Ocultar el select
+                var selectElement = document.getElementById('provcbo');
+                selectElement.style.display = 'none';
+
+
+
+
+                console.log(detallesParsed);
+
+                detallesParsed.forEach(function (detalle) {
+                    var producto = {
+
+                        tipoproducto: detalle.tipo,
+                        marcaproducto: detalle.marca,
+                        modeloproducto: detalle.modelo,
+                        nombreProducto: detalle.detalle.TxtProducto,
+                        cantidad: detalle.detalle.Cantidad,
+                        monto_si: detalle.detalle.PunitSinTax,
+                        igv: detalle.detalle.TaxPor01,
+                        monto_ci: detalle.detalle.PunitConTax,
+                        idProducto: detalle.detalle.IdProducto
+                    };
+                    productosCSeleccionados.push(producto);
+                });
+                actualizarTablaProductosSeleccionadosC();
+            } else {
+                // Configura los campos de fecha con la fecha actual en formato yyyy-MM-dd
+                document.getElementById('fechaEmision').value = returndatenow();
+
+                //alert("No hay detalles");
+            }
+
+            //$('#neto').val(CompParsed.MtoNeto);
+            //$('#desc').val(CompParsed.MtoDsctoTot);
+            //$('#Mtoapdesc').val(CompParsed.MtoSubTot);
+            //$('#igv').val(CompParsed.MtoImptoTot);
+            //$('#total').val(CompParsed.MtoTotComp);
+
+
+
+        });
+
+
+    </script>
+</body>
+</html>

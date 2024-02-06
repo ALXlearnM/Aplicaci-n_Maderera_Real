@@ -1,0 +1,154 @@
+﻿@using Maderera_Aplicacion_Web.Data.Interfaces
+@inject IPert01UsuarioController UsuarioService
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Aplicacion_Maderera</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <!-- Dentro del head de tu HTML -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style=" background-color:black;
+                    background-repeat: no-repeat;  background-size: cover; background-position: center center;">
+
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/logo_blanco.png" width="100%" height="60"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="true" aria-expanded="false" style="color:white; font-size:18px;  font-weight: bold;">Mantenimiento</a>
+                                <div class="dropdown-menu">
+
+                                    <a class="dropdown-item" asp-controller="Pret01Predio" asp-action="ListadoPre">Predio</a>
+                                    @*<a class="dropdown-item" asp-controller="Pret02Campana" asp-action="ListadoCam">Campaña</a>*@
+                                    <a class="dropdown-item" asp-controller="Pret14Produccion" asp-action="ListadoProd">Campaña</a>
+
+
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                                   aria-expanded="false" style="color:white; font-size:18px;  font-weight: bold;">Control</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Pret07Extraccion" asp-action="ListadoExtraccion">Extracción</a>
+                                    <a class="dropdown-item" asp-controller="Pret10Envio" asp-action="ListadoEnv">Envío</a>
+                                    <a class="dropdown-item" asp-controller="Pret11Recepcion" asp-action="ListadoRec">Recepción</a>
+                                   @* <a class="dropdown-item" asp-controller="Pret14Produccion" asp-action="ListadoProd">Recepción</a>
+*@
+                                    <a class="dropdown-item" asp-controller="Pret14Produccion" asp-action="ListadoPro">Producción</a>
+                       @*             <a class="dropdown-item" asp-controller="Pret24Merma" asp-action="ListadoMer">Merma</a>*@
+                                    <a class="dropdown-item" asp-controller="Pret16Merma" asp-action="ListadoMer">Merma</a>
+
+
+
+
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                                   aria-expanded="false" style="color:white; font-size:18px;  font-weight: bold;">Transacciones</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Tnst04CompEmitido" asp-action="boleta_v_listado">Ventas</a>
+                                    <a class="dropdown-item" asp-controller="Tnst01CompRecibido" asp-action="boleta_c_listado">Compras - Gasto</a>
+                                    <a class="dropdown-item" asp-controller="PERt11pagopersonal" asp-action="pago_p_listado">Pagos - Adelantos</a>
+
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+                                   style="color:white; font-size:18px;  font-weight: bold;">Acerca de</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Version 1.0.0.0</a>
+                                    <a class="dropdown-item" href="#">Contacto</a>
+
+                                </div>
+                            </li>
+
+
+
+
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item ml-auto d-flex align-items-center">
+                                    @{
+                                        var nombreUsuario = UsuarioService.GetUsuario();
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(nombreUsuario))
+                                    {
+                                        <div class="nav-link text-white" style="color:white; font-size:18px;  font-weight: bold;">Bienvenido, @nombreUsuario</div>
+                                    }
+                                </li>
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item ml-auto">
+                                    <!-- Utiliza ml-auto para mover el elemento a la derecha -->
+                                    <a class="nav-link text-white" style="color:white; font-size:18px;  font-weight: bold;" asp-area="" asp-controller="Home" asp-action="Salir">Cerrar Sesión</a>
+                                </li>
+                            }
+                        </ul>
+
+                    </div>
+                </div>
+
+            </nav>
+        </header>
+    }
+
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    @*<footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2023 - Aplicacion_Maderera - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    </footer>*@
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <!-- jQuery (antes de Bootstrap JavaScript) -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" async>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" async></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" async></script>
+
+
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

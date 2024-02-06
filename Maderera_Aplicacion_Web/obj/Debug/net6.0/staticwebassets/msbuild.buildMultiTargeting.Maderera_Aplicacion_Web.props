@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Maderera_Aplicacion_Web.props" />
+</Project>

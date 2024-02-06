@@ -1,0 +1,1558 @@
+﻿@model Maderera_Aplicacion_Web.Models.Tnst04CompEmitido
+@{
+    @if (Model != null)
+    {
+        Layout = "_Layout"; // Nombre del layout que deseas aplicar
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Título de la página</title>
+
+
+</head>
+<body>
+
+
+    <div hidden>
+        
+        <!-- Campos comunes a ambas situaciones -->
+@*        <input id="FecNegocio" hidden asp-for="FecNegocio" type="date" />
+        <input id="FecRegistro" hidden asp-for="FecRegistro" type="date" />
+        <input id="FecRegEmitido" hidden asp-for="FecRegEmitido" type="date" />*@
+        
+
+    </div>
+
+    <div class="d-flex ml-5">
+        <!-- Primera fila con los botones -->
+        <div class="row mb-1 justify-content-end w-100 ">
+            <div class="col mb-3 mr-5">
+                <img class="img-fluid" style="margin: 0.25% 3.5%;
+             width: 25%;
+             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+            </div>
+
+            <div class="col mb-3 ml-3 mr-3">
+                <div class="d-flex justify-content-between p-0" id="botonesbarra1">
+                    <button id="guardar" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
+                    <button id="guardarycerrar" class="btn btn-success btn-sm mr-2" role="button">Guardar y Cerrar</button>
+                    <button id="cancelar" class="btn btn-success btn-sm" role="button">Cancelar</button>
+                </div>
+            </div>
+
+            <div class="col mb-3 ml-3 mr-3">
+                <div class="form-check d-flex justify-content-start p-0">
+                    <div class="nota-pedido text-center">
+                        <h1>Nota de Pedido</h1>
+                        @{
+                            <p style="text-align: center;"><input value=@ViewBag.numpedido asp-for="NroCompEmitido" class="numero-pedido text-center"></p>
+
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-3 ml-3">
+                <div class="form-check d-flex justify-content-start p-0">
+                    <div class="">
+
+                        <input class="form-check-input" type="checkbox" value="" id="checkEstado" />
+                        <span class="text-black" id="mood">BORRADOR</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <hr class="text-decoration-line-through" />
+
+
+
+
+
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h4>Ventas</h4>
+            </div>
+            <div class="card-body">
+
+
+                <ul class="nav nav-tabs bg-light border-bottom-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark active" id="datventa-tab" data-toggle="tab" href="#datventa">
+                            <b>Datos de la Venta</b>
+                        </a>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="producto-tab" data-toggle="tab" href="#producto">
+                            <b>Producto</b>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="trabajador-tab" data-toggle="tab" href="#trabajador">
+                            <b>Trabajador</b>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content">
+                    @* PARA LA TABLA DE DATOS VENTA*@
+                    <div class="tab-pane fade in active show" id="datventa">
+                        <form id="FormVentas">
+                        <div class="container-fluid">
+
+                            <div class="form-row">
+                                <div class="col-md-3 mt-5">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Cliente*:</label>
+                                        <div class="col-sm-5 ml-5">
+                                            <input hidden asp-for="IdCliente" type="text" id="clienteID" class="form-control" required />
+
+                                            <select id="clicbo" class="custom-select" style="margin-left:35px;" data-modal-target="modalclim" onchange="SelectChange(this,'modalclim')">
+                                                <option selected value="none">Seleccionar opción</option>
+                                                <option value="buscar">Buscar</option>
+                                            </select>
+
+                                            <div style="display: flex; align-items: center;">
+                                                <span class="text-nowrapped" id="clienteNombre" class="spancliente" style="display: none;"></span>
+                                                <span class="btn btn-close" id="removeClienteSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeCliente()"></span>
+                                            </div>
+
+
+                                            
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Direccion*:</label>
+                                        <div class="col-sm-5 ml-5">
+
+                                            <span id="clienteDireccion" class="spandireccion"></span>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Teléfono*:</label>
+                                        <div class="col-sm-5 ml-5">
+
+                                            <span id="clienteTelefono" class="spantelefono"></span>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                
+                                <div class="col-md-3 mt-5">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Tipo de Orden* :</label>
+                                        <div class="col-sm-5 ml-5">
+
+                                                <select required id="TipoOrden" class="form-control form-control-sm mx-sm-3 mb-2 p-0" asp-for="IdTipoOrden" class="form-control" asp-items="@(ViewBag.TipoOrden)"></select>
+
+
+                                        </div>
+                                    </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Origen* :</label>
+                                            <div class="col-sm-5 ml-5">
+                                                <input required asp-for="IdLocation" type="text" id="Locationid" class="form-control" hidden />
+                                                <select id="loccbo" class="custom-select" data-modal-target="modalloc" onchange="SelectChange(this,'modalloc')">
+                                                    <option selected value="none">Seleccionar opción</option>
+                                                    <option value="buscar">Buscar</option>
+
+                                                </select>
+
+                                                <div style="display: flex; align-items: center;">
+                                                    <span id="LocalizacionNombre" class="spanllegada" style="display: none;"></span>
+                                                    <span id="removeLocalizacionSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeLocation()"></span>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Destino* :</label>
+                                            <div class="col-sm-5 ml-5">
+                                                <input required asp-for="IdLocationTo" type="text" id="Locationtoid" class="form-control" hidden />
+
+                                                <select id="ltocbo" class="custom-select" data-modal-target="modallto" onchange="SelectChange(this,'modallto')">
+                                                    <option selected value="none">Seleccionar opción</option>
+                                                    <option value="buscar">Buscar</option>
+                                                </select>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span id="LocalizaciontoNombre" class="spandestino" style="display: none;"></span>
+                                                    <span id="removeLocalizaciontoSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeLocationto()"></span>
+                                                </div>
+
+                                                <div class="modal modal-xl custom-modal" id="modallto" tabindex="-1" role="dialog" aria-labelledby="modalltoLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modallocLabel">Localización Destino:</h5>
+                                                                <button type="button" onclick="closeModal('modallto','ltocbo')" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body custom">
+                                                                <div class="client-container">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            <!-- Filter section -->
+                                                                            @* <div class="form-group">
+                                                                            <div class="form-inline">
+                                                                            <select id="locationtooptionname" class="form-control mr-2" onchange="filtrarLocationto()">
+                                                                            <option value="1">Comienza con</option>
+                                                                            <option value="2">Contiene</option>
+                                                                            </select>
+                                                                            <input type="text" id="filtroNombreLocto" class="form-control" placeholder="Escriba un nombre" oninput="filtrarLocationto()">
+                                                                            </div>
+                                                                            </div>*@
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <!-- Create New Client button and form -->
+                                                                            <button type="button" class="btn btn-primary" onclick="openSecondModal('createLocalizaciontoModal')">
+                                                                                Crear Nuevo Destino
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <table class="display" id="tablalocalizacionto">
+                                                                        <thead>
+                                                                            <tr align="center">
+                                                                                <th class="client-cell text-center">Localización</th>
+                                                                                <th class="client-cell text-center">Dirección</th>
+                                                                                <th class="client-cell text-center">Fecha Negocio</th>
+                                                                                <th class="client-cell text-center">Tipo de localización</th>
+                                                                                <th class="client-cell text-center">Opciones</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="bodysameloc2">
+                                                                            @foreach (var localizacionto in ViewBag.Locationto)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td align="center" class="client-cell">@localizacionto.NombreCompleto</td>
+                                                                                    <td align="center" class="client-cell">@localizacionto.Direccion</td>
+                                                                                    <td align="center" class="client-cell">@localizacionto.FechaN</td>
+                                                                                    <td align="center" class="client-cell">@localizacionto.Tipol</td>
+                                                                                    <td align="center" class="client-cell">
+                                                                                        <button class="btn btn-primary" onclick="seleccionarLocationto('modallto','ltocbo','Locationtoid','LocalizaciontoNombre','@localizacionto.IdLocation', '@localizacionto.NombreCompleto')">Seleccionar</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" onclick="closeModal('modallto','ltocbo')" class="btn btn-secondary">Cerrar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                </div>
+
+
+
+                                <div class="col-md-3 mt-5">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Fecha Emision* :</label>
+
+                                        <div class="col-sm-5 ml-5">
+                                                <input required class="form-control form-control-sm mx-sm-3 mb-2 p-0" asp-for="FecEmi" type="date" id="fechaEmision" class="form-control" name="fechaEmision">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Comentario:</label>
+
+                                        <div class="col-sm-5 ml-5">
+                                            <input asp-for="TxtObserv" id="comentarioven" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                            <span class="text-danger"></span>
+
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3 mt-5">
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Predio:</label>
+                                        <input required asp-for="IdPredio" id="idpredioventas" hidden />
+                                        <div class="col-sm-5 ml-4">
+                                                <select id="venprecbo" class="custom-select" style="margin-left:35px;" data-modal-target="modalvenpre" onchange="SelectChange(this,'modalvenpre')">
+                                                <option selected value="none">Seleccionar opción</option>
+                                                <option value="buscar">Buscar</option>
+                                                </select>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span id="venpreNombre" class="text-nowrap" style="display: none;"></span>
+                                                    <span id="removevenpreSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 10px;" onclick="removeVenPre()"></span>
+                                                </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Campaña:</label>
+                                            <input required asp-for="IdCampana" id="idcampanaventas" hidden/>
+                                        <div class="col-sm-5 ml-4">
+                                            <select id="camvencbo" class="custom-select" style="margin-left:35px;" data-modal-target="modalcamven" onchange="SelectChange(this,'modalcamven')">
+                                                <option selected value="none">Seleccionar opción</option>
+                                                <option value="buscar">Buscar</option>
+                                            </select>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span id="camvenNombre" class="text-nowrap" style="display: none;"></span>
+                                                    <span id="removecamvenSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 10px;" onclick="removeCamVen()"></span>
+                                                </div>
+
+                                        </div>
+                                    </div>
+
+                                 </div>
+
+
+                            </div>
+
+                        </div>
+                        </form>
+                    </div>
+                    <div class="modal modal-xl custom-modal" id="modalloc" tabindex="-1" role="dialog" aria-labelledby="modallocLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modallocLabel">Localización</h5>
+                                    <button type="button" onclick="closeModal('modalloc','loccbo')" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body custom">
+                                    <div class="client-container">
+                                        <div class="row">
+
+                                            <div class="col-lg-4">
+                                                <!-- Create New Client button and form -->
+                                                <button type="button" class="btn btn-primary" onclick="openSecondModal('createLocalizacionModal')">
+                                                    Crear Nueva Localización
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <table class="display" id="tablalocalizacion">
+                                            <thead>
+                                                <tr align="center">
+                                                    <th class="client-cell text-center">Localización</th>
+                                                    <th class="client-cell text-center">Dirección</th>
+                                                    <th class="client-cell text-center">Fecha Negocio</th>
+                                                    <th class="client-cell text-center">Tipo de localización</th>
+                                                    <th class="client-cell text-center">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bodysameloc1">
+                                                @foreach (var localizacion in ViewBag.Location)
+                                                {
+                                                    <tr>
+                                                        <td align="center" class="client-cell">@localizacion.NombreCompleto</td>
+                                                        <td align="center" class="client-cell">@localizacion.Direccion</td>
+                                                        <td align="center" class="client-cell">@localizacion.FechaN</td>
+                                                        <td align="center" class="client-cell">@localizacion.Tipol</td>
+                                                        <td align="center" class="client-cell">
+                                                            <button class="btn btn-primary" onclick="seleccionarLocation('modalloc','loccbo','Locationid','LocalizacionNombre','@localizacion.IdLocation', '@localizacion.NombreCompleto')">Seleccionar</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" onclick="closeModal('modalloc','loccbo')" class="btn btn-secondary">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+
+                    
+                    <div class="modal fade show" id="createLocalizacionModal" tabindex="-1" role="dialog" aria-labelledby="createLocalizacionModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createLocalizacionModalLabel">Crear Nuevo Localizacion</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body custom">
+                                    <!-- Formulario para crear un nuevo cliente -->
+                                    <form id="createLocalizacionForm">
+                                        <div class="form-group">
+                                            <label for="Pnombre">Nombre:</label>
+                                            <input type="text" class="form-control" id="nombreloc" placeholder="Localización...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Snombre">Fecha Negocio:</label>
+                                            <input type="date" class="form-control" id="fechanegloc">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="IdTipoLocation">Tipo Location:</label>
+                                            <select id="IdTipoLocation" class="form-control" asp-items="ViewBag.IdTipoLocation" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="DepartamentoLoc">Departamento:</label>
+                                            <select id="departamentoloc" class="form-control" asp-items="ViewBag.IdDep" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Provincia">Provincia:</label>
+                                            <select id="provincialoc" class="form-control" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Distrito">Distrito:</label>
+                                            <select id="distritoloc" class="form-control" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Direccion">Dirección:</label>
+                                            <input id="direccionloc" class="form-control" placeholder="Dirección..." required>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" id="crearLocalizacionBtn">Crear Localización</button>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="modal fade show" id="createLocalizaciontoModal" tabindex="-1" role="dialog" aria-labelledby="createLocalizaciontoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createLocalizacionModalLabel">Crear Nuevo Localizacion</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body custom">
+                                    <form id="createLocalizaciontoForm">
+                                        <div class="form-group">
+                                            <label for="Pnombre">Nombre:</label>
+                                            <input type="text" class="form-control" id="nombrelto" placeholder="Localización...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Snombre">Fecha Negocio:</label>
+                                            <input type="date" class="form-control" id="fechaneglto">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="IdTipoLocation">Tipo Location:</label>
+                                            <select id="IdTipoLocationlto" class="form-control" asp-items="ViewBag.IdTipoLocation" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="DepartamentoLoc">Departamento:</label>
+                                            <select id="departamentolto" class="form-control" asp-items="ViewBag.IdDep" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Provincia">Provincia:</label>
+                                            <select id="provincialto" class="form-control" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Distrito">Distrito:</label>
+                                            <select id="distritolto" class="form-control" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Direccion">Dirección:</label>
+                                            <input id="direccionlto" class="form-control" placeholder="Dirección..." required>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" id="crearLocalizaciontoBtn">Crear Destino</button>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal modal-xl custom-modal" id="modalclim" tabindex="-1" role="dialog" aria-labelledby="modalcliLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalcliLabel">Cliente</h5>
+                                    <button type="button" onclick="closeModal('modalclim','clicbo')" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body custom">
+                                    <div class="client-container">
+                                        @*<div class="row">
+                                        <div class="col-lg-6 mb-3">
+                                        <!-- Filter section for name -->
+                                        <div class="form-group">
+                                        <div class="form-inline">
+                                        <select id="clienteoptionname" class="form-control mr-2">
+                                        <option value="1">Comienza con</option>
+                                        <option value="2">Contiene</option>
+                                        </select>
+                                        <input type="text" id="filtroNombreCli" class="form-control" placeholder="Filtrar nombre" oninput="filtrarClientes()">
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                        <!-- Filter section for ID -->
+                                        <div class="form-group">
+                                        <div class="form-inline">
+                                        <select id="clienteoptionid" class="form-control mr-2">
+                                        <option value="1">Comienza con</option>
+                                        <option value="2">Contiene</option>
+                                        </select>
+                                        <input type="text" id="filtroRUCCli" class="form-control" placeholder="Filtrar Doc. Id" oninput="filtrarClientes()">
+                                        </div>
+                                        </div>
+                                        </div>*@
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <!-- Create New Client button and form -->
+                                                <button type="button" class="btn btn-primary mb-3" onclick="openSecondModal('createClientModal')">
+                                                    Crear Nuevo Cliente
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+                                        <table class="display" id="tablaClientes">
+                                            <thead>
+                                                <tr align="center">
+                                                    <th class="client-cell text-center">Cliente</th>
+                                                    <th class="client-cell text-center">Dirección</th>
+                                                    <th class="client-cell text-center">Teléfono</th>
+                                                    <th class="client-cell text-center">Doc. Identidad</th>
+                                                    <th class="client-cell text-center">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bodycliente">
+                                                @foreach (var cliente in ViewBag.Cliente)
+                                                {
+                                                    <tr>
+                                                        <td align="center" class="client-cell">@cliente.NombreCompleto</td>
+                                                        <td align="center" class="client-cell">@cliente.Direccion</td>
+                                                        <td align="center" class="client-cell">@cliente.Telefono</td>
+                                                        <td align="center" class="client-cell">@cliente.ruc</td>
+                                                        <td align="center" class="client-cell">
+                                                            <button class="btn btn-primary" onclick="seleccionarCliente('modalclim','clicbo','clienteID','clienteNombre','clienteTelefono','clienteDireccion', '@cliente.IdCliente', '@cliente.NombreCompleto', '@cliente.Telefono', '@cliente.Direccion')">Seleccionar</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+
+
+
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" onclick="closeModal('modalclim', 'clicbo')" class="btn btn-secondary">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade show" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="createClientModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createClientModalLabel">Crear Nuevo Cliente</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body custom">
+                                    <!-- Formulario para crear un nuevo cliente -->
+                                    <form id="createClientForm">
+
+                                        <div class="form-group">
+                                            <label for="Pnombre">Primer Nombre:</label>
+                                            <input type="text" class="form-control" id="prim_nombrecli" placeholder="Primer Nombre ....">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Snombre">Segundo Nombre:</label>
+                                            <input type="text" class="form-control" id="seg_nombrecli" placeholder="Segundo Nombre...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ApellidoP">Apellido Paterno:</label>
+                                            <input type="text" class="form-control" id="patapellidocli" placeholder="Apellido Paterno...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="apellidoM">Apellido Materno:</label>
+                                            <input type="text" class="form-control" id="matapellidocli" placeholder="Apellido Materno...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="razonSocial">Razón Social:</label>
+                                            <input type="text" class="form-control" id="razonSocialcli" placeholder="Razón Social....">
+                                        </div>
+                                        <div hidden class="form-group">
+                                            <label for="estado">Estado:</label>
+                                            <input value=1 type="text" class="form-control" id="estadocli">
+                                        </div>
+                                        <div hidden class="form-group">
+                                            <label for="estado">Estado:</label>
+                                            <input value="ACTIVO" type="text" class="form-control" id="txtestadocli">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tipodoc">Tipo de Doc. Identidad:</label>
+                                            <select class="form-control" id="TipoNroDoccli">
+                                                <option value=1>Dni</option>
+                                                <option value=2>Ruc</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NroDoc">DOC. Identidad:</label>
+                                            <input type="text" maxlength="11" class="form-control" id="nroDoccli" placeholder="Doc. identidad">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Celular">Celular:</label>
+                                            <input type="text" class="form-control" name="celcli" id="celcli" placeholder="Celular..." required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="DepartamentoCli">Departamento:</label>
+                                            <select id="departamentocli" class="form-control" asp-items="ViewBag.IdDep" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Provincia">Provincia:</label>
+                                            <select id="provinciacli" name="provinciacli" class="form-control" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Distrito">Distrito:</label>
+                                            <select id="distritocli" name="distritocli" class="form-control" required></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Distrito">Direccción:</label>
+                                            <input id="direccioncli" name="direccioncli" class="form-control" placeholder="Direccion..." required>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" id="crearClienteBtn">Crear Cliente</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @*MODAL DE PREDIO EN VENTAS*@
+                    <div class="modal modal-xl custom-modal" id="modalvenpre" tabindex="-1" role="dialog" aria-labelledby="modalvenpreLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalvenpreLabel">Predio</h5>
+                                    <button type="button" onclick="closeModal('modalvenpre','venprecbo')" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body custom">
+                                    <div class="container-fluid">
+
+                                        <table class="display" id="tablaVentasPre">
+                                            <thead>
+                                                <tr align="center" class="small">
+                                                    <th class="client-cell text-center">Unidad Catastral</th>
+                                                    <th class="client-cell text-center">Nro Sitio</th>
+                                                    <th class="client-cell text-center">Fecha de Compra</th>
+                                                    <th class="client-cell text-center">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bodyvenpre">
+                                                @foreach (var predio in ViewBag.Predios)
+                                                {
+                                                    <tr>
+                                                        <td align="center" class="client-cell">@predio.unidC</td>
+                                                        <td align="center" class="client-cell">@predio.nroS</td>
+                                                        <td align="center" class="client-cell">@predio.fechC</td>
+                                                        <td align="center" class="client-cell">
+                                                            <button class="btn btn-primary" onclick="seleccionarVenPredio('modalvenpre','venprecbo','idpredioventas','venpreNombre','@predio.id', '@predio.unidC')">Seleccionar</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" onclick="closeModal('modalvenpre', 'venprecbo')" class="btn btn-secondary">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*MODAL DE CAMPAÑA EN VENTAS*@
+                    <div class="modal modal-xl custom-modal" id="modalcamven" tabindex="-1" role="dialog" aria-labelledby="modalcamvenLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalcamvenLabel">Campaña</h5>
+                                    <button type="button" onclick="closeModal('modalcamven','camvencbo')" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body custom">
+                                    <div class="container-fluid">
+
+                                        <table class="display" id="tablaCampanasVen">
+                                            <thead>
+                                                <tr align="center" class="small">
+                                                    <th class="client-cell text-center">Cod Campaña</th>
+                                                    <th class="client-cell text-center">Area</th>
+                                                    <th class="client-cell text-center">Fecha de Inicio</th>
+                                                    <th class="client-cell text-center">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bodycamven">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" onclick="closeModal('modalcamven', 'camvencbo')" class="btn btn-secondary">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    @* PARA LA TABLA EMPLEADO*@
+                    <div class="tab-pane fade " id="trabajador">
+
+
+                        <div class="contenedorProd mt-4 ">
+
+                            <div class="form-row container-fluid">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Empleado* :</label>
+                                        <div class="col-sm-7 ml-5">
+                                            <select id="empvencbo" class="form-control form-control-sm mx-sm-3 mb-2 " data-modal-target="modalempven" onchange="SelectChange(this,'modalempven')">
+                                                <option selected value="none">Seleccionar opción</option>
+                                                <option value="buscar">Buscar</option>
+                                            </select>
+                                            <div hidden> <input id="empvenId" type="number" /></div>
+                                            <div style="display: flex; align-items: center;">
+                                                <span id="empvenNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                                <span class="btn btn-close" id="removeempvenSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeempven()"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Cargo* :</label>
+                                        <div class="col-sm-7 ml-5">
+                                            <input readonly id="categoriaempleadoven" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+
+                                    <div class="form-group row">
+
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Nro. doc* :</label>
+                                        <div class="col-sm-7 ml-5">
+                                            <input readonly id="nrodocempleadoven" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Condicion* :</label>
+                                        <div class="col-sm-7 ml-5">
+                                            <input readonly id="condicionempleadoven" class="form-control form-control-sm mx-sm-3 mb-2">
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                                <div class="col-md-4">
+
+
+                                    <div class="form-group row">
+
+                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Celular* :</label>
+                                        <div class="col-sm-7 ml-5">
+                                            <input readonly id="celularempleadoven" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-8 mt-0 ml-3 mr-3 mb-0">
+                                            <button type="button" class="botonaddProducto btn-success" onclick="agregarvenemp()">Agregar</button>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                                <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered" id="">
+                                    <thead class="HeadTA">
+                                        <tr>
+                                            <td class="text-center">Empleado</td>
+                                            @*<td class="text-center">Salario</td>*@
+                                            <td class="text-center">Condicion</td>
+                                            <td class="text-center">Telefono</td>
+                                            <td class="text-center">Nro. Doc. Ident.</td>
+                                            <td class="text-center">Cargo</td>
+
+                                            <td colspan="2" class="text-center">Opciones</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="BodyTA text-sm-center" id="empSeleccionadosVen">
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                    @*MODAL PARA EMPLEADOS*@
+                    <div class="modal modal-xl custom-modal" id="modalempven" tabindex="-1" role="dialog" aria-labelledby="modalempvenLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalempextLabel">Empleados de Venta</h5>
+                                    <button type="button" onclick="closeModal('modalempven','empvencbo')" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body custom">
+                                    <div class="client-container">
+                                        <div class="row">
+
+                                            <table class="display" id="tablaempven">
+                                                <thead>
+                                                    <tr align="center">
+                                                        <th class="client-cell text-center">Empleado</th>
+                                                        <th class="client-cell text-center">Dirección</th>
+                                                        <th class="client-cell text-center">Teléfono</th>
+                                                        <th class="client-cell text-center">Cargo</th>
+                                                        <th class="client-cell text-center">Doc. Identidad</th>
+                                                        <th class="client-cell text-center">Opciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="bodyempven">
+                                                    @foreach (var EmpleadoVen in ViewBag.EmpVen)
+                                                    {
+                                                        <tr>
+                                                            <td align="center" class="client-cell">@EmpleadoVen.NombreCompleto</td>
+                                                            <td align="center" class="client-cell">@EmpleadoVen.Direccion</td>
+                                                            <td align="center" class="client-cell">@EmpleadoVen.Telefono</td>
+                                                            <td align="center" class="client-cell">@EmpleadoVen.cargo</td>
+                                                            <td align="center" class="client-cell">@EmpleadoVen.Ruc</td>
+                                                            <td align="center" class="client-cell">
+                                                                <button class="btn btn-primary" onclick="seleccionarempven('modalempven','empvencbo','empvenId','empvenNombre','@EmpleadoVen.Idempleado', '@EmpleadoVen.NombreCompleto')">Seleccionar</button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" onclick="closeModal('modalempeven','empvencbo')" class="btn btn-secondary">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+
+                    @*PARA LA TABLA PRODUCTO*@
+                    <div class="tab-pane fade " id="producto">
+
+
+                        <table class="tablaProductoG mt-4">
+                            <tr>
+                                <td class="letra">Producto* </td>
+                                <td>
+                                    <select id="procbo" class="custom-select" data-modal-target="modalpro" onchange="SelectChange(this,'modalpro')">
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="ProductoNombre" class="spanproducto" style="display: none;"></span>
+                                        <span id="removeProductoSpan" class="equisproducto" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeProducto()">X</span>
+                                    </div>
+                                    <div class="modal modal-xl custom-modal" id="modalpro" tabindex="-1" role="dialog" aria-labelledby="modalproLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalproLabel">Producto</h5>
+                                                    <button type="button" onclick="closeModal('modalpro','procbo')" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body custom">
+                                                    <div class="client-container">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                @* <div class="form-group">
+                                                                <div class="form-inline">
+                                                                <select id="productooptionname" class="form-control mr-2" onchange="filtrarProducto()">
+                                                                <option value="1">Comienza con</option>
+                                                                <option value="2">Contiene</option>
+                                                                </select>
+                                                                <input  type="text" id="filtroNombrePro" class="form-control" placeholder="Escriba un nombre" oninput="filtrarProducto()">
+                                                                </div>
+                                                                </div>*@
+                                                            </div>
+                                                        </div>
+                                                        <table class="display" id="tablaProducto">
+                                                            <thead class="headProd">
+
+                                                                <tr align="center">
+                                                                    <th class="client-cell text-center">Producto</th>
+                                                                    <th class="client-cell text-center">Precio</th>
+                                                                    <th class="client-cell text-center">Unidad de Medida</th>
+                                                                    <th class="client-cell text-center">Largo x Ancho x Altura</th>
+                                                                    <th class="client-cell text-center">Diametro</th>
+                                                                    <th class="client-cell text-center">Peso</th>
+                                                                    <th class="client-cell text-center">Opciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="bodyProducto">
+                                                                @foreach (var producto in ViewBag.Productos)
+                                                                {
+                                                                    <tr>
+                                                                        <td align="center" class="client-cell">@producto.NombreProducto</td>
+                                                                        <td align="center" class="client-cell">@(Math.Round(producto.Monto_ci, 2))</td>
+                                                                        <td align="center" class="client-cell">@producto.unm</td>
+                                                                        <td align="center" class="client-cell">@producto.dimension</td>
+                                                                        <td align="center" class="client-cell">@producto.diametro</td>
+                                                                        <td align="center" class="client-cell">@producto.peso</td>
+                                                                        <td align="center" class="client-cell">
+                                                                            <button class="btn btn-primary" onclick="seleccionarProducto('modalpro','procbo','ProductoId','ProductoNombre','@producto.IdProducto', '@producto.NombreProducto')">Seleccionar</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" onclick="closeModal('modalpro','procbo')" class="btn btn-secondary">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <form id="FormAñadirProd">
+
+
+                                <td class="letra">Cantidad* </td>
+                                <input hidden type="text" id="ProductoId" readonly required />
+                                <td class="infocantidad">
+                                    <input class="form-control" type="number" name="cantidad" id="cantidad" required min="1">
+                                </td>
+
+
+
+
+                                <td class="letra">Descuento (%)</td>
+                                <td class="infodescuento">
+                                    <input type="number" class="form-control" name="descuento" id="descuento" min="0" max="100">
+
+                                </td>
+                                <td class="ml-auto">
+                                    <input type="button" value="Agregar" class="botonaddProducto btn btn-success" onclick="agregarProducto()">
+                                </td>
+
+
+
+
+
+                                </form>
+
+                                <!-- Modal para editar cantidad y descuento -->
+                                <div id="editarModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h2 class="modal-title">Editar Producto</h2>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <label>Producto:</label>
+                                                <input readonly id="Productoinput" class="form-control">
+                                                <input hidden id="IdEditarProducto" class="form-control">
+                                                <label for="nuevaCantidad">Nueva Cantidad:</label>
+                                                <input type="number" id="nuevaCantidad" class="form-control">
+                                                <label for="nuevoDescuento">Nuevo Descuento (%):</label>
+                                                <input type="number" id="nuevoDescuento" class="form-control">
+                                                <label for="nuevoDescuento">Observación:</label>
+                                                <input type="text" id="observacionP" class="form-control">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="aplicarCambios()" data-dismiss="modal">Guardar</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                        </table>
+                        <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered" id="tablageneral">
+                            <thead class="HeadP">
+                                <tr>
+                                    <td class="text-center" style="font-size:15px;">Producto</td>
+                                    <td class="text-center" style="font-size:15px;">Cantidad</td>
+                                    <td class="text-center" style="font-size:15px;">Descuento</td>
+                              @*      <td class="text-center" style="font-size:15px;">IGV</td>*@
+                                    <td class="text-center" style="font-size:15px;">Precio</td>
+                                    <td class="text-center" style="font-size:15px;">Total</td>
+                                    <td colspan="2" class="text-center" style="font-size:15px;">Opciones</td>
+                                </tr>
+                            </thead>
+                            <tbody class="BodyP" id="productosSeleccionados">
+                            </tbody>
+                        </table>
+
+                        <table class="tablatotal">
+                            <tr>
+                                <td class="letra">Neto:</td>
+                                <td><input class="form-control" type="text" name="neto" id="neto" readonly></td>
+                            </tr>
+                            <tr>
+                                <td class="letra">IGV</td>
+                                <td><input class="form-control" type="text" name="igv" id="igv" readonly></td>
+                            </tr>
+                            <tr>
+                                <td class="letra">Subtotal:</td>
+                                <td><input class="form-control" type="text" name="Mtoapdesc" id="Mtoapdesc" readonly></td>
+                            </tr>
+                            <tr>
+                                <td class="letra">Descuento:</td>
+                                <td><input class="form-control" type="text" name="desc" id="desc" readonly></td>
+                            </tr>
+                            <tr>
+                                <td class="letra">Total</td>
+                                <td><input class="form-control" type="text" name="total" id="total" readonly></td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var table = jQuery('#tablaClientes').DataTable(
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Clientes",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Clientes",
+                        "infoFiltered": "(Filtrado de _MAX_ total Clientes)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Clientes",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                }
+            );
+            var table = jQuery('#tablaChoferes').DataTable(
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Choferes",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Choferes",
+                        "infoFiltered": "(Filtrado de _MAX_ total Choferes)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Choferes",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                }
+
+            );
+            var table = jQuery('#tablaOperario').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Operario",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Operario",
+                        "infoFiltered": "(Filtrado de _MAX_ total Operario)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Operario",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                }
+
+
+
+            );
+            var table = jQuery('#tablalocalizacion').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Localizaciones",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Localizaciones",
+                        "infoFiltered": "(Filtrado de _MAX_ total Localizaciones)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Localizaciones",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                }
+            );
+            var table = jQuery('#tablalocalizacionto').DataTable(
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Localizaciones",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Localizaciones",
+                        "infoFiltered": "(Filtrado de _MAX_ total Localizaciones)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Localizaciones",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                }
+
+            );
+            var table = jQuery('#tablaautorizador').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Autorizador",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Autorizador",
+                        "infoFiltered": "(Filtrado de _MAX_ total Autorizador)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Autorizador",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                }
+
+            );
+            var table = jQuery('#tablaProducto').DataTable(
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Productos",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Productos",
+                        "infoFiltered": "(Filtrado de _MAX_ total Productos)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Productos",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                }
+
+            );
+            var table8 = jQuery('#tablaempven').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Empleados",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Empleados",
+                        "infoFiltered": "(Filtrado de _MAX_ total Empleados)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Empleados",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+
+                }
+
+
+            );
+            var table9 = jQuery('#tablaVentasPre').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Predios",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Predios",
+                        "infoFiltered": "(Filtrado de _MAX_ total Predios)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Predios",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+
+                }
+
+
+            );
+            var table10 = jQuery('#tablaCampanasVen').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Campañas",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Campañas",
+                        "infoFiltered": "(Filtrado de _MAX_ total Campañas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Campañas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+
+                }
+
+
+            );
+            var comprobante = @Html.Raw(Json.Serialize(ViewBag.Comprobante));
+            var detalles = @Html.Raw(Json.Serialize(ViewBag.Detalles));
+            var empleados = @Html.Raw(Json.Serialize(ViewBag.Empleados));
+
+            var CompParsed = JSON.parse(comprobante);
+            var detallesParsed = JSON.parse(detalles); // Convierte la cadena JSON a un objeto JavaScript
+            var empleadosParsed = JSON.parse(empleados);
+
+            if (CompParsed !== null) {
+                console.log(CompParsed);
+                //Cliente
+                document.getElementById('clienteDireccion').innerText = CompParsed.dircliente;
+                document.getElementById('clienteTelefono').innerText = CompParsed.telcliente;
+                // Mostrar el span con el nombre del cliente y el botón para remover
+                var clienteNombreSpan = document.getElementById('clienteNombre');
+                var removeClienteSpan = document.getElementById('removeClienteSpan');
+                clienteNombreSpan.innerText = CompParsed.NombreCompletoCliente;
+                clienteNombreSpan.style.display = 'inline-block';
+                removeClienteSpan.style.display = 'inline-block';
+
+                // Ocultar el select
+                var selectElement = document.getElementById('clicbo');
+                selectElement.style.display = 'none';
+
+                ////Chofer
+                //// Mostrar el span con el nombre del cliente y el botón para remover
+                //var choferNombreSpan = document.getElementById('choferNombre');
+                //var removeChoferSpan = document.getElementById('removeChoferSpan');
+                //choferNombreSpan.innerText = CompParsed.NombreCompletoChofer;
+                //choferNombreSpan.style.display = 'inline-block';
+                //removeChoferSpan.style.display = 'inline-block';
+                //// Ocultar el select
+                //var selectElement = document.getElementById('chocbo');
+                //selectElement.style.display = 'none';
+
+                ////Operario
+                //var operarioNombreSpan = document.getElementById('operarioNombre');
+                //var removeOperarioSpan = document.getElementById('removeOperarioSpan');
+                //operarioNombreSpan.innerText = CompParsed.NombreCompletoOperario;
+                //operarioNombreSpan.style.display = 'inline-block';
+                //removeOperarioSpan.style.display = 'inline-block';
+                //// Ocultar el select
+                //var selectElement = document.getElementById('opecbo');
+                //selectElement.style.display = 'none';
+
+                ////Autorizador
+                //var AutorizadorNombreSpan = document.getElementById('autorizadorNombre');
+                //var removeAutorizadorSpan = document.getElementById('removeAutorizadorSpan');
+                //AutorizadorNombreSpan.innerText = CompParsed.NombreCompletoAutorizador;
+                //AutorizadorNombreSpan.style.display = 'inline-block';
+                //removeAutorizadorSpan.style.display = 'inline-block';
+                //// Ocultar el select
+                //var selectElement = document.getElementById('autcbo');
+                //selectElement.style.display = 'none';
+
+                //Location
+                var LocalizadorNombreSpan = document.getElementById('LocalizacionNombre');
+                var removeLocalizadorSpan = document.getElementById('removeLocalizacionSpan');
+                LocalizadorNombreSpan.innerText = CompParsed.loc;
+                LocalizadorNombreSpan.style.display = 'inline-block';
+                removeLocalizadorSpan.style.display = 'inline-block';
+                // Ocultar el select
+                var selectElement = document.getElementById('loccbo');
+                selectElement.style.display = 'none';
+                EleccionCarga();
+
+
+                //Locationto
+                var LocalizadortoNombreSpan = document.getElementById('LocalizaciontoNombre');
+                var removeLocalizadortoSpan = document.getElementById('removeLocalizaciontoSpan');
+                LocalizadortoNombreSpan.innerText = CompParsed.locto;
+                LocalizadortoNombreSpan.style.display = 'inline-block';
+                removeLocalizadortoSpan.style.display = 'inline-block';
+                // Ocultar el select
+                var selectElement = document.getElementById('ltocbo');
+                selectElement.style.display = 'none';
+                EleccionCarga();
+
+                //PREDIO
+                var PredioNombreSpan = document.getElementById('venpreNombre');
+                var removePredioSpan = document.getElementById('removevenpreSpan');
+                PredioNombreSpan.innerText = CompParsed.uniC;
+                PredioNombreSpan.style.display = 'inline-block';
+                removePredioSpan.style.display = 'inline-block';
+                // Ocultar el select
+                var selectElement = document.getElementById('venprecbo');
+                selectElement.style.display = 'none';
+
+
+                //CAMPAÑA
+                // Mostrar el span con el nombre del cliente y el botón para remover
+                var CampanaNombreSpan = document.getElementById('camvenNombre');
+                var removeCampanaSpan = document.getElementById('removecamvenSpan');
+                CampanaNombreSpan.innerText = CompParsed.codC;
+                CampanaNombreSpan.style.display = 'inline-block';
+                removeCampanaSpan.style.display = 'inline-block';
+                // Ocultar el select
+                var selectElement = document.getElementById('camvencbo');
+                selectElement.style.display = 'none';
+
+
+                //console.log(CompParsed);
+
+
+                detallesParsed.forEach(function (detalle) {
+                    var producto = {
+                        idProducto: detalle.IdProducto,
+                        cantidad: detalle.Cantidad,
+                        nombreProducto: detalle.TxtProducto,
+                        neto: detalle.MtoVtaSinTax,
+                        descuento: detalle.PorDscto,
+                        mtodescuento: detalle.MtoDsctoConTax,
+                        subtotal: detalle.MtoVtaSinTax,
+                        igv: detalle.TaxPor01,
+                        mtoigv: detalle.TaxMtoTot,
+                        monto_si: detalle.PunitSinTax,
+                        monto_ci: detalle.PunitConTax,
+                        total: detalle.MtoVtaConTax,
+                        observacion: detalle.TxtObserv
+                    };
+                    ListadoProductosSeleccionados.push(producto);
+                });
+                actualizarTablaProductosSeleccionados();
+
+                empleadosParsed.forEach(function (detalle) {
+                    var campTA = {
+                        idempleado: detalle.idempleado,
+                        txtempleado: detalle.txtempleado,
+                        celular: detalle.telefono,
+                        //salario: detalle.salario,
+                        nrodoc: detalle.nrodoc,
+                        categoria: detalle.categoria,
+                        condicion: detalle.condicion,
+                    };
+                    arreglovenemp.push(campTA);
+                });
+                actualizartablavenemp();
+
+                    $.ajax({
+                        url: '/Tnst04CompEmitido/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+                        type: 'GET',
+                        success: function (response) {
+                            if (response.id == 1) {
+                                document.getElementById('mood').innerText = response.name;
+                                // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                                $('#checkEstado').prop('checked', true);
+                                $('#checkEstado').prop('disabled', false);
+
+                            } else if (response.id == 3) {
+                                document.getElementById('mood').innerText = response.name;
+                                // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                                $('#checkEstado').prop('checked', true);
+                            $('#checkEstado').prop('disabled', true);
+                            }
+                        },
+                        error: function (error) {
+                            console.error('Error al cargar los datos del Cargador:', error.responseText);
+                        }
+                    });
+            } else {
+                
+                // Configura los campos de fecha con la fecha actual en formato yyyy-MM-dd
+                //document.getElementById("FecNegocio").value = returndatenow();
+                //document.getElementById("FecRegistro").value = returndatenow();
+                //document.getElementById("FecRegEmitido").value = returndatenow();
+                //alert("No hay detalles");
+            }
+
+            //$('#neto').val(CompParsed.MtoNeto);
+            //$('#desc').val(CompParsed.MtoDsctoTot);
+            //$('#Mtoapdesc').val(CompParsed.MtoSubTot);
+            //$('#igv').val(CompParsed.MtoImptoTot);
+            //$('#total').val(CompParsed.MtoTotComp);
+
+
+
+        });
+    </script>
+</body>
+</html>
+
+

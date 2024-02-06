@@ -1,0 +1,112 @@
+﻿
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="container-fluid">
+    <div class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between w-100">
+            <div class="mt-3">
+                <h1>Registro de Compras y Gastos</h1>
+            </div>
+            <div class="d-flex flex-row mt-3">
+                <div class="nav-item " style="margin-right: 10px;">
+                    <a asp-controller="Tnst01CompRecibido" asp-action="boleta_c" class="btn btn-success btn-sm">Crear</a>
+                </div>
+                <div class="nav-item r">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-danger btn-sm">Salir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div style="align-items:center;justify-content:center;text-align:center;margin:auto;
+align-items:center;justify-content:center;text-align:center;margin-right:110px;margin-left:100px; margin-top:20px; ">
+
+
+
+
+    <table class="display" id="tablacompra" style="border: 1px solid black; ">
+                <thead style="font-size:16px;">
+                    <tr class="table-primary">
+                <th class="text-center">Tipo Compra</th>
+                <th class="text-center">RUC</th>
+                <th class="text-center">Razon Social</th>
+                <th class="text-center">SubTotal</th>
+                <th class="text-center">IGV</th>
+                <th class="text-center">Total</th>
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size:14px;">
+                    @foreach (var comprobante in ViewBag.Comprobantes)
+                    {
+                        <tr class="table-light">
+                            <td>@comprobante.TipoCompra</td>
+                            <td>@comprobante.RUCproveedor</td>
+                            <td>@comprobante.Razon</td>
+                            <td>@comprobante.MontoN.ToString("0.00")</td>
+                            <td>@comprobante.igv.ToString("0.00")</td>
+                            <td>@comprobante.MontoT.ToString("0.00")</td>
+                            <td>@comprobante.FecEmi.ToString("MM-dd-yyyy")</td>
+                            <td>
+                                @* Suponiendo que tienes una lista de comprobantes y estás iterando sobre ellos usando un foreach *@
+
+                                 <a id="editarComprobante" asp-controller="Tnst01CompRecibido" asp-action="Editar" asp-route-id="@comprobante.Id" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                @*<a asp-controller="Tnst04CompEmitido" asp-action="Details" asp-route-id="@comprobante.Id" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                </a> *@
+
+                                <a id="editarComprobante" asp-controller="Tnst01CompRecibido" asp-action="Eliminar" asp-route-id="@comprobante.Id" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash alt"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        
+    
+    
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = jQuery('#tablacompra').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando START a END de TOTAL COMPRAS",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 COMPRAS",
+                    "infoFiltered": "(Filtrado de MAX total COMPRAS)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar MENU COMPRAS",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+
+        );
+
+    });
+</script>

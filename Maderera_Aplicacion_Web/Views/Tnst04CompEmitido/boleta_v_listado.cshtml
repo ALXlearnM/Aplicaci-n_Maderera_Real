@@ -1,0 +1,174 @@
+﻿<!-- Dentro del head de tu HTML -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="container-fluid">
+    <div class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between w-100">
+            <div class="mt-3">
+                <h1>Lista de Ventas</h1>
+            </div>
+            <div class="d-flex flex-row mt-3">
+                <div class="nav-item " style="margin-right: 10px;">
+                    <a asp-controller="Tnst04CompEmitido" asp-action="boleta_v" class="btn btn-success btn-sm">Crear</a>
+                </div>
+                <div class="nav-item r">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-danger btn-sm">Salir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div style="align-items:center;justify-content:center;text-align:center;margin:auto; 
+align-items:center;justify-content:center;text-align:center;margin-right:110px;margin-left:100px; margin-top:20px; ">
+
+<div class="table-responsive-sm">
+
+    <div class="align-content-center" >
+            <table class="display" id="ventatabla" style="border: 1px solid black; ">
+                <thead style="font-size:16px;">
+                <tr class="table-primary">
+                    <th class="text-center" >Cliente</th>
+                    <th class="text-center">Fecha</th>
+                    <th class="text-center">Estado</th>
+                    
+                    <th class="text-center">Total</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody style="font-size:16px;">
+                @foreach (var comprobante in ViewBag.Comprobantes)
+                {
+                    <tr class="table-light">
+                            <td>@comprobante.NombreCompletoCliente</td>
+                            <td>@comprobante.FecEmi.ToString("dd/MM/yyyy")</td>
+                            <td>@comprobante.txte</td>
+                          
+                            <td>@comprobante.MontoT.ToString("0.00")</td>
+
+                        <td>
+                                @* Suponiendo que tienes una lista de comprobantes y estás iterando sobre ellos usando un foreach *@
+                                @if(comprobante.ide==1){ 
+                                <a id="editarComprobante" asp-controller="Tnst04CompEmitido" asp-action="Editar" asp-route-id="@comprobante.Id" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-edit"></i> 
+                                    </a>
+                                    <text>|</text>
+                                    }
+                                <a asp-controller="Tnst04CompEmitido" asp-action="Details" asp-route-id="@comprobante.Id" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                @if (comprobante.ide == 1)
+                                {
+                                    <text>|</text>
+                                <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarEliminarVenta" data-id="@comprobante.Id">
+                                    <i class="fas fa-trash alt"></i>
+                                </a> @*|ID:@item.IdPredio*@
+                                }
+                                
+
+
+                                <div class="modal fade" id="confirmarEliminarVenta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de que desea eliminar este predio?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-danger" onclick="eliminarVenta()">Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (comprobante.ide == 3)
+                                {
+                                    <text>|</text>
+
+                                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarAnularVenta" data-id="@comprobante.Id">
+                                        <i class="fas fa-ban"></i>
+
+                                    </a>
+                                    @*|ID:@item.IdPredio*@
+
+                                }
+
+
+                                <div class="modal fade" id="confirmarAnularVenta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmar Anulación</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de que desea anular este envío?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-danger" onclick="anularventa()">Anular</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                             
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@*<div>
+        @ViewBag.Kj
+</div>*@
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = jQuery('#ventatabla').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Ventas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Ventas",
+                    "infoFiltered": "(Filtrado de _MAX_ total Ventas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Ventas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+        
+        
+        );
+
+    });
+
+
+</script>

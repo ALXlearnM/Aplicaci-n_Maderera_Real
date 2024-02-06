@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <script src="../js/script.js"></script>
+    <title>Nota Compra</title>
+</head>
+<body>
+
+    <div class="container">
+
+
+        <table class="table table-borderless table-hover table-sm" border="0" style="width:780px;">
+            <tr class="table-secondary">
+                <td><b>COMPROBANTE: </b> </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="table-responsive">
+                <td class="td-der">N°&nbspComprobante:</td>
+                <td class="td-izq"><input type="text"></td>
+                <td class="td-der">Tipo Comprobante:</td>
+                <td class="td-izq">
+                    <select id="clienteSelect" onchange="SelectChange(this,'modalcli')">
+                        <option value="Opcion1">Opción 1</option>
+                        <option value="opcion2">Opción 2</option>
+                        <option value="opcion3">Opción 3</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="table">
+                <td class="td-der">Cliente:</td>
+                <td class="td-izq">
+                    <select class="custom-select" data-modal-target="modalcli" onchange="SelectChange(this)">
+                        <option value="none">Seleccionar opción</option>
+                        <option value="buscar">Buscar</option>
+                    </select>
+                </td>
+
+                <div class="modal fade" id="modalcli" tabindex="-1" role="dialog" aria-labelledby="modalcliLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalcliLabel">Cliente</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                            </div>
+                            <div class="modal-body">
+                                <p>Contenido de la ventana modal.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <!-- Agrega aquí más botones de acción si es necesario -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <td class="td-der">Empleado Operario:</td>
+                <td class="td-izq">
+                    <select class="custom-select" data-modal-target="modalcho" onchange="SelectChange(this)">
+                        <option value="none">Seleccionar chofer</option>
+                        <option value="buscar">Buscar Chofer</option>
+                    </select>
+                </td>
+
+                <div class="modal fade" id="modalcho" tabindex="-1" role="dialog" aria-labelledby="modalchoLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalchoLabel">Chofer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                            </div>
+                            <div class="modal-body">
+                                <p>Contenido de la ventana modal.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <!-- Agrega aquí más botones de acción si es necesario -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </tr>
+
+            <tr>
+
+                <td class="td-der">Empleado Autorizador:</td>
+                <td class="td-izq">
+                    <select class="custom-select" data-modal-target="modalcho" onchange="SelectChange(this)">
+                        <option value="none">Seleccionar chofer</option>
+                        <option value="buscar">Buscar Chofer</option>
+                    </select>
+                </td>
+
+                <div class="modal fade" id="modalcho" tabindex="-1" role="dialog" aria-labelledby="modalchoLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalchoLabel">Chofer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                            </div>
+                            <div class="modal-body">
+                                <p>Contenido de la ventana modal.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <!-- Agrega aquí más botones de acción si es necesario -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <td></td>
+                <td></td>
+
+
+            </tr>
+
+            <tr class="table-secondary">
+                <td> <b> FECHAS </b> </td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+
+            <tr>
+                <td class="td-der">Fecha&nbspde&nbspEmision:</td>
+                <td class="td-izq"><input type="date"></td>
+                <td class="td-der">Fecha&nbspde&nbspvencimiento:</td>
+                <td class="td-izq"><input type="date"></td>
+            </tr>
+            <tr>
+                <td class="td-der">Fecha&nbspde&nbspcancelación:</td>
+                <td class="td-izq"><input type="date"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="table-secondary">
+                <td> <b> INFORMACIÓN </b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td class="td-der">Cantidad Venta:</td>
+                <td class="td-izq">
+                    <select id="clienteSelect" onchange="SelectChange(this,'modalcli')">
+                        <option value="cant1">cant1</option>
+                        <option value="cant2">cant2</option>
+                        <option value="cant3">cant3</option>
+
+                    </select>
+                </td>
+                <td class="td-der">Tipo Orden:</td>
+                <td class="td-izq">
+                    <select id="clienteSelect" onchange="SelectChange(this,'modalcli')">
+                        <option value="orden1">orden1</option>
+                        <option value="orden2">orden2</option>
+                        <option value="orden3">orden3</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td-der">Location:</td>
+                <td class="td-izq">
+                    <select id="clienteSelect" onchange="SelectChange(this,'modalcli')">
+                        <option value="lugar1">lugar1</option>
+                        <option value="lugar2">lugar2</option>
+                        <option value="lugar3">lugar3</option>
+
+                    </select>
+                </td>
+                <td class="td-der">Location llegada:</td>
+                <td class="td-izq">
+                    <select id="clienteSelect" onchange="SelectChange(this,'modalcli')">
+                        <option value="lugar2">lugar3</option>
+                        <option value="lugar3">lugar2</option>
+                        <option value="lugar1">lugar1</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td-der">Monto Neto:</td>
+                <td class="td-izq"><input type="text"></td>
+
+
+                <td class="td-der">Monto Descuento:</td>
+                <td class="td-izq"><input type="text"></td>
+            </tr>
+
+            <tr>
+                <td class="td-der">Observacion:</td>
+                <td class="td-izq"><input type="text"></td>
+
+
+                <td class="td-der">Monto tc vta:</td>
+                <td class="td-izq"><input type="text"></td>
+            </tr>
+
+            <tr>
+                <td class="td-der">Porcentaje del Monto:</td>
+                <td class="td-izq"><input type="text"></td>
+
+                <td></td>
+                <td></td>
+
+            </tr>
+
+
+
+            <tr>
+
+                <td colspan="4">
+
+                    <h3 id="toggleForm">
+                        <span id="flecha">&#9654;</span>
+                        INFORMACIÓN EXTRA
+                    </h3>
+
+                    <div id="formulario">
+
+
+                        <table class="table table-borderless table-hover table-sm">
+
+                            <tr class="table-secondary">
+                                <td class="td-der">INFO 01:</td>
+                                <td class="td-izq"><input type="text"></td>
+                                <td class="td-der">INFO 02:</td>
+                                <td class="td-izq"><input type="text"></td>
+                                <td class="td-der">INFO 03:</td>
+                                <td class="td-izq"><input type="text"></td>
+                                <td class="td-der">INFO 04:</td>
+                                <td class="td-izq"><input type="text"></td>
+
+                            </tr>
+
+                            <tr class="table-secondary">
+                                <td class="td-der">INFO 05:</td>
+                                <td class="td-izq"><input type="text"></td>
+                                <td class="td-der">INFO 06:</td>
+                                <td class="td-izq"><input type="text"></td>
+                                <td class="td-der">INFO 07:</td>
+                                <td class="td-izq"><input type="text"></td>
+                                <td class="td-der">INFO 08:</td>
+                                <td class="td-izq"><input type="text"></td>
+
+                            </tr>
+
+
+
+
+                        </table>
+
+
+
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        const titulo = document.getElementById('toggleForm');
+        const formulario = document.getElementById('formulario');
+        const flecha = document.getElementById('flecha');
+
+        titulo.addEventListener('click', () => {
+            if (formulario.style.display === 'none') {
+                formulario.style.display = 'block';
+                flecha.style.transform = 'rotate(90deg)';
+            } else {
+                formulario.style.display = 'none';
+                flecha.style.transform = 'rotate(0deg)';
+            }
+        });
+    </script>
+
+</body>
+</html>

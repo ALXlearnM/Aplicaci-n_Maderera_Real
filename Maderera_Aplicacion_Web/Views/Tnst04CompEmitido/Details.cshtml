@@ -1,0 +1,461 @@
+﻿@model Maderera_Aplicacion_Web.Models.Tnst04CompEmitido
+
+
+
+
+<div>
+    <div class="row w-100">
+        <div class="col col-sm-5 ml-5">
+        <h2>Comprobante</h2>
+        </div>
+        <div class="col-6 text-right">
+
+            <a class="btn btn-danger" asp-action="boleta_v_listado">Ver Listado</a>
+        </div>
+    </div>
+
+    <hr class="text-decoration-line-through" />
+
+
+
+    <div class="row pl-5 pm-5 w-100">
+        <div class="col-sm-3">
+            <dt class="col-sm-2 text-nowrap">
+                Número de Comprobante
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NroCompEmitido)
+            </dd>
+            @*<dt class="col-sm-2 text-nowrap">
+                Número de Serie
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TxtSerie)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Número
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TxtNumero)
+            </dd>*@
+            <dt class="col-sm-2 text-nowrap">
+                Fecha de Negocio
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FecNegocio)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Fecha de Registro Emitido
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FecRegEmitido)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Fecha de Registro
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FecRegistro)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Fecha de Emisión
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FecEmi)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Fecha de Vencimiento
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FecVcto)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Fecha de Cancelación
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FecCanc)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Observación
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TxtObserv)
+            </dd>
+            
+        </div>
+        <div class="col-sm-3">
+            <dt class="col-sm-2 text-nowrap">
+                Monto Neto
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MtoNeto)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Monto Descuento Total
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MtoDsctoTot)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Monto Servicio
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MtoServicio)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Monto Subtotal
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MtoSubTot)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Monto Importe Total
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MtoImptoTot)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Porcentaje Impuesto(%)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TaxPor01)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Monto Impuesto
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TaxMto01)
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Monto total
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MtoTotComp)
+            </dd>
+            
+@*        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SnChkAbierto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SnChkAbierto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SnChkEnviado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SnChkEnviado)
+        </dd>*@
+        
+@*        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxPor02)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxPor02)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxPor03)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxPor03)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxPor04)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxPor04)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxPor05)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxPor05)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxPor06)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxPor06)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxPor07)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxPor07)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxPor08)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxPor08)
+        </dd>*@
+        
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxMto02)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxMto02)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxMto03)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxMto03)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxMto04)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxMto04)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxMto05)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxMto05)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxMto06)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxMto06)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxMto07)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxMto07)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TaxMto08)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxMto08)
+        </dd>*@
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoDate01)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoDate01)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoDate02)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoDate02)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoDate03)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoDate03)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoDate04)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoDate04)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoDate05)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoDate05)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoMto01)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoMto01)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoMto02)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoMto02)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoMto03)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoMto03)
+        </dd>*@
+        </div>
+        <div class="col sm-3">
+            @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoMto04)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoMto04)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoMto05)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InfoMto05)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Post)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Post)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostDate)
+        </dd>*@
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumComensales)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumComensales)
+        </dd>*@
+        <dt class = "col-sm-2 text-nowrap">
+            Nombre de Usuario
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TxtUsuario)
+        </dd>
+       @* <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdUsuarioModificador)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdUsuarioModificador)
+        </dd>*@
+            <dt class="col-sm-2 text-nowrap">
+            Nombre del Usuario Modificador
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TxtUsuarioModificador)
+        </dd>
+            <dt class="col-sm-2 text-nowrap">
+            Fecha de Modificación
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaModificacion)
+        </dd>
+@*        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdEstado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdEstado)
+        </dd>*@
+            <dt class="col-sm-2 text-nowrap">
+            Estado
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TxtEstado)
+        </dd>
+            <dt class="col-sm-2 text-nowrap">
+             Canal de Venta
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdCanVtaNavigation.TxtDesc)
+
+            <dt class="col-sm-2 text-nowrap">
+            Origen
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model != null && Model.IdLocationNavigation!= null)
+            {
+                @Html.DisplayFor(model => model.IdLocationNavigation.TxtDesc)
+            }
+        </dd>
+            <dt class="col-sm-2 text-nowrap">
+            Destino
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model != null && Model.IdLocationNavigation != null)
+            {
+                @Html.DisplayFor(model => model.IdLocationToNavigation.TxtDesc)
+            }
+        </dd>
+@*            <dt class="col-sm-2 text-nowrap">
+            Tipo Comprobante
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdTipoCompNavigation.TxtDesc)
+        </dd>*@
+@*        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdTipoMonedaNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdTipoMonedaNavigation.IdTipoMoneda)
+        </dd>*@
+            <dt class="col-sm-2 text-nowrap">
+            Tipo Orden
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdTipoOrdenNavigation.TxtDesc)
+        </dd>
+@*        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdTurnoNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdTurnoNavigation.IdTurno)
+        </dd>*@
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdUsuarioNavigation.TxtUsuario)
+        </dd>*@
+    </div>
+        <div class="col sm-3">
+            </dd>
+            <dt class="col-sm-2 text-nowrap">
+                Cliente
+            </dt>
+
+      
+
+            </div>
+        </div>
+    <hr class="text-decoration-line-through" />
+
+    <h2 class="ml-5">Productos</h2>
+    <table class="table-responsive-md table-bordered m-5 p-5">
+        <thead class="theadDetalleProductos">
+            <tr align="center">
+                <th>Producto</th>
+                <th>Precio/Unidad Sin Imp.</th>
+                <th>Cantidad</th>
+                <th>Precio/Unidad Con Imp.</th>
+                <th>Monto Neto</th>
+                <th>Descuento (%)</th>
+                <th>Monto Descuento</th>
+                <th>IGV (%)</th>
+                <th>Monto Subtotal</th>
+                <th>Monto Impuesto</th>
+                <th>Monto Total</th>
+            </tr>
+        </thead>
+        <tbody class="tbodyDetalleProductos">
+            @foreach (var detalle in ViewBag.DetalledorComp)
+            {
+                <tr>
+                    <td class="text-center">@detalle.TxtProducto</td>
+                    <td class="text-center">@detalle.PunitSinTax.ToString("0.00")</td>
+                    <td class="text-center">@detalle.Cantidad.ToString("0.00")</td>
+                    <td class="text-center">@detalle.PunitConTax.ToString("0.00")</td>
+                    <td class="text-center">@Math.Round(detalle.Cantidad * detalle.PunitSinTax, 2)</td>
+                    <td class="text-center">@Math.Round(detalle.PorDscto, 2)</td>
+                    <td class="text-center">@Math.Round(detalle.PorDscto * detalle.Cantidad * detalle.PunitSinTax, 2).ToString("0.00")</td>
+                    <td class="text-center">@Math.Round(detalle.TaxPor01, 2).ToString("0.00")</td>
+                    <td class="text-center">@detalle.MtoVtaSinTax.ToString("0.00")</td>
+                    <td class="text-center">@Math.Round(detalle.TaxPor01 * detalle.Cantidad * detalle.MtoVtaSinTax/100, 2).ToString("0.00")</td>
+                    <td class="text-center">@detalle.MtoVtaConTax.ToString("0.00")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+</div>
+

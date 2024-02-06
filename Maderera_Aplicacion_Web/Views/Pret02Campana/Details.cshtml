@@ -1,0 +1,225 @@
+﻿@model Maderera_Aplicacion_Web.Models.Pret02Campana
+
+<div class="row w-100">
+    <div class="col col-sm-5 ml-5">
+        <h2>Predio</h2>
+    </div>
+    <div class="col-6 text-right">
+
+        <a class="btn btn-danger" asp-action="ListadoCam">Ver Listado</a>
+    </div>
+</div>
+
+<hr class="text-decoration-line-through" />
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.CodigoCampana)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.CodigoCampana)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.Area)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.Area)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.NroHectarea)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.NroHectarea)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.NroArboles)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.NroArboles)
+                </dd>
+            </dl>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.Coordenadas)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.Coordenadas)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.Latitud)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.Latitud)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.Longitud)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.Longitud)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.FechaInicio)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.FechaInicio)
+                </dd>
+            </dl>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.FechaFina)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.FechaFina)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.Info01)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.Info01)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.Info02)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.Info02)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.Info03)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.Info03)
+                </dd>
+            </dl>
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <div class="row">
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.Info04)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.Info04)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.IdDistritoNavigation)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.IdDistritoNavigation.IdDist)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.IdPredioNavigation)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.IdPredioNavigation.IdPredio)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.IdTipoCampanaNavigation)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.IdTipoCampanaNavigation.IdTipoCampana)
+                </dd>
+            </dl>
+        </div>
+
+
+
+    </div>
+
+   </div>
+
+
+   
+    
+       
+      
+      
+       
+     

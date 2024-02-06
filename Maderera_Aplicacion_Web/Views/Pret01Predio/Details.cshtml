@@ -1,0 +1,124 @@
+﻿@model Maderera_Aplicacion_Web.Models.Pret01Predio
+
+
+<div class="row w-100">
+    <div class="col col-sm-5 ml-5">
+        <h2>Predio</h2>
+    </div>
+    <div class="col-6 text-right">
+
+        <a class="btn btn-danger" asp-action="ListadoPre">Ver Listado</a>
+    </div>
+</div>
+
+<hr class="text-decoration-line-through" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <dl class="row">
+                <div class="col-sm-12">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NroSitio)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.NroSitio)
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Area)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Area)
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Longitud)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Longitud)
+                    </dd>
+                </div>
+               
+            </dl>
+        </div>
+
+        <div class="col-md-3">
+            <dl class="row">
+                <div class="col-sm-12">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Coordenadas)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Coordenadas)
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Latitud)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Latitud)
+                    </dd>
+                </div>
+               
+            </dl>
+        </div>
+
+        <div class="col-md-3">
+            <dl class="row">
+                <div class="col-sm-12">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdDistritoNavigation)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IdDistritoNavigation.TxtDesc)
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UnidadCatastral)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UnidadCatastral)
+                    </dd>
+                </div>
+                
+                
+                <!-- Agrega más propiedades según sea necesario -->
+            </dl>
+        </div>
+
+        <div class="col-md-3">
+            <dl class="row">
+                <div class="col-sm-12 text-nowrap">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdInversionistaNavigation)
+                    </dt>
+                    @{
+                        var displayText = String.IsNullOrEmpty(Model.IdInversionistaNavigation.TxtRznScl)
+                        ? $"{Model.IdInversionistaNavigation.TxtPrimNom} {Model.IdInversionistaNavigation.TxtApePat}"
+                        : Model.IdInversionistaNavigation.TxtRznScl;
+                    }
+                    <dd>
+                        @Html.DisplayFor(model => displayText)
+                    </dd>
+
+                    <div class="col-sm-12">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NroHectareas)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.NroHectareas)
+                        </dd>
+                    </div>
+                    <!-- Agrega más propiedades según sea necesario -->
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>
+
+

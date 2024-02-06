@@ -1,0 +1,112 @@
+﻿
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="container-fluid">
+    <div class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between w-100">
+            <div class="mt-3">
+                <h1>Lista de Pagos</h1>
+            </div>
+            <div class="d-flex flex-row mt-3">
+                <div class="nav-item " style="margin-right: 10px;">
+                    <a asp-controller="PERt11pagopersonal" asp-action="pago_p" class="btn btn-primary btn-sm">Crear</a>
+                </div>
+                <div class="nav-item r">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-danger btn-sm">Salir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div style="align-items:center;justify-content:center;text-align:center;margin-right:60px;margin-left:50px; margin-top:20px;">
+
+    
+
+        
+            <table class="display" id="tablapago" >
+                <thead style="font-size:14px;">
+                    <tr class="table-primary">
+                        <th>Fecha</th>
+                        <th>Campaña</th>
+                        <th>Usuario</th>
+                        <th>Concepto</th>
+                        <th>Predio</th>
+                        <th>Estado</th>
+                        <th>Salida</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size:20px;">
+                    @foreach (var comprobante in ViewBag.Comprobantes)
+                    {
+                        <tr class="table-light">
+                            <td>@comprobante.fecha.ToString("MM-dd-yyyy")</td>
+                            <td>@comprobante.campana</td>
+                            <td>@comprobante.usuario</td>
+                            <td>@comprobante.concepto</td>
+                            <td>@comprobante.predio</td>
+                            <td>@comprobante.estado</td>
+                            <td>@comprobante.salida</td>
+
+                            <td>
+                                @* Suponiendo que tienes una lista de comprobantes y estás iterando sobre ellos usando un foreach *@
+
+                                 <a id="editarComprobante" asp-controller="Pert11PagoPersonal" asp-action="Editar" asp-route-id="@comprobante.Id" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                @*<a asp-controller="Tnst04CompEmitido" asp-action="Details" asp-route-id="@comprobante.Id" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                </a> *@
+
+                                <a id="editarComprobante" asp-controller="Pert11PagoPersonal" asp-action="Eliminar" asp-route-id="@comprobante.Id" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash alt"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        
+    
+    
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = jQuery('#tablapago').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando START a END de TOTAL Pagos",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Pagos",
+                    "infoFiltered": "(Filtrado de MAX total Pagos)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar MENU Pagos",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+
+        );
+
+    });
+</script>

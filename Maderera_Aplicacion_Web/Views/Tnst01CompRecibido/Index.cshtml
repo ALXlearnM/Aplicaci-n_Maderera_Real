@@ -1,0 +1,491 @@
+﻿@model IEnumerable<Maderera_Aplicacion_Web.Models.Tnst01CompRecibido>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NroCompRecibido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TxtSerie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TxtNumero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecRegistro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecRegRecibido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecEmi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecVcto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecCanc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TxtObserv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoTcVta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoNeto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoExonerado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoNoAfecto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoDsctoTot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoCmsTot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoFleteTot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoSubTot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoImptoTot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoServicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MtoTotComp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RefIdCompRecibido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RefTipoComprobante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RefFecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RefSerie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RefNumero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxPor01)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxPor02)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxPor03)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxPor04)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxPor05)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxPor06)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxPor07)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxPor08)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxMto01)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxMto02)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxMto03)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxMto04)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxMto05)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxMto06)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxMto07)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxMto08)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info01)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info02)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info03)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info04)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info05)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info06)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info07)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info08)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info09)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info10)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoDate01)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoDate02)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoDate03)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoDate04)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoDate05)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoMto01)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoMto02)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoMto03)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoMto04)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoMto05)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Post)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SnCredito)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SnCancelada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioModificador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TxtUsuarioModificador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaModificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TxtUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEstado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TxtEstado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdLocationNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProveedorNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdTipoCompNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdTipoMonedaNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdTipoOrdenNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroCompRecibido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TxtSerie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TxtNumero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecRegistro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecRegRecibido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecEmi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecVcto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecCanc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TxtObserv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoTcVta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoNeto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoExonerado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoNoAfecto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoDsctoTot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoCmsTot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoFleteTot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoSubTot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoImptoTot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoServicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MtoTotComp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefIdCompRecibido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefTipoComprobante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefFecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefSerie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefNumero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxPor01)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxPor02)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxPor03)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxPor04)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxPor05)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxPor06)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxPor07)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxPor08)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxMto01)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxMto02)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxMto03)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxMto04)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxMto05)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxMto06)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxMto07)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxMto08)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info01)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info02)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info03)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info04)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info05)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info06)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info07)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info08)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info09)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoDate01)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoDate02)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoDate03)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoDate04)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoDate05)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoMto01)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoMto02)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoMto03)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoMto04)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoMto05)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SnCredito)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SnCancelada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUsuarioModificador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TxtUsuarioModificador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaModificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TxtUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEstado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TxtEstado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdLocationNavigation.IdLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProveedorNavigation.IdProveedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTipoCompNavigation.IdTipoComp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTipoMonedaNavigation.IdTipoMoneda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTipoOrdenNavigation.IdTipoOrden)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.IdUsuario)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdCompRecibido">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdCompRecibido">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdCompRecibido">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

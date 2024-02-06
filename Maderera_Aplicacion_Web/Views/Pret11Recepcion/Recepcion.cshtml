@@ -1,0 +1,838 @@
+﻿@model Maderera_Aplicacion_Web.Models.Pret11Recepcion
+
+<div class="d-flex ml-3">
+    <!-- Primera fila con los botones -->
+    <div class="row mb-1 justify-content-end img-fluid ">
+        <div class="col mb-1 ml-5 p-0">
+            <img class="img-fluid" style="
+             width: 25.5%;
+             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+        </div>
+
+        <div class="col mb-1 mr-5 p-0">
+            <div class="d-flex justify-content-between ml-1 p-0" id="botonesbarra1">
+                <button id="guardarRec" class="btn btn-success btn-sm  " role="button">Guardar</button>
+                <button id="guardarycerrarRec" class="btn btn-primary btn-sm mx-2" role="button">Guardar y Cerrar</button>
+                <button id="cancelarRec" asp-controller="Pret10Envio" asp-action="ListadoEnv" class="btn btn-danger btn-sm" role="button">Cancelar</button>
+            </div>
+        </div>
+
+        <div class="col mb-1 mx-2 p-0">
+            <div class="form-check d-flex justify-content-start p-0">
+                <div class="nota-pedido">
+                    <b><p class="text-black text-nowrap  align-content-lg-around" style="font-size:12px;">Numero De Recepción</p></b>
+                    <div class="text-sm-center ">
+                        @{
+                            if (Model != null)
+                            {
+                                <input class="form-control" readonly asp-for="NroRecepcion" id="nrorec" type="text">
+                            }
+                            else
+                            {
+                                <input class="form-control" readonly value=@ViewBag.NroRec asp-for="NroRecepcion" id="nrorec" type="text">
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-1 mx-2 p-0">
+            <div class="form-check d-flex justify-content-start p-0">
+                <div class="nota-pedido ">
+                    <b>
+                        <p class="text-black text-nowrap align-content-lg-around" style="font-size:12px;">Codigo Campaña</p>
+                    </b>
+                    <div class="text-sm-center ">
+                        @{
+                            if (Model == null)
+                            {
+                                <input class="form-control" readonly id="codCamrec" type="text">
+
+                            }
+                            else
+                            {
+
+                                <input value='@ViewBag.CodCam' class="form-control" readonly id="codCamrec" type="text">
+
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-1 mx-2 p-0">
+            <div class="form-check d-flex justify-content-start p-0">
+                <div class="nota-pedido ">
+                    <b>
+                        <p class="text-black text-nowrap align-content-lg-around" style="font-size:12px;">Unidad Catastral</p>
+                    </b>
+                    <div class="text-sm-center">
+                        @{
+                            if (Model == null)
+                            {
+                                <input class="form-control" readonly id="unCatrec" type="text">
+
+
+                            }
+                            else
+                            {
+
+                                <input value='@ViewBag.UnidCat' class="form-control" readonly id="unCatrec" type="text">
+
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col mt-2 ml-5 p-0">
+            <div class="form-check d-flex justify-content-start p-0">
+                <div class="">
+
+                    <input class="form-check-input" type="checkbox" id="checkEstadoRecepcion" />
+
+                    <span class="text-black" id="moodNameRec">BORRADOR</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4" />
+
+<div class="col">
+    <div class="card">
+        <div class="card-header">
+            <h4>Recepción</h4>
+        </div>
+        <div class="card-body">
+
+
+            <ul class="nav nav-tabs bg-light border-bottom-0">
+                <li class="nav-item">
+                    <a class="nav-link text-dark active" id="regisrec-tab" data-toggle="tab" href="#regisrec">
+                        <b>Registro Recepción</b>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="Detallerec-tab" data-toggle="tab" href="#Detallerec">
+                        <b>Detalles</b>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="Trabajadorrecepcion-tab" data-toggle="tab" href="#Trabajadorrecepcion">
+                        <b>Trabajador</b>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+
+                @* PARA LA TABLA REGISTRO DE ENVIO*@
+                <div class="tab-pane fade in active show" id="regisrec">
+                    <form id="FormRecepcion">
+
+                        <div class="form-row mt-3 container-fluid">
+                            <div class="col-md-4">
+                                <div class="form-group row">
+
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Envío* :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <select required id="envreccbo" class="form-control form-control-sm mx-sm-3 mb-2" data-modal-target="modalenvrec" onchange="SelectChange(this,'modalenvrec')" required>
+                                            <option selected value="none">Seleccionar opción</option>
+                                            <option value="buscar">Buscar</option>
+                                        </select>
+                                        <div style="display: flex; align-items: center;">
+                                            <span id="envrecNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                            <span class="btn btn-close" id="removeEnvrecSpan" style="cursor: pointer; display: none;" onclick="removeenvrec()"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Origen* :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input id="locenvrec" type="text" class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Destino* :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input id="ltoenvrec" type="text" class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly />
+                                    </div>
+                                </div>
+                               
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fecha Recepción* :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input asp-for="FechaRecepcion" type="date" id="fecharec" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Nro. Placa* :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input readonly asp-for="NroPalaca" id="nroplacarec" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <div class="col-sm-4">
+
+                                        <!-- Enlace para abrir el modal -->
+                                        <a class="btn btn-primary text-decoration-underline" href="#" id="verArchivosLink" onclick="abrirModalArchivosrec()">Ver Archivos</a>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-4">
+                                
+                                <div class="form-group row">
+
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Nro. Guia :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input readonly asp-for="NroGuia" id="nroguiarec" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Nro. Guia Transp. :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input readonly asp-for="NroGuiaTransp" required id="nroguiatransrec" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <span class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Comentario :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input asp-for="Comentario" id="comentariorec" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+                @* PARA LA TABLA REGISTRO Detalle Envío*@
+                <div class="tab-pane fade" id="Detallerec">
+
+                    <div class="form-row mt-3 container-fluid">
+                    </div>
+
+                    <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered m-0" id="">
+                        <thead class="HeadTA">
+                            <tr>
+                                <td class="text-center">Tipo de Arbol</td>
+                                <td class="text-center">Altura</td>
+
+                                <td class="text-center">Diámetro</td>
+                                <td class="text-center">Nro Trozas</td>
+                                <td class="text-center">Comentario</td>
+                                <td colspan="2" class="text-center">Opciones</td>
+                            </tr>
+                        </thead>
+                        <tbody class="BodyTA" id="tipoArbolSeleccionadosRec">
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+
+                @* PARA LA TABLA REGISTRO TRABAJADORES*@
+                <div class="tab-pane fade" id="Trabajadorrecepcion">
+                    <div hidden> <input id="empenvId" type="number" /></div>
+                    <div class="form-row mt-3 container-fluid">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Empleado* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <select id="empreccbo" class="form-control form-control-sm mx-sm-3 mb-2 " data-modal-target="modalemprec" onchange="SelectChange(this,'modalemprec')">
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div hidden> <input id="emprecId" type="number" /></div>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="emprecNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                        <span class="btn btn-close" id="removeemprecSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeemprec()"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Cargo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input readonly id="categoriaempleadorec" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="form-group row">
+
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Nro. doc * :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input readonly id="nrodocempleadorec" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Condicion* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input readonly id="condicionempleadorec" class="form-control form-control-sm mx-sm-3 mb-2">
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Telefono* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input readonly id="telefonoempleadorec" class="form-control form-control-sm mx-sm-3 mb-2">
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-8 mt-0 ml-3 mr-3 mb-0">
+                                    <button type="button" class="botonaddProducto btn-success" onclick="agregarrecemp()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered m-0" id="">
+                            <thead class="HeadTA">
+                                <tr>
+                                    <td class="text-center">Empleado</td>@*
+                                    <td class="text-center">Salario</td>*@
+                                    <td class="text-center">Condicion</td>
+                                    <td class="text-center">Telefono</td>
+                                    <td class="text-center">Nro. Doc. Ident.</td>
+                                    <td class="text-center">Cargo</td>
+
+                                    <td colspan="2" class="text-center">Opciones</td>
+                                </tr>
+                            </thead>
+                            <tbody class="BodyTA" id="empSeleccionadosRec">
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+            @*MODAL PARA EDITAR TIPO ARBOL*@
+            <div id="editarTARECModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Editar Extracción por tipo de Arbol en Envío</h2>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body container-fluid">
+                            <label>Tipo de Arbol:</label>
+                            <input readonly id="TAExtinputRec" class="form-control">
+                            <input hidden id="IdEditarTARec" class="form-control">
+                            <label for="nuevoDescuento">Nueva Altura:</label>
+                        <input type="number" id="nuevaalturaTARec" class="form-control">
+                            <label for="nuevoDescuento">Nuevo Diámetro:</label>
+                        <input type="number" id="nuevodiametroTARec" class="form-control">
+                            <label for="nuevoDescuento">Nuevo Nro de trozas:</label>
+                        <input type="number" id="nuevanrotrozasTARec" class="form-control">
+                            <label for="nuevoDescuento">Nueva Comentario:</label>
+                        <input type="text" id="comentarioTARec" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="aplicarCambiosTARec()" data-dismiss="modal">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal para agregar y ver archivos -->
+            <div class="modal fade modal-xl container-fluid" id="modalArchivosrec" tabindex="-1" role="dialog" aria-labelledby="modalArchivosrecLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalArchivosLabel">Archivos Cargados</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <div class="container-fluid">
+
+
+                                <div class="m-3">
+                                    <input type="file" id="nuevoArchivorec" multiple>
+                                </div>
+                                <div class="d-inline-flex">
+                                    <div class="text-start m-2">
+                                        <button type="button" class="btn btn-success" onclick="agregarArchivorec()">Añadir</button>
+                                    </div>
+                                    <div class="text-end m-2">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="vaciarArregloYActualizarTablarec()">Vaciar archivos</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tabla para mostrar la lista de archivos en el modal -->
+                            <table class="table container-fluid">
+                                <thead>
+                                    <tr>
+                                        <th>Archivo</th>
+                                        <th>Tipo</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                            <tbody class="container-fluid small" id="tablaArchivosrecBody"></tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*MODAL PARA EMPLEADOS*@
+        <div class="modal modal-xl custom-modal" id="modalemprec" tabindex="-1" role="dialog" aria-labelledby="modalemprecLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalempextLabel">Empleados de recepción</h5>
+                        <button type="button" onclick="closeModal('modalemprec','empreccbo')" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom">
+                            <div class="client-container">
+                                <div class="row">
+
+                                    <table class="display" id="tablaemprec">
+                                        <thead>
+                                            <tr align="center">
+                                                <th class="client-cell text-center">Empleado</th>
+                                                <th class="client-cell text-center">Dirección</th>
+                                                <th class="client-cell text-center">Teléfono</th>
+                                                <th class="client-cell text-center">Cargo</th>
+                                                <th class="client-cell text-center">Doc. Identidad</th>
+                                                <th class="client-cell text-center">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                    <tbody id="bodyemprec">
+                                            @foreach (var EmpleadoExt in ViewBag.EmpRec)
+                                            {
+                                                <tr>
+                                                    <td align="center" class="client-cell">@EmpleadoExt.NombreCompleto</td>
+                                                    <td align="center" class="client-cell">@EmpleadoExt.Direccion</td>
+                                                    <td align="center" class="client-cell">@EmpleadoExt.Telefono</td>
+                                                    <td align="center" class="client-cell">@EmpleadoExt.cargo</td>
+                                                    <td align="center" class="client-cell">@EmpleadoExt.Ruc</td>
+                                                    <td align="center" class="client-cell">
+                                                        <button class="btn btn-primary" onclick="seleccionaremprec('modalemprec','empreccbo','emprecId','emprecNombre','@EmpleadoExt.Idempleado', '@EmpleadoExt.NombreCompleto')">Seleccionar</button>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" onclick="closeModal('modalempenv','empenvcbo')" class="btn btn-secondary">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+
+            @*MODAL DE ENVIO EN RECEPCIÓN*@
+        <div class="modal modal-xl custom-modal" id="modalenvrec" tabindex="-1" role="dialog" aria-labelledby="modalenvrecLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalEnvrecLabel">Envío</h5>
+                        <button type="button" onclick="closeModal('modalenvrec','envreccbo')" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom">
+                            <div class="container-fluid">
+
+                                <table class="display" id="tablaEnvioRec">
+                                    <thead>
+                                        <tr align="center" class="small">
+                                            <th class="client-cell text-center">Codigo Extracción</th>
+                                            <th class="client-cell text-center">Unidad Catastral</th>
+                                            <th class="client-cell text-center">Fecha de Extracción</th>
+                                            <th class="client-cell text-center">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyextenv">
+                                    @foreach (var campanaext in ViewBag.EnvioRecepcion)
+                                        {
+                                            <tr>
+                                                <td align="center" class="client-cell">@campanaext.codigo</td>
+                                                <td align="center" class="client-cell">@campanaext.nrositio</td>
+                                                <td align="center" class="client-cell">@campanaext.fechaini</td>
+                                                <td align="center" class="client-cell">
+                                                <button class="btn btn-primary" onclick="seleccionarenvrec('modalenvrec','envreccbo','@campanaext.id', '@campanaext.codigo')">Seleccionar</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" onclick="closeModal('modalenvrec', 'envreccbo')" class="btn btn-secondary">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*MODAL PARA EDITAR EMPLEADOS*@
+            <div id="editarEMPENVModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Editar Empleados en Envío</h2>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body container-fluid">
+
+                            <input hidden id="IdEditaremprec" class="form-control">
+                            @*  <label for="nuevaCantidad">Nuevo Salario:</label>
+                            <input type="number" id="nuevosalarioextemp" class="form-control">*@
+                            <label for="nuevoDescuento">Categoría:</label>
+                            <input readonly type="text" id="nuevacategoriarecemp" class="form-control">
+                            <label>Condición:</label>
+                            <input readonly type="text" id="nuevacondicionrecemp" class="form-control">
+                            <label for="nuevoDescuento">Documento de Identidad::</label>
+                            <input readonly type="text" id="nuevodocrecemp" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            @*<button type="button" class="btn btn-primary" onclick="aplicarCambiosEnvemp()" data-dismiss="modal">Guardar</button>*@
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Agrega estas líneas en el encabezado de tu HTML -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+<script>
+
+
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+
+
+
+        //document.getElementById('nroarboltaenv').addEventListener('input', function () {
+        //    $.ajax({
+        //        url: '/Pret10Envio/GetVarUmbralnroarbolenv',
+        //        type: 'GET',
+        //        success: function (data) {
+        //            var valorNumerico = parseInt(data, 10);
+        //            var valorIngresado = parseInt(document.getElementById('nroarboltaenv').value);
+
+        //            // Establece los límites superior e inferior según tus criterios
+        //            var limiteInferior = 1;
+        //            var limiteSuperior = valorNumerico; // Puedes ajustar este valor según tus necesidades
+
+        //            // Valida si el valor está dentro de los límites permitidos
+        //            if (isNaN(valorIngresado) || valorIngresado < limiteInferior) {
+        //                document.getElementById('nroarboltaenv').value = limiteInferior;
+        //            } else if (valorIngresado > limiteSuperior) {
+        //                document.getElementById('nroarboltaenv').value = limiteSuperior;
+        //            }
+        //        },
+        //        error: function (error) {
+        //            console.error('Error al cargar campaña tipo arbol:', error.responseText);
+        //            reject(error);
+        //        }
+        //    });
+            // Obtén el valor actual del campo
+
+        //});
+        var table = jQuery('#tablaEnvioRec').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Envíos",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Envíos",
+                    "infoFiltered": "(Filtrado de _MAX_ total Envíos)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Envíos",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+        );
+        var table = jQuery('#tablaemprec').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Empleados",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Empleados",
+                    "infoFiltered": "(Filtrado de _MAX_ total Empleados)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Empleados",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+        );
+
+
+        var recepcion= @Html.Raw(Json.Serialize(ViewBag.Recepcion));
+        var detalles = @Html.Raw(Json.Serialize(ViewBag.Detalles));
+        var empleados = @Html.Raw(Json.Serialize(ViewBag.Empleados));
+        var CompParsed = JSON.parse(recepcion);
+        var archivosParaVista = @Html.Raw(Json.Serialize(ViewBag.ArchivosParaVista));
+        var detallesParsed = JSON.parse(detalles);
+        var empleadosParsed = JSON.parse(empleados);
+
+        if (CompParsed !== null) {
+            console.log(CompParsed);
+            console.log(archivosParaVista);
+
+
+
+            $.ajax({
+                url: '/Pret11Recepcion/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+                type: 'GET',
+                success: function (response) {
+                    if (response.id == 3) {
+                        document.getElementById('moodNameRec').innerText = response.name;
+                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                        $('#checkEstadoRecepcion').prop('checked', true);
+                        $('#checkEstadoRecepcion').prop('disabled', false);
+
+                    } else if (response.id == 4) {
+                        document.getElementById('moodNameRec').innerText = response.name;
+                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                        $('#checkEstadoRecepcion').prop('checked', true);
+                        $('#checkEstadoRecepcion').prop('disabled', true);
+                    }
+                }
+            });
+            //ENVIO ELEGIDO
+            var inversionistaNombreSpan = document.getElementById('envrecNombre');
+            var removeInversionistaSpan = document.getElementById('removeEnvrecSpan');
+            inversionistaNombreSpan.innerText = CompParsed.codigo;
+            inversionistaNombreSpan.style.display = 'inline-block';
+            removeInversionistaSpan.style.display = 'inline-block';
+            // Ocultar el seleCAMPEXT
+            var selectElement = document.getElementById('envreccbo');
+            selectElement.style.display = 'none';
+
+            $.ajax({
+                url: '/Pret11Recepcion/SeleccionarEnvRec',
+                type: 'GET',
+                data: { idEnvio: CompParsed.idEnvio},
+                success: function (response) {
+                    document.getElementById('codCamrec').value = response.codCampana;
+                    document.getElementById('unCatrec').value = response.unCatastral;
+                    document.getElementById('locenvrec').value = response.nomLoc;
+                    document.getElementById('ltoenvrec').value = response.nomLto;
+                    document.getElementById('nroplacarec').value = response.nroPlaca;
+                    document.getElementById('nroguiarec').value = response.nroGuia;
+                    document.getElementById('nroguiatransrec').value = response.nroGuiaTransp;
+
+                }
+            });
+                for(var i = 0; i<archivosParaVista.length; i++) {
+                var archivoInfo = archivosParaVista[i];
+
+                // Crea un Blob a partir de la cadena base64
+                var byteCharacters = atob(archivoInfo.fileContents);
+                var byteArrays = [new Uint8Array(byteCharacters.length)];
+
+                for (var j = 0; j < byteCharacters.length; j++) {
+                    byteArrays[0][j] = byteCharacters.charCodeAt(j);
+                }
+
+                var blob = new Blob(byteArrays, { type: archivoInfo.contentType });
+
+                // Crea un nuevo objeto de archivo y almacénalo en tu arreglo
+                archivosRec.push(new File([blob], archivoInfo.fileDownloadName, { type: archivoInfo.contentType }));
+            }
+
+            mostrarArchivosrecEnTabla();
+            detallesParsed.forEach(function (detalle) {
+                var campTA = {
+                    idunico: detalle.CodigoRecepcion,
+                    idTipoArbol: detalle.IdTipoArbol,
+                    nombreTipoarbol: detalle.TxtTipoArbol,
+                    altura: detalle.AltArbolPro,
+                    diametro: detalle.DiamPro,
+                    nrotrozas: detalle.NroTrozos,
+                    comentario: detalle.Comentario
+                };
+                EnviotipoArbolRec.push(campTA);
+            });
+
+            empleadosParsed.forEach(function (detalle) {
+                var campTA = {
+                    idempleado: detalle.idempleado,
+                    txtempleado: detalle.txtempleado,
+                    telefono: detalle.telefono,
+                    //salario: detalle.salario,
+                    nrodoc: detalle.nrodoc,
+                    categoria: detalle.categoria,
+                    condicion: detalle.condicion,
+                };
+                arreglorecemp.push(campTA);
+            });
+            actualizarTablaTipoArbolSeleccionadosRec();
+            actualizartablarecemp();
+
+            
+            function handleFile(file) {
+                // Utiliza la función de SheetJS para leer el archivo
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var data = e.target.result;
+
+                    // Utiliza la función xlsx.read para procesar los datos del archivo
+                    var workbook = XLSX.read(data, { type: 'binary' });
+
+                    // Puedes acceder a las hojas de cálculo y trabajar con los datos
+                    var firstSheetName = workbook.SheetNames[0];
+                    var firstSheet = workbook.Sheets[firstSheetName];
+                    var jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+
+                    // Aquí puedes hacer lo que necesites con los datos
+                    console.log(jsonData);
+                };
+
+                // Lee el contenido del archivo como datos binarios
+                reader.readAsBinaryString(file);
+            }
+
+            // Esta función se utilizará en tu código para manejar la carga del archivo
+            function agregarArchivotim() {
+                var nuevoArchivoInput = document.getElementById('nuevoArchivotim');
+                var archivosNuevostim = nuevoArchivoInput.files;
+
+                if (archivosNuevostim.length == 0) {
+                    alert('Selecciona algún archivo');
+                } else {
+                    // Añadir cada nuevo archivo a la tabla y procesarlos con SheetJS
+                    for (var i = 0; i < archivosNuevostim.length; i++) {
+                        var archivotim = archivosNuevostim[i];
+                        agregarFilaATablatim(archivotim);
+                        archivosTim.push(archivotim);
+
+                        // Manejar el archivo con SheetJS
+                        handleFile(archivotim);
+                    }
+
+                    // Limpiar el campo de archivos para permitir agregar otro
+                    nuevoArchivoInput.value = '';
+                }
+            }
+
+
+        } else {
+
+            document.getElementById("fecharec").value = returndatenow();
+
+
+        }
+
+
+
+
+
+    });
+</script>

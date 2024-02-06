@@ -1,0 +1,541 @@
+@model Maderera_Aplicacion_Web.Models.Pert11PagoPersonal
+
+@{
+    @if (Model != null)
+    {
+        Layout = "_Layout"; // Nombre del layout que deseas aplicar
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Título de la página</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+
+
+    <div hidden>
+        <input asp-for="IdEmpleado" id="empleadoID" />
+        <input asp-for="IdConcepto" id="conceptoID" />
+
+        @if (Model != null)
+        {
+            var idUsuario = @ViewBag.idUsuario;
+            var txtUsuario = @ViewBag.txtUsuario;
+            <!-- Esto se mostrará si el comprobante no es nulo (se está editando) -->
+            <input asp-for="IdPagoPersonal" type="text" id="IdPagoPersonalInput" name="pagoId" />
+
+           @*  <input asp-for="IdTipoComp" id="idtipoComp" class="form-control" />
+           @*  <input asp-for="NroCompRecibido" id="NroCompRecibido" class="form-control" /> *@
+           @*  <input asp-for="TxtNumero" id="TxtNumero" class="form-control" /> *@
+            @* <input asp-for="TxtSerie" id="TxtSerie" class="form-control" />
+            <input asp-for="MtoTcVta" type="number" id="mto_tc_vta" class="form-control" readonly />
+            <input asp-for="IdUsuario" value=@idUsuario type="number" id="iduserC" class="form-control" readonly />
+            <input asp-for="IdUsuarioModificador" value=@idUsuario type="number" id="idusermodC" class="form-control" readonly />
+            <input asp-for="TxtUsuario" value=@txtUsuario type="text" id="txtuserC" class="form-control" readonly />
+            <input asp-for="TxtUsuarioModificador" value=@txtUsuario type="text" id="txtusermodC" class="form-control" readonly />
+            <input asp-for="FechaModificacion" type="date" id="idfecmodC" class="form-control" readonly /> *@ 
+
+            <!-- ... -->
+        }
+        else
+        {
+
+            var idUsuario = @ViewBag.idUsuario;
+            var txtUsuario = @ViewBag.txtUsuario;
+            <input asp-for="IdPagoPersonal" type="text" id="IdPagoPersonalInput" name="pagoId" />
+            @*  <input asp-for="NroCompRecibido" id="NroCompRecibido" value="@nrocom" class="form-control" /> *@
+           @*  <input asp-for="IdTipoComp" id="idtipoComp" value=4 class="form-control" /> *@
+            
+            <input asp-for="IdAutorizador" type="number" value=@idUsuario id="iduserC" class="form-control" readonly />
+            <!-- Otros campos específicos para la creación -->
+            <!-- ... -->
+        }
+        <!-- Campos comunes a ambas situaciones -->
+        @* <input asp-for="IdProveedor" type="text" id="proveedorID" class="form-control" readonly />
+        <input id="FecNegocio" hidden asp-for="MtoNoAfecto" type="date" />
+        <input id="FecRegistro" hidden asp-for="FecRegistro" type="date" />
+        <input id="FecRegEmitido" hidden asp-for="FecEmi" type="date" />
+        <input asp-for="IdLocation" type="text" id="Locationid" class="form-control" readonly /> *@
+
+    </div> 
+    
+    <div class="d-flex ml-5">
+        <!-- Primera fila con los botones -->
+        <div class="row mb-1 justify-content-end w-100 ">
+            <div class="col mb-2 mr-5">
+                <img class="img-fluid" style="margin: 0.25% 3.5%;
+             width: 7%;
+             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+            </div>
+
+            <div class="col mb-3 ml-3 mr-3">
+                <div class="d-flex justify-content-between p-0" id="botonesbarra1">
+                    <button id="guardarP" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
+                    <button id="guardarycerrarP" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
+                    <button id="cancelarP" class="btn btn-danger btn-sm" role="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <hr class="text-decoration-line-through" />
+        <div class="cajacentrada" style="align-items:center;">
+            <div class="container-fluid">        
+                <div class="form-row">
+                    <div class="col-md-4 mt-5">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Empleado:</label>
+                                <div class="col-sm-5 ml-5" >
+                                    <select id="empcbo" class="form-control form-control-sm mx-sm-3 mb-2" data-modal-target="modalemp" onchange="SelectChange(this,'modalemp')">
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="empleadonombre" class="spanempleado" style="display: none;"></span>
+                                        <span class="equis" id="removeEmpleadoSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeEmpleado()">X</span>
+                                    </div>
+                                    <div class="modal modal-xl custom-modal" id="modalemp" tabindex="-1" role="dialog" aria-labelledby="modalempLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalempLabel">Empleado</h5>
+                                                    <button type="button" onclick="closeModal('modalemp','empcbo')" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body custom">
+                                                    <div class="client-container">
+                                                        
+
+
+                                                        <table id="tablaempleadopago" class="display">
+                                                            <thead>
+                                                                <tr align="center">
+                                                                    <th class="client-cell">Nombre</th>
+                                                                    <th class="client-cell">Código</th>
+                                                                    <th class="client-cell">Opciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="bodycon">
+                                                                @foreach (var empleado in ViewBag.Empleado)
+                                                                {
+                                                                    <tr>
+                                                                        <td align="center" class="client-cell">@empleado.nombre</td>
+                                                                        <td align="center" class="client-cell">@empleado.codigo</td>
+
+                                                                        <td align="center" class="client-cell">
+                                                                            <button class="btn btn-primary" onclick="seleccionarEmpleado('modalemp','empvcbo','empleadoID','empleadonombre','@empleado.IdEmpleado', '@empleado.nombre')">Seleccionar</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+
+
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" onclick="closeModal('modalprov', 'provcbo')" class="btn btn-secondary">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade show" id="createProveedorModal" tabindex="-1" role="dialog" aria-labelledby="createClientModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="createClientModalLabel">Crear Nuevo Proveedor</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body custom1">
+                                                    <!-- Formulario para crear un nuevo cliente -->
+                                                    <form id="createProveedorForm">
+
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Pnombre">Razon Social:</label>
+                                                                <input type="text" class="form-control" id="razonprov" placeholder="Razón social ....">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="Pruc">RUC:</label>
+                                                                <input type="text" class="form-control" id="rucprov" placeholder="RUC ...">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="Pdireccion">Dirección:</label>
+                                                            <input type="text" class="form-control" id="direccionprov" placeholder="Dirección ...">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="btn btn-primary" id="crearProveedorBtn">Crear Proveedor</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Tipo pago</label>
+                            <div class="col-sm-5 ml-5" >
+                                <select class="form-control form-control-sm mx-sm-3 mb-2" id="idtipoPago">
+                                    <option value="Pago">Pago</option>
+                                    <option value="Adelanto">Adelanto</option>
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Fecha Pago:</label>
+                            <div class="col-sm-5 ml-5" >
+                                <input asp-for="Fecha"  type="date" id="fechaEmision" class="form-control form-control-sm mx-sm-3 mb-2" name="fechaEmision">
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Mes</label>
+                            <div class="col-sm-5 ml-5" >
+                                <select class="form-control form-control-sm mx-sm-3 mb-2" id="mes">
+                                    <option value="Enero">Enero</option>
+                                    <option value="Febrero">Febrero</option>
+                                    <option value="Marzo">Marzo</option>
+                                    <option value="Abril">Abril</option>
+                                    <option value="Mayo">Mayo</option>
+                                    <option value="Junio">Junio</option>
+                                    <option value="Julio">Julio</option>
+                                    <option value="Agosto">Agosto</option>
+                                    <option value="Septiembre">Septiembre</option>
+                                    <option value="Octubre">Octubre</option>
+                                    <option value="Noviembre">Noviembre</option>
+                                    <option value="Diciembre">Diciembre</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="col-md-4 mt-5">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Autorizador</label>
+                            <div class="col-sm-5 ml-5">
+                            <input type="text" id="autori" class="form-control form-control-sm mx-sm-3 mb-2" placeholder="admineagle" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Predio</label>
+                            <div class="col-sm-5 ml-5" >
+                            <select id="Predio" class="form-control form-control-sm mx-sm-3 mb-2" asp-items="ViewBag.IdPre" required></select>
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Campaña</label>
+                            <div class="col-sm-5 ml-5" >
+                            <select id="Campana" class="form-control form-control-sm mx-sm-3 mb-2" required></select>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="col-md-4 mt-5">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Estado</label>
+                            <div class="col-sm-5 ml-5">
+                                <select asp-for="Estado" class="form-control form-control-sm mx-sm-3 mb-2" id="idestado">
+                                
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Concepto:</label>
+                                <div class="col-sm-5 ml-5" >
+                                    <select id="concbo" class="form-control form-control-sm mx-sm-3 mb-2" data-modal-target="modalcon" onchange="SelectChange(this,'modalcon')">
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="conceptodesc" class="spanconcepto" style="display: none;"></span>
+                                        <span class="equis" id="removeConceptoSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeConcepto()">X</span>
+                                    </div>
+                                    <div class="modal modal-xl custom-modal" id="modalcon" tabindex="-1" role="dialog" aria-labelledby="modalconLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalconLabel">Concepto</h5>
+                                                    <button type="button" onclick="closeModal('modalcon','concbo')" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body custom">
+                                                    <div class="client-container">
+                                                       
+                                                        <table id="tablaconceptopago" class="display">
+                                                            <thead>
+                                                                <tr align="center">
+                                                                    <th class="client-cell">Id</th>
+                                                                    <th class="client-cell">Descripción</th>
+                                                                    <th class="client-cell">Opciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="bodyprov">
+                                                        @foreach (var concepto in ViewBag.Concepto)
+                                                                {
+                                                                    <tr>
+                                                                        <td align="center" class="client-cell">@concepto.IdConcepto</td>
+                                                                        <td align="center" class="client-cell">@concepto.nombre</td>
+
+                                                                        <td align="center" class="client-cell">
+                                                                    <button class="btn btn-primary" onclick="seleccionarConcepto('modalcon','concbo','conceptoID','conceptodesc','@concepto.IdConcepto', '@concepto.nombre')">Seleccionar</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+
+
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" onclick="closeModal('modalprov', 'provcbo')" class="btn btn-secondary">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade show" id="createConceptoModal" tabindex="-1" role="dialog" aria-labelledby="createClientModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="createClientModalLabel">Crear Nuevo Concepto</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body custom1">
+                                                    <!-- Formulario para crear un nuevo cliente -->
+                                                    <form id="createConceptoForm">
+
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="Cnombre">Detalle Concepto:</label>
+                                                                <input type="text" class="form-control" id="detalleconcepto" placeholder="Detalle Concepto ....">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="btn btn-primary" id="crearConceptoBtn">Crear Concepto</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap">Monto</label>
+                            <div class="col-sm-5 ml-5">
+                            <input asp-for="Monto" type="number" class="form-control form-control-sm mx-sm-3 mb-2" id="monto" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <hr class="text-decoration-line-through" />
+
+
+
+   <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var table7 = jQuery('#tablaempleadopago').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Empleados",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Empleados",
+                        "infoFiltered": "(Filtrado de _MAX_ total Empleados)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Empleados",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+
+                }
+
+
+            );
+            var table8 = jQuery('#tablaconceptopago').DataTable(
+
+                {
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Conceptos",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Conceptos",
+                        "infoFiltered": "(Filtrado de _MAX_ total Conceptos)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Conceptos",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+
+                }
+
+
+            );
+
+                // Obtener referencias a los elementos select
+                const tipoPagoSelect = document.getElementById('idtipoPago');
+                const estadoSelect = document.getElementById('idestado');
+
+                // Función para actualizar las opciones del segundo select
+                function actualizarOpciones() {
+                    // Obtener el valor seleccionado del primer select
+                    const tipoPagoSeleccionado = tipoPagoSelect.value;
+
+                    // Limpiar las opciones del segundo select
+                    estadoSelect.innerHTML = '';
+
+                    // Agregar opciones según el tipo de pago seleccionado
+                    if (tipoPagoSeleccionado === 'Adelanto') {
+                        agregarOption('DESCONTADO', 'DESCONTADO');
+                        agregarOption('FALTA DESCONTAR', 'FALTA DESCONTAR');
+                    } else if (tipoPagoSeleccionado === 'Pago') {
+                        agregarOption('EFECTUADO', 'EFECTUADO');
+                        agregarOption('PENDIENTE', 'PENDIENTE');
+                    }
+                }
+
+                // Función para agregar opciones al segundo select
+                function agregarOption(valor, texto) {
+                    const option = document.createElement('option');
+                    option.value = valor;
+                    option.textContent = texto;
+                    estadoSelect.appendChild(option);
+                }
+
+                // Evento change en el primer select para actualizar las opciones del segundo
+                tipoPagoSelect.addEventListener('change', actualizarOpciones);
+
+                // Al cargar la página, mostrar las opciones relacionadas con 'Pago'
+                actualizarOpciones();
+            $('#Predio').change(function () {
+                var predioId = $(this).val();
+                console.log(this, $(this));
+
+                // Realiza una solicitud AJAX para obtener las provincias
+                $.ajax({
+                    url: '/Pert11PagoPersonal/Obtenercampaña',
+                    type: 'GET',
+                    data: { predioId: predioId },
+                    success: function (data) {
+                        // Actualiza el contenido del select de provincia
+                        $('#Campana').empty();
+                        $.each(data, function (index, item) {
+                            $('#Campana').append($('<option>').text(item.codigo).attr('value', item.idCampana));
+                        });
+                        // Si hay solo un elemento, selecciónalo automáticamente
+                        if (data.length === 1) {
+                            $('#Campana').val(data[0].idCampana);
+                        }
+
+                        // Llama al evento change para actualizar los distritos
+                        $('#Campana').change();
+                    },
+                    error: function () {
+                        console.error('Error al obtener Campaña.');
+                    }
+                });
+            });
+            $('#Predio').change();
+
+            var comprobante = @Html.Raw(Json.Serialize(ViewBag.Comprobante));
+            var CompParsed = JSON.parse(comprobante);
+          
+            if (CompParsed !== null) {
+                console.log(CompParsed);
+                //Cliente
+                document.getElementById('empleadonombre').innerText = CompParsed.nombre;
+                document.getElementById('empleadoID').value = CompParsed.IdEmpleado;
+                document.getElementById('conceptodesc').innerText = CompParsed.concepto;
+                document.getElementById('conceptoID').value = CompParsed.IdConcepto;
+
+                
+                // Seleccionar automáticamente el valor en el segundo select
+                $('#idestado').value = CompParsed.estado;
+                actualizarOpciones();
+
+                // Mostrar el span con el nombre del cliente y el botón para remover
+                var proveedorNombreSpan = document.getElementById('empleadonombre');
+                var proveedorDireccionSpan = document.getElementById('conceptodesc');
+                var removeProveedorSpan = document.getElementById('removeConceptoSpan');
+                var removeEmpleadoSpan = document.getElementById('removeEmpleadoSpan');
+  
+                proveedorNombreSpan.style.display = 'inline-block';
+                proveedorDireccionSpan.style.display = 'inline-block';
+                removeProveedorSpan.style.display = 'inline-block';
+                removeEmpleadoSpan.style.display = 'inline-block';
+
+                // Ocultar el select
+                var selectElement = document.getElementById('concbo');
+                selectElement.style.display = 'none';
+                var selectElement = document.getElementById('empcbo');
+                selectElement.style.display = 'none';
+
+
+                
+
+                
+            } else {
+                // Configura los campos de fecha con la fecha actual en formato yyyy-MM-dd
+                document.getElementById('fechaEmision').value = returndatenow();
+
+                //alert("No hay detalles");
+            }
+
+            //$('#neto').val(CompParsed.MtoNeto);
+            //$('#desc').val(CompParsed.MtoDsctoTot);
+            //$('#Mtoapdesc').val(CompParsed.MtoSubTot);
+            //$('#igv').val(CompParsed.MtoImptoTot);
+            //$('#total').val(CompParsed.MtoTotComp);
+
+                
+
+        });
+
+
+    </script> 
+</body>
+</html>

@@ -1,0 +1,191 @@
+﻿@model IEnumerable<Maderera_Aplicacion_Web.Models.Pret07Extraccion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container-fluid">
+    <div class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between w-100">
+            <div class="mt-3">
+                <h1>Lista de Extracciones</h1>
+            </div>
+            <div class="d-flex flex-row mt-3">
+                <div class="nav-item " style="margin-right: 10px;">
+                    <a asp-controller="Pret07Extraccion" asp-action="Extraccion" class="btn btn-success btn-sm">Crear</a>
+                </div>
+                <div class="nav-item r">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-danger btn-sm">Salir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div style="align-items:center;justify-content:center;text-align:center;margin-right:60px;margin-left:50px; margin-top:20px;">
+
+    <div class="table-responsive-sm">
+
+        <div class="align-content-center">
+
+            <table class="display" id="extracciontabla" style="border: 1px solid black; ">
+                <thead style="font-size:16px;text-align:center;">
+                    <tr class="table-primary">
+                        <th class="text-center">
+                            Fecha Extraccion
+                        </th>
+
+                        <th class="text-center">
+                            Nro arboles
+                        </th>
+                        <th class="text-center">
+                            Nro Trozas
+                        </th>
+                        <th class="text-center">
+                            Diametro promedio
+                        </th>
+                        <th class="text-center">
+                            Altura Promedio
+                        </th>
+
+                        
+                        <th class="text-center">
+                            Campaña
+                        </th>
+                        <th class="text-center">
+                            Unidad Catastral
+                        </th>
+
+                        <th class="text-center">
+                            Opciones
+                            </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.ListadoExtraccion)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @item.FechaExtraccion.ToString("dd/MM/yyyy")
+                            </td>
+                            <td class="text-center">
+                                @item.NroArbolesTotal
+                            </td>
+                            <td class="text-center">
+                                @item.NroTrozosTotal
+                            </td>
+                            <td class="text-center">
+                                @item.DiamProTotal
+                            </td>
+                            <td class="text-center">
+                                @item.AltArbolProTotal
+                            </td>
+                            
+                           
+                            <td class="text-center">
+                                @item.IdCampanaNavigation.CodigoCampana
+                            </td>
+                            <td class="text-center">
+                                @item.IdCampanaNavigation.IdPredioNavigation.UnidadCatastral
+                            </td>
+                            <td>
+                                <a asp-controller="Pret07Extraccion" asp-action="EditarExtraccion" asp-route-idextraccion="@item.IdExtraccion" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-edit" data-placement="top" title="Edit"></i>
+                                </a> |
+
+                                <a asp-controller="Pret07Extraccion" asp-action="Details" asp-route-idextraccion="@item.IdExtraccion" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye" data-placement="top" title="Details"></i>
+                                </a> |
+
+
+                                <!-- Botón que activa el modal -->
+                                <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarEliminarModal">
+                                    <i class="fas fa-trash alt"></i>
+
+                                </a>
+
+
+                                <!-- Modal de advertencia -->
+                                <div class="modal" id="confirmarEliminarModal" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Advertencia</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de que desea eliminar este elemento?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- Botón de cancelar -->
+                                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
+                                                <!-- Botón de confirmar eliminación -->
+                                                <a id="btnEliminarExtraccion" data-toggle="modal" data-target="#modalEliminar" data-idextraccion="@item.IdExtraccion" class="btn btn-danger btn-sm">
+                                                     Eliminar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                              
+
+
+
+
+
+ 
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Modal de Confirmación de Eliminación -->
+           
+        </div>
+    </div>
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = jQuery('#extracciontabla').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Extracciones",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Extracciones",
+                    "infoFiltered": "(Filtrado de _MAX_ total Extracciones)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Extracciones",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+        
+        
+        );
+            
+
+
+    });
+</script>

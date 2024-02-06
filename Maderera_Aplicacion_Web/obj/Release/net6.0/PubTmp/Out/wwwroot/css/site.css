@@ -1,0 +1,729 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+.container {;
+    width: 80%;
+    margin-left: 20%;
+}
+
+
+#botonesbarra1{
+    margin-left:20%;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: #5f515177;
+}
+
+    .dropdown-content a {
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 16px;
+        color: white;
+        display: block;
+    }
+
+.content {
+    padding: 20px;
+    background-color: #D2B48C;
+}
+
+    .content h1 {
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 0;
+    }
+
+.table {
+    margin-top: 30px;
+    margin-right: 50px;
+    margin-left: 50px;
+    border: 0;
+    padding: 0;
+}
+
+.td-izq {
+    text-align: left;
+    padding: 30px 100px 30px 0px;
+}
+
+.td-der {
+    text-align: right;
+    padding: 30px 0px 30px 100px;
+}
+
+.a {
+    margin-right: 100px;
+}
+
+#formulario {
+    display: none;
+}
+
+h3 {
+    cursor: pointer;
+    color: blue;
+    display: flex;
+    align-items: center;
+}
+
+
+#flecha {
+    font-size: 20px;
+    margin-right: 10px;
+    transition: transform 0.2s;
+}
+
+
+#formularioExpandido #flecha {
+    transform: rotate(90deg);
+}
+
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+    input[type="text"]:focus {
+        border-color: #0e3e6e;
+        box-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
+    }
+
+}
+
+.custom-modal {
+    background: rgba(0, 0, 0, 0.5);
+    / / Ajusta la opacidad del fondo */
+}
+
+.modal-xl {
+    max-width: 100%;
+    Puedes ajustar el ancho del modal según lo necesites
+}
+
+.custom-modal .modal-dialog {
+    max-width: 90%;
+    Puedes ajustar el ancho máximo del modal según lo necesites margin: 1rem auto;
+    Centrar el modal en la pantalla
+}
+
+.client-container {
+    padding: 20px;
+    Ajusta el relleno dentro del contenedor
+}
+
+    .client-container .header-cell,
+    .client-container .data-cell,
+    .client-container .btn {
+        margin-bottom: 10px;
+        Espaciado entre elementos
+    }
+
+    .client-container .header-row {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ccc;
+        Línea separadora entre encabezados y datos
+    }
+
+.client-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.client-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    Línea separadora entre filas
+}
+
+.client-cell {
+    flex: 1;
+    padding: 0 10px;
+}
+
+
+body {
+    background-color: #D6EAF8; /* Color de fondo celeste suave */
+    margin: 0; /* Elimina el margen predeterminado del body */
+    padding: 0; /* Elimina el relleno predeterminado del body */
+}
+
+/* Estilos generales para el comprobante */
+.comprobante {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el encabezado */
+.encabezado {
+    background-color: #d2b48c; /* Color marrón suave */
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para el logo en el encabezado */
+.logo img {
+    max-width: 50px; /* Ajusta el tamaño del logo según tus necesidades */
+    height: auto;
+}
+
+/* Estilos para las secciones en el encabezado */
+.seccion {
+    margin: 0 20px;
+}
+
+    .seccion a {
+        text-decoration: none;
+        color: #fff; /* Color de texto en las secciones del encabezado */
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+        .seccion a:hover {
+            text-decoration: underline;
+        }
+
+
+.logo-abajo img {
+    margin: 20px auto; /* Centrar la imagen horizontalmente con margen superior e inferior */
+    margin-left: 60px;
+    transform: scale(2.7); /* Escala la imagen al doble del tamaño original */
+    transform-origin: 0 0; /* Cambia el punto de origen de la transformación al extremo superior izquierdo */
+    margin-top: -2px;
+}
+@media (min-width: 683px) {
+    .containerboton {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        margin-left: 45%;
+    }
+    .nota-pedido {
+        display: grid;
+        text-align: center;
+        width: 100%;
+        margin:0px 20px;
+    }
+
+        .nota-pedido h1 {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 0px;
+            white-space: nowrap; /* Evita saltos de línea */
+        }
+
+        .nota-pedido p {
+            text-align: center;
+            align-items: center;
+            font-size: 0.75rem;
+            margin: 5px;
+            white-space: nowrap; /* Evita saltos de línea */
+        }
+
+    .numero-pedido {
+        font-weight: bold;
+        color: red;
+        margin-left: 20%;
+        margin-right: 20%;
+        white-space: nowrap; /* Evita saltos de línea */
+    }
+}
+
+@media (max-width: 683px) {
+    .containerboton {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        margin-left: 10%;
+    }
+    /* Estilos para la sección "Nota de pedido" en el encabezado */
+    .nota-pedido {
+        display: grid;
+        text-align: center;
+        width: 100%;
+    }
+
+        .nota-pedido h1 {
+            text-align: center;
+            font-size: 1.0rem;
+            margin: 0px;
+            white-space: nowrap; /* Evita saltos de línea */
+        }
+
+        .nota-pedido p {
+            text-align: center;
+            align-items: center;
+            font-size: 0.75rem;
+            margin: 0px;
+            white-space: nowrap; /* Evita saltos de línea */
+        }
+
+    .numero-pedido {
+        font-weight: bold;
+        color: red;
+        margin-left: 5%;
+        margin-right: 5%;
+        white-space: nowrap; /* Evita saltos de línea */
+    }
+}
+    .tablaCliente {
+        border-collapse: separate; /* Para que los bordes de las celdas no se fusionen */
+        border-spacing: 15px; /* Ajusta el espacio vertical entre las celdas según tus necesidades */
+    }
+
+.tablaInversionistas {
+    border-collapse: separate; /* Para que los bordes de las celdas no se fusionen */
+    border-spacing: 15px; /* Ajusta el espacio vertical entre las celdas según tus necesidades */
+}
+
+    .tablaEmpleado {
+
+        border-collapse: separate; /* Para que los bordes de las celdas no se fusionen */
+        border-spacing: 15px; /* Ajusta el espacio vertical entre las celdas según tus necesidades */
+    }
+
+        .tablaEmpleado  custom-select{
+            width:60% !important;
+        }
+
+        .tablaFecha {
+            border-collapse: separate;
+            border-spacing: 15px;
+        }
+
+    .tablaLlegada {
+        border-collapse: separate; /* Para que los bordes de las celdas no se fusionen */
+        border-spacing: 15px; /* Ajusta el espacio vertical entre las celdas según tus necesidades */
+        margin-left:490px;
+      
+    }
+.info-llegada{
+    margin-top:-25%;
+}
+.tablaProductoG {
+    border-collapse: separate; /* Separa los bordes de las celdas */
+    margin: 0px 0px 0px 100px;
+}
+
+
+
+.tablatotal {
+
+    border-collapse: separate; /* Para que los bordes de las celdas no se fusionen */
+    margin-left: 70%;
+    margin-top:5%;
+}
+
+
+    .botonaddProducto {
+        background-color:whitesmoke;
+        border:none;
+        margin-left:20%;
+        border-bottom:10rem;
+    }
+.botonaddProducto:hover {
+    background-color: grey;
+    color:white;
+    transition:1s;
+    border: none;
+    margin-left: 10%;
+    border-bottom: 10rem;
+}
+
+
+    .modal-body.custom  {
+        height: 600px;
+        overflow-y: auto;
+    }
+.modal-body.customtinv {
+    height: 50%;
+    overflow-y: auto;
+}
+
+    .letra {
+        font-family: Georgia, sans-serif; /* Cambia "Georgia" a la fuente que prefieras */
+        font-size: 1rem !important; /* Ajusta el tamaño de la fuente según tus preferencias */
+        color: #333; /* Color del texto */
+        text-decoration: none; /* Decoración del texto (en este caso, ninguna) */
+        /* Puedes agregar más propiedades según tus preferencias */
+    }
+
+.spancliente {
+    width: 100%;
+    font-size: 0.80rem;
+    color: black; /* Cambia el color según tus preferencias */
+    font-weight: bold; /* Cambia el estilo de fuente según tus preferencias */
+    margin-left: 10px; /* Ajusta la distancia entre el texto y el span según tus necesidades */
+    padding: 5px; /* Ajusta el espacio dentro del cuadro blanco */
+    background-color: whitesmoke; /* Establece el fondo en blanco */
+    border: none; /* Agrega un borde al cuadro */
+    border-radius: 30px; /* Controla la redondez de las esquinas del borde */
+    padding: 5px 0px;
+}
+
+.spanchofer {
+    width: 100%;
+    font-size: 0.80rem;
+    color: black; /* Cambia el color según tus preferencias */
+    font-weight: bold; /* Cambia el estilo de fuente según tus preferencias */
+    margin-left: 10px; /* Ajusta la distancia entre el texto y el span según tus necesidades */
+    padding: 5px; /* Ajusta el espacio dentro del cuadro blanco */
+    background-color: whitesmoke; /* Establece el fondo en blanco */
+    border: none; /* Agrega un borde al cuadro */
+    border-radius: 30px; /* Controla la redondez de las esquinas del borde */
+    padding: 5px 20px;
+}
+
+.spanoperario {
+    width: 100%;
+    font-size: 0.80rem;
+    color: black; /* Cambia el color según tus preferencias */
+    font-weight: bold; /* Cambia el estilo de fuente según tus preferencias */
+    margin-left: 10px; /* Ajusta la distancia entre el texto y el span según tus necesidades */
+    padding: 5px; /* Ajusta el espacio dentro del cuadro blanco */
+    background-color: whitesmoke; /* Establece el fondo en blanco */
+    border: none; /* Agrega un borde al cuadro */
+    border-radius: 30px; /* Controla la redondez de las esquinas del borde */
+    padding: 5px 20px;
+}
+
+.spanautorizador {
+    width: 100%;
+    font-size: 0.80rem;
+    color: black; /* Cambia el color según tus preferencias */
+    font-weight: bold; /* Cambia el estilo de fuente según tus preferencias */
+    margin-left: 10px; /* Ajusta la distancia entre el texto y el span según tus necesidades */
+    padding: 5px; /* Ajusta el espacio dentro del cuadro blanco */
+    background-color: whitesmoke; /* Establece el fondo en blanco */
+    border: none; /* Agrega un borde al cuadro */
+    border-radius: 30px; /* Controla la redondez de las esquinas del borde */
+    padding: 5px 20px;
+}
+
+.spandireccion {
+    width: 100%;
+    font-size: 0.60rem;
+    border-bottom:3px;
+    color: black; /* Cambia el color según tus preferencias */
+    font-weight: bold; /* Cambia el estilo de fuente según tus preferencias */
+    margin-left: 10px; /* Ajusta la distancia entre el texto y el span según tus necesidades */
+    padding: 5px; /* Ajusta el espacio dentro del cuadro blanco */
+    background-color: whitesmoke; /* Establece el fondo en blanco */
+    border: none; /* Agrega un borde al cuadro */
+    border-radius: 30px; /* Controla la redondez de las esquinas del borde */
+    padding: 5px 0px;
+}
+
+
+.spantelefono {
+    width: 100%;
+    font-size: 0.60rem;
+    border-bottom: 3px;
+    color: black; /* Cambia el color según tus preferencias */
+    font-weight: bold; /* Cambia el estilo de fuente según tus preferencias */
+    margin-left: 10px; /* Ajusta la distancia entre el texto y el span según tus necesidades */
+    padding: 5px; /* Ajusta el espacio dentro del cuadro blanco */
+    background-color: whitesmoke; /* Establece el fondo en blanco */
+    border: none; /* Agrega un borde al cuadro */
+    border-radius: 30px; /* Controla la redondez de las esquinas del borde */
+    padding: 5px 0px;
+}
+
+.spanllegada {
+    width: 100%;
+    font-size: 0.80rem;
+    color: black; /* Cambia el color según tus preferencias */
+    font-weight: bold; /* Cambia el estilo de fuente según tus preferencias */
+    margin-left: 10px; /* Ajusta la distancia entre el texto y el span según tus necesidades */
+    padding: 5px; /* Ajusta el espacio dentro del cuadro blanco */
+    background-color: whitesmoke; /* Establece el fondo en blanco */
+    border: none; /* Agrega un borde al cuadro */
+    border-radius: 30px; /* Controla la redondez de las esquinas del borde */
+    padding: 5px 20px;
+}
+
+.spandestino {
+    width: 100%;
+    font-size: 0.80rem;
+    color: black; /* Cambia el color según tus preferencias */
+    font-weight: bold; /* Cambia el estilo de fuente según tus preferencias */
+    margin-left: 10px; /* Ajusta la distancia entre el texto y el span según tus necesidades */
+    padding: 5px; /* Ajusta el espacio dentro del cuadro blanco */
+    background-color: whitesmoke; /* Establece el fondo en blanco */
+    border: none; /* Agrega un borde al cuadro */
+    border-radius: 30px; /* Controla la redondez de las esquinas del borde */
+    padding: 5px 20px;
+}
+
+    .spanproducto {
+        width:100%;
+        font-size:0.80rem;
+        color: black; /* Cambia el color según tus preferencias */
+        font-weight: bold; /* Cambia el estilo de fuente según tus preferencias */
+        margin-left: 10px; /* Ajusta la distancia entre el texto y el span según tus necesidades */
+        padding: 5px; /* Ajusta el espacio dentro del cuadro blanco */
+        background-color: whitesmoke; /* Establece el fondo en blanco */
+        border: none; /* Agrega un borde al cuadro */
+        border-radius: 30px; /* Controla la redondez de las esquinas del borde */
+        padding: 5px 20px;
+    }
+
+    .equis {
+        display: inline-block; /* Cambia a "inline-block" para que el fondo se aplique correctamente */
+        width: 24px; /* Ancho del círculo */
+        height: 24px; /* Alto del círculo */
+        text-align: center; /* Centra el contenido en el círculo */
+        line-height: 24px; /* Centra verticalmente el contenido en el círculo */
+        background-color: white; /* Color de fondo del círculo */
+        color: red; /* Color del texto "X" */
+        border-radius: 50%; /* Hace que el fondo sea un círculo */
+        border: 1px solid red; /* Agrega un borde al círculo */
+    }
+
+
+
+
+    .equischofer {
+        display: inline-block; /* Cambia a "inline-block" para que el fondo se aplique correctamente */
+        width: 24px; /* Ancho del círculo */
+        height: 24px; /* Alto del círculo */
+        text-align: center; /* Centra el contenido en el círculo */
+        line-height: 24px; /* Centra verticalmente el contenido en el círculo */
+        background-color: white; /* Color de fondo del círculo */
+        color: red; /* Color del texto "X" */
+        border-radius: 50%; /* Hace que el fondo sea un círculo */
+        border: 1px solid red; /* Agrega un borde al círculo */
+    }
+
+    .equisoperario {
+        display: inline-block; /* Cambia a "inline-block" para que el fondo se aplique correctamente */
+        width: 24px; /* Ancho del círculo */
+        height: 24px; /* Alto del círculo */
+        text-align: center; /* Centra el contenido en el círculo */
+        line-height: 24px; /* Centra verticalmente el contenido en el círculo */
+        background-color: white; /* Color de fondo del círculo */
+        color: red; /* Color del texto "X" */
+        border-radius: 50%; /* Hace que el fondo sea un círculo */
+        border: 1px solid red; /* Agrega un borde al círculo */
+    }
+
+    .equisautorizador {
+        display: inline-block; /* Cambia a "inline-block" para que el fondo se aplique correctamente */
+        width: 24px; /* Ancho del círculo */
+        height: 24px; /* Alto del círculo */
+        text-align: center; /* Centra el contenido en el círculo */
+        line-height: 24px; /* Centra verticalmente el contenido en el círculo */
+        background-color: white; /* Color de fondo del círculo */
+        color: red; /* Color del texto "X" */
+        border-radius: 50%; /* Hace que el fondo sea un círculo */
+        border: 1px solid red; /* Agrega un borde al círculo */
+    }
+
+    .equisllegada {
+        display: inline-block; /* Cambia a "inline-block" para que el fondo se aplique correctamente */
+        width: 24px; /* Ancho del círculo */
+        height: 24px; /* Alto del círculo */
+        text-align: center; /* Centra el contenido en el círculo */
+        line-height: 24px; /* Centra verticalmente el contenido en el círculo */
+        background-color: white; /* Color de fondo del círculo */
+        color: red; /* Color del texto "X" */
+        border-radius: 50%; /* Hace que el fondo sea un círculo */
+        border: 1px solid red; /* Agrega un borde al círculo */
+    }
+
+    .equisdestino {
+        display: inline-block; /* Cambia a "inline-block" para que el fondo se aplique correctamente */
+        width: 24px; /* Ancho del círculo */
+        height: 24px; /* Alto del círculo */
+        text-align: center; /* Centra el contenido en el círculo */
+        line-height: 24px; /* Centra verticalmente el contenido en el círculo */
+        background-color: white; /* Color de fondo del círculo */
+        color: red; /* Color del texto "X" */
+        border-radius: 50%; /* Hace que el fondo sea un círculo */
+        border: 1px solid red; /* Agrega un borde al círculo */
+    }
+
+    .equisproducto {
+        display: inline-block; /* Cambia a "inline-block" para que el fondo se aplique correctamente */
+        width: 24px; /* Ancho del círculo */
+        height: 24px; /* Alto del círculo */
+        text-align: center; /* Centra el contenido en el círculo */
+        line-height: 24px; /* Centra verticalmente el contenido en el círculo */
+        background-color: white; /* Color de fondo del círculo */
+        color: red; /* Color del texto "X" */
+        border-radius: 50%; /* Hace que el fondo sea un círculo */
+        border: 1px solid red; /* Agrega un borde al círculo */
+    }
+
+    ///botones/
+
+    #guardar {
+        background-color: deepskyblue;
+        color: white; /* Color del texto del botón */
+        padding: 15px 30px; /* Aumenta el tamaño del botón */
+        font-size: .875rem; /* Aumenta el tamaño de la letra */
+        border: none; /* Elimina el borde */
+        border-radius: 5px; /* Agrega bordes redondeados */
+        cursor: pointer; /* Cambia el cursor al pasar el ratón sobre el botón */
+        width: 200px;
+        margin-top: 1px;
+    }
+
+    #guardarycerrar {
+        background-color: #0074d9;
+        color: white; /* Color del texto del botón */
+        padding: 1px 3px; /* Aumenta el tamaño del botón */
+        font-size: .875rem; /* Aumenta el tamaño de la letra */
+        border: none; /* Elimina el borde */
+        border-radius: 5px; /* Agrega bordes redondeados */
+        cursor: pointer; /* Cambia el cursor al pasar el ratón sobre el botón */
+        margin-left: 5%;
+        width: 220px;
+        margin-top: 1px;
+    }
+
+    #cancelar {
+        background-color: red;
+        color: white; /* Color del texto del botón */
+        padding: 1px 15px; /* Aumenta el tamaño del botón */
+        font-size: .875rem; /* Aumenta el tamaño de la letra */
+        border: none; /* Elimina el borde */
+        border-radius: 5px; /* Agrega bordes redondeados */
+        cursor: pointer; /* Cambia el cursor al pasar el ratón sobre el botón */
+        margin-left: 5%;
+        margin-top: 1px;
+    }
+
+    .nota-pedido h4 {
+        font-size: 10px;
+    }
+
+    ///////////////////
+
+    .calendar {
+        border: 2px solid #3498db; /* Color del borde */
+        border-radius: 5px; /* Bordes redondeados */
+        padding: 5px; /* Espacio interno */
+        font-size: 16px; /* Tamaño de fuente */
+        background-color: #f2f2f2; /* Color de fondo */
+        color: #333; /* Color del texto */
+    }
+
+    .calendar::placeholder {
+        color: #999; /* Color del texto de marcador de posición */
+    }
+
+    .calendar:focus {
+        outline: none; /* Eliminar el resaltado predeterminado al enfocar el input */
+        border: 2px solid #3498db; /* Cambiar el color del borde al enfocar */
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Agregar sombra al enfocar */
+    }
+
+    .botonadd {
+        color: white; /* Color del texto del botón */
+        padding: 15px 30px; /* Aumenta el tamaño del botón */
+        font-size: 24px; /* Aumenta el tamaño de la letra */
+        border: none; /* Elimina el borde */
+        border-radius: 5px; /* Agrega bordes redondeados */
+        cursor: pointer; /* Cambia el cursor al pasar el ratón sobre el botón */
+        width: 200px;
+        margin-left: 370px;
+        margin-top: -302px;
+        background-color: #2196f391; /* Cambiar el color de fondo a celeste suave */
+    }
+
+
+
+    #tablageneral {
+        width: 80%;
+
+    }
+
+    #checkEstado {
+
+    }
+
+    .nota-pedido h4{
+        padding-top:12%;
+    }
+.BodyP {
+    text-align: center;
+    font-size: 0.7rem !important;
+}
+
+.HeadP {
+    text-align: center;
+    font-size: 0.8rem !important;
+}
+
+
+.custom-selects{
+    display: inline-block;
+    width:60%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem 1.75rem .375rem .75rem;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    background: #fff url(data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E) no-repeat right .75rem center;
+    background-size: 8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.imglogin {
+    opacity: 0.8;
+    width: 100px;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    margin: 130% 40%;
+}
+
+.tbodyDetalleProductos{
+    font-size:0.8rem;
+}
+.theadDetalleProductos{
+    font-size:0.9rem;
+}
