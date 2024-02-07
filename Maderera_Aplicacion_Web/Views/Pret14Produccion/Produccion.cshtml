@@ -88,14 +88,14 @@
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Extracción* :</label>
-                                    <div class="col-sm-5 ml-5">
-                                        <select id="extprocbo" class="custom-select ml-3" data-modal-target="modalextpro" onchange="SelectChange(this,'modalextpro')" required>
+                                    <div class="col-sm-7 ml-5">
+                                        <select id="extprocbo" class="custom-select ml-4" data-modal-target="modalextpro" onchange="SelectChange(this,'modalextpro')" required>
                                             <option selected value="none">Seleccionar opción</option>
                                             <option value="buscar">Buscar</option>
                                         </select>
                                         <div style="display: flex; align-items: center;">
                                             <span id="extproNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
-                                            <span class="btn btn-close" id="removeExtproSpan" style="cursor: pointer; display: none;" onclick="removeextpro()"></span>
+                                                <span class="btn btn-close" id="removeExtproSpan" style="cursor: pointer; display: none;  margin-left: 10px;" onclick="removeextpro()"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Predio:</label>
                                 <input  asp-for="IdPredio" id="idpredioproduccion" hidden />
-                                <div class="col-sm-5 ml-4">
+                                <div class="col-sm-7 ml-4">
                                     <select id="proprecbo" class="custom-select ml-4" data-modal-target="modalpropre" onchange="SelectChange(this,'modalpropre')">
                                         <option selected value="none">Seleccionar opción</option>
                                         <option value="buscar">Buscar</option>
@@ -119,7 +119,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Campaña:</label>
                                 <input asp-for="IdCampana" id="idcampanaproduccion" hidden />
-                                <div class="col-sm-5 ml-4">
+                                <div class="col-sm-7 ml-4">
                                     <select id="camprocbo" class="custom-select ml-4" data-modal-target="modalcampro" onchange="SelectChange(this,'modalcampro')">
                                         <option selected value="none">Seleccionar opción</option>
                                         <option value="buscar">Buscar</option>
@@ -147,7 +147,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Tipo* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <select required class="custom-selects" asp-for="TipoPro" id="tipoproduccionP">
+                                        <select required class="custom-select ml-3" asp-for="TipoPro" id="tipoproduccionP">
                                         <option value="Tipo1">Tipo1</option>
                                         <option value="Tipo2">Tipo2</option>
                                     </select>
@@ -170,7 +170,7 @@
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Prod. Insumo* :</label>
-                                <div class="col-sm-5 ml-5">
+                                <div class="col-sm-7 ml-5">
                                     <select id="insprocbo" class="custom-select ml-3" data-modal-target="modalinspro" onchange="SelectChange(this,'modalinspro')" required>
                                         <option selected value="none">Seleccionar opción</option>
                                         <option value="buscar">Buscar</option>
@@ -256,7 +256,7 @@
                             <thead class="HeadTA">
                                 <tr>
                                     <td class="text-center">Cantidad</td>
-                                    <td class="text-center">Producto Venta</td>
+                                    <td class="text-center">Producto Producido</td>
                                     <td class="text-center">Unidad de Medida</td>
 
                                     <td class="text-center">Costo Unitario Pro</td>
