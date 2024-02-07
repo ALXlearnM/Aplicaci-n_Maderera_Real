@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Maderera_Aplicacion_Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+684f8c96ae1ae52e830ce2e7d840818de017ad6a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Maderera_Aplicacion_Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Maderera_Aplicacion_Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

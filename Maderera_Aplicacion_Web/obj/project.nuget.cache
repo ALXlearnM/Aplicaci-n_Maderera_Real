@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Bm36lhCCjp1V4JuBYW4AzWyMzFNKO4rVGmSazcQ7f/SKtnuqiFhMiruD9i9cwf+NEeF0gSoznTvs0TiHxRCYIA==",
+  "dgSpecHash": "PUpSw+b//KhwvUhR/CG4V4K0cfenlXbZ01y+SjhcWH8PBhGFbjCkSGOMFhtEMevjAAim5JZpgXkHxfepjrok8A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Mad\\Desktop\\MADERERA\\HOLA\\Aplicaciòn_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj",
   "expectedPackageFiles": [
@@ -240,11 +240,7 @@
     "C:\\Users\\Mad\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\Mad\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\Mad\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\Mad\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Mad\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\Mad\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\Mad\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\Mad\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.26\\microsoft.netcore.app.host.win-x64.6.0.26.nupkg.sha512"
+    "C:\\Users\\Mad\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }
