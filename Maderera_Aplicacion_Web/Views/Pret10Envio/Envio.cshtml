@@ -1100,22 +1100,6 @@
             // Ocultar el seleCAMPEXT
             var selectElement = document.getElementById('extenvcbo');
             selectElement.style.display = 'none';
-            //window.addEventListener('beforeunload', function (event) {
-            //    $.ajax({
-            //        url: "/Pret10Envio/CerrarExtraccionEnv",
-            //        type: "GET",
-
-            //        success: function (response) {
-            //            if (response.mensaje == null) {
-            //                window.location.href = response.redirectUrl;
-            //            } else {
-            //                alert(response.mensaje);
-            //            }
-            //        },
-            //        error: function (response) {
-            //        }
-            //    });
-            //});
             $.ajax({
                 url: '/Pret10Envio/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
                 type: 'GET',

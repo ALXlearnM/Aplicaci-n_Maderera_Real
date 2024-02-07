@@ -140,8 +140,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fecha* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input id="fechaprod" type="date" required asp-for="FechaProduccion" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
-
+                                      <input asp-for="FechaProduccion" id="fechaprod" type="date" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <span class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -185,7 +185,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Cantidad :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input required id="cantpi" type="number" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <input asp-for="CantidadIns " required id="cantpi" type="number" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
                                 </div>
                             </div>
 
@@ -695,12 +695,7 @@
 </div>
 
 
-<script>
-
-
-
-
-
+<script >
 
     document.addEventListener("DOMContentLoaded", function () {
         var tableE = jQuery('#tablaCampanasPro').DataTable(
@@ -833,7 +828,6 @@
             }
 
         );
-
         var tableE = jQuery('#tablaExtraccionPro').DataTable(
 
             {
@@ -861,7 +855,162 @@
 
         );
 
-        document.getElementById("fechaprod").value = returndatenow();
+        var produccion= @Html.Raw(Json.Serialize(ViewBag.Produccion));
+        var detalles = @Html.Raw(Json.Serialize(ViewBag.Detalles));
+        var empleados = @Html.Raw(Json.Serialize(ViewBag.Empleados));
+        var CompParsed = JSON.parse(produccion);
+        var detallesParsed = JSON.parse(detalles);
+        var empleadosParsed = JSON.parse(empleados);
+
+        if (CompParsed !== null) {
+            console.log(CompParsed);
+
+            detallesParsed.forEach(function (detalle) {
+                var campTA = {
+                    idProducto: detalle.id,
+                    nombreProducto: detalle.np,
+                    cu: detalle.cu,
+                    cantidad: detalle.can,
+                    um: detalle.um,
+                    total: detalle.total,
+                    observacion: detalle.obs
+                };
+                ListadoProductospSeleccionados.push(campTA);
+            });
+
+            empleadosParsed.forEach(function (detalle) {
+                var campTA = {
+                    idempleado: detalle.idempleado,
+                    txtempleado: detalle.txtempleado,
+                    celular: detalle.telefono,
+                    //salario: detalle.salario,
+                    nrodoc: detalle.nrodoc,
+                    categoria: detalle.categoria,
+                    condicion: detalle.condicion,
+                };
+                arregloproemp.push(campTA);
+            });
+            actualizarTablaProductosSeleccionadosp();
+
+            actualizartablaproemp();
+
+            $.ajax({
+                url: '/Pret14Produccion/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+                type: 'GET',
+                success: function (response) {
+                    if (response.id == 3) {
+                        document.getElementById('moodNamePro').innerText = response.name;
+                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                        $('#checkEstadoProduccion').prop('checked', true);
+                        $('#checkEstadoProduccion').prop('disabled', false);
+
+                    } else if (response.id == 4) {
+                        document.getElementById('moodNamePro').innerText = response.name;
+                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                        $('#checkEstadoProduccion').prop('checked', true);
+                        $('#checkEstadoProduccion').prop('disabled', true);
+                    }
+                }
+            });
+            //INSUMO
+            document.getElementById('piId').value = CompParsed.idi;
+            var insumoNombreSpan = document.getElementById('insproNombre');
+            var removeInsumoSpan = document.getElementById('removeInsproSpan');
+            insumoNombreSpan.innerText = CompParsed.insumo;
+            document.getElementById('umpi').value = CompParsed.um;
+
+            insumoNombreSpan.style.display = 'inline-block';
+            removeInsumoSpan.style.display = 'inline-block';
+            // Ocultar el seleCAMPEXT
+            var selectElement = document.getElementById('insprocbo');
+            selectElement.style.display = 'none';
+
+            //EXTRACCION
+            if (CompParsed.ide != null) {
+
+                var inversionistaNombreSpan = document.getElementById('extproNombre');
+                var removeInversionistaSpan = document.getElementById('removeExtproSpan');
+                inversionistaNombreSpan.innerText = CompParsed.codigo;
+                inversionistaNombreSpan.style.display = 'inline-block';
+                removeInversionistaSpan.style.display = 'inline-block';
+                // Ocultar el seleCAMPEXT
+                var selectElement = document.getElementById('extprocbo');
+                selectElement.style.display = 'none';
+                //Predio
+                document.getElementById('idpredioproduccion').value = CompParsed.idp;
+                var CargadorNombreSpan = document.getElementById('propreNombre');
+                /*var removeCargadorSpan = document.getElementById('removepropreSpan');*/
+                CargadorNombreSpan.innerText = CompParsed.predio;
+                CargadorNombreSpan.style.display = 'inline-block';
+                /*removeCargadorSpan.style.display = 'inline-block';*/
+                //Ocultar Select
+                var selectElement = document.getElementById('proprecbo');
+                selectElement.style.display = 'none';
+
+                //Campaña
+                document.getElementById('idcampanaproduccion').value = CompParsed.idc;
+
+                var CampNombreSpan = document.getElementById('camproNombre');
+                /* var removeCampSpan = document.getElementById('removecamproSpan');*/
+                CampNombreSpan.innerText = CompParsed.campana;
+                CampNombreSpan.style.display = 'inline-block';
+                /* removeCampSpan.style.display = 'inline-block';*/
+                // Ocultar el select
+                var selectElement = document.getElementById('camprocbo');
+                selectElement.style.display = 'none';
+            } else {
+                //PREDIO
+                document.getElementById('idpredioproduccion').value = CompParsed.idp;
+                var PredioNombreSpan = document.getElementById('propreNombre');
+                var removePredioSpan = document.getElementById('removepropreSpan');
+                PredioNombreSpan.innerText = CompParsed.predio;
+                PredioNombreSpan.style.display = 'inline-block';
+                removePredioSpan.style.display = 'inline-block';
+                // Ocultar el select
+                var selectPredio = document.getElementById('proprecbo');
+                selectPredio.style.display = 'none';
+
+                //CAMPAÑA
+                document.getElementById('idcampanaproduccion').value = CompParsed.idc;
+                var CampanaNombreSpan = document.getElementById('camproNombre');
+                var removeCampanaSpan = document.getElementById('removecamproSpan');
+                CampanaNombreSpan.innerText = CompParsed.campana;
+                CampanaNombreSpan.style.display = 'inline-block';
+                removeCampanaSpan.style.display = 'inline-block';
+                // Ocultar el select
+                var selectCampana= document.getElementById('camprocbo');
+                selectCampana.style.display = 'none';
+            }
+            //PREDIO
+
+            //CAMPAÑA
+
+
+            // function agregarArchivotim() {
+            //     var nuevoArchivoInput = document.getElementById('nuevoArchivotim');
+            //     var archivosNuevostim = nuevoArchivoInput.files;
+
+            //     if (archivosNuevostim.length == 0) {
+            //         alert('Selecciona algún archivo');
+            //     } else {
+            //         // Añadir cada nuevo archivo a la tabla y procesarlos con SheetJS
+            //         for (var i = 0; i < archivosNuevostim.length; i++) {
+            //             var archivotim = archivosNuevostim[i];
+            //             agregarFilaATablatim(archivotim);
+            //             archivosTim.push(archivotim);
+
+            //             // Manejar el archivo con SheetJS
+            //             handleFile(archivotim);
+            //         }
+
+            //         // Limpiar el campo de archivos para permitir agregar otro
+            //         nuevoArchivoInput.value = '';
+            //     }
+            // }
+        } else {
+
+            document.getElementById("fechaprod").value = returndatenow();
+        }
     }); 
 
 </script>

@@ -9,6 +9,7 @@ using Maderera_Aplicacion_Web.Data;
 using Maderera_Aplicacion_Web.Data.Interfaces;
 using Maderera_Aplicacion_Web.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Maderera_Aplicacion_Web.Controllers
 {
@@ -143,12 +144,34 @@ namespace Maderera_Aplicacion_Web.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Editarproduccion()
+        public IActionResult Editarproduccion(long idproduccion)
         {
             IdTemporal = null;
             IdTemporalCampana = null;
             IdTemporalPredio = null;
-
+            var Produccion = _context.Pret14Produccions
+            .Include(t => t.IdExtraccionNavigation)
+            .Include(t => t.IdPredioNavigation)
+            .Include(t => t.IdProductoInsNavigation)
+            .Include(t => t.IdCampanaNavigation)
+            .Include(c => c.IdUsuarioNavigation)
+            .Include(c => c.IdUsuarioModificadorNavigation)
+            .Where(c => c.IdProduccion == idproduccion )
+            .Select(campanaTA => new
+            {
+                all = campanaTA,
+                CampanaTA = campanaTA,
+                ide = campanaTA.IdExtraccion,
+                codigo = campanaTA.IdExtraccionNavigation.NroExtraccion,
+                predio =campanaTA.IdPredioNavigation.UnidadCatastral,
+                campana=campanaTA.IdCampanaNavigation.CodigoCampana,
+                um=campanaTA.IdUmInsNavigation.TxtDesc,
+                insumo=campanaTA.IdProductoInsNavigation.TxtDesc,
+                idi=campanaTA.IdProductoIns,
+                idc=campanaTA.IdCampana,
+                idp=campanaTA.IdPredio
+            })
+            .FirstOrDefault();
             var empleadosventas = _context.Pert04Empleados
                     .Include(e => e.IdNacionalidadNavigation)
                     .Include(e => e.IdDistNavigation)
@@ -214,7 +237,61 @@ namespace Maderera_Aplicacion_Web.Controllers
                 })
                 .ToList();
 
-            return View();
+            var produccionvista = _context.Pret14Produccions
+            .Where(c => c.IdProduccion == idproduccion)
+            .FirstOrDefault();
+            if (Produccion != null)
+            {
+
+                var detallesproduccion = _context.Pret15ProduccionDtls
+                .Where(detalle => detalle.IdProduccion == idproduccion && detalle.IdEstado == 1)
+                .Select(p => new
+                {
+                    id=p.IdProductoPro,
+                    np=p.TxtProPro,
+                    cu=p.IdProductoProNavigation.MtoPvpuConIgv,
+                    um=p.IdUmProNavigation.TxtDesc,
+                    can=p.CantidadPro,
+                    total=p.TotalProp,
+                    obs=p.TxtComentario
+                }).ToList();
+                var Empproduccion = _context.Pret20ProduccionEmpleados
+                .Where(detalle => detalle.IdProduccion== idproduccion&& detalle.IdEstado == 1)
+                .Select(
+                    n => new
+                    {
+                        idempleado = n.IdEmpleadoPro,
+                        txtempleado = n.IdEmpleadoProNavigation.TxtPriNom == null ? n.IdEmpleadoProNavigation.TxtRznSocial : $"{n.IdEmpleadoProNavigation.TxtPriNom} {n.IdEmpleadoProNavigation.TxtApePat}",
+                        nrodoc = String.IsNullOrEmpty(n.IdEmpleadoProNavigation.NroRuc) ? n.IdEmpleadoProNavigation.NroDoc : n.IdEmpleadoProNavigation.NroRuc,
+                        condicion = n.IdEmpleadoProNavigation.IdCondicionLaboralNavigation.TxtDesc,
+                        telefono = !string.IsNullOrEmpty(n.IdEmpleadoProNavigation.Celular1) ? n.IdEmpleadoProNavigation.Celular1 : (!string.IsNullOrEmpty(n.IdEmpleadoProNavigation.Celular2) ? n.IdEmpleadoProNavigation.Celular2 : n.IdEmpleadoProNavigation.Celular3),
+                        categoria = n.IdEmpleadoProNavigation.IdCategoriaEmpNavigation.TxtNombre,
+
+                    })
+                .ToList();
+                var settings = new Newtonsoft.Json.JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                };
+
+                var campanaserialized = Newtonsoft.Json.JsonConvert.SerializeObject(Produccion, settings);
+                var detallesSerialized = Newtonsoft.Json.JsonConvert.SerializeObject(detallesproduccion, settings);
+                var empleadosSerialized = Newtonsoft.Json.JsonConvert.SerializeObject(Empproduccion, settings);
+
+                IdTemporal = produccionvista?.IdProduccion;
+                IdTemporalExtraccion = produccionvista?.IdExtraccion;
+                IdTemporalCampana = produccionvista?.IdCampana;
+                IdTemporalPredio= produccionvista?.IdPredio;
+                IdTemporalIns= produccionvista?.IdProductoIns;
+                ViewBag.Produccion = campanaserialized;
+                ViewBag.Detalles = detallesSerialized;
+                ViewBag.Empleados = empleadosSerialized;
+                return View("Produccion", produccionvista);
+            }
+            else
+            {
+                return NotFound(); // O redirigir a otra página
+            }
         }
 
         [HttpGet]
@@ -424,7 +501,7 @@ namespace Maderera_Aplicacion_Web.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error al actualizar la Campan a Envio: " + ex.Message);
+                return BadRequest("Error al actualizar la Campan a Produccion: " + ex.Message);
             }
         }
         [HttpGet]
@@ -456,7 +533,7 @@ namespace Maderera_Aplicacion_Web.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error al actualizar la Campan a Envio: " + ex.Message);
+                return BadRequest("Error al actualizar la Campan a Produccion: " + ex.Message);
             }
         }
         [HttpGet]
@@ -473,7 +550,7 @@ namespace Maderera_Aplicacion_Web.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error al actualizar la Campan a Envio: " + ex.Message);
+                return BadRequest("Error al actualizar la Campan a Produccion: " + ex.Message);
             }
         }
         public IActionResult removeIdTemporalExtraccion()

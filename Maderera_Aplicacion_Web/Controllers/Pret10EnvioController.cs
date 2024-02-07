@@ -567,17 +567,9 @@ namespace Maderera_Aplicacion_Web.Controllers
                     .ToList();
 
             ViewBag.EmpExt = empleadosextraccion;
-
-
-
             var enviovista = _context.Pret10Envios
             .Where(c => c.IdEnvio== idenvio && c.IdEstado !=2 && c.IdEstado!=5)
             .FirstOrDefault();
-
-
-
-            
-
             if (Envio != null)
             {
                 var archivos = _context.Pret17Archivos

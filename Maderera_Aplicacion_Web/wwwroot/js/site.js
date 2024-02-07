@@ -10254,7 +10254,7 @@ function actualizartablaproemp() {
 
 
 
-//Extraccion
+//INSUMO
 $(document).ready(function () {
     $('#modalinspro').on('hidden.bs.modal', function () {
         $('#insprocbo').prop('selectedIndex', 0);
@@ -10342,7 +10342,6 @@ function removeinspro() {
     document.getElementById('umpi').value = '';
     document.getElementById('insproNombre').style.display = 'none';
     document.getElementById('removeInsproSpan').style.display = 'none';
-    removeProPre();
     var selectElement = document.getElementById('insprocbo');
     selectElement.style.display = 'inline-block';
     $.ajax({
