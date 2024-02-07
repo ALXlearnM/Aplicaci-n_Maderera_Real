@@ -9,259 +9,257 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Maderera_Aplicacion_Web
 build_property.RootNamespace = Maderera_Aplicacion_Web
-build_property.ProjectDir = C:\Users\Mad\Desktop\MADERERA\HOLA\Aplicaciòn_Maderera_Real\Maderera_Aplicacion_Web\
-build_property.EnableComHosting = 
-build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.ProjectDir = C:\Users\Walter\source\repos\Aplicaci-n_Maderera_Real\Maderera_Aplicacion_Web\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Mad\Desktop\MADERERA\HOLA\Aplicaciòn_Maderera_Real\Maderera_Aplicacion_Web
+build_property.MSBuildProjectDirectory = C:\Users\Walter\source\repos\Aplicaci-n_Maderera_Real\Maderera_Aplicacion_Web
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Home/Index.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Home/Privacy.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pert01Usuario/Index.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pert01Usuario/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVydDAxVXN1YXJpb1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pert01Usuario/Login.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pert01Usuario/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVydDAxVXN1YXJpb1xMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/PERt11pagopersonal/pago_p.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/PERt11pagopersonal/pago_p.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUEVSdDExcGFnb3BlcnNvbmFsXHBhZ29fcC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/PERt11pagopersonal/pago_p_listado.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/PERt11pagopersonal/pago_p_listado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUEVSdDExcGFnb3BlcnNvbmFsXHBhZ29fcF9saXN0YWRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret01Predio/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret01Predio/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDAxUHJlZGlvXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret01Predio/ListadoPre.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret01Predio/ListadoPre.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDAxUHJlZGlvXExpc3RhZG9QcmUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret01Predio/Predio.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret01Predio/Predio.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDAxUHJlZGlvXFByZWRpby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret02Campana/Campana.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret02Campana/Campana.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDAyQ2FtcGFuYVxDYW1wYW5hLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret02Campana/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret02Campana/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDAyQ2FtcGFuYVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret02Campana/ListadoCam.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret02Campana/ListadoCam.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDAyQ2FtcGFuYVxMaXN0YWRvQ2FtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/Delete.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDA3RXh0cmFjY2lvblxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDA3RXh0cmFjY2lvblxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/Edit.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDA3RXh0cmFjY2lvblxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/Extraccion.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/Extraccion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDA3RXh0cmFjY2lvblxFeHRyYWNjaW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/ListadoExtraccion.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret07Extraccion/ListadoExtraccion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDA3RXh0cmFjY2lvblxMaXN0YWRvRXh0cmFjY2lvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/Delete.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDEwRW52aW9cRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDEwRW52aW9cRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/Edit.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDEwRW52aW9cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/Envio.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/Envio.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDEwRW52aW9cRW52aW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/ListadoEnv.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret10Envio/ListadoEnv.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDEwRW52aW9cTGlzdGFkb0Vudi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret11Recepcion/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret11Recepcion/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDExUmVjZXBjaW9uXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret11Recepcion/ListadoRec.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret11Recepcion/ListadoRec.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDExUmVjZXBjaW9uXExpc3RhZG9SZWMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret11Recepcion/Recepcion.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret11Recepcion/Recepcion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDExUmVjZXBjaW9uXFJlY2VwY2lvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret14Produccion/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret14Produccion/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE0UHJvZHVjY2lvblxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret14Produccion/ListadoPro.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret14Produccion/ListadoPro.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE0UHJvZHVjY2lvblxMaXN0YWRvUHJvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret14Produccion/Produccion.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret14Produccion/Produccion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE0UHJvZHVjY2lvblxQcm9kdWNjaW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/Delete.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE2TWVybWFcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE2TWVybWFcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/Edit.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE2TWVybWFcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/ListadoMer.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/ListadoMer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE2TWVybWFcTGlzdGFkb01lci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/Merma.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret16Merma/Merma.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE2TWVybWFcTWVybWEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/Error.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/boleta_c.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/boleta_c.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAxQ29tcFJlY2liaWRvXGJvbGV0YV9jLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/boleta_c_listado.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/boleta_c_listado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAxQ29tcFJlY2liaWRvXGJvbGV0YV9jX2xpc3RhZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Create.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAxQ29tcFJlY2liaWRvXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Delete.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAxQ29tcFJlY2liaWRvXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAxQ29tcFJlY2liaWRvXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Edit.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAxQ29tcFJlY2liaWRvXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/factura_c.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/factura_c.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAxQ29tcFJlY2liaWRvXGZhY3R1cmFfYy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Index.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAxQ29tcFJlY2liaWRvXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/nota_c.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst01CompRecibido/nota_c.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAxQ29tcFJlY2liaWRvXG5vdGFfYy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Create.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAyQ29tcFJlY2liaWRvRHRsXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Delete.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAyQ29tcFJlY2liaWRvRHRsXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAyQ29tcFJlY2liaWRvRHRsXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Edit.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAyQ29tcFJlY2liaWRvRHRsXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Index.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst02CompRecibidoDtl/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDAyQ29tcFJlY2liaWRvRHRsXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/boleta_v.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/boleta_v.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDA0Q29tcEVtaXRpZG9cYm9sZXRhX3YuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/boleta_v_listado.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/boleta_v_listado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDA0Q29tcEVtaXRpZG9cYm9sZXRhX3ZfbGlzdGFkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/Create.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDA0Q29tcEVtaXRpZG9cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/Delete.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDA0Q29tcEVtaXRpZG9cRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/Details.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDA0Q29tcEVtaXRpZG9cRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/Edit.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDA0Q29tcEVtaXRpZG9cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/factura_v.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/factura_v.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDA0Q29tcEVtaXRpZG9cZmFjdHVyYV92LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/nota_v.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Tnst04CompEmitido/nota_v.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG5zdDA0Q29tcEVtaXRpZG9cbm90YV92LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/_ViewImports.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/_ViewStart.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/_Layout.cshtml]
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-7kndzb9vxu
