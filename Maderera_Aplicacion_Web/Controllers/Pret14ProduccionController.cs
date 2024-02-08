@@ -48,27 +48,17 @@ namespace Maderera_Aplicacion_Web.Controllers
         }
 
         // GET: Pret14Produccion/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> Details(long? IdProduccion)
         {
-            if (id == null || _context.Pret14Produccions == null)
-            {
-                return NotFound();
-            }
-
             var pret14Produccion = await _context.Pret14Produccions
                 .Include(p => p.IdExtraccionNavigation)
                 .Include(p => p.IdPredioNavigation)
                 .Include(p => p.IdUsuarioModificadorNavigation)
                 .Include(p => p.IdUsuarioNavigation)
-                .FirstOrDefaultAsync(m => m.IdProduccion == id);
-            if (pret14Produccion == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(m => m.IdProduccion == IdProduccion);
 
             return View(pret14Produccion);
         }
-
         [HttpGet]
         public IActionResult Produccion()
         {

@@ -112,10 +112,10 @@
                         <div class="container-fluid">
 
                             <div class="form-row">
-                                <div class="col-md-3 mt-5">
+                                  <div class="col-md-4 mt-5">
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Cliente*:</label>
-                                        <div class="col-sm-5 ml-5">
+                                        <div class="col-sm-7 ml-5">
                                             <input hidden asp-for="IdCliente" type="text" id="clienteID" class="form-control" required />
 
                                             <select id="clicbo" class="custom-select" style="margin-left:35px;" data-modal-target="modalclim" onchange="SelectChange(this,'modalclim')">
@@ -136,9 +136,9 @@
 
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Direccion*:</label>
-                                        <div class="col-sm-5 ml-5">
+                                        <div class="col-sm-7 ml-5">
 
-                                            <span id="clienteDireccion" class="spandireccion"></span>
+                                            <span id="clienteDireccion" class="spandireccion" style="font-size:14px;"></span>
 
                                         </div>
                                     </div>
@@ -146,29 +146,33 @@
 
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Teléfono*:</label>
-                                        <div class="col-sm-5 ml-5">
+                                        <div class="col-sm-7 ml-5">
 
-                                            <span id="clienteTelefono" class="spantelefono"></span>
+                                                <span id="clienteTelefono" class="spantelefono" style="font-size:14px;"></span>
 
                                         </div>
                                     </div>
 
+                                      
+
 
                                 </div>
-                                
-                                <div class="col-md-3 mt-5">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Tipo de Orden* :</label>
-                                        <div class="col-sm-5 ml-5">
+
+
+
+                                    <div class="col-md-4 mt-5">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Tipo de Orden* :</label>
+                                            <div class="col-sm-7 ml-5">
 
                                                 <select required id="TipoOrden" class="form-control form-control-sm mx-sm-3 mb-2 p-0" asp-for="IdTipoOrden" class="form-control" asp-items="@(ViewBag.TipoOrden)"></select>
 
 
+                                            </div>
                                         </div>
-                                    </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Origen* :</label>
-                                            <div class="col-sm-5 ml-5">
+                                            <div class="col-sm-7 ml-5">
                                                 <input required asp-for="IdLocation" type="text" id="Locationid" class="form-control" hidden />
                                                 <select id="loccbo" class="custom-select" data-modal-target="modalloc" onchange="SelectChange(this,'modalloc')">
                                                     <option selected value="none">Seleccionar opción</option>
@@ -188,7 +192,7 @@
 
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Destino* :</label>
-                                            <div class="col-sm-5 ml-5">
+                                            <div class="col-sm-7 ml-5">
                                                 <input required asp-for="IdLocationTo" type="text" id="Locationtoid" class="form-control" hidden />
 
                                                 <select id="ltocbo" class="custom-select" data-modal-target="modallto" onchange="SelectChange(this,'modallto')">
@@ -270,71 +274,71 @@
 
                                             </div>
                                         </div>
-                                </div>
+                                    </div>
 
 
 
-                                <div class="col-md-3 mt-5">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Fecha Emision* :</label>
 
-                                        <div class="col-sm-5 ml-5">
+                                    <div class="col-md-4 mt-5">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Fecha Emision* :</label>
+
+                                            <div class="col-sm-7 ml-5">
                                                 <input required class="form-control form-control-sm mx-sm-3 mb-2 p-0" asp-for="FecEmi" type="date" id="fechaEmision" class="form-control" name="fechaEmision">
 
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Comentario:</label>
-
-                                        <div class="col-sm-5 ml-5">
-                                            <input asp-for="TxtObserv" id="comentarioven" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
-                                            <span class="text-danger"></span>
 
 
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div class="col-md-3 mt-5">
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Predio:</label>
-                                        <input required asp-for="IdPredio" id="idpredioventas" hidden />
-                                        <div class="col-sm-5 ml-4">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Predio:</label>
+                                            <input required asp-for="IdPredio" id="idpredioventas" hidden />
+                                            <div class="col-sm-7 ml-5">
                                                 <select id="venprecbo" class="custom-select" style="margin-left:35px;" data-modal-target="modalvenpre" onchange="SelectChange(this,'modalvenpre')">
-                                                <option selected value="none">Seleccionar opción</option>
-                                                <option value="buscar">Buscar</option>
+                                                    <option selected value="none">Seleccionar opción</option>
+                                                    <option value="buscar">Buscar</option>
                                                 </select>
                                                 <div style="display: flex; align-items: center;">
-                                                    <span id="venpreNombre" class="text-nowrap" style="display: none;"></span>
-                                                    <span id="removevenpreSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 10px;" onclick="removeVenPre()"></span>
+                                                    <span id="venpreNombre" class="spandestino" style="display: none;"></span>
+                                                    <span id="removevenpreSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeVenPre()"></span>
                                                 </div>
 
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Campaña:</label>
-                                            <input required asp-for="IdCampana" id="idcampanaventas" hidden/>
-                                        <div class="col-sm-5 ml-4">
-                                            <select id="camvencbo" class="custom-select" style="margin-left:35px;" data-modal-target="modalcamven" onchange="SelectChange(this,'modalcamven')">
-                                                <option selected value="none">Seleccionar opción</option>
-                                                <option value="buscar">Buscar</option>
-                                            </select>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Campaña:</label>
+                                            <input required asp-for="IdCampana" id="idcampanaventas" hidden />
+                                            <div class="col-sm-7 ml-5">
+                                                <select id="camvencbo" class="custom-select" style="margin-left:35px;" data-modal-target="modalcamven" onchange="SelectChange(this,'modalcamven')">
+                                                    <option selected value="none">Seleccionar opción</option>
+                                                    <option value="buscar">Buscar</option>
+                                                </select>
                                                 <div style="display: flex; align-items: center;">
-                                                    <span id="camvenNombre" class="text-nowrap" style="display: none;"></span>
-                                                    <span id="removecamvenSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 10px;" onclick="removeCamVen()"></span>
+                                                    <span id="camvenNombre" class="spandestino" style="display: none;"></span>
+                                                    <span id="removecamvenSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeCamVen()"></span>
                                                 </div>
 
+                                            </div>
                                         </div>
+
+
                                     </div>
 
-                                 </div>
+
+                                </div>
+                                <div class="form-group row mt-4">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Comentario:</label>
+
+                                    <div class="col-sm-10" style="margin-left:-100px;">
+                                        <input asp-for="TxtObserv" id="comentarioven" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <span class="text-danger"></span>
 
 
+                                    </div>
+                                </div>
                             </div>
-
-                        </div>
                         </form>
                     </div>
                     <div class="modal modal-xl custom-modal" id="modalloc" tabindex="-1" role="dialog" aria-labelledby="modallocLabel" aria-hidden="true">

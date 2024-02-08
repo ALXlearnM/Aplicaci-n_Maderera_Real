@@ -70,24 +70,15 @@ namespace Maderera_Aplicacion_Web.Controllers
             return Json(distritos);
         }
 
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> Details(long? IdExtraccion)
         {
-            if (id == null || _context.Pret07Extraccions == null)
-            {
-                return NotFound();
-            }
 
             var pret07Extraccion = await _context.Pret07Extraccions
                 .Include(p => p.IdCampanaNavigation)
-                .FirstOrDefaultAsync(m => m.IdExtraccion == id);
-            if (pret07Extraccion == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(m => m.IdExtraccion == IdExtraccion);
 
             return View(pret07Extraccion);
         }
-
 
         [HttpGet]
 

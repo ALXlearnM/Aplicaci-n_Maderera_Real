@@ -1,138 +1,144 @@
 ﻿@model Maderera_Aplicacion_Web.Models.Pret07Extraccion
 
-<div class="row w-100">
-    <div class="col col-sm-5 ml-5">
-        <h2>Predio</h2>
-    </div>
-    <div class="col-6 text-right">
-
-        <a class="btn btn-danger" asp-action="ListadoExtraccion">Ver Listado</a>
-    </div>
-</div>
-
-<hr class="text-decoration-line-through" />
-
-
-
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <dl class="row">
-                <div class="col-sm-12">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.FechaExtraccion)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.FechaExtraccion)
-                    </dd>
-                </div>
-                <div class="col-sm-12">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Info01)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Info01)
-                    </dd>
-                </div>
-                <div class="col-sm-12">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Info02)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Info02)
-                    </dd>
-                </div>
-                <div class="col-sm-12">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Info03)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Info03)
-                    </dd>
-                </div>
-
-            </dl>
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <h2>Extraccion</h2>
         </div>
-        </div>
-
-
-
-    <div class="row">
-        <div class="col-md-3">
-            <dl class="row">
-                <div class="col-sm-12">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Info04)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Info04)
-                    </dd>
-                </div>
-                <div class="col-sm-12">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.NroArbolesTotal)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.NroArbolesTotal)
-                    </dd>
-                </div>
-                <div class="col-sm-12">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.NroTrozosTotal)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.NroTrozosTotal)
-                    </dd>
-                </div>
-                <div class="col-sm-12">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.DiamProTotal)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.DiamProTotal)
-                    </dd>
-                </div>
-
-            </dl>
+        <div class="col-sm-6 text-right">
+            <a class="btn btn-danger" asp-action="ListadoExtraccion">Ver Listado</a>
         </div>
     </div>
 
+    <hr class="text-decoration-line-through" />
 
-    <div class="row">
-        <div class="col-md-3">
+    <div class="row mt-4">
+        <div class="col-md-4">
             <dl class="row">
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.AltArbolProTotal)
+                        Fecha Extraccion
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.AltArbolProTotal)
+                        @if (Model.FechaExtraccion != null)
+                        {
+                            <input type="text" value="@Model.FechaExtraccion.ToString("yyyy-MM-dd")" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Nro. Arboles Total:
+                    </dt>
+                    <dd>
+                        @if (Model.NroArbolesTotal != null)
+                        {
+                            <input type="text" value="@Model.NroArbolesTotal" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+
+                <div class="col-sm-10">
+                    <dt>
+                        Comentario:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.Comentario))
+                        {
+                            <input type="text" value="@Model.Comentario" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+
+
+              
+            </dl>
+        </div>
+
+        <div class="col-md-4">
+            <dl class="row">
+               
+               
+                <div class="col-sm-12">
+                    <dt>
+                        Nro. Trozas Total:
+                    </dt>
+                    <dd>
+                        @if (Model.NroTrozosTotal != null)
+                        {
+                            <input type="text" value="@Model.NroTrozosTotal" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
                     </dd>
                 </div>
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.Comentario)
+                        Promedio Diametro Total:
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Comentario)
+                        @if (Model.DiamProTotal != null)
+                        {
+                            <input type="text" value="@Model.DiamProTotal" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
                     </dd>
                 </div>
+            </dl>
+        </div>
+
+        <div class="col-md-4">
+            <dl class="row">
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.IdCampanaNavigation)
+                        Altura Arbol Total:
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.IdCampanaNavigation.IdCampana)
+                        @if (Model.AltArbolProTotal != null)
+                        {
+                            <input type="text" value="@Model.AltArbolProTotal" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
                     </dd>
                 </div>
                
-
+                <div class="col-sm-12">
+                    <dt>
+                        Campaña:
+                    </dt>
+                    <dd>
+                        @if (Model.IdCampanaNavigation != null && Model.IdCampanaNavigation.IdCampana != null)
+                        {
+                            <input type="text" value="@Model.IdCampanaNavigation.IdCampana" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
             </dl>
         </div>
     </div>
- </div>
-
-
-   
-    
-
+</div>
