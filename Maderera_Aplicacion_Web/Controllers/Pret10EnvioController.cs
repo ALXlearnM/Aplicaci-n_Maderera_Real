@@ -59,7 +59,6 @@ namespace Maderera_Aplicacion_Web.Controllers
 
             return View(pret10Envio);
         }
-
         // GET: Pret10Envio/Create
         public IActionResult Envio()
         {

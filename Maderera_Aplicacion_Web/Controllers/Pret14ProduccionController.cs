@@ -59,7 +59,6 @@ namespace Maderera_Aplicacion_Web.Controllers
 
             return View(pret14Produccion);
         }
-
         [HttpGet]
         public IActionResult Produccion()
         {

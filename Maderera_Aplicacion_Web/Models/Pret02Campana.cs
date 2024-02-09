@@ -11,6 +11,7 @@ namespace Maderera_Aplicacion_Web.Models
             Pret04CampanaTipoArbols = new HashSet<Pret04CampanaTipoArbol>();
             Pret07Extraccions = new HashSet<Pret07Extraccion>();
             Pret14Produccions = new HashSet<Pret14Produccion>();
+            Pret16Mermas = new HashSet<Pret16Merma>();
             Tnst04CompEmitidos = new HashSet<Tnst04CompEmitido>();
         }
 
@@ -48,6 +49,7 @@ namespace Maderera_Aplicacion_Web.Models
         public virtual ICollection<Pret04CampanaTipoArbol> Pret04CampanaTipoArbols { get; set; }
         public virtual ICollection<Pret07Extraccion> Pret07Extraccions { get; set; }
         public virtual ICollection<Pret14Produccion> Pret14Produccions { get; set; }
+        public virtual ICollection<Pret16Merma> Pret16Mermas { get; set; }
         public virtual ICollection<Tnst04CompEmitido> Tnst04CompEmitidos { get; set; }
     }
 }

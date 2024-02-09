@@ -10,7 +10,6 @@ namespace Maderera_Aplicacion_Web.Models
             Pret08ExtraccionDtls = new HashSet<Pret08ExtraccionDtl>();
             Pret10Envios = new HashSet<Pret10Envio>();
             Pret14Produccions = new HashSet<Pret14Produccion>();
-            Pret16Mermas = new HashSet<Pret16Merma>();
             Pret19ExtraccionEmpleados = new HashSet<Pret19ExtraccionEmpleado>();
         }
 
@@ -43,7 +42,6 @@ namespace Maderera_Aplicacion_Web.Models
         public virtual ICollection<Pret08ExtraccionDtl> Pret08ExtraccionDtls { get; set; }
         public virtual ICollection<Pret10Envio> Pret10Envios { get; set; }
         public virtual ICollection<Pret14Produccion> Pret14Produccions { get; set; }
-        public virtual ICollection<Pret16Merma> Pret16Mermas { get; set; }
         public virtual ICollection<Pret19ExtraccionEmpleado> Pret19ExtraccionEmpleados { get; set; }
     }
 }

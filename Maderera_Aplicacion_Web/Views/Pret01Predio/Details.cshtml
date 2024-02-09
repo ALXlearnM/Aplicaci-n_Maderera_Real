@@ -1,47 +1,66 @@
 ﻿@model Maderera_Aplicacion_Web.Models.Pret01Predio
 
-
-<div class="row w-100">
-    <div class="col col-sm-5 ml-5">
-        <h2>Predio</h2>
-    </div>
-    <div class="col-6 text-right">
-
-        <a class="btn btn-danger" asp-action="ListadoPre">Ver Listado</a>
-    </div>
-</div>
-
-<hr class="text-decoration-line-through" />
-
 <div class="container">
-    <div class="row">
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <h2>Predio</h2>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a class="btn btn-danger" asp-action="ListadoPre">Ver Listado</a>
+        </div>
+    </div>
+
+    <hr class="text-decoration-line-through" />
+
+    <div class="row mt-4">
         <div class="col-md-3">
             <dl class="row">
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.NroSitio)
+                        Número de Sitio
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.NroSitio)
+                        @if (string.IsNullOrEmpty(Model.NroSitio))
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled> 
+                        }
+                        else
+                        {
+                            <input class="form-control" value="@Html.DisplayFor(model => model.NroSitio)" disabled>
+                        }
                     </dd>
                 </div>
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.Area)
+                        Área
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Area)
+                        @if (Model.Area == null)
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                        else
+                        {
+                            <input class="form-control" value="@Html.DisplayFor(model => model.Area)" disabled>
+                        }
+
                     </dd>
                 </div>
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.Longitud)
+                        Longitud
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Longitud)
+                        @if (string.IsNullOrEmpty(Model.Longitud))
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                        else
+                        {
+                            <input class="form-control" value="@Html.DisplayFor(model => model.Longitud)" disabled>
+                        }
                     </dd>
                 </div>
-               
             </dl>
         </div>
 
@@ -49,21 +68,34 @@
             <dl class="row">
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.Coordenadas)
+                        Coordenadas
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Coordenadas)
+                        @if (string.IsNullOrEmpty(Model.Coordenadas))
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                        else
+                        {
+                            <input class="form-control" value="@Html.DisplayFor(model => model.Coordenadas)" disabled>
+                        }
                     </dd>
                 </div>
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.Latitud)
+                        Latitud
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Latitud)
+                        @if (string.IsNullOrEmpty(Model.Latitud))
+                        {
+                              <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                        else
+                        {
+                            <input class="form-control" value="@Html.DisplayFor(model => model.Latitud)" disabled>
+                        }
                     </dd>
                 </div>
-               
             </dl>
         </div>
 
@@ -71,54 +103,75 @@
             <dl class="row">
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.IdDistritoNavigation)
+                        Distrito
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.IdDistritoNavigation.TxtDesc)
+                        @if (Model.IdDistritoNavigation == null || string.IsNullOrEmpty(Model.IdDistritoNavigation.TxtDesc))
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                        else
+                        {
+                            <input class="form-control" value="@Html.DisplayFor(model => model.IdDistritoNavigation.TxtDesc)" disabled>
+                        }
                     </dd>
                 </div>
                 <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.UnidadCatastral)
+                        Unidad Catastral
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.UnidadCatastral)
+                        @if (string.IsNullOrEmpty(Model.UnidadCatastral))
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                        else
+                        {
+                            <input class="form-control" value="@Html.DisplayFor(model => model.UnidadCatastral)" disabled>
+                        }
                     </dd>
                 </div>
-                
-                
-                <!-- Agrega más propiedades según sea necesario -->
             </dl>
         </div>
 
         <div class="col-md-3">
             <dl class="row">
-                <div class="col-sm-12 text-nowrap">
+                <div class="col-sm-12">
                     <dt>
-                        @Html.DisplayNameFor(model => model.IdInversionistaNavigation)
+                        Inversionista
                     </dt>
                     @{
-                        var displayText = String.IsNullOrEmpty(Model.IdInversionistaNavigation.TxtRznScl)
-                        ? $"{Model.IdInversionistaNavigation.TxtPrimNom} {Model.IdInversionistaNavigation.TxtApePat}"
+                        var displayText = string.IsNullOrEmpty(Model.IdInversionistaNavigation?.TxtRznScl)
+                        ? $"{Model.IdInversionistaNavigation?.TxtPrimNom} {Model.IdInversionistaNavigation?.TxtApePat}"
                         : Model.IdInversionistaNavigation.TxtRznScl;
                     }
                     <dd>
-                        @Html.DisplayFor(model => displayText)
+                        @if (string.IsNullOrEmpty(displayText))
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                        else
+                        {
+                            <input class="form-control" value="@displayText" disabled>
+                        }
                     </dd>
-
-                    <div class="col-sm-12">
-                        <dt>
-                            @Html.DisplayNameFor(model => model.NroHectareas)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.NroHectareas)
-                        </dd>
-                    </div>
-                    <!-- Agrega más propiedades según sea necesario -->
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Número de Hectáreas
+                    </dt>
+                    <dd>
+                        @if (Model.NroHectareas == null)
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                        else
+                        {
+                            <input class="form-control" value="@Html.DisplayFor(model => model.NroHectareas)" disabled>
+                        }
+                    </dd>
                 </div>
             </dl>
         </div>
     </div>
 </div>
-
-

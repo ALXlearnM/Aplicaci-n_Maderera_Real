@@ -1,108 +1,251 @@
 ﻿@model Maderera_Aplicacion_Web.Models.Pret10Envio
 
-@{
-    ViewData["Title"] = "Details";
-}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <h2>Detalles de Envío</h2>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a class="btn btn-danger" asp-action="ListadoEnv">Ver Listado</a>
+        </div>
+    </div>
 
-<h1>Details</h1>
+    <hr class="text-decoration-line-through" />
 
-<div>
-    <h4>Pret10Envio</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NroEnvio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NroEnvio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtNro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtNro)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtSerie)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtSerie)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EnvioCant)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EnvioCant)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaEnvio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaEnvio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdEstado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdEstado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtEstado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtEstado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtUsuario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtUsuario)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtUsuarioModificador)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtUsuarioModificador)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaModificacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaModificacion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdExtraccionNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdExtraccionNavigation.IdExtraccion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdLocationNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdLocationNavigation.IdLocation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdLocationToNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdLocationToNavigation.IdLocation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUsuarioModificadorNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdUsuarioModificadorNavigation.IdUsuario)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdUsuarioNavigation.IdUsuario)
-        </dd>
-    </dl>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <dl class="row">
+                <div class="col-sm-12">
+                    <dt>
+                        Numero Envio:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.NroEnvio))
+                        {
+                            <input type="text" value="@Model.NroEnvio" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Numero:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.TxtNro))
+                        {
+                            <input type="text" value="@Model.TxtNro" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Serie:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.TxtSerie))
+                        {
+                            <input type="text" value="@Model.TxtSerie" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Envio Cantidad:
+                    </dt>
+                    <dd>
+                        @if (Model.EnvioCant != null)
+                        {
+                            <input type="text" value="@Model.EnvioCant" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Fecha:
+                    </dt>
+                    <dd>
+                        @if (Model.FechaEnvio != null)
+                        {
+                            <input type="text" value="@Model.FechaEnvio.ToString("yyyy-MM-dd")" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+            </dl>
+         </div>
+
+        <div class="col-md-4">
+            <dl class="row">
+
+
+               
+                <div class="col-sm-12">
+                    <dt>
+                        Estado:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.TxtEstado))
+                        {
+                            <input type="text" value="@Model.TxtEstado" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Usuario:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.TxtUsuario))
+                        {
+                            <input type="text" value="@Model.TxtUsuario" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Usuario Modificador:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.TxtUsuarioModificador))
+                        {
+                            <input type="text" value="@Model.TxtUsuarioModificador" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Fecha Modificacion:
+                    </dt>
+                    <dd>
+                        @if (Model.FechaModificacion != null)
+                        {
+                            <input type="text" value="@Model.FechaModificacion" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+
+                </dl>
+
+        </div>
+
+        <div class="col-md-4">
+            <dl class="row">
+
+
+                <div class="col-sm-12">
+                    <dt>
+                        Extraccion:
+                    </dt>
+                    <dd>
+                        @if (Model.IdExtraccionNavigation != null && Model.IdExtraccionNavigation.IdExtraccion != null)
+                        {
+                            <input type="text" value="@Model.IdExtraccionNavigation.IdExtraccion" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Locacion:
+                    </dt>
+                    <dd>
+                        @if (Model.IdLocationNavigation != null && Model.IdLocationNavigation.IdLocation != null)
+                        {
+                            <input type="text" value="@Model.IdLocationNavigation.IdLocation" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Locacion Llegada:
+                    </dt>
+                    <dd>
+                        @if (Model.IdLocationToNavigation != null && Model.IdLocationToNavigation.IdLocation != null)
+                        {
+                            <input type="text" value="@Model.IdLocationToNavigation.IdLocation" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Usuario Modificador:
+                    </dt>
+                    <dd>
+                        @if (Model.IdUsuarioModificadorNavigation != null && Model.IdUsuarioModificadorNavigation.IdUsuario != null)
+                        {
+                            <input type="text" value="@Model.IdUsuarioModificadorNavigation.IdUsuario" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                       Usuario:
+                    </dt>
+                    <dd>
+                        @if (Model.IdUsuarioNavigation != null && Model.IdUsuarioNavigation.IdUsuario != null)
+                        {
+                            <input type="text" value="@Model.IdUsuarioNavigation.IdUsuario" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" placeholder="No tiene" disabled>
+                        }
+                    </dd>
+                </div>
+                
+            </dl>
+        
+            </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdEnvio">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

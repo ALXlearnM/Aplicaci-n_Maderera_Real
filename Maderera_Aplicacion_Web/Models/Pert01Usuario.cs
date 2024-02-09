@@ -36,6 +36,7 @@ namespace Maderera_Aplicacion_Web.Models
         public int? IdEstado { get; set; }
         public string? TxtEstado { get; set; }
         public long IdEmpleado { get; set; }
+
         public virtual Pert04Empleado IdEmpleadoNavigation { get; set; } = null!;
         public virtual ICollection<Pert11PagoPersonal> Pert11PagoPersonals { get; set; }
         public virtual ICollection<Pret01Predio> Pret01PredioIdUsuarioModificadorNavigations { get; set; }

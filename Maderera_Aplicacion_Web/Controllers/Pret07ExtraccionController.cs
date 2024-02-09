@@ -80,7 +80,6 @@ namespace Maderera_Aplicacion_Web.Controllers
             return View(pret07Extraccion);
         }
 
-
         [HttpGet]
 
         public IActionResult Recargarcampext()

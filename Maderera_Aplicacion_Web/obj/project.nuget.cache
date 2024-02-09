@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PUpSw+b//KhwvUhR/CG4V4K0cfenlXbZ01y+SjhcWH8PBhGFbjCkSGOMFhtEMevjAAim5JZpgXkHxfepjrok8A==",
+  "dgSpecHash": "BMrDXg6W+LVMYK8LGWLYIYcqb98eaiwIvFH8BPwrM0raZ1Foqgudd5JJ5uvvUK5C7Ezh5Rc7utKoDPzNebC5Uw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Mad\\Desktop\\MADERERA\\HOLA\\Aplicaciòn_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj",
   "expectedPackageFiles": [
@@ -173,7 +173,7 @@
     "C:\\Users\\Mad\\.nuget\\packages\\system.composition.typedparts\\1.0.31\\system.composition.typedparts.1.0.31.nupkg.sha512",
     "C:\\Users\\Mad\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.0\\system.configuration.configurationmanager.6.0.0.nupkg.sha512",
     "C:\\Users\\Mad\\.nuget\\packages\\system.console\\4.3.0\\system.console.4.3.0.nupkg.sha512",
-    "C:\\Users\\Mad\\.nuget\\packages\\system.data.sqlclient\\4.8.5\\system.data.sqlclient.4.8.5.nupkg.sha512",
+    "C:\\Users\\Mad\\.nuget\\packages\\system.data.sqlclient\\4.8.0\\system.data.sqlclient.4.8.0.nupkg.sha512",
     "C:\\Users\\Mad\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\Mad\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
     "C:\\Users\\Mad\\.nuget\\packages\\system.diagnostics.tools\\4.3.0\\system.diagnostics.tools.4.3.0.nupkg.sha512",
@@ -242,12 +242,5 @@
     "C:\\Users\\Mad\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Mad\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\Mad\\Desktop\\MADERERA\\HOLA\\Aplicaciòn_Maderera_Real\\Maderera_Aplicacion_Web\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }
