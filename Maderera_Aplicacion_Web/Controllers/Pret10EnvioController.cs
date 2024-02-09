@@ -45,12 +45,8 @@ namespace Maderera_Aplicacion_Web.Controllers
         }
 
         // GET: Pret10Envio/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> Details(long? IdEnvio)
         {
-            if (id == null || _context.Pret10Envios == null)
-            {
-                return NotFound();
-            }
 
             var pret10Envio = await _context.Pret10Envios
                 .Include(p => p.IdExtraccionNavigation)
@@ -58,11 +54,8 @@ namespace Maderera_Aplicacion_Web.Controllers
                 .Include(p => p.IdLocationToNavigation)
                 .Include(p => p.IdUsuarioModificadorNavigation)
                 .Include(p => p.IdUsuarioNavigation)
-                .FirstOrDefaultAsync(m => m.IdEnvio == id);
-            if (pret10Envio == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(m => m.IdEnvio == IdEnvio);
+
 
             return View(pret10Envio);
         }
