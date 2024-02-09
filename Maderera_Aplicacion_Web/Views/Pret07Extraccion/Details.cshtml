@@ -26,7 +26,7 @@
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
 
@@ -38,11 +38,11 @@
                     <dd>
                         @if (Model.NroArbolesTotal != null)
                         {
-                            <input type="text" value="@Model.NroArbolesTotal" readonly />
+                            <input type="text" value="@Model.NroArbolesTotal" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -54,11 +54,11 @@
                     <dd>
                         @if (!string.IsNullOrEmpty(Model.Comentario))
                         {
-                            <input type="text" value="@Model.Comentario" readonly />
+                            <input type="text" value="@Model.Comentario" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -79,11 +79,11 @@
                     <dd>
                         @if (Model.NroTrozosTotal != null)
                         {
-                            <input type="text" value="@Model.NroTrozosTotal" readonly />
+                            <input type="text" value="@Model.NroTrozosTotal" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text"placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -94,11 +94,11 @@
                     <dd>
                         @if (Model.DiamProTotal != null)
                         {
-                            <input type="text" value="@Model.DiamProTotal" readonly />
+                            <input type="text" value="@Model.DiamProTotal" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -114,11 +114,11 @@
                     <dd>
                         @if (Model.AltArbolProTotal != null)
                         {
-                            <input type="text" value="@Model.AltArbolProTotal" readonly />
+                            <input type="text" value="@Model.AltArbolProTotal" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -130,11 +130,11 @@
                     <dd>
                         @if (Model.IdCampanaNavigation != null && Model.IdCampanaNavigation.IdCampana != null)
                         {
-                            <input type="text" value="@Model.IdCampanaNavigation.IdCampana" readonly />
+                            <input type="text" value="@Model.IdCampanaNavigation.IdCampana" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
