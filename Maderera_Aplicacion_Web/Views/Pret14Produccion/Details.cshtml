@@ -45,6 +45,22 @@
                         }
                     </dd>
                 </div>
+
+                <div class="col-sm-12">
+                    <dt>
+                        Cantidad de Insumo:
+                    </dt>
+                    <dd>
+                        @if (Model.FechaModificacion != null)
+                        {
+                            <input type="text" value="@Model.CantidadIns" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
                
               
             </dl>
@@ -96,6 +112,22 @@
                         @if (Model.TxtEstado != null)
                         {
                             <input type="text" value="@Model.TxtEstado" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
+
+                <div class="col-sm-12">
+                    <dt>
+                        Tipo Produccion:
+                    </dt>
+                    <dd>
+                        @if (Model.TxtEstado != null)
+                        {
+                            <input type="text" value="@Model.TipoPro" disabled />
                         }
                         else
                         {
