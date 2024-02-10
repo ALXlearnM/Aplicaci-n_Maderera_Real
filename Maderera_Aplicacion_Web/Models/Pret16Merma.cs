@@ -20,10 +20,18 @@ namespace Maderera_Aplicacion_Web.Models
         public string? Comentario { get; set; }
         public int IdEstado { get; set; }
         public string TxtEstado { get; set; } = null!;
+        public string NroMer { get; set; } = null!;
+        public long IdUsuario { get; set; }
+        public long? IdUsuarioModificador { get; set; }
+        public string? TxtUsuarioModificador { get; set; }
+        public string TxtUsuario { get; set; } = null!;
+        public DateTime? FechaModificacion { get; set; }
 
         public virtual Pret02Campana IdCampanaNavigation { get; set; } = null!;
         public virtual Pret01Predio IdPredioNavigation { get; set; } = null!;
         public virtual Pret14Produccion? IdProduccionNavigation { get; set; }
+        public virtual Pert01Usuario? IdUsuarioModificadorNavigation { get; set; }
+        public virtual Pert01Usuario IdUsuarioNavigation { get; set; } = null!;
         public virtual ICollection<Pret17MermaDtl> Pret17MermaDtls { get; set; }
         public virtual ICollection<Pret24MermaEmpleado> Pret24MermaEmpleados { get; set; }
     }

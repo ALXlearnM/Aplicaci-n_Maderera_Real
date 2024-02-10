@@ -11,9 +11,9 @@
 
         <div class="col mb-3 ml-3 mr-3">
             <div class="d-flex justify-content-between p-0" id="botonesbarra1">
-                <button id="guardarProd" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
-                <button id="guardarycerrarProd" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
-                <button id="cancelarProd" asp-controller="Pret16Merma" asp-action="ListadoMer" class="btn btn-danger btn-sm" role="button">Cancelar</button>
+                <button id="guardarMer" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
+                <button id="guardarycerrarMer" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
+                <button id="cancelarMer" asp-controller="Pret16Merma" asp-action="ListadoMer" class="btn btn-danger btn-sm" role="button">Cancelar</button>
             </div>
         </div>
 
@@ -27,14 +27,15 @@
                 </div>*@
             </div>
         </div>
-        <div class="col mb-3 ml-3">
-            @*            <div class="form-check d-flex justify-content-start p-0">
-            <div class="">
+        <div class="col mt-2 ml-5 p-0">
+            <div class="form-check d-flex justify-content-start p-0">
+                <div class="">
 
-            <input class="form-check-input" type="checkbox" value="" id="checkEstado" />
-            <span class="text-black">Borrador</span>
+                    <input class="form-check-input" type="checkbox" id="checkEstadoMerma" />
+
+                    <span class="text-black" id="moodNameMer">BORRADOR</span>
+                </div>
             </div>
-            </div>*@
         </div>
     </div>
 </div>
@@ -73,51 +74,72 @@
             <div class="tab-content">
                 @* PARA LA TABLA REGISTRO DE EXTRACCION*@
                 <div class="tab-pane fade in active show" id="regismer">
+                    <form id="FormMerma">
 
                     <div class="form-row mt-3 container-fluid">
                         <div class="col-md-4">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                             <div class="form-group row">
-
-                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Produccion :</label>
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Producción* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input id="" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
-                                    <span @* asp-validation-for="FechaExtraccion" *@ class="text-danger"></span>
+                                    <select id="promercbo" class="custom-select ml-4" data-modal-target="modalpromer" onchange="SelectChange(this,'modalpromer')" >
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="promerNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                        <span class="btn btn-close" id="removePromerSpan" style="cursor: pointer; display: none;  margin-left: 10px;" onclick="removepromer()"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Predio :</label>
-                                <div class="col-sm-7 ml-5">
-                                    <input id="altarbtotal" readonly required @* asp-for="AltArbolProTotal" *@ class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
-                                    <span @* asp-validation-for="AltArbolProTotal" *@ class="text-danger"></span>
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Predio:</label>
+                                <input asp-for="IdPredio" id="idprediomerma" hidden required/>
+                                <div class="col-sm-7 ml-4">
+                                    <select id="merprecbo" class="custom-select ml-4" data-modal-target="modalmerpre" onchange="SelectChange(this,'modalmerpre')">
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="merpreNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                        <span id="removemerpreSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 10px;" onclick="removeMerPre()"></span>
+                                    </div>
+
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Campaña :</label>
-                                <div class="col-sm-7 ml-5">
-                                    <input id="nroarboltotal" required readonly @* asp-for="NroArbolesTotal" *@ class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
-                                    <span @* asp-validation-for="NroArbolesTotal" *@ class="text-danger"></span>
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Campaña:</label>
+                                <input asp-for="IdCampana" id="idcampanamerma" hidden required />
+                                <div class="col-sm-7 ml-4">
+                                    <select id="cammercbo" class="custom-select ml-4" data-modal-target="modalcammer" onchange="SelectChange(this,'modalcammer')">
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="cammerNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                        <span id="removecammerSpan" class="btn btn-close" style="cursor: pointer; display: none; margin-left: 10px;" onclick="removeCamMer()"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
-
 
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fecha* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input asp-for="FechaMerma" id="nroarboltotal" required readonly class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                    <input type="date" asp-for="FechaMerma" id="fechamer" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
                                     <span asp-validation-for="FechaMerma" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Tipo* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input asp-for="TipoMerma" id="nrotrozastotal" required readonly class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                    <select required class="custom-select ml-3" asp-for="TipoMerma" id="tipomermaM">
+                                        <option value="Tipo1">Tipo1</option>
+                                        <option value="Tipo2">Tipo2</option>
+                                    </select>
                                     <span asp-validation-for="TipoMerma" class="text-danger"></span>
                                 </div>
                             </div>
@@ -127,37 +149,189 @@
 
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Comentario :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input id="diamprototal" required readonly asp-for="Comentario" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                    <input id="comentarioM"  asp-for="Comentario" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
                                     <span asp-validation-for="Comentario" class="text-danger"></span>
                                 </div>
                             </div>
 
                         </div>
-                      
-                          
-
-                    
-
-
-
-
                     </div>
+                    </form>
+                </div>
+                @*MODAL DE PRODUCCION EN MERMA*@
+                <div class="modal modal-xl custom-modal" id="modalpromer" tabindex="-1" role="dialog" aria-labelledby="modalpromerLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalProextLabel">Producción</h5>
+                                <button type="button" onclick="closeModal('modalpromer','promercbo')" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body custom">
+                                <div class="container-fluid">
 
+                                    <table class="display" id="tablaProduccionMer">
+                                        <thead>
+                                            <tr align="center" class="small">
+                                                <th class="client-cell text-center">Codigo Producción</th>
+                                                <th class="client-cell text-center">Unidad Catastral</th>
+                                                <th class="client-cell text-center">Fecha de Producción</th>
+                                                <th class="client-cell text-center">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodypromer">
+                                            @foreach (var campanaext in ViewBag.Produccionmer)
+                                            {
+                                                <tr>
+                                                    <td align="center" class="client-cell">@campanaext.codigo</td>
+                                                    <td align="center" class="client-cell">@campanaext.nrositio</td>
+                                                    <td align="center" class="client-cell">@campanaext.fechaini</td>
+                                                    <td align="center" class="client-cell">
+                                                        <button class="btn btn-primary" onclick="seleccionarpromer('modalpromer','promercbo','@campanaext.id', '@campanaext.codigo')">Seleccionar</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" onclick="closeModal('modalpromer', 'promercbo')" class="btn btn-secondary">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                @*MODAL DE PREDIO EN MERMA*@
+                <div class="modal modal-xl custom-modal" id="modalmerpre" tabindex="-1" role="dialog" aria-labelledby="modalpropreLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalpropreLabel">Predio</h5>
+                                <button type="button" onclick="closeModal('modalmerpre','merprecbo')" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body custom">
+                                <div class="container-fluid">
+
+                                    <table class="display" id="tablaMermaPre">
+                                        <thead>
+                                            <tr align="center" class="small">
+                                                <th class="client-cell text-center">Unidad Catastral</th>
+                                                <th class="client-cell text-center">Nro Sitio</th>
+                                                <th class="client-cell text-center">Fecha de Compra</th>
+                                                <th class="client-cell text-center">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodymerpre">
+                                            @foreach (var predio in ViewBag.Predios)
+                                            {
+                                                <tr>
+                                                    <td align="center" class="client-cell">@predio.unidC</td>
+                                                    <td align="center" class="client-cell">@predio.nroS</td>
+                                                    <td align="center" class="client-cell">@predio.fechC</td>
+                                                    <td align="center" class="client-cell">
+                                                        <button class="btn btn-primary" onclick="seleccionarMerPredio('modalmerpre','merprecbo','idprediomerma','merpreNombre','@predio.id', '@predio.unidC')">Seleccionar</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" onclick="closeModal('modalmerpre', 'merprecbo')" class="btn btn-secondary">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*MODAL DE CAMPAÑA EN MERMA*@
+                <div class="modal modal-xl custom-modal" id="modalcammer" tabindex="-1" role="dialog" aria-labelledby="modalcamproLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalcamproLabel">Campaña</h5>
+                                <button type="button" onclick="closeModal('modalcammer','cammercbo')" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body custom">
+                                <div class="container-fluid">
+
+                                    <table class="display" id="tablaCampanaMer">
+                                        <thead>
+                                            <tr align="center" class="small">
+                                                <th class="client-cell text-center">Cod Campaña</th>
+                                                <th class="client-cell text-center">Area</th>
+                                                <th class="client-cell text-center">Fecha de Inicio</th>
+                                                <th class="client-cell text-center">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodycammer">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" onclick="closeModal('modalcammer', 'cammercbo')" class="btn btn-secondary">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="tab-pane fade" id="detmer">
 
                     <div class="form-row mt-3 container-fluid">
                       
                         <div class="col-md-4">
+                            <div class="form-group row">
+
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Prod. Merma:</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="ProductomId" type="number" hidden>
+                                    <select id="promcbo" class="custom-select" data-modal-target="modalprom" onchange="SelectChange(this,'modalprom')">
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="ProductomNombre" class="spanproducto" style="display: none;"></span>
+                                        <span id="removeProductomSpan" class="equisproducto" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeProductom()">X</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Cantidad :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="cantpm" type="number" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Unid. Medida :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="umpm" readonly class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
 
                             <div class="col-sm-8 mt-0 ml-3 mr-3 mb-0">
-                                <button type="button" class="btn btn-success" >
+                                <button type="button" class="btn btn-success" onclick="agregarProductom()">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                         </div>
+
                         <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered m-0" id="">
                             <thead class="HeadTA">
                                 <tr>
@@ -172,25 +346,91 @@
                                     <td colspan="2" class="text-center">Opciones</td>
                                 </tr>
                             </thead>
-                            <tbody class="BodyTA" id="tipoArbolSeleccionadosExt">
+                            <tbody class="BodyTA" id="productosSeleccionadosm">
                             </tbody>
                         </table>
-
-
-
-
-
-
-
-
-
                     </div>
 
                 </div>
+                @* MODAL DE SELECCIONAR PRODUCTO PRODUCIDO *@
+                <div class="modal modal-xl custom-modal" id="modalprom" tabindex="-1" role="dialog" aria-labelledby="modalpromLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalproLabel">Producto</h5>
+                                <button type="button" onclick="closeModal('modalprom','promcbo')" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body custom">
+                                <div class="client-container">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                        </div>
+                                    </div>
+                                    <table class="display" id="tablaProductom">
+                                        <thead class="headProd">
 
+                                            <tr align="center">
+                                                <th class="client-cell text-center">Producto</th>
+                                                <th class="client-cell text-center">Precio</th>
+                                                <th class="client-cell text-center">Unidad de Medida</th>
+                                                <th class="client-cell text-center">Largo x Ancho x Altura</th>
+                                                <th class="client-cell text-center">Diametro</th>
+                                                <th class="client-cell text-center">Peso</th>
+                                                <th class="client-cell text-center">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodyProductom">
+                                            @foreach (var producto in ViewBag.Productosm)
+                                            {
+                                                <tr>
+                                                    <td align="center" class="client-cell">@producto.NombreProducto</td>
+                                                    <td align="center" class="client-cell">@(Math.Round(producto.Monto_ci, 2))</td>
+                                                    <td align="center" class="client-cell">@producto.um</td>
+                                                    <td align="center" class="client-cell">@producto.dimension</td>
+                                                    <td align="center" class="client-cell">@producto.diametro</td>
+                                                    <td align="center" class="client-cell">@producto.peso</td>
+                                                    <td align="center" class="client-cell">
+                                                        <button class="btn btn-primary" onclick="seleccionarProductom('modalprom','promcbo','ProductomId','ProductomNombre','@producto.IdProducto', '@producto.NombreProducto', '@producto.um')">Seleccionar</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" onclick="closeModal('modalprom','promcbo')" class="btn btn-secondary">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
-
+                <!-- Modal para editar cantidad y descuento -->
+                <div id="editarModalproductom" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title">Editar Producto</h2>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <label>Producto:</label>
+                                <input readonly id="Productominput" class="form-control">
+                                <input hidden id="IdEditarProductom" class="form-control">
+                                <label for="nuevaCantidadm">Nueva Cantidad:</label>
+                                <input type="number" id="nuevaCantidadm" class="form-control">
+                                <label for="nuevoDescuento">Observación:</label>
+                                <input type="text" id="observacionPm" class="form-control">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" onclick="aplicarCambiospm()" data-dismiss="modal">Guardar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="Trabajadormer">
 
                     <div class="form-row mt-4 container-fluid">
@@ -198,14 +438,14 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Empleado* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <select id="empextcbo" class="form-control form-control-sm mx-sm-3 mb-2 " data-modal-target="modalempext" onchange="SelectChange(this,'modalempext')">
+                                    <select id="empmercbo" class="form-control form-control-sm mx-sm-3 mb-2 " data-modal-target="modalempmer" onchange="SelectChange(this,'modalempmer')">
                                         <option selected value="none">Seleccionar opción</option>
                                         <option value="buscar">Buscar</option>
                                     </select>
-                                    <div hidden> <input id="empextId" type="number" /></div>
+                                    <div hidden> <input id="empmerId" type="number" /></div>
                                     <div style="display: flex; align-items: center;">
-                                        <span id="empextNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
-                                        <span class="btn btn-close" id="removeempextSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeempext()"></span>
+                                        <span id="empmerNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                        <span class="btn btn-close" id="removeempmerSpan" style="cursor: pointer; display: none; margin-left: 5px;" onclick="removeempmer()"></span>
                                     </div>
                                 </div>
                             </div>
@@ -213,7 +453,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Cargo* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input readonly id="categoriaempleado" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
+                                    <input readonly id="categoriaempleadomer" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
                                 </div>
 
 
@@ -225,7 +465,7 @@
 
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Nro. doc Ide* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input readonly id="nrodocempleado" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
+                                    <input readonly id="nrodocempleadomer" class="form-control form-control-sm mx-sm-3 mb-2 p-0">
                                 </div>
 
 
@@ -234,14 +474,11 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Condicion* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input readonly id="condicionempleado" class="form-control form-control-sm mx-sm-3 mb-2">
+                                    <input readonly id="condicionempleadomer" class="form-control form-control-sm mx-sm-3 mb-2">
                                 </div>
 
 
                             </div>
-
-
-
 
                         </div>
 
@@ -251,28 +488,20 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;">Teléfono* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input readonly id="telefonoempleado" class="form-control form-control-sm mx-sm-3 mb-2">
+                                    <input readonly id="celularempleadomer" class="form-control form-control-sm mx-sm-3 mb-2">
                                 </div>
-
-
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-8 mt-0 ml-3 mr-3 mb-0">
-                                    <button type="button" class="btn btn-success" onclick="agregarextemp()">
+                                    <button type="button" class="btn btn-success" onclick="agregarmeremp()">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
 
                             </div>
 
-
-
-
                         </div>
-
-
-
 
                         <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered m-0" id="">
                             <thead class="HeadTA">
@@ -287,17 +516,68 @@
                                     <td colspan="2" class="text-center">Opciones</td>
                                 </tr>
                             </thead>
-                            <tbody class="BodyTA" id="empSeleccionadosExt">
+                            <tbody class="BodyTA" id="empSeleccionadosMer">
                             </tbody>
                         </table>
 
                     </div>
+                </div>
+
+                @*MODAL DE EMPLEADOS EN PRODUCCION*@
+                <div class="modal modal-xl custom-modal" id="modalempmer" tabindex="-1" role="dialog" aria-labelledby="modalempproLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalempproLabel">Empleados de Merma</h5>
+                                <button type="button" onclick="closeModal('modalempmer','empmercbo')" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body custom">
+                                <div class="client-container">
+                                    <div class="row">
+
+                                        <table class="display" id="tablaempmer">
+                                            <thead>
+                                                <tr align="center">
+                                                    <th class="client-cell text-center">Empleado</th>
+                                                    <th class="client-cell text-center">Dirección</th>
+                                                    <th class="client-cell text-center">Teléfono</th>
+                                                    <th class="client-cell text-center">Cargo</th>
+                                                    <th class="client-cell text-center">Doc. Identidad</th>
+                                                    <th class="client-cell text-center">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bodyempmer">
+                                                @foreach (var EmpleadoVen in ViewBag.EmpMer)
+                                                {
+                                                    <tr>
+                                                        <td align="center" class="client-cell">@EmpleadoVen.NombreCompleto</td>
+                                                        <td align="center" class="client-cell">@EmpleadoVen.Direccion</td>
+                                                        <td align="center" class="client-cell">@EmpleadoVen.Telefono</td>
+                                                        <td align="center" class="client-cell">@EmpleadoVen.cargo</td>
+                                                        <td align="center" class="client-cell">@EmpleadoVen.Ruc</td>
+                                                        <td align="center" class="client-cell">
+                                                            <button class="btn btn-primary" onclick="seleccionarempmer('modalempmer','empmercbo','empmerId','empmerNombre','@EmpleadoVen.Idempleado', '@EmpleadoVen.NombreCompleto')">Seleccionar</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" onclick="closeModal('modalempmer','empmercbo')" class="btn btn-secondary">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
 
 
                 </div>
-
-
 
 
              </div>
@@ -309,3 +589,259 @@
 
     </div>
 </div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var tableE = jQuery('#tablaCampanaMer').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Campañas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Campañas",
+                    "infoFiltered": "(Filtrado de _MAX_ total Campañas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Campañas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+        );
+        var tableE = jQuery('#tablaMermaPre').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Predios",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Predios",
+                    "infoFiltered": "(Filtrado de _MAX_ total Predios)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Predios",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+        );
+        var tableE = jQuery('#tablaempmer').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Empleados",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Empleados",
+                    "infoFiltered": "(Filtrado de _MAX_ total Empleados)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Empleados",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+        );
+        var tableE = jQuery('#tablaProductom').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ productos",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Empleados",
+                    "infoFiltered": "(Filtrado de _MAX_ total productos)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ productos",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+        );
+        var tableE = jQuery('#tablaProduccionMer').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Producciones",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Producciones",
+                    "infoFiltered": "(Filtrado de _MAX_ total Producciones)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Producciones",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+
+        );
+
+        var merma= @Html.Raw(Json.Serialize(ViewBag.Merma));
+        var detalles = @Html.Raw(Json.Serialize(ViewBag.Detalles));
+        var empleados = @Html.Raw(Json.Serialize(ViewBag.Empleados));
+        var CompParsed = JSON.parse(merma);
+        var detallesParsed = JSON.parse(detalles);
+        var empleadosParsed = JSON.parse(empleados);
+
+        if (CompParsed !== null) {
+            console.log(CompParsed);
+
+            detallesParsed.forEach(function (detalle) {
+                var campTA = {
+                    idProducto: detalle.id,
+                    nombreProducto: detalle.np,
+                    cu: detalle.cu,
+                    cantidad: detalle.can,
+                    um: detalle.um,
+                    total: detalle.total,
+                    tipormerma: detalle.obs
+                };
+                ListadoProductosmSeleccionados.push(campTA);
+            });
+
+            empleadosParsed.forEach(function (detalle) {
+                var campTA = {
+                    idempleado: detalle.idempleado,
+                    txtempleado: detalle.txtempleado,
+                    celular: detalle.telefono,
+                    //salario: detalle.salario,
+                    nrodoc: detalle.nrodoc,
+                    categoria: detalle.categoria,
+                    condicion: detalle.condicion,
+                };
+                arreglomeremp.push(campTA);
+            });
+            actualizarTablaProductosSeleccionadosm();
+
+            actualizartablameremp();
+            $.ajax({
+                url: '/Pret16Merma/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+                type: 'GET',
+                success: function (response) {
+                    if (response.id == 3) {
+                        document.getElementById('moodNameMer').innerText = response.name;
+                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                        $('#checkEstadoMerma').prop('checked', true);
+                        $('#checkEstadoMerma').prop('disabled', false);
+
+                    } else if (response.id == 4) {
+                        document.getElementById('moodNameMer').innerText = response.name;
+                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                        $('#checkEstadoMerma').prop('checked', true);
+                        $('#checkEstadoMerma').prop('disabled', true);
+                    }
+                }
+            });
+
+            //PRODUCCIÓN
+            if (CompParsed.idpro != null) {
+
+                var inversionistaNombreSpan = document.getElementById('promerNombre');
+                var removeInversionistaSpan = document.getElementById('removePromerSpan');
+                inversionistaNombreSpan.innerText = CompParsed.codigo;
+                inversionistaNombreSpan.style.display = 'inline-block';
+                removeInversionistaSpan.style.display = 'inline-block';
+                // Ocultar el seleCAMPEXT
+                var selectElement = document.getElementById('promercbo');
+                selectElement.style.display = 'none';
+                //Predio
+                document.getElementById('idprediomerma').value = CompParsed.idp;
+                var CargadorNombreSpan = document.getElementById('merpreNombre');
+                /*var removeCargadorSpan = document.getElementById('removepropreSpan');*/
+                CargadorNombreSpan.innerText = CompParsed.predio;
+                CargadorNombreSpan.style.display = 'inline-block';
+                /*removeCargadorSpan.style.display = 'inline-block';*/
+                //Ocultar Select
+                var selectElement = document.getElementById('merprecbo');
+                selectElement.style.display = 'none';
+
+                //Campaña
+                document.getElementById('idcampanamerma').value = CompParsed.idc;
+
+                var CampNombreSpan = document.getElementById('cammerNombre');
+                /* var removeCampSpan = document.getElementById('removecamproSpan');*/
+                CampNombreSpan.innerText = CompParsed.campana;
+                CampNombreSpan.style.display = 'inline-block';
+                /* removeCampSpan.style.display = 'inline-block';*/
+                // Ocultar el select
+                var selectElement = document.getElementById('cammercbo');
+                selectElement.style.display = 'none';
+            } else {
+                //PREDIO
+                document.getElementById('idprediomerma').value = CompParsed.idp;
+                var PredioNombreSpan = document.getElementById('merpreNombre');
+                var removePredioSpan = document.getElementById('removemerpreSpan');
+                PredioNombreSpan.innerText = CompParsed.predio;
+                PredioNombreSpan.style.display = 'inline-block';
+                removePredioSpan.style.display = 'inline-block';
+                // Ocultar el select
+                var selectPredio = document.getElementById('merprecbo');
+                selectPredio.style.display = 'none';
+
+                //CAMPAÑA
+                document.getElementById('idcampanamerma').value = CompParsed.idc;
+                var CampanaNombreSpan = document.getElementById('cammerNombre');
+                var removeCampanaSpan = document.getElementById('removecammerSpan');
+                CampanaNombreSpan.innerText = CompParsed.campana;
+                CampanaNombreSpan.style.display = 'inline-block';
+                removeCampanaSpan.style.display = 'inline-block';
+                // Ocultar el select
+                var selectCampana= document.getElementById('cammercbo');
+                selectCampana.style.display = 'none';
+            }
+        } else {
+
+            document.getElementById("fechamer").value = returndatenow();
+        }
+    });
+
+</script>

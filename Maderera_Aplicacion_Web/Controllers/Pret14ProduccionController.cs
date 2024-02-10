@@ -82,6 +82,8 @@ namespace Maderera_Aplicacion_Web.Controllers
                         Ruc = String.IsNullOrEmpty(e.NroRuc) ? e.NroDoc : e.NroRuc
                     })
                     .ToList();
+            ViewBag.EmpPro = empleadosventas;
+
             ViewBag.Extraccionpro = _context.Pret07Extraccions.Select(c => new
             {
                 id = c.IdExtraccion,
@@ -91,7 +93,6 @@ namespace Maderera_Aplicacion_Web.Controllers
             })
                    .ToList();
 
-            ViewBag.EmpPro = empleadosventas;
             var Predios = _context.Pret01Predios
                     .Where(e => e.IdEstado == 1)
                     .Select(e => new
@@ -139,6 +140,8 @@ namespace Maderera_Aplicacion_Web.Controllers
             IdTemporal = null;
             IdTemporalCampana = null;
             IdTemporalPredio = null;
+            IdTemporalExtraccion = null;
+            IdTemporalIns = null;
             var Produccion = _context.Pret14Produccions
             .Include(t => t.IdExtraccionNavigation)
             .Include(t => t.IdPredioNavigation)

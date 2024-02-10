@@ -21,6 +21,8 @@ namespace Maderera_Aplicacion_Web.Models
             Pret11RecepcionIdUsuarioNavigations = new HashSet<Pret11Recepcion>();
             Pret14ProduccionIdUsuarioModificadorNavigations = new HashSet<Pret14Produccion>();
             Pret14ProduccionIdUsuarioNavigations = new HashSet<Pret14Produccion>();
+            Pret16MermaIdUsuarioModificadorNavigations = new HashSet<Pret16Merma>();
+            Pret16MermaIdUsuarioNavigations = new HashSet<Pret16Merma>();
             Tnst01CompRecibidos = new HashSet<Tnst01CompRecibido>();
             Tnst04CompEmitidoIdUsuarioModificadorNavigations = new HashSet<Tnst04CompEmitido>();
             Tnst04CompEmitidoIdUsuarioNavigations = new HashSet<Tnst04CompEmitido>();
@@ -36,7 +38,6 @@ namespace Maderera_Aplicacion_Web.Models
         public int? IdEstado { get; set; }
         public string? TxtEstado { get; set; }
         public long IdEmpleado { get; set; }
-
         public virtual Pert04Empleado IdEmpleadoNavigation { get; set; } = null!;
         public virtual ICollection<Pert11PagoPersonal> Pert11PagoPersonals { get; set; }
         public virtual ICollection<Pret01Predio> Pret01PredioIdUsuarioModificadorNavigations { get; set; }
@@ -51,6 +52,8 @@ namespace Maderera_Aplicacion_Web.Models
         public virtual ICollection<Pret11Recepcion> Pret11RecepcionIdUsuarioNavigations { get; set; }
         public virtual ICollection<Pret14Produccion> Pret14ProduccionIdUsuarioModificadorNavigations { get; set; }
         public virtual ICollection<Pret14Produccion> Pret14ProduccionIdUsuarioNavigations { get; set; }
+        public virtual ICollection<Pret16Merma> Pret16MermaIdUsuarioModificadorNavigations { get; set; }
+        public virtual ICollection<Pret16Merma> Pret16MermaIdUsuarioNavigations { get; set; }
         public virtual ICollection<Tnst01CompRecibido> Tnst01CompRecibidos { get; set; }
         public virtual ICollection<Tnst04CompEmitido> Tnst04CompEmitidoIdUsuarioModificadorNavigations { get; set; }
         public virtual ICollection<Tnst04CompEmitido> Tnst04CompEmitidoIdUsuarioNavigations { get; set; }

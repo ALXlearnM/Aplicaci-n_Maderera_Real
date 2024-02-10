@@ -22,11 +22,11 @@
                     <dd>
                         @if (!string.IsNullOrEmpty(Model.NroEnvio))
                         {
-                            <input type="text" value="@Model.NroEnvio" readonly />
+                            <input type="text" value="@Model.NroEnvio" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -37,11 +37,11 @@
                     <dd>
                         @if (!string.IsNullOrEmpty(Model.TxtNro))
                         {
-                            <input type="text" value="@Model.TxtNro" readonly />
+                            <input type="text" value="@Model.TxtNro" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -52,11 +52,11 @@
                     <dd>
                         @if (!string.IsNullOrEmpty(Model.TxtSerie))
                         {
-                            <input type="text" value="@Model.TxtSerie" readonly />
+                            <input type="text" value="@Model.TxtSerie" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -67,11 +67,11 @@
                     <dd>
                         @if (Model.EnvioCant != null)
                         {
-                            <input type="text" value="@Model.EnvioCant" readonly />
+                            <input type="text" value="@Model.EnvioCant" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -82,11 +82,11 @@
                     <dd>
                         @if (Model.FechaEnvio != null)
                         {
-                            <input type="text" value="@Model.FechaEnvio.ToString("yyyy-MM-dd")" readonly />
+                            <input type="text" value="@Model.FechaEnvio.ToString("yyyy-MM-dd")" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -105,11 +105,11 @@
                     <dd>
                         @if (!string.IsNullOrEmpty(Model.TxtEstado))
                         {
-                            <input type="text" value="@Model.TxtEstado" readonly />
+                            <input type="text" value="@Model.TxtEstado" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -120,11 +120,11 @@
                     <dd>
                         @if (!string.IsNullOrEmpty(Model.TxtUsuario))
                         {
-                            <input type="text" value="@Model.TxtUsuario" readonly />
+                            <input type="text" value="@Model.TxtUsuario" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -135,11 +135,11 @@
                     <dd>
                         @if (!string.IsNullOrEmpty(Model.TxtUsuarioModificador))
                         {
-                            <input type="text" value="@Model.TxtUsuarioModificador" readonly />
+                            <input type="text" value="@Model.TxtUsuarioModificador" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -150,11 +150,11 @@
                     <dd>
                         @if (Model.FechaModificacion != null)
                         {
-                            <input type="text" value="@Model.FechaModificacion" readonly />
+                            <input type="text" value="@Model.FechaModificacion" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -174,11 +174,11 @@
                     <dd>
                         @if (Model.IdExtraccionNavigation != null && Model.IdExtraccionNavigation.IdExtraccion != null)
                         {
-                            <input type="text" value="@Model.IdExtraccionNavigation.IdExtraccion" readonly />
+                            <input type="text" value="@Model.IdExtraccionNavigation.IdExtraccion" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -189,11 +189,11 @@
                     <dd>
                         @if (Model.IdLocationNavigation != null && Model.IdLocationNavigation.IdLocation != null)
                         {
-                            <input type="text" value="@Model.IdLocationNavigation.IdLocation" readonly />
+                            <input type="text" value="@Model.IdLocationNavigation.IdLocation" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
@@ -204,44 +204,16 @@
                     <dd>
                         @if (Model.IdLocationToNavigation != null && Model.IdLocationToNavigation.IdLocation != null)
                         {
-                            <input type="text" value="@Model.IdLocationToNavigation.IdLocation" readonly />
+                            <input type="text" value="@Model.IdLocationToNavigation.IdLocation" disabled />
                         }
                         else
                         {
-                            <input class="form-control" placeholder="No tiene" disabled>
+                            <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
                 </div>
-                <div class="col-sm-12">
-                    <dt>
-                        Usuario Modificador:
-                    </dt>
-                    <dd>
-                        @if (Model.IdUsuarioModificadorNavigation != null && Model.IdUsuarioModificadorNavigation.IdUsuario != null)
-                        {
-                            <input type="text" value="@Model.IdUsuarioModificadorNavigation.IdUsuario" readonly />
-                        }
-                        else
-                        {
-                            <input class="form-control" placeholder="No tiene" disabled>
-                        }
-                    </dd>
-                </div>
-                <div class="col-sm-12">
-                    <dt>
-                       Usuario:
-                    </dt>
-                    <dd>
-                        @if (Model.IdUsuarioNavigation != null && Model.IdUsuarioNavigation.IdUsuario != null)
-                        {
-                            <input type="text" value="@Model.IdUsuarioNavigation.IdUsuario" readonly />
-                        }
-                        else
-                        {
-                            <input class="form-control" placeholder="No tiene" disabled>
-                        }
-                    </dd>
-                </div>
+            
+               
                 
             </dl>
         

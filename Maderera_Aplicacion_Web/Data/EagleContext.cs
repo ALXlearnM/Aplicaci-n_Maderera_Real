@@ -5328,6 +5328,10 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasColumnType("date")
                     .HasColumnName("fecha_merma");
 
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
                 entity.Property(e => e.IdCampana).HasColumnName("id_campana");
 
                 entity.Property(e => e.IdEstado).HasColumnName("id_estado");
@@ -5335,6 +5339,15 @@ namespace Maderera_Aplicacion_Web.Data
                 entity.Property(e => e.IdPredio).HasColumnName("id_predio");
 
                 entity.Property(e => e.IdProduccion).HasColumnName("id_produccion");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuarioModificador).HasColumnName("id_usuario_modificador");
+
+                entity.Property(e => e.NroMer)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("nro_mer");
 
                 entity.Property(e => e.TipoMerma)
                     .HasMaxLength(100)
@@ -5345,6 +5358,16 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("txt_estado");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuarioModificador)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario_modificador");
 
                 entity.HasOne(d => d.IdCampanaNavigation)
                     .WithMany(p => p.Pret16Mermas)
@@ -5362,6 +5385,17 @@ namespace Maderera_Aplicacion_Web.Data
                     .WithMany(p => p.Pret16Mermas)
                     .HasForeignKey(d => d.IdProduccion)
                     .HasConstraintName("FK__PREt16_Me__id_pr__274FAE79");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Pret16MermaIdUsuarioNavigations)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_usu_mer");
+
+                entity.HasOne(d => d.IdUsuarioModificadorNavigation)
+                    .WithMany(p => p.Pret16MermaIdUsuarioModificadorNavigations)
+                    .HasForeignKey(d => d.IdUsuarioModificador)
+                    .HasConstraintName("fk_usumod_mer");
             });
 
             modelBuilder.Entity<Pret16TipoDireccion>(entity =>
@@ -5452,11 +5486,11 @@ namespace Maderera_Aplicacion_Web.Data
 
                 entity.Property(e => e.IdMerma).HasColumnName("id_merma");
 
-                entity.Property(e => e.IdProducto).HasColumnName("id_producto");
-
                 entity.Property(e => e.IdProductoMer).HasColumnName("id_productoMer");
 
                 entity.Property(e => e.IdUmMer).HasColumnName("id_umMer");
+
+                entity.Property(e => e.TotalMer).HasColumnName("total_mer");
 
                 entity.Property(e => e.TxtComentario)
                     .HasMaxLength(300)
