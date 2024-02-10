@@ -1,4 +1,6 @@
-﻿<div class="container-fluid">
+﻿@model IEnumerable<Maderera_Aplicacion_Web.Models.Pret16Merma>
+
+<div class="container-fluid">
     <div class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between w-100">
             <div class="mt-3">
@@ -31,24 +33,19 @@
                         </th>
 
                         <th class="text-center">
-                            bbbb
+                            Nro Merma
                         </th>
                         <th class="text-center">
-                            cccc
+                            Producción
                         </th>
                         <th class="text-center">
-                            dddd
+                            Predio
                         </th>
                         <th class="text-center">
-                            eeeee
-                        </th>
-
-
-                        <th class="text-center">
-                            fffff
+                            Campaña
                         </th>
                         <th class="text-center">
-                            gggg
+                            Estado
                         </th>
 
                         <th class="text-center">
@@ -57,51 +54,55 @@
                     </tr>
                 </thead>
                 <tbody>
-                   @* @foreach (var item in ViewBag.ListadoExtraccion)
+                   @foreach (var item in Model)
                     {
                         <tr>
                             <td class="text-center">
-                                @item.FechaExtraccion.ToString("dd/MM/yyyy")
+                                @item.FechaMerma
                             </td>
                             <td class="text-center">
-                                @item.NroArbolesTotal
+                                @item.NroMer
                             </td>
                             <td class="text-center">
-                                @item.NroTrozosTotal
+                                @(item.IdProduccion == null ? "Ninguna": item.IdProduccionNavigation.NroPro)
                             </td>
                             <td class="text-center">
-                                @item.DiamProTotal
+                                @item.IdPredioNavigation.UnidadCatastral
                             </td>
-                            <td class="text-center">
-                                @item.AltArbolProTotal
-                            </td>
-
-
                             <td class="text-center">
                                 @item.IdCampanaNavigation.CodigoCampana
                             </td>
                             <td class="text-center">
-                                @item.IdCampanaNavigation.IdPredioNavigation.UnidadCatastral
+                                @item.TxtEstado
                             </td>
                             <td>
-                                <a asp-controller="Pret07Extraccion" asp-action="EditarExtraccion" asp-route-idextraccion="@item.IdExtraccion" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-edit" data-placement="top" title="Edit"></i>
-                                </a> |
-
-                                <a asp-controller="Pret07Extraccion" asp-action="Details" asp-route-idextraccion="@item.IdExtraccion" class="btn btn-info btn-sm">
+                                @if (item.IdEstado == 3)
+                                {
+                                    <a asp-controller="Pret16Merma" asp-action="EditarMerma" asp-route-idmerma="@item.IdMerma" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-edit" data-placement="top" title="Edit"></i>
+                                </a> 
+                                <text>|</text>
+                                }
+                                <a asp-controller="Pret16Merma" asp-action="Details" asp-route-idmerma="@item.IdMerma" class="btn btn-info btn-sm">
                                     <i class="fas fa-eye" data-placement="top" title="Details"></i>
-                                </a> |
+                                </a> 
+                                @if (item.IdEstado == 3)
+                                {
+                                    <text>|</text>
 
 
-                                <!-- Botón que activa el modal -->
-                                <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarEliminarModal">
-                                    <i class="fas fa-trash alt"></i>
 
-                                </a>
+                                    @* < !--Botón que activa el modal --> *@
+
+                                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarEliminarMerma" data-id="@item.IdMerma">
+                                        <i class="fas fa-trash alt"></i>
+
+                                    </a>
+                                }
 
 
                                 <!-- Modal de advertencia -->
-                                <div class="modal" id="confirmarEliminarModal" tabindex="-1" role="dialog">
+                                <div class="modal" id="confirmarEliminarMerma" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -115,28 +116,49 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <!-- Botón de cancelar -->
-                                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
-                                                <!-- Botón de confirmar eliminación -->
-                                                <a id="btnEliminarExtraccion" data-toggle="modal" data-target="#modalEliminar" data-idextraccion="@item.IdExtraccion" class="btn btn-danger btn-sm">
-                                                    Eliminar
-                                                </a>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-danger" onclick="eliminarMerma()">Eliminar</button>
+
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
 
-*@
+                                @if (item.IdEstado == 4)
+                                {
+                                    <text>|</text>
+
+                                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarAnularMerma" data-id="@item.IdMerma">
+                                        <i class="fas fa-ban"></i>
+
+                                    </a>
+                                }
+                                <div class="modal fade" id="confirmarAnularMerma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmar Anulación</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de que desea anular esta merma?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-danger" onclick="anularMerma()">Anular</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
-
-
-
-
-
-                     @*       </td>
+                        </td>
                         </tr>
-                    }*@
+                    }
                 </tbody>
             </table>
 
@@ -155,12 +177,12 @@
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
-                    "info": "Mostrando START a END de TOTAL Merma",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Merma",
                     "infoEmpty": "Mostrando 0 to 0 of 0 Merma",
-                    "infoFiltered": "(Filtrado de MAX total Producciones)",
+                    "infoFiltered": "(Filtrado de _MAX_ total Producciones)",
                     "infoPostFix": "",
                     "thousands": ",",
-                    "lengthMenu": "Mostrar MENU Merma",
+                    "lengthMenu": "Mostrar _MENU_ Merma",
                     "loadingRecords": "Cargando...",
                     "processing": "Procesando...",
                     "search": "Buscar:",

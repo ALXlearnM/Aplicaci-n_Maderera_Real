@@ -9950,8 +9950,6 @@ $(document).ready(function () {
     });
 });
 
-
-
 //Cargar CARGADOR EN TABLA CARGADOR
 function cargarDatosCamPro() {
     $.ajax({
@@ -10842,6 +10840,1058 @@ function anularProduccion() {
         success: function (response) {
             if (response.mensaje == null) {
                 $('#confirmarAnularProduccion').modal('hide');
+
+                window.location.href = response.redirectUrl;
+
+            } else {
+
+
+            }
+        },
+        error: function (error) {
+            console.error('Error al intentar eliminar', error.responseText);
+        }
+    });
+}
+
+
+
+
+//MERMA
+
+
+//Producción
+$(document).ready(function () {
+    $('#modalpromer').on('hidden.bs.modal', function () {
+        $('#promercbo').prop('selectedIndex', 0);
+        cargarDatospromer();
+    });
+});
+
+
+// CARGAR INVERSIONISTA EN TABLA INVERSIONISTA
+function cargarDatospromer() {
+    $.ajax({
+        url: '/Pret16Merma/Recargarpromer',
+        type: 'GET',
+        success: function (response) {
+            // Limpia el tbody actual
+            $('#bodypromer').empty();
+            $.each(response, function (index, extraccionenv) {
+                var fechaFormateada = new Date(extraccionenv.fechaini).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+                var row = $('<tr>');
+                row.append('<td align="center" class="client-cell">' + extraccionenv.codigo + '</td>');
+                row.append('<td align="center" class="client-cell">' + extraccionenv.nrositio + '</td>');
+                row.append('<td align="center" class="client-cell">' + fechaFormateada + '</td>');
+
+                var button = $('<button>').addClass('btn btn-primary')
+                    .text('Seleccionar')
+                    .on('click', function () {
+                        seleccionarpromer('modalpromer', 'promercbo', extraccionenv.id, extraccionenv.codigo);
+                    });
+
+                row.append($('<td>').addClass('client-cell text-center').append(button));
+
+                // Append the row to the tbody
+                $('#bodypromer').append(row);
+
+            });
+
+        },
+
+        error: function (error) {
+            console.error('Error al cargar los datos de la campaña:', error.responseText);
+        }
+    });
+
+}
+
+
+// Cargar la selección de Inversionista
+function seleccionarpromer(modalId, selectId, idextenv, nombrecampext) {
+    event.preventDefault();
+    $.ajax({
+        url: '/Pret16Merma/VerificarPro',
+        type: 'GET',
+        data: { idPro: idextenv },
+        success: function (response) {
+            //Predio
+            document.getElementById('idprediomerma').value = response.idP;
+            var CargadorNombreSpan = document.getElementById('merpreNombre');
+            /*var removeCargadorSpan = document.getElementById('removepropreSpan');*/
+            CargadorNombreSpan.innerText = response.nrositio;
+            CargadorNombreSpan.style.display = 'inline-block';
+            /*removeCargadorSpan.style.display = 'inline-block';*/
+            //Ocultar Select
+            var selectElement = document.getElementById('merprecbo');
+            selectElement.style.display = 'none';
+
+            //Campaña
+            document.getElementById('idcampanamerma').value = response.idC;
+            var CampNombreSpan = document.getElementById('cammerNombre');
+            /* var removeCampSpan = document.getElementById('removecamproSpan');*/
+            CampNombreSpan.innerText = response.codigo;
+            CampNombreSpan.style.display = 'inline-block';
+            /* removeCampSpan.style.display = 'inline-block';*/
+            // Ocultar el select
+            var selectElement = document.getElementById('cammercbo');
+            selectElement.style.display = 'none';
+
+            console.log('Valor de idtemporalCampana:', response.idtemporalExtraccion);
+
+        },
+        error: function (error) {
+            console.error('Error al cargar los datos de la campaña de extracción:', error.responseText);
+            reject(error);
+        }
+    });
+    closeModal(modalId, selectId);
+    // Mostrar el span con el nombre del inversionista y el botón para remover
+    var inversionistaNombreSpan = document.getElementById('promerNombre');
+    var removeInversionistaSpan = document.getElementById('removePromerSpan');
+    inversionistaNombreSpan.innerText = nombrecampext;
+    inversionistaNombreSpan.style.display = 'inline-block';
+    removeInversionistaSpan.style.display = 'inline-block';
+    // Ocultar el seleCAMPEXT
+    var selectElement = document.getElementById('promercbo');
+    selectElement.style.display = 'none';
+
+    cargarDatospromer();
+
+}
+
+// El span inversionista para volver al select
+function removepromer() {
+    event.preventDefault();
+    // Quitar el valor del inversionista y ocultar el span
+    document.getElementById('promerNombre').innerText = '';
+    document.getElementById('promerNombre').style.display = 'none';
+    document.getElementById('removePromerSpan').style.display = 'none';
+    removeMerPre();
+    var selectElement = document.getElementById('promercbo');
+    selectElement.style.display = 'inline-block';
+    $.ajax({
+        url: "/Pret16Merma/removeIdTemporalPro",
+        type: "GET",
+        success: function (response) {
+            if (response.mensaje == null) {
+            } else {
+                alert(response.mensaje);
+            }
+        },
+        error: function (response) {
+        }
+    });
+    cargarDatospromer();
+}
+
+//PREDIO
+
+//Proceso para cerrar la ventana modal CARGADOR
+$(document).ready(function () {
+    $('#modalmerpre').on('hidden.bs.modal', function () {
+        $('#merprecbo').prop('selectedIndex', 0);
+        cargarDatosMerPre();
+    });
+});
+
+
+
+//Cargar CARGADOR EN TABLA CARGADOR
+function cargarDatosMerPre() {
+    $.ajax({
+        url: '/Pret16Merma/RecargarPredio', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'GET',
+        success: function (response) {
+            /*console.log('Cargador:', response);*/
+            $('#bodymerpre').empty();
+
+            // Iterate through the updated cargador data and append rows to tbody
+            $.each(response, function (index, predio) {
+                var fechaFormateada = new Date(predio.fechC).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                var row = $('<tr>');
+                row.append('<td align="center" class="client-cell">' + predio.unidC + '</td>');
+                row.append('<td align="center" class="client-cell">' + predio.nroS + '</td>');
+                row.append('<td align="center" class="client-cell">' + fechaFormateada + '</td>');
+                row.append('<td align="center" class="client-cell">' +
+                    '<button class="btn btn-primary" onclick="seleccionarMerPredio(\'modalmerpre\',\'merprecbo\',\'idprediomerma\',\'merpreNombre\',\'' +
+                    predio.id + '\', \'' + predio.unidC + '\')">Seleccionar</button>' +
+                    '</td>');
+
+                $('#bodymerpre').append(row);
+            });
+        },
+        error: function (error) {
+            console.error('Error al cargar los datos del Cargador:', error.responseText);
+        }
+    });
+}
+
+
+//Cargar la selección de CARGADOR
+function seleccionarMerPredio(modalId, selectId, idcod, idtext, idPredio, UnidCatastral) {
+    event.preventDefault();
+    var PredioIdInput = document.getElementById(idcod);
+    PredioIdInput.value = idPredio;
+    document.getElementById(idtext).innerText = UnidCatastral;
+    closeModal(modalId, selectId);
+    // Mostrar el span con el nombre del cliente y el botón para remover
+    var CargadorNombreSpan = document.getElementById('merpreNombre');
+    var removeCargadorSpan = document.getElementById('removemerpreSpan');
+    CargadorNombreSpan.innerText = UnidCatastral;
+    CargadorNombreSpan.style.display = 'inline-block';
+    removeCargadorSpan.style.display = 'inline-block';
+    // Ocultar el select
+    var selectElement = document.getElementById('merprecbo');
+    selectElement.style.display = 'none';
+    $.ajax({
+        url: '/Pret16Merma/Recargarcampanas', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'GET',
+        data: { IdPredio: idPredio }, // Asegúrate de tener la lista de IDs que quieres enviar
+        traditional: true,
+        success: function (response) {
+            /*console.log('Chofere:', response);*/
+            // Limpia el tbody actual
+            $('#bodycammer').empty();
+            $.each(response, function (index, campanas) {
+                var fechaFormateada = new Date(campanas.fechI).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+                var row = $('<tr>');
+                row.append('<td align="center" class="client-cell">' + campanas.codC + '</td>');
+                row.append('<td align="center" class="client-cell">' + parseFloat(campanas.area).toFixed(2) + '</td>');
+                row.append('<td align="center" class="client-cell">' + fechaFormateada + '</td>');
+                row.append('<td align="center" class="client-cell">' +
+                    '<button class="btn btn-primary" onclick="seleccionarMerCampana(\'modalcammer\',\'cammercbo\',\'idcampanamerma\',\'cammerNombre\',\'' +
+                    campanas.id + '\', \'' + campanas.codC + '\')">Seleccionar</button>' +
+                    '</td>');
+                $('#bodycammer').append(row);
+            });
+
+        },
+        error: function (error) {
+            console.error('Error al cargar los datos del empleado envío:', error.responseText);
+        }
+    });
+
+}
+
+//El span CARGADOR para volver al select
+function removeMerPre() {
+    // Quitar el valor del cliente y ocultar el span
+    document.getElementById('merpreNombre').innerText = '';
+    document.getElementById('idprediomerma').value = '';
+    document.getElementById('merpreNombre').style.display = 'none';
+    document.getElementById('removemerpreSpan').style.display = 'none';
+    var selectElement = document.getElementById('merprecbo');
+    selectElement.style.display = 'inline-block';
+    $.ajax({
+        url: '/Pret16Merma/RemovePredio', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'GET',
+        success: function () {
+            /*console.log('Chofere:', response);*/
+            // Limpia el tbody actual
+            $('#bodycammer').empty();
+            removeCamMer();
+
+        },
+        error: function (error) {
+            console.error('Error al cargar los datos del empleado envío:', error.responseText);
+        }
+    });
+
+}
+
+//CAMPAÑA
+
+//Proceso para cerrar la ventana modal CARGADOR
+$(document).ready(function () {
+    $('#modalcammer').on('hidden.bs.modal', function () {
+        $('#cammercbo').prop('selectedIndex', 0);
+        cargarDatosCamMer();
+    });
+});
+
+//Cargar CARGADOR EN TABLA CARGADOR
+function cargarDatosCamMer() {
+    $.ajax({
+        url: '/Pret16Merma/Recargarcampanas', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'GET',
+        data: { IdPredio: null }, // Asegúrate de tener la lista de IDs que quieres enviar
+        traditional: true,
+        success: function (response) {
+            /*console.log('Chofere:', response);*/
+            // Limpia el tbody actual
+            $('#bodycammer').empty();
+            $.each(response, function (index, campanas) {
+                var fechaFormateada = new Date(campanas.fechI).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+                var row = $('<tr>');
+                row.append('<td align="center" class="client-cell">' + campanas.codC + '</td>');
+                row.append('<td align="center" class="client-cell">' + campanas.area + '</td>');
+                row.append('<td align="center" class="client-cell">' + fechaFormateada + '</td>');
+                row.append('<td align="center" class="client-cell">' +
+                    '<button class="btn btn-primary" onclick="seleccionarMerCampana(\'modalcammer\',\'cammercbo\',\'idcampanamerma\',\'cammerNombre\',\'' +
+                    campanas.id + '\', \'' + campanas.codC + '\')">Seleccionar</button>' +
+                    '</td>');
+                $('#bodycammer').append(row);
+            });
+
+        },
+        error: function (error) {
+            console.error('Error al cargar los datos del empleado envío:', error.responseText);
+        }
+    });
+}
+
+
+//Cargar la selección de CARGADOR
+function seleccionarMerCampana(modalId, selectId, idcod, idtext, idCampana, codC) {
+    event.preventDefault();
+    var PredioIdInput = document.getElementById(idcod);
+    PredioIdInput.value = idCampana;
+    document.getElementById(idtext).innerText = codC;
+    closeModal(modalId, selectId);
+    // Mostrar el span con el nombre del cliente y el botón para remover
+    var CargadorNombreSpan = document.getElementById('cammerNombre');
+    var removeCargadorSpan = document.getElementById('removecammerSpan');
+    CargadorNombreSpan.innerText = codC;
+    CargadorNombreSpan.style.display = 'inline-block';
+    removeCargadorSpan.style.display = 'inline-block';
+    // Ocultar el select
+    var selectElement = document.getElementById('cammercbo');
+    selectElement.style.display = 'none';
+    $.ajax({
+        url: '/Pret16Merma/SelecCampana', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'GET',
+        data: { idCampana: idCampana }, // Asegúrate de tener la lista de IDs que quieres enviar
+        traditional: true,
+        success: function (response) {
+            console.log(response);
+
+        },
+        error: function (error) {
+            console.error('Error al cargar los datos del empleado envío:', error.responseText);
+        }
+    });
+
+}
+
+//El span CARGADOR para volver al select
+function removeCamMer() {
+    // Quitar el valor del cliente y ocultar el span
+    document.getElementById('cammerNombre').innerText = '';
+    document.getElementById('idcampanamerma').value = '';
+    document.getElementById('cammerNombre').style.display = 'none';
+    document.getElementById('removecammerSpan').style.display = 'none';
+    var selectElement = document.getElementById('cammercbo');
+    selectElement.style.display = 'inline-block';
+    $.ajax({
+        url: '/Pret16Merma/RemoveCampana', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'GET',
+        success: function () {
+
+        },
+        error: function (error) {
+            console.error('Error al cargar los datos del empleado envío:', error.responseText);
+        }
+    });
+}
+
+
+
+
+//empleado merma
+
+//merceso para cerrar la ventana modal CHOFER
+$(document).ready(function () {
+    $('#modalempmer').on('hidden.bs.modal', function () {
+        $('#empmercbo').prop('selectedIndex', 0);
+
+        cargarDatosempmer();
+    });
+    $('#modalempmer').on('show.bs.modal', function () {
+
+        cargarDatosempmer();
+    });
+});
+
+
+
+//CARGAR CHOFER EN TABLA CHOFER
+function cargarDatosempmer() {
+    var idsempleado = arreglomeremp.map(function (campaña) {
+        return campaña.idempleado;
+    });
+    $.ajax({
+        url: '/Pret16Merma/Recargarempmer', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'GET',
+        data: { listaIds: idsempleado }, // Asegúrate de tener la lista de IDs que quieres enviar
+        traditional: true,
+        success: function (response) {
+            /*console.log('Chofere:', response);*/
+            // Limpia el tbody actual
+            $('#bodyempmer').empty();
+            $.each(response, function (index, EmpleadoMer) {
+                var row = $('<tr>');
+                row.append('<td align="center" class="client-cell">' + EmpleadoMer.nombreCompleto + '</td>');
+                row.append('<td align="center" class="client-cell">' + EmpleadoMer.direccion + '</td>');
+                row.append('<td align="center" class="client-cell">' + EmpleadoMer.cargo + '</td>');
+                row.append('<td align="center" class="client-cell">' + EmpleadoMer.telefono + '</td>');
+                row.append('<td align="center" class="client-cell">' + EmpleadoMer.ruc + '</td>');
+                row.append('<td align="center" class="client-cell">' +
+                    '<button class="btn btn-primary" onclick="seleccionarempmer(\'modalempmer\',\'empmercbo\',\'empmerId\',\'empmerNombre\',\'' +
+                    EmpleadoMer.idempleado + '\', \'' + EmpleadoMer.nombreCompleto + '\')">Seleccionar</button>' +
+                    '</td>');
+                  
+                $('#bodyempmer').append(row);
+            });
+
+        },
+        error: function (error) {
+            console.error('Error al cargar los datos del empleado envío:', error.responseText);
+        }
+    });
+}
+
+function seleccionarempmer(modalId, selectId, idcod, idtext, idempven, nombreempven) {
+    event.preventDefault();
+    var choferIdInput = document.getElementById(idcod);
+    choferIdInput.value = idempven;
+    document.getElementById(idtext).innerText = nombreempven;
+    closeModal(modalId, selectId);
+    // Mostrar el span con el nombre del cliente y el botón para remover
+    var choferNombreSpan = document.getElementById('empmerNombre');
+    var removeChoferSpan = document.getElementById('removeempmerSpan');
+    choferNombreSpan.innerText = nombreempven;
+    choferNombreSpan.style.display = 'inline-block';
+    removeChoferSpan.style.display = 'inline-block';
+    // Ocultar el select
+    var selectElement = document.getElementById('empmercbo');
+    selectElement.style.display = 'none';
+    $.ajax({
+        url: '/Pret16Merma/CargarDatosEmpleado',
+        type: 'GET',
+        data: { idEmpleado: idempven },
+        success: function (data) {
+            if (!data) {
+                // Si data es null o undefined
+                document.getElementById('nrodocempleadomer').value = "";
+                document.getElementById('categoriaempleadomer').value = "";
+                document.getElementById('condicionempleadomer').value = "";
+                document.getElementById('celularempleadomer').value = "";
+            } else {
+                // Si data no es null o undefined
+                document.getElementById('nrodocempleadomer').value = data.nrodoc || "";
+                document.getElementById('categoriaempleadomer').value = data.cargo || "";
+                document.getElementById('condicionempleadomer').value = data.condicion || "";
+                document.getElementById('celularempleadomer').value = (data.celular).isNaN ? "" : data.celular;
+
+            }
+        },
+        error: function (error) {
+            console.error('Error al cargar datos del empleado:', error.responseText);
+
+        }
+    });
+
+}
+
+//El span cliente para volver al select
+function removeempmer() {
+    // Quitar el valor del cliente y ocultar el span
+    document.getElementById('nrodocempleadomer').value = '';
+    document.getElementById('categoriaempleadomer').value = '';
+    document.getElementById('celularempleadomer').value = '';
+    /*document.getElementById('salarioempleado').value = 1;*/
+    document.getElementById('empmerId').value = 0;
+    document.getElementById('condicionempleadomer').value = '';
+    document.getElementById('empmerNombre').style.display = 'none';
+    document.getElementById('removeempmerSpan').style.display = 'none';
+    var selectElement = document.getElementById('empmercbo');
+    selectElement.style.display = 'inline-block';
+}
+
+//AREGLO EXT EMP
+var arreglomeremp = [];
+
+
+
+function agregarmeremp() {
+    var idempleado = parseInt($("#empmerId").val());
+    /*var salario= parseFloat($("#salarioempleado").val());*/
+    var nrodoc = ($("#nrodocempleadomer").val());
+    var categoria = ($("#categoriaempleadomer").val());
+    var condicion = ($("#condicionempleadomer").val());
+    var celular = ($("#celularempleadomer").val());
+
+    // Validar que los campos sean números válidos y que el idmerducto sea mayor que cero
+    if (isNaN(idempleado) || idempleado <= 0 /*|| isNaN(salario) ||   0 >(salario)*/) {
+        alert("Por favor, ingrese valores numéricos para la extracción por tipo de arbol");
+        return false; // Detener la ejecución si los campos no son válidos
+    }
+    $.ajax({
+        url: "/Pret16Merma/Empleadomer",
+        type: "GET",
+        data: { empleadoID: idempleado },
+        success: function (response) {
+            if (response != null) {
+
+
+                arreglomeremp.push({
+                    idempleado: idempleado,
+                    txtempleado: response.txtnombre,
+                    /*                    salario: salario,*/
+                    celular: celular,
+                    nrodoc: nrodoc,
+                    categoria: categoria,
+                    condicion: condicion
+                });
+
+                actualizartablameremp();
+                removeempmer();
+
+
+            } else {
+                alert("Tipo de Arbol no encontrado");
+            }
+        },
+        error: function (response) {
+            alert("Error al obtener los datos del Tipo de Arbol");
+        }
+    });
+
+
+}
+
+// Función para eliminar un merducto del arreglo de merductos seleccionados
+function eliminarmeremp(idvenemp) {
+    var campanavenemp = arreglomeremp.find(function (campTA) {
+        return campTA.idempleado === idvenemp;
+    });
+
+    if (campanavenemp) {
+        // Pide confirmación antes de eliminar
+        var confirmar = confirm("¿Deseas eliminar este registro de la lista?");
+
+        if (confirmar) {
+            var campTAVenindex = arreglomeremp.findIndex(function (campTA) {
+                return campTA.idempleado === idvenemp;
+            });
+
+            if (campTAVenindex !== -1) {
+                arreglomeremp.splice(campTAVenindex, 1);
+                actualizartablameremp();
+            }
+        }
+    } else {
+        alert("Registro no encontrado en la lista.");
+    }
+}
+
+function actualizartablameremp() {
+    // Limpiar la tabla
+    $("#empSeleccionadosMer").empty();
+
+    // Recorrer el arreglo de tipo de árboles seleccionados y volver a agregarlos a la tabla
+    arreglomeremp.forEach(function (Empleado) {
+        var newRow = `
+<tr id='${Empleado.idempleado}'>
+    <td class="text-center">${Empleado.txtempleado}</td>
+    <td class="text-center">${Empleado.condicion}</td>
+    <td class="text-center">${Empleado.celular}</td>
+    <td class="text-center">${Empleado.nrodoc}</td>
+    <td class="text-center">${Empleado.categoria}</td>
+    <td colspan='2' align='center'>
+
+        <button type='button' class="btn btn-danger btn-sm" onclick='eliminarmeremp(${Empleado.idempleado})'><i class="fas fa-trash alt"></i></button>
+    </td>
+</tr>`;
+
+        $("#empSeleccionadosMer").append(newRow);
+    });
+    cargarDatosempmer();
+
+}
+/*<button type='button' onclick='editarempleadosExtraccion(${Empleado.idempleado})'>Editar</button>*/
+
+
+
+
+
+
+
+
+//PRODUCTO
+//Proceso para cerrar la ventana modal PRODUCTO
+$(document).ready(function () {
+    $('#modalprom').on('hidden.bs.modal', function () {
+        $('#promcbo').prop('selectedIndex', 0);
+        cargarDatosProductom();
+    });
+});
+
+//Cargar la selección de PRODUCTO
+function seleccionarProductom(modalId, selectId, idcod, idtext, idPro, nombrePro, um) {
+    event.preventDefault();
+    var ProductoIdInput = document.getElementById(idcod);
+    ProductoIdInput.value = idPro;
+    document.getElementById('umpm').value = um;
+    document.getElementById(idtext).innerText = nombrePro;
+    closeModal(modalId, selectId);
+    // Mostrar el span con el nombre del cliente y el botón para remover
+    var ProductoNombreSpan = document.getElementById('ProductomNombre');
+    var removeProductoSpan = document.getElementById('removeProductomSpan');
+    ProductoNombreSpan.innerText = nombrePro;
+    ProductoNombreSpan.style.display = 'inline-block';
+    removeProductoSpan.style.display = 'inline-block';
+    // Ocultar el select
+    var selectElement = document.getElementById('promcbo');
+    selectElement.style.display = 'none';
+}
+
+//El span PRODUCTO para volver al select
+function removeProductom() {
+    // Quitar el valor del cliente y ocultar el span
+    document.getElementById('ProductomId').value = null;
+    document.getElementById('umpm').value = "";
+    document.getElementById('cantpm').value = 1;
+
+    document.getElementById('ProductomNombre').style.display = 'none';
+    document.getElementById('removeProductomSpan').style.display = 'none';
+    var selectElement = document.getElementById('promcbo');
+    selectElement.style.display = 'inline-block';
+    cargarDatosProductom();
+}
+function cargarDatosProductom() {
+    // Obtener los IDs de los productos seleccionados
+    var productosSeleccionadosIDs = ListadoProductosmSeleccionados.map(function (producto) {
+        return producto.idProducto;
+    });
+
+    $.ajax({
+        url: '/Pret16Merma/RecargarProductom',
+        type: 'GET',
+        data: { productosSeleccionadosIds: productosSeleccionadosIDs }, // Pasar los IDs como parámetro
+        traditional: true, // Esto es importante para que los parámetros se pasen como una lista
+
+        success: function (response) {
+            $('#bodyProductom').empty();
+
+            // Iterar a través de los datos del servidor
+            $.each(response, function (index, producto) {
+                var dimension = producto.dimension;
+                var peso = producto.peso;
+                var unm = producto.um;
+                var diametro = producto.diametro;
+                var monto_ci = parseFloat(producto.monto_ci).toFixed(2);
+                var NombreProducto = producto.nombreProducto;
+                var row = $('<tr>');
+                row.append('<td align="center" class="client-cell">' + NombreProducto + '</td>');
+                row.append('<td align="center" class="client-cell">' + monto_ci + '</td>');
+                row.append('<td align="center" class="client-cell">' + unm + '</td');
+                row.append('<td align="center" class="client-cell">' + dimension + '</td');
+                row.append('<td align="center" class="client-cell">' + diametro + '</td');
+                row.append('<td align="center" class="client-cell">' + peso + '</td');
+                row.append('<td align="center" class="client-cell">' +
+                    '<button class="btn btn-primary" onclick="seleccionarProductom(\'modalprom\',\'promcbo\',\'ProductomId\',\'ProductomNombre\',\'' +
+                    producto.idProducto + '\', \'' + producto.nombreProducto + '\', \'' + producto.um + '\')">Seleccionar</button>' +
+                    '</td>');
+
+                $('#bodyProductom').append(row);
+            });
+        },
+        error: function (error) {
+            console.error('Error al cargar los datos del Producto:', error.responseText);
+        }
+    });
+}
+
+// Declarar el arreglo para almacenar los productos seleccionados
+var ListadoProductosmSeleccionados = [];
+
+// Función para añadir un producto a la lista de productos seleccionados
+function agregarProductom() {
+    var idProducto = parseInt($("#ProductomId").val());
+    var cantidad = parseFloat($("#cantpm").val());
+
+    // Validar que los campos sean números válidos y que el idProducto sea mayor que cero
+    if (isNaN(idProducto) || idProducto <= 0 || isNaN(cantidad) || cantidad <= 0) {
+        alert("Por favor, ingrese valores numéricos válidos para el ID, cantidad y descuento.");
+        return false; // Detener la ejecución si los campos no son válidos
+    }
+
+    $.ajax({
+        url: "/Pret16Merma/ProductoDatos",
+        type: "GET",
+        data: {
+            idProducto: idProducto,
+            cantidad: cantidad
+        },
+        success: function (response) {
+            if (response != null) {
+                var mci = response.monto_ci;
+                var um = response.um;
+                var total = response.total;
+
+                ListadoProductosmSeleccionados.push({
+                    idProducto: response.idProducto,
+                    nombreProducto: response.nombreProducto,
+                    cu: mci,
+                    cantidad: cantidad,
+                    um: um,
+                    total: total,
+                    tipormerma: ""
+                });
+
+                actualizarTablaProductosSeleccionadosm();
+                removeProductom();
+
+                document.getElementById('cantpm').value = 1;
+                document.getElementById('umpm').value = "";
+
+            } else {
+                alert("Producto no encontrado");
+            }
+        },
+        error: function (response) {
+            alert("Error al obtener los datos del producto");
+        }
+    });
+
+    return false;
+}
+
+// Función para eliminar un producto del arreglo de productos seleccionados
+function eliminarProductom(idProducto) {
+    var producto = ListadoProductosmSeleccionados.find(function (prod) {
+        return prod.idProducto === idProducto;
+    });
+
+    if (producto) {
+        // Pide confirmación antes de eliminar
+        var confirmar = confirm("¿Deseas eliminar este producto de la lista?");
+
+        if (confirmar) {
+            var productoIndex = ListadoProductosmSeleccionados.findIndex(function (prod) {
+                return prod.idProducto === idProducto;
+            });
+
+            if (productoIndex !== -1) {
+                ListadoProductosmSeleccionados.splice(productoIndex, 1);
+                actualizarTablaProductosSeleccionadosm();
+            }
+        }
+    } else {
+        alert("Producto no encontrado en la lista.");
+    }
+}
+
+// Función para actualizar la tabla de productos seleccionados
+function actualizarTablaProductosSeleccionadosm() {
+    // Limpiar la tabla
+    $("#productosSeleccionadosm").empty();
+
+    // Recorrer el arreglo de productos seleccionados y volver a agregarlos a la tabla
+    ListadoProductosmSeleccionados.forEach(function (producto) {
+        // Redondear el valor del campo "total" y otros campos a dos decimales solo en la vista
+        var cu = parseFloat(producto.cu).toFixed(2);
+        var total = parseFloat(producto.total).toFixed(2);
+
+        var newRow = `
+            <tr style="font-size:14px;" id='${producto.idProducto}'>
+                <td style="font-size:14px;">${producto.cantidad}</td>
+                <td style="font-size:14px;">${producto.nombreProducto}</td>
+                <td style="font-size:14px;">${producto.um}</td>
+                <td style="font-size:14px;">${cu}</td>
+                <td style="font-size:14px;">${total}</td>
+                <td style="font-size:14px;">${producto.tipormerma}</td>
+                <td colspan='2' style="font-size:14px;">
+                    <button class="btn btn-primary btn-sm" type='button' onclick='editarProductom(${producto.idProducto})'><i class='fa fa-edit'></i></button>
+                    <button class="btn btn-danger btn-sm" type='button' onclick='eliminarProductom(${producto.idProducto})'><i class='fa fa-trash'></i></button>
+                </td>
+            </tr>`;
+
+        $("#productosSeleccionadosm").append(newRow);
+    });
+    cargarDatosProductom();
+    actualizarTotalesm();
+}
+/*
+<td>${mtoigv}</td>
+<td>${msi}</td>
+*/
+//Función para abrir el modal de edición
+function editarProductom(idProducto) {
+    var producto = ListadoProductosmSeleccionados.find(function (prod) {
+        return prod.idProducto === idProducto;
+    });
+    if (producto) {
+        document.getElementById("nuevaCantidadm").value = producto.cantidad;
+        document.getElementById("IdEditarProductom").value = idProducto;
+        document.getElementById("Productominput").value = producto.nombreProducto;
+        document.getElementById("observacionPm").value = producto.tipormerma;
+        openSecondModal('editarModalproductom');
+    } else {
+        alert("Producto no encontrado en la lista.");
+    }
+}
+
+// Función para aplicar los cambios desde el modal y guardarlos
+function aplicarCambiospm() {
+    var idProducto = parseInt(document.getElementById("IdEditarProductom").value);
+    var producto = ListadoProductosmSeleccionados.find(function (prod) {
+        return prod.idProducto === idProducto;
+    });
+    var nuevaCantidad = parseFloat(document.getElementById("nuevaCantidadm").value);
+    var nuevaObservacion = document.getElementById("observacionPm").value;
+
+    if (!isNaN(nuevaCantidad)) {
+        var confirmar = confirm("¿Deseas aplicar los cambios y guardarlos?");
+
+        if (confirmar) {
+
+            $.ajax({
+                url: "/Pret16Merma/ProductoDatos",
+                type: "GET",
+                data: {
+                    idProducto: idProducto,
+                    cantidad: nuevaCantidad,
+                },
+                success: function (response) {
+                    if (response != null) {
+                        var total = response.total;
+
+                        producto.cantidad = nuevaCantidad;
+                        producto.total = total;
+                        producto.tipormerma = nuevaObservacion;
+
+
+                        document.getElementById('nuevaCantidadm').value = 1;
+                        document.getElementById('observacionPm').value = "";
+
+                        actualizarTablaProductosSeleccionadosm();
+                        cerrarModal('editarModalproductom');
+                        actualizarTotalesm();
+                    } else {
+                        alert("Producto no encontrado");
+                    }
+                },
+            });
+
+        } else {
+            alert("Edición cancelada. Los cambios no se aplicaron.");
+        }
+    } else {
+        alert("Por favor, ingresa valores numéricos válidos para cantidad y descuento.");
+    }
+}
+
+// Supongamos que tienes un arreglo productosSeleccionados con la estructura:
+function actualizarTotalesm() {
+
+}
+
+
+$(document).ready(function () {
+    $("#guardarMer").click(function () {
+        enviarDatosMerGuardar();
+    });
+    $("#guardarycerrarMer").click(function () {
+        enviarDatosMerGuardaryCerrar();
+    });
+    $("#cancelarMer").click(function () {
+        $.ajax({
+            url: "/Pret16Merma/CerrarMerma",
+            type: "GET",
+            success: function (response) {
+                if (response.mensaje == null) {
+                    window.location.href = response.redirectUrl;
+                } else {
+                    alert(response.mensaje);
+                }
+            },
+            error: function (response) {
+            }
+        });
+    });
+    function enviarDatosMerGuardar() {
+        if (arreglomeremp.length > 0) {
+            if (ListadoProductosmSeleccionados.length > 0) {
+                if (camposRequeridosLlenos('FormMerma')) {
+                    var formData = new FormData();
+                    var checkbox = document.getElementById('checkEstadoMerma');
+
+                    if (checkbox.checked) {
+                        var checkb = true;
+                    } else {
+                        var checkb = false;
+                    }
+                    formData.append('FechaMer', $('#fechamer').val());
+                    formData.append('comentarioM', $('#comentarioM').val());
+                    formData.append('productosSeleccionado', JSON.stringify(ListadoProductosmSeleccionados));
+                    formData.append('arregloempleadosmer', JSON.stringify(arreglomeremp));
+                    formData.append('tipomer', $('#tipomermaM').val());
+                    formData.append('check', checkb);
+
+
+                    // Agregar archivos al FormData
+                    //for (var i = 0; i < archivosRec.length; i++) {
+                    //    formData.append('archivos', archivosRec[i]);
+                    //}
+
+
+                    $.ajax({
+                        url: '/Pret16Merma/CrearMerma', // Ajusta la URL según la estructura de tu aplicación
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            if (response.mensaje == null) {
+                                window.location.href = response.redirectUrl;
+
+                            } else {
+                                alert(response.mensaje);
+                            }
+                            $.ajax({
+                                url: '/Pret16Merma/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+                                type: 'GET',
+                                success: function (response) {
+                                    if (response.id == 3) {
+                                        document.getElementById('moodNameMer').innerText = response.name;
+                                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                                        $('#checkEstadoMerma').prop('checked', true);
+                                        $('#checkEstadoMerma').prop('disabled', false);
+
+                                    } else if (response.id == 4) {
+                                        document.getElementById('moodNameMer').innerText = response.name;
+                                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                                        $('#checkEstadoMerma').prop('checked', true);
+                                        $('#checkEstadoMerma').prop('disabled', true);
+                                    }
+                                }
+                            });
+                        },
+                        error: function (error) {
+                            console.error('Error al crear la producción, error.responseText');
+                        }
+                    });
+                } else {
+                    alert('Por favor, complete todos los campos requeridos.');
+                }
+            } else {
+                alert('Registre al menos un producto en el registro de productos para merma.');
+            }
+        } else {
+            alert('Registre al menos un empleado.');
+        }
+    }
+    function enviarDatosMerGuardaryCerrar() {
+        if (arreglomeremp.length > 0) {
+            if (ListadoProductosmSeleccionados.length > 0) {
+                if (camposRequeridosLlenos('FormMerma')) {
+                    var formData = new FormData();
+                    var checkbox = document.getElementById('checkEstadoMerma');
+
+                    if (checkbox.checked) {
+                        var checkb = true;
+                    } else {
+                        var checkb = false;
+                    }
+                    formData.append('FechaMer', $('#fechamer').val());
+                    formData.append('comentarioM', $('#comentarioM').val());
+                    formData.append('productosSeleccionado', JSON.stringify(ListadoProductosmSeleccionados));
+                    formData.append('arregloempleadosmer', JSON.stringify(arreglomeremp));
+                    formData.append('tipomer', $('#tipomermaM').val());
+                    formData.append('check', checkb);
+
+
+                    // Agregar archivos al FormData
+                    //for (var i = 0; i < archivosRec.length; i++) {
+                    //    formData.append('archivos', archivosRec[i]);
+                    //}
+
+
+                    $.ajax({
+                        url: '/Pret16Merma/CrearMermayCerrar', // Ajusta la URL según la estructura de tu aplicación
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            if (response.mensaje == null) {
+                                window.location.href = response.redirectUrl;
+
+                            } else {
+                                alert(response.mensaje);
+                            }
+                        },
+                        error: function (error) {
+                            console.error('Error al crear la producción, error.responseText');
+                        }
+                    });
+                } else {
+                    alert('Por favor, complete todos los campos requeridos.');
+                }
+            } else {
+                alert('Registre al menos un producto en el registro de productos para merma.');
+            }
+        } else {
+            alert('Registre al menos un empleado.');
+        }
+    }
+});
+
+
+$(document).ready(function () {
+    $('#confirmarEliminarMerma').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var idMerma = button.data('id');
+        $(this).data('id', idMerma);
+    });
+    $('#confirmarAnularMerma').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var idMerma = button.data('id');
+        $(this).data('id', idMerma);
+    });
+});
+
+
+function eliminarMerma() {
+
+    var idproduccion = $('#confirmarEliminarMerma').data('id');
+    $.ajax({
+        url: '/Pret16Merma/EliminarMerma', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'POST',
+        data: { id: idproduccion },
+        success: function (response) {
+            if (response.mensaje == null) {
+                $('#confirmarEliminarMerma').modal('hide');
+
+                window.location.href = response.redirectUrl;
+
+            } else {
+
+
+            }
+        },
+        error: function (error) {
+            console.error('Error al intentar eliminar', error.responseText);
+        }
+    });
+}
+
+function anularMerma() {
+
+    var idproduccion = $('#confirmarAnularMerma').data('id');
+    $.ajax({
+        url: '/Pret16Merma/AnularMerma', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'POST',
+        data: { id: idproduccion },
+        success: function (response) {
+            if (response.mensaje == null) {
+                $('#confirmarAnularMerma').modal('hide');
 
                 window.location.href = response.redirectUrl;
 

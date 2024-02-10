@@ -112,6 +112,7 @@ namespace Maderera_Aplicacion_Web.Data
         public virtual DbSet<Pret21EnvioEmpleado> Pret21EnvioEmpleados { get; set; } = null!;
         public virtual DbSet<Pret22RecepcionEmpleado> Pret22RecepcionEmpleados { get; set; } = null!;
         public virtual DbSet<Pret23VentaEmpleado> Pret23VentaEmpleados { get; set; } = null!;
+        public virtual DbSet<Pret24MermaEmpleado> Pret24MermaEmpleados { get; set; } = null!;
         public virtual DbSet<Prot01Marca> Prot01Marcas { get; set; } = null!;
         public virtual DbSet<Prot02Modelo> Prot02Modelos { get; set; } = null!;
         public virtual DbSet<Prot03Familium> Prot03Familia { get; set; } = null!;
@@ -5312,37 +5313,89 @@ namespace Maderera_Aplicacion_Web.Data
             modelBuilder.Entity<Pret16Merma>(entity =>
             {
                 entity.HasKey(e => e.IdMerma)
-                    .HasName("PK__PREt16_M__5692DDF2C7591764");
+                    .HasName("PK__PREt16_M__5692DDF2FBD28F78");
 
                 entity.ToTable("PREt16_Merma");
 
                 entity.Property(e => e.IdMerma).HasColumnName("id_merma");
 
+                entity.Property(e => e.Comentario)
+                    .HasMaxLength(600)
+                    .IsUnicode(false)
+                    .HasColumnName("comentario");
+
                 entity.Property(e => e.FechaMerma)
                     .HasColumnType("date")
                     .HasColumnName("fecha_merma");
 
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
+                entity.Property(e => e.IdCampana).HasColumnName("id_campana");
+
                 entity.Property(e => e.IdEstado).HasColumnName("id_estado");
 
-                entity.Property(e => e.IdExtraccion).HasColumnName("id_extraccion");
+                entity.Property(e => e.IdPredio).HasColumnName("id_predio");
 
                 entity.Property(e => e.IdProduccion).HasColumnName("id_produccion");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuarioModificador).HasColumnName("id_usuario_modificador");
+
+                entity.Property(e => e.NroMer)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("nro_mer");
+
+                entity.Property(e => e.TipoMerma)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("tipo_merma");
 
                 entity.Property(e => e.TxtEstado)
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("txt_estado");
 
-                entity.HasOne(d => d.IdExtraccionNavigation)
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuarioModificador)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario_modificador");
+
+                entity.HasOne(d => d.IdCampanaNavigation)
                     .WithMany(p => p.Pret16Mermas)
-                    .HasForeignKey(d => d.IdExtraccion)
+                    .HasForeignKey(d => d.IdCampana)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PREt16_Me__id_ex__05EEBAAE");
+                    .HasConstraintName("FK__PREt16_Me__id_ca__2937F6EB");
+
+                entity.HasOne(d => d.IdPredioNavigation)
+                    .WithMany(p => p.Pret16Mermas)
+                    .HasForeignKey(d => d.IdPredio)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PREt16_Me__id_pr__2843D2B2");
 
                 entity.HasOne(d => d.IdProduccionNavigation)
                     .WithMany(p => p.Pret16Mermas)
                     .HasForeignKey(d => d.IdProduccion)
-                    .HasConstraintName("FK__PREt16_Me__id_pr__04FA9675");
+                    .HasConstraintName("FK__PREt16_Me__id_pr__274FAE79");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Pret16MermaIdUsuarioNavigations)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_usu_mer");
+
+                entity.HasOne(d => d.IdUsuarioModificadorNavigation)
+                    .WithMany(p => p.Pret16MermaIdUsuarioModificadorNavigations)
+                    .HasForeignKey(d => d.IdUsuarioModificador)
+                    .HasConstraintName("fk_usumod_mer");
             });
 
             modelBuilder.Entity<Pret16TipoDireccion>(entity =>
@@ -5421,38 +5474,54 @@ namespace Maderera_Aplicacion_Web.Data
             modelBuilder.Entity<Pret17MermaDtl>(entity =>
             {
                 entity.HasKey(e => e.IdMermadtl)
-                    .HasName("PK__PREt17_M__45503A9A37172721");
+                    .HasName("PK__PREt17_M__45503A9AA5CAA198");
 
                 entity.ToTable("PREt17_MermaDTL");
 
                 entity.Property(e => e.IdMermadtl).HasColumnName("id_mermadtl");
 
-                entity.Property(e => e.FechaMermadtl)
-                    .HasColumnType("date")
-                    .HasColumnName("fecha_mermadtl");
+                entity.Property(e => e.CantidadMer).HasColumnName("cantidadMer");
 
                 entity.Property(e => e.IdEstado).HasColumnName("id_estado");
 
                 entity.Property(e => e.IdMerma).HasColumnName("id_merma");
 
-                entity.Property(e => e.IdProducto).HasColumnName("id_producto");
+                entity.Property(e => e.IdProductoMer).HasColumnName("id_productoMer");
+
+                entity.Property(e => e.IdUmMer).HasColumnName("id_umMer");
+
+                entity.Property(e => e.TotalMer).HasColumnName("total_mer");
+
+                entity.Property(e => e.TxtComentario)
+                    .HasMaxLength(300)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_comentario");
 
                 entity.Property(e => e.TxtEstado)
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("txt_estado");
 
+                entity.Property(e => e.TxtProMer)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_proMer");
+
                 entity.HasOne(d => d.IdMermaNavigation)
                     .WithMany(p => p.Pret17MermaDtls)
                     .HasForeignKey(d => d.IdMerma)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PREt17_Me__id_me__08CB2759");
+                    .HasConstraintName("FK__PREt17_Me__id_me__2C146396");
 
-                entity.HasOne(d => d.IdProductoNavigation)
+                entity.HasOne(d => d.IdProductoMerNavigation)
                     .WithMany(p => p.Pret17MermaDtls)
-                    .HasForeignKey(d => d.IdProducto)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PREt17_Me__id_pr__09BF4B92");
+                    .HasForeignKey(d => d.IdProductoMer)
+                    .HasConstraintName("FK__PREt17_Me__id_pr__2D0887CF");
+
+                entity.HasOne(d => d.IdUmMerNavigation)
+                    .WithMany(p => p.Pret17MermaDtls)
+                    .HasForeignKey(d => d.IdUmMer)
+                    .HasConstraintName("FK__PREt17_Me__id_um__2DFCAC08");
             });
 
             modelBuilder.Entity<Pret18TipoMotivo>(entity =>
@@ -5755,6 +5824,62 @@ namespace Maderera_Aplicacion_Web.Data
                     .WithMany(p => p.Pret23VentaEmpleados)
                     .HasForeignKey(d => d.IdEmpleadoVen)
                     .HasConstraintName("FK_empleado_envemp");
+            });
+
+            modelBuilder.Entity<Pret24MermaEmpleado>(entity =>
+            {
+                entity.HasKey(e => e.IdEmpven)
+                    .HasName("PK__PREt24_M__9D07F288AF78F18F");
+
+                entity.ToTable("PREt24_Merma_Empleado");
+
+                entity.Property(e => e.IdEmpven).HasColumnName("id_empven");
+
+                entity.Property(e => e.IdEmpleadoMer).HasColumnName("id_empleado_mer");
+
+                entity.Property(e => e.IdEstado).HasColumnName("id_estado");
+
+                entity.Property(e => e.IdMerma).HasColumnName("id_merma");
+
+                entity.Property(e => e.Info01)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("info01");
+
+                entity.Property(e => e.Info02)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("info02");
+
+                entity.Property(e => e.Info03)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("info03");
+
+                entity.Property(e => e.Info04)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("info04");
+
+                entity.Property(e => e.Salario)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("salario");
+
+                entity.Property(e => e.TxtEstado)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_estado");
+
+                entity.HasOne(d => d.IdEmpleadoMerNavigation)
+                    .WithMany(p => p.Pret24MermaEmpleados)
+                    .HasForeignKey(d => d.IdEmpleadoMer)
+                    .HasConstraintName("FK_empleado_meremp");
+
+                entity.HasOne(d => d.IdMermaNavigation)
+                    .WithMany(p => p.Pret24MermaEmpleados)
+                    .HasForeignKey(d => d.IdMerma)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PREt24_Me__id_me__31CD3CEC");
             });
 
             modelBuilder.Entity<Prot01Marca>(entity =>

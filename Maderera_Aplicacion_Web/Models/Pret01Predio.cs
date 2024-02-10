@@ -10,6 +10,7 @@ namespace Maderera_Aplicacion_Web.Models
             Pert11PagoPersonals = new HashSet<Pert11PagoPersonal>();
             Pret02Campanas = new HashSet<Pret02Campana>();
             Pret14Produccions = new HashSet<Pret14Produccion>();
+            Pret16Mermas = new HashSet<Pret16Merma>();
             Pret17Archivos = new HashSet<Pret17Archivo>();
             Tnst04CompEmitidos = new HashSet<Tnst04CompEmitido>();
         }
@@ -45,6 +46,7 @@ namespace Maderera_Aplicacion_Web.Models
         public virtual ICollection<Pert11PagoPersonal> Pert11PagoPersonals { get; set; }
         public virtual ICollection<Pret02Campana> Pret02Campanas { get; set; }
         public virtual ICollection<Pret14Produccion> Pret14Produccions { get; set; }
+        public virtual ICollection<Pret16Merma> Pret16Mermas { get; set; }
         public virtual ICollection<Pret17Archivo> Pret17Archivos { get; set; }
         public virtual ICollection<Tnst04CompEmitido> Tnst04CompEmitidos { get; set; }
     }
