@@ -58,9 +58,9 @@
                                     <i class="fas fa-edit"></i>
                                 </a>
 
-                                @*<a asp-controller="Tnst04CompEmitido" asp-action="Details" asp-route-id="@comprobante.Id" class="btn btn-info btn-sm">
+                                <a asp-controller="Pert11PagoPersonal" asp-action="Details" asp-route-id="@comprobante.Id" class="btn btn-info btn-sm">
                                     <i class="fas fa-eye"></i>
-                                </a> *@
+                                </a>
 
                                 <a id="editarComprobante" asp-controller="Pert11PagoPersonal" asp-action="Eliminar" asp-route-id="@comprobante.Id" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash alt"></i>
@@ -86,12 +86,12 @@
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
-                    "info": "Mostrando START a END de TOTAL Pagos",
+                    "info": "Mostrando _START_ a _END_ de TOTAL Pagos",
                     "infoEmpty": "Mostrando 0 to 0 of 0 Pagos",
-                    "infoFiltered": "(Filtrado de MAX total Pagos)",
+                    "infoFiltered": "(Filtrado de _MAX_ total Pagos)",
                     "infoPostFix": "",
                     "thousands": ",",
-                    "lengthMenu": "Mostrar MENU Pagos",
+                    "lengthMenu": "Mostrar _MENU_ Pagos",
                     "loadingRecords": "Cargando...",
                     "processing": "Procesando...",
                     "search": "Buscar:",
