@@ -165,7 +165,7 @@
                                             <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Tipo de Orden* :</label>
                                             <div class="col-sm-7 ml-5">
 
-                                                <select required id="TipoOrden" class="form-control form-control-sm mx-sm-3 mb-2 p-0" asp-for="IdTipoOrden" class="form-control" asp-items="@(ViewBag.TipoOrden)"></select>
+                                                <select required id="TipoOrden" class="form-control" asp-for="IdTipoOrden" class="form-control" asp-items="@(ViewBag.TipoOrden)"></select>
 
 
                                             </div>
@@ -284,7 +284,7 @@
                                             <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px">Fecha Emision* :</label>
 
                                             <div class="col-sm-7 ml-5">
-                                                <input required class="form-control form-control-sm mx-sm-3 mb-2 p-0" asp-for="FecEmi" type="date" id="fechaEmision" class="form-control" name="fechaEmision">
+                                                <input required style="margin-left:35px;" asp-for="FecEmi" type="date" id="fechaEmision" class="form-control" name="fechaEmision">
 
                                             </div>
                                         </div>
