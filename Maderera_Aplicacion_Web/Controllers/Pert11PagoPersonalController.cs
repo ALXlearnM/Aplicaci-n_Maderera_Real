@@ -30,10 +30,6 @@ namespace Maderera_Aplicacion_Web.Controllers
 
         public async Task<IActionResult> Details(long? id)
         {
-            if (id == null || _context.Pert11PagoPersonals == null)
-            {
-                return NotFound();
-            }
 
             var pert11PagoPersonal = await _context.Pert11PagoPersonals
                 .Include(t => t.IdAutorizadorNavigation)

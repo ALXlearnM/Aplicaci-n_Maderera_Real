@@ -48,10 +48,6 @@ namespace Maderera_Aplicacion_Web.Controllers
         // GET: Pret16Merma/Details/5
         public async Task<IActionResult> Details(int? idmerma)
         {
-            if (idmerma == null || _context.Pret16Mermas == null)
-            {
-                return NotFound();
-            }
 
             var pret16Merma = await _context.Pret16Mermas
                 .Include(p => p.IdCampanaNavigation)
