@@ -963,33 +963,205 @@ namespace Maderera_Aplicacion_Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EliminarExtraccion(long id)
         {
+            //ELIMINACION DE MERMA Y PRODUCCION
+
+            var existingProduccion = _context.Pret14Produccions.Where(p => p.IdExtraccion== id).ToList();
+
+            if (existingProduccion != null)
+            {
+                foreach (Pret14Produccion produccion in existingProduccion)
+                {
+                    long idprod = produccion.IdProduccion;
+                    var existingMerma = _context.Pret16Mermas.Where(p => p.IdProduccion == idprod).ToList();
+                    if (existingMerma != null)
+                    {
+                        foreach (Pret16Merma merma in existingMerma)
+                        {
+                            long idmerma = merma.IdMerma;
+                            var existingEmpleadoMer = _context.Pret24MermaEmpleados.Where(p => p.IdMerma == idmerma).ToList();
+
+                            if (existingEmpleadoMer != null)
+                            {
+                                foreach (Pret24MermaEmpleado empleado in existingEmpleadoMer)
+                                {
+                                    //empleado.IdEstado = 0;
+                                    //empleado.TxtEstado = "INACTIVO";
+                                    _context.Pret24MermaEmpleados.Remove(empleado);
+                                    await _context.SaveChangesAsync();
+                                }
+                            }
+                            await _context.SaveChangesAsync();
+                            var existingDtllMer = _context.Pret17MermaDtls.Where(p => p.IdMerma == idmerma).ToList();
+
+                            if (existingDtllMer != null)
+                            {
+                                foreach (Pret17MermaDtl Detalle in existingDtllMer)
+                                {
+                                    //Detalle.IdEstado = 2;
+                                    //Detalle.TxtEstado = "INACTIVO";
+                                    _context.Pret17MermaDtls.Remove(Detalle);
+                                    await _context.SaveChangesAsync();
+                                }
+                            }
+                            _context.Pret16Mermas.Remove(merma);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                    var existingEmpleado = _context.Pret20ProduccionEmpleados.Where(p => p.IdProduccion == idprod).ToList();
+                    foreach (Pret20ProduccionEmpleado empleado in existingEmpleado)
+                    {
+                        //empleado.IdEstado = 0;
+                        //empleado.TxtEstado = "INACTIVO";
+                        _context.Pret20ProduccionEmpleados.Remove(empleado);
+                        await _context.SaveChangesAsync();
+                    }
+                    await _context.SaveChangesAsync();
+                    var existingDtll = _context.Pret15ProduccionDtls.Where(p => p.IdProduccion == idprod).ToList();
+
+                    if (existingDtll != null)
+                    {
+                        foreach (Pret15ProduccionDtl Detalle in existingDtll)
+                        {
+                            //Detalle.IdEstado = 2;
+                            //Detalle.TxtEstado = "INACTIVO";
+                            _context.Pret15ProduccionDtls.Remove(Detalle);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    _context.Pret14Produccions.Remove(produccion);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            //ELIMINACIÓN DE ENVIO Y RECEPCIÓN
+            var existingEnvio = _context.Pret10Envios.Where(p => p.IdExtraccion == id).ToList();
+            if (existingEnvio != null)
+            {
+                foreach (Pret10Envio envio in existingEnvio)
+                {
+                    long idenv = envio.IdEnvio;
+                    var existingRecepcion = _context.Pret11Recepcions.Where(p => p.IdEnvio == idenv).ToList();
+
+                    if (existingRecepcion != null)
+                    {
+                        foreach (Pret11Recepcion recepcion in existingRecepcion)
+                        {
+                            long idrec = recepcion.IdRecepcion;
+                            var existingArchivorec = _context.Pret17Archivos.Where(c => c.IdRecepcion == idrec).ToList();
+                            if (existingArchivorec != null)
+                            {
+                                foreach (Pret17Archivo archivoReg in existingArchivorec)
+                                {
+                                    //archivoReg.IdEstado = 2;
+                                    //archivoReg.TxtEstado = "INACTIVO";
+                                    string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
+
+                                    if (System.IO.File.Exists(rutaArchivoEliminar))
+                                    {
+                                        System.IO.File.Delete(rutaArchivoEliminar);
+                                    }
+                                    _context.Pret17Archivos.Remove(archivoReg);
+                                    await _context.SaveChangesAsync();
+                                }
+                            }
+                            var existingEmpleadorec = _context.Pret22RecepcionEmpleados.Where(p => p.IdRecepcion == idrec).ToList();
+
+
+                            foreach (Pret22RecepcionEmpleado empleado in existingEmpleadorec)
+                            {
+                                //empleado.IdEstado = 0;
+                                //empleado.TxtEstado = "INACTIVO";
+                                _context.Pret22RecepcionEmpleados.Remove(empleado);
+                                await _context.SaveChangesAsync();
+                            }
+                            await _context.SaveChangesAsync();
+                            var existingDtllrec = _context.Pret12RecepcionDtls.Where(p => p.IdRecepcion == idrec).ToList();
+
+                            if (existingDtllrec != null)
+                            {
+                                foreach (Pret12RecepcionDtl Detalle in existingDtllrec)
+                                {
+                                    //Detalle.IdEstado = 2;
+                                    //Detalle.TxtEstado = "INACTIVO";
+                                    _context.Pret12RecepcionDtls.Remove(Detalle);
+                                    await _context.SaveChangesAsync();
+                                }
+                            }
+                            _context.Pret11Recepcions.Remove(recepcion);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+
+                    var existingArchivo = _context.Pret17Archivos.Where(c => c.IdEnvio == idenv).ToList();
+                    if (existingArchivo != null)
+                    {
+                        foreach (Pret17Archivo archivoReg in existingArchivo)
+                        {
+                            //archivoReg.IdEstado = 2;
+                            //archivoReg.TxtEstado = "INACTIVO";
+                            string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
+
+                            if (System.IO.File.Exists(rutaArchivoEliminar))
+                            {
+                                System.IO.File.Delete(rutaArchivoEliminar);
+                            }
+                            _context.Pret17Archivos.Remove(archivoReg);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    var existingEmpleado = _context.Pret21EnvioEmpleados.Where(p => p.IdEnvio == idenv).ToList();
+
+
+                    foreach (Pret21EnvioEmpleado empleado in existingEmpleado)
+                    {
+                        //empleado.IdEstado = 0;
+                        //empleado.TxtEstado = "INACTIVO";
+                        _context.Pret21EnvioEmpleados.Remove(empleado);
+                        await _context.SaveChangesAsync();
+                    }
+                    await _context.SaveChangesAsync();
+                    var existingDtll = _context.Pret13EnvioDtls.Where(p => p.IdEnvio == idenv).ToList();
+
+                    if (existingDtll != null)
+                    {
+                        foreach (Pret13EnvioDtl Detalle in existingDtll)
+                        {
+                            //Detalle.IdEstado = 2;
+                            //Detalle.TxtEstado = "INACTIVO";
+                            _context.Pret13EnvioDtls.Remove(Detalle);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    _context.Pret10Envios.Remove(envio);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            //ELIMINAR EXTRACCIÓN
             var existingExtraccion = _context.Pret07Extraccions.FirstOrDefault(c => c.IdExtraccion == id);
 
             if (existingExtraccion != null)
             {
-                existingExtraccion.IdEstado = 0;
-                existingExtraccion.TxtEstado = "INACTIVO";
-                _context.Pret07Extraccions.Update(existingExtraccion);
-            }
+            
 
             var existingExtraccionDtlls = _context.Pret08ExtraccionDtls.Where(c => c.IdExtraccion == id);
 
             foreach (var detalle in existingExtraccionDtlls)
             {
-                detalle.IdEstado = 0;
-                detalle.TxtEstado = "INACTIVO";
-                _context.Pret08ExtraccionDtls.Update(detalle);
+                _context.Pret08ExtraccionDtls.Remove(detalle);
             }
 
             var existingExtraccionEmps = _context.Pret19ExtraccionEmpleados.Where(c => c.IdExtraccion == id);
 
             foreach (var empleado in existingExtraccionEmps)
             {
-                empleado.IdEstado = 0;
-                empleado.TxtEstado = "INACTIVO";
-                _context.Pret19ExtraccionEmpleados.Update(empleado);
+                _context.Pret19ExtraccionEmpleados.Remove(empleado);
             }
+                _context.Pret07Extraccions.Remove(existingExtraccion);
 
+            }
             await _context.SaveChangesAsync();
 
             return Json(new { redirectUrl = Url.Action("ListadoExtraccion", "Pret07Extraccion") });

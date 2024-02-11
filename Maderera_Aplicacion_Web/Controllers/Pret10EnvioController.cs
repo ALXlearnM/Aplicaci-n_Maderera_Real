@@ -1486,11 +1486,64 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                var existingEnvio = _context.Pret10Envios.Where(p => p.IdEstado == 3 || p.IdEstado == 4 && p.IdEnvio== id).FirstOrDefault();
-
+                var existingEnvio = _context.Pret10Envios.Where(p =>  p.IdEnvio== id).FirstOrDefault();
+                
                 if (existingEnvio != null)
                 {
-                    
+                    var existingRecepcion = _context.Pret11Recepcions.Where(p => p.IdEnvio == id).ToList();
+
+                    if (existingRecepcion != null)
+                    {
+                        foreach (Pret11Recepcion recepcion in existingRecepcion)
+                        {
+                            long idrec = recepcion.IdRecepcion;
+                            var existingArchivoREC = _context.Pret17Archivos.Where(c => c.IdRecepcion == idrec).ToList();
+                            if (existingArchivoREC != null)
+                            {
+                                foreach (Pret17Archivo archivoReg in existingArchivoREC)
+                                {
+                                    //archivoReg.IdEstado = 2;
+                                    //archivoReg.TxtEstado = "INACTIVO";
+                                    string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
+
+                                    if (System.IO.File.Exists(rutaArchivoEliminar))
+                                    {
+                                        System.IO.File.Delete(rutaArchivoEliminar);
+                                    }
+                                    _context.Pret17Archivos.Remove(archivoReg);
+                                    await _context.SaveChangesAsync();
+                                }
+                            }
+                            var existingEmpleadoREC = _context.Pret22RecepcionEmpleados.Where(p => p.IdRecepcion == idrec).ToList();
+
+                            if (existingEmpleadoREC != null)
+                            {
+                                foreach (Pret22RecepcionEmpleado empleado in existingEmpleadoREC)
+                                {
+                                    //empleado.IdEstado = 0;
+                                    //empleado.TxtEstado = "INACTIVO";
+                                    _context.Pret22RecepcionEmpleados.Remove(empleado);
+                                    await _context.SaveChangesAsync();
+                                }
+                            }
+                            await _context.SaveChangesAsync();
+                            var existingDtllREC = _context.Pret12RecepcionDtls.Where(p => p.IdRecepcion == idrec).ToList();
+
+                            if (existingDtllREC != null)
+                            {
+                                foreach (Pret12RecepcionDtl Detalle in existingDtllREC)
+                                {
+                                    //Detalle.IdEstado = 2;
+                                    //Detalle.TxtEstado = "INACTIVO";
+                                    _context.Pret12RecepcionDtls.Remove(Detalle);
+                                    await _context.SaveChangesAsync();
+                                }
+                            }
+                            _context.Pret11Recepcions.Remove(recepcion);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    await _context.SaveChangesAsync();
                     var existingArchivo = _context.Pret17Archivos.Where(c => c.IdEnvio== id).ToList();
                     if (existingArchivo != null)
                     {
@@ -1550,11 +1603,59 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                var existingRec = _context.Pret11Recepcions.Where(c => c.IdEnvio == id).ToList();
-                foreach (Pret11Recepcion Recepcion in existingRec)
+                var existingRecepcion = _context.Pret11Recepcions.Where(p => p.IdEnvio == id).ToList();
+
+                if (existingRecepcion != null)
                 {
-                    Recepcion.IdEstado =5;
-                    Recepcion.TxtEstado = "ANULADO";
+                    foreach (Pret11Recepcion recepcion in existingRecepcion)
+                    {
+                        long idrec = recepcion.IdRecepcion;
+                        var existingArchivo = _context.Pret17Archivos.Where(c => c.IdRecepcion == idrec).ToList();
+                        if (existingArchivo != null)
+                        {
+                            foreach (Pret17Archivo archivoReg in existingArchivo)
+                            {
+                                //archivoReg.IdEstado = 2;
+                                //archivoReg.TxtEstado = "INACTIVO";
+                                string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
+
+                                if (System.IO.File.Exists(rutaArchivoEliminar))
+                                {
+                                    System.IO.File.Delete(rutaArchivoEliminar);
+                                }
+                                _context.Pret17Archivos.Remove(archivoReg);
+                                await _context.SaveChangesAsync();
+                            }
+                        }
+                        var existingEmpleado = _context.Pret22RecepcionEmpleados.Where(p => p.IdRecepcion == idrec).ToList();
+
+
+                        foreach (Pret22RecepcionEmpleado empleado in existingEmpleado)
+                        {
+                            empleado.IdEstado = 0;
+                            empleado.TxtEstado = "INACTIVO";
+                            _context.Pret22RecepcionEmpleados.Update(empleado);
+                            await _context.SaveChangesAsync();
+                        }
+                        await _context.SaveChangesAsync();
+                        var existingDtll = _context.Pret12RecepcionDtls.Where(p => p.IdRecepcion == idrec).ToList();
+
+                        if (existingDtll != null)
+                        {
+                            foreach (Pret12RecepcionDtl Detalle in existingDtll)
+                            {
+                                Detalle.IdEstado = 2;
+                                Detalle.TxtEstado = "INACTIVO";
+                                _context.Pret12RecepcionDtls.Update(Detalle);
+                                await _context.SaveChangesAsync();
+                            }
+                        }
+                        recepcion.IdEstado = 5;
+                        recepcion.TxtEstado = "ANULADO";
+
+                        _context.Pret11Recepcions.Update(recepcion);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 await _context.SaveChangesAsync();
 
