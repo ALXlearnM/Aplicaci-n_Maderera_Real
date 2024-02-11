@@ -1,480 +1,193 @@
 ﻿@model Maderera_Aplicacion_Web.Models.Tnst01CompRecibido
 
 @{
-    ViewData["Title"] = "Details";
+
+    <title>@ViewData["Title"] Jhyperionm</title>
 }
 
-<h1>Details</h1>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <h2>Detalles de Comp Recibido</h2>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a class="btn btn-danger" asp-action="boleta_c_listado">Listado</a>
+        </div>
+    </div>
 
-<div>
-    <h4>Tnst01CompRecibido</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NroCompRecibido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NroCompRecibido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtSerie)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtSerie)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtNumero)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtNumero)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FecRegistro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FecRegistro)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FecRegRecibido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FecRegRecibido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FecEmi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FecEmi)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FecVcto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FecVcto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FecCanc)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FecCanc)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtObserv)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtObserv)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoTcVta)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoTcVta)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoNeto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoNeto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoExonerado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoExonerado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoNoAfecto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoNoAfecto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoDsctoTot)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoDsctoTot)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoCmsTot)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoCmsTot)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoFleteTot)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoFleteTot)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoSubTot)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoSubTot)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoImptoTot)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoImptoTot)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoServicio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoServicio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MtoTotComp)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MtoTotComp)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RefIdCompRecibido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RefIdCompRecibido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RefTipoComprobante)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RefTipoComprobante)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RefFecha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RefFecha)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RefSerie)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RefSerie)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RefNumero)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RefNumero)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxPor01)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxPor01)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxPor02)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxPor02)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxPor03)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxPor03)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxPor04)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxPor04)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxPor05)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxPor05)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxPor06)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxPor06)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxPor07)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxPor07)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxPor08)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxPor08)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxMto01)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxMto01)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxMto02)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxMto02)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxMto03)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxMto03)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxMto04)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxMto04)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxMto05)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxMto05)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxMto06)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxMto06)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxMto07)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxMto07)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaxMto08)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaxMto08)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info01)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info01)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info02)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info02)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info03)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info03)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info04)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info04)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info05)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info05)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info06)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info06)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info07)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info07)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info08)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info08)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info09)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info09)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info10)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info10)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoDate01)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoDate01)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoDate02)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoDate02)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoDate03)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoDate03)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoDate04)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoDate04)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoDate05)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoDate05)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoMto01)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoMto01)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoMto02)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoMto02)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoMto03)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoMto03)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoMto04)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoMto04)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InfoMto05)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InfoMto05)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Post)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Post)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PostDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SnCredito)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SnCredito)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SnCancelada)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SnCancelada)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUsuarioModificador)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdUsuarioModificador)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtUsuarioModificador)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtUsuarioModificador)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaModificacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaModificacion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtUsuario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtUsuario)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdEstado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdEstado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TxtEstado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TxtEstado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdLocationNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdLocationNavigation.IdLocation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdProveedorNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdProveedorNavigation.IdProveedor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdTipoCompNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdTipoCompNavigation.IdTipoComp)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdTipoMonedaNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdTipoMonedaNavigation.IdTipoMoneda)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdTipoOrdenNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdTipoOrdenNavigation.IdTipoOrden)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdUsuarioNavigation.IdUsuario)
-        </dd>
-    </dl>
+    <hr class="text-decoration-line-through" />
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <dl class="row">
+                <div class="col-sm-12">
+                    <dt>
+                        Número de Comprobante Recibido:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.NroCompRecibido))
+                        {
+                            <input type="text" value="@Model.NroCompRecibido" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
+                <div class="col-sm-12">
+                    <dt>
+                        Numero:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.TxtNumero))
+                        {
+                            <input type="text" value="@Model.TxtNumero" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
+
+                <div class="col-sm-12">
+                    <dt>
+                        Observacion:
+                    </dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.TxtObserv))
+                        {
+                            <input value="@Model.TxtObserv" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
+               
+            </dl>
+        </div>
+
+
+
+        <div class="col-md-4">
+            <dl class="row">
+                <div class="col-sm-12">
+                    <dt>
+                        Fecha de Registro:
+                    </dt>
+                    <dd>
+                        @if (Model.FecRegistro != null)
+                        {
+                            <input type="text" value="@Model.FecRegistro" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
+
+                <div class="col-sm-12">
+                    <dt>
+                        Fecha de Registro Recibido:
+                    </dt>
+                    <dd>
+                        @if (Model.FecRegRecibido != null)
+                        {
+                            <input type="text" value="@Model.FecRegRecibido" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
+                
+                <div class="col-sm-12">
+                    <dt>
+                        Fecha de Emision:
+                    </dt>
+                    <dd>
+                        @if (Model.FecEmi != null)
+                        {
+                            <input type="text" value="@Model.FecEmi " disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
+
+
+
+            </dl>
+        </div>
+
+        <div class="col-md-4">
+            <dl class="row">
+                @* <div class="col-sm-12">
+                    <dt>
+                        Monto:
+                    </dt>
+                    <dd>
+                        @if (Model.MtoTcVta != null)
+                        {
+                            <input type="text" value="@Model.MtoTcVta" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div> *@
+
+                <div class="col-sm-12">
+                    <dt>
+                        Monto Neto:
+                    </dt>
+                    <dd>
+                        @if (Model.MtoNeto != null)
+                        {
+                            <input type="text" value="@Model.MtoNeto" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
+
+                
+
+                <div class="col-sm-12">
+                    <dt>
+                        Descuento:
+                    </dt>
+                    <dd>
+                        @if (Model.MtoDsctoTot != null)
+                        {
+                            <input type="text" value="@Model.MtoDsctoTot" disabled />
+                        }
+                        else
+                        {
+                            <input type="text" value="No tiene" disabled />
+                        }
+                    </dd>
+                </div>
+               
+            </dl>
+        </div>
+
+
+
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdCompRecibido">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+
+
+

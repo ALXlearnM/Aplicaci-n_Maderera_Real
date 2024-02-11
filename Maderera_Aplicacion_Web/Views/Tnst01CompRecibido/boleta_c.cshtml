@@ -1,6 +1,8 @@
 @model Maderera_Aplicacion_Web.Models.Tnst01CompRecibido
 
 @{
+
+    <title>@ViewData["Title"] Jhyperionm</title>
     @if (Model != null)
     {
         Layout = "_Layout"; // Nombre del layout que deseas aplicar
@@ -497,12 +499,12 @@
                     language: {
                         "decimal": "",
                         "emptyTable": "No hay información",
-                        "info": "Mostrando START a END de TOTAL Proveedores",
-                        "infoEmpty": "Mostrando 0 to 0 of 0 Ventas",
-                        "infoFiltered": "(Filtrado de MAX total Proveedores)",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Proveedor",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Proveedor",
+                        "infoFiltered": "(Filtrado de _MAX_ total Proveedor)",
                         "infoPostFix": "",
                         "thousands": ",",
-                        "lengthMenu": "Mostrar MENU Proveedores",
+                        "lengthMenu": "Mostrar _MENU_ Proveedor",
                         "loadingRecords": "Cargando...",
                         "processing": "Procesando...",
                         "search": "Buscar:",

@@ -1,9 +1,9 @@
 ﻿@model Maderera_Aplicacion_Web.Models.Pert11PagoPersonal
-
+<title>@ViewData["Title"] Jhyperionm</title>
 <div class="container">
     <div class="row mt-5">
         <div class="col-sm-6">
-            <h2>Extraccion</h2>
+            <h2>Pago Personal</h2>
         </div>
         <div class="col-sm-6 text-right">
             <a class="btn btn-danger" asp-action="pago_p_listado">Ver Listado</a>
@@ -22,7 +22,7 @@
                     <dd>
                         @if (Model.Fecha != null)
                         {
-                            <input type="text" value="@Model.Fecha.ToString("yyyy-MM-dd")" readonly />
+                            <input type="text" value="@Model.Fecha.ToString("yyyy-MM-dd")" disabled />
                         }
                         else
                         {
@@ -31,14 +31,14 @@
                     </dd>
 
                 </div>
-                @* <div class="col-sm-12">
+                 <div class="col-sm-12">
                     <dt>
-                        Nro. Arboles Total:
+                        Mes:
                     </dt>
                     <dd>
-                        @if (Model.NroArbolesTotal != null)
+                        @if (Model.Mes != null)
                         {
-                            <input type="text" value="@Model.NroArbolesTotal" disabled />
+                            <input type="text" value="@Model.Mes" disabled />
                         }
                         else
                         {
@@ -49,19 +49,19 @@
 
                 <div class="col-sm-10">
                     <dt>
-                        Comentario:
+                        Tipo:
                     </dt>
                     <dd>
-                        @if (!string.IsNullOrEmpty(Model.Comentario))
+                        @if (!string.IsNullOrEmpty(Model.Tipo))
                         {
-                            <input type="text" value="@Model.Comentario" disabled />
+                            <input type="text" value="@Model.Tipo" disabled />
                         }
                         else
                         {
                             <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
-                </div> *@
+                </div> 
 
 
               
@@ -72,14 +72,14 @@
             <dl class="row">
                
                
-                @* <div class="col-sm-12">
+                 <div class="col-sm-12">
                     <dt>
-                        Nro. Trozas Total:
+                        Estado:
                     </dt>
                     <dd>
-                        @if (Model.NroTrozosTotal != null)
+                        @if (Model.Estado != null)
                         {
-                            <input type="text" value="@Model.NroTrozosTotal" disabled />
+                            <input type="text" value="@Model.Estado" disabled />
                         }
                         else
                         {
@@ -89,32 +89,32 @@
                 </div>
                 <div class="col-sm-12">
                     <dt>
-                        Promedio Diametro Total:
+                        Promedio Monto:
                     </dt>
                     <dd>
-                        @if (Model.DiamProTotal != null)
+                        @if (Model.Monto != null)
                         {
-                            <input type="text" value="@Model.DiamProTotal" disabled />
+                            <input type="text" value="@Model.Monto" disabled />
                         }
                         else
                         {
                             <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
-                </div> *@
+                </div> 
             </dl>
         </div>
 
         <div class="col-md-4">
             <dl class="row">
-                @* <div class="col-sm-12">
+                 <div class="col-sm-12">
                     <dt>
-                        Altura Arbol Total:
+                        Empleado:
                     </dt>
                     <dd>
-                        @if (Model.AltArbolProTotal != null)
+                        @if (Model.IdEmpleado != null)
                         {
-                            <input type="text" value="@Model.AltArbolProTotal" disabled />
+                            <input type="text" value="@Model.IdEmpleadoNavigation.TxtPriNom @Model.IdEmpleadoNavigation.TxtSegNom" disabled  />
                         }
                         else
                         {
@@ -125,19 +125,19 @@
                
                 <div class="col-sm-12">
                     <dt>
-                        Campaña:
+                        Predio:
                     </dt>
                     <dd>
-                        @if (Model.IdCampanaNavigation != null && Model.IdCampanaNavigation.IdCampana != null)
+                        @if (Model.IdPredio != null)
                         {
-                            <input type="text" value="@Model.IdCampanaNavigation.IdCampana" disabled />
+                            <input type="text" value="@Model.IdPredioNavigation.NroSitio" disabled />
                         }
                         else
                         {
                             <input type="text" placeholder="No tiene" disabled>
                         }
                     </dd>
-                </div> *@
+                </div> 
             </dl>
         </div>
     </div>
