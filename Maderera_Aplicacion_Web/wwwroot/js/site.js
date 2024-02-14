@@ -4913,18 +4913,48 @@ $(document).ready(function () {
     $("#guardarycerrarExt").click(function () {
         enviarDatosExtGuardaryCerrar();
     });
+    
     $("#cancelarExt").click(function () {
-        $.ajax({
-            url: "/Pret07Extraccion/CerrarCampanaExt",
-            type: "GET",
-            success: function (response) {
-                if (response.mensaje == null) {
-                    window.location.href = response.redirectUrl;
-                } else {
-                    alert(response.mensaje);
-                }
-            },
-            error: function (response) {
+        Swal.fire({
+            title: "¿Estás seguro de cerrar la extracción?",
+            text: "¡Esta acción es irreversible!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cerrar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Pret07Extraccion/CerrarCampanaExt",
+                    type: "GET",
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "¡Cierre exitoso!",
+                                text: "La extracción se ha cerrado correctamente.",
+                                icon: "success"
+                            }).then(() => {
+                                // Redirigir al listado de extracciones
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "¡Error!",
+                                text: response.mensaje,
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al cerrar la extracción.",
+                            icon: "error"
+                        });
+                    }
+                });
             }
         });
     });
@@ -4945,20 +4975,49 @@ $(document).ready(function () {
         });
     });
     $("#cancelarRec").click(function () {
-        $.ajax({
-            url: "/Pret11Recepcion/CerrarRecepcion",
-            type: "GET",
-            success: function (response) {
-                if (response.mensaje == null) {
-                    window.location.href = response.redirectUrl;
-                } else {
-                    alert(response.mensaje);
-                }
-            },
-            error: function (response) {
+        Swal.fire({
+            title: "¿Estás seguro de cancelar la recepción?",
+            text: "¡Esta acción es irreversible!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cancelar",
+            cancelButtonText: "No, continuar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Pret11Recepcion/CerrarRecepcion", // Ajusta la URL según tu aplicación
+                    type: "GET",
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "Recepción cancelada",
+                                text: "La recepción se ha cancelado correctamente.",
+                                icon: "success"
+                            }).then(() => {
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "¡Error!",
+                                text: response.mensaje,
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al cancelar la recepción.",
+                            icon: "error"
+                        });
+                    }
+                });
             }
         });
     });
+
     
 });
 
@@ -5751,50 +5810,90 @@ function enviarDatosExtGuardar() {
     if (arregloextemp.length > 0) {
         if (CampanatipoArbolExt.length > 0) {
 
-        var arregloTAext= JSON.stringify(CampanatipoArbolExt);
-        var arregloextEmp= JSON.stringify(arregloextemp);
+            var arregloTAext = JSON.stringify(CampanatipoArbolExt);
+            var arregloextEmp = JSON.stringify(arregloextemp);
 
             if (camposRequeridosLlenos('FormExtraccion')) {
                 var data = {
-                //EXTRACCION
-                FechaExtraccion: $('#fechaextraccion').val(),
-                altarbtot: parseFloat($('#altarbtotal').val()),
-                nroarboltot: parseInt($('#nroarboltotal').val()),
+                    // EXTRACCION
+                    FechaExtraccion: $('#fechaextraccion').val(),
+                    altarbtot: parseFloat($('#altarbtotal').val()),
+                    nroarboltot: parseInt($('#nroarboltotal').val()),
                     nrotrozastot: parseInt($('#nrotrozastotal').val()),
-                diamtot: parseFloat($('#diamprototal').val()),
-                comentarioExt: ($('#comentario').val()),
-                //DETALLE EXTRACCIÓN
-                arregloextraccionTA: arregloTAext,
-                arregloempleadosextraccion: arregloextEmp, 
-            };
+                    diamtot: parseFloat($('#diamprototal').val()),
+                    comentarioExt: ($('#comentario').val()),
+                    // DETALLE EXTRACCIÓN
+                    arregloextraccionTA: arregloTAext,
+                    arregloempleadosextraccion: arregloextEmp,
+                };
 
-
-            $.ajax({
-                url: '/Pret07Extraccion/CrearExtraccion', // Ajusta la URL según la estructura de tu aplicación
-                type: 'POST',
-                data: data,
-                dataType: 'json',
-                success: function (response) {
-                    if (response.mensaje == null) {
-                        window.location.href = response.redirectUrl;
-                    } else {
-                        alert(response.mensaje);
+                Swal.fire({
+                    title: "¿Estás seguro de guardar la extracción?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, guardar",
+                    cancelButtonText: "No, cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/Pret07Extraccion/CrearExtraccion', // Ajusta la URL según la estructura de tu aplicación
+                            type: 'POST',
+                            data: data,
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.mensaje == null) {
+                                    Swal.fire({
+                                        title: "¡Registro exitoso!",
+                                        text: "La extracción se ha creado correctamente.",
+                                        icon: "success"
+                                    }).then(() => {
+                                        // Redirigir al destino especificado
+                                        window.location.href = response.redirectUrl;
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "¡Guardado exitoso!",
+                                        text: "La extracción se ha guardado correctamente.",
+                                        icon: "success"
+                                    });
+                                }
+                            },
+                            error: function (error) {
+                                console.error('Error al crear la extracción:', error.responseText);
+                                Swal.fire({
+                                    title: "¡Error!",
+                                    text: "Ocurrió un error al crear la extracción.",
+                                    icon: "error"
+                                });
+                            }
+                        });
                     }
-                },
-                error: function (error) {
-                    console.error('Error al crear la campaña:', error.responseText);
-                }
+                });
+            } else {
+                Swal.fire({
+                    title: "¡Faltan campos por llenar!",
+                    text: "Por favor, complete todos los campos requeridos.",
+                    icon: "warning"
+                });
+            }
+        } else {
+            Swal.fire({
+                title: "¡Atención!",
+                text: "Registre al menos un tipo de árbol por extracción.",
+                icon: "warning"
             });
-        } else {
-            alert('Por favor, complete todos los campos requeridos.');
-        }
-        } else {
-            alert('Registre al menos un tipo de arbol por extracción.')
         }
     } else {
-        alert('Registre al menos un empleado.')
+        Swal.fire({
+            title: "¡Atención!",
+            text: "Registre al menos un empleado para la extracción.",
+            icon: "warning"
+        });
     }
 }
+
 function enviarDatosExtGuardaryCerrar() {
     if (arregloextemp.length > 0) {
         if (CampanatipoArbolExt.length > 0) {
@@ -5804,43 +5903,82 @@ function enviarDatosExtGuardaryCerrar() {
 
             if (camposRequeridosLlenos('FormExtraccion')) {
                 var data = {
-                    //EXTRACCION
+                    // EXTRACCION
                     FechaExtraccion: $('#fechaextraccion').val(),
                     altarbtot: parseFloat($('#altarbtotal').val()),
                     nroarboltot: parseInt($('#nroarboltotal').val()),
                     nrotrozastot: parseInt($('#nrotrozastotal').val()),
                     diamtot: parseFloat($('#diamprototal').val()),
                     comentarioExt: ($('#comentario').val()),
-                    //DETALLE EXTRACCIÓN
+                    // DETALLE EXTRACCIÓN
                     arregloextraccionTA: arregloTAext,
                     arregloempleadosextraccion: arregloextEmp,
                 };
 
-
-                $.ajax({
-                    url: '/Pret07Extraccion/CrearExtraccionyCerrar', // Ajusta la URL según la estructura de tu aplicación
-                    type: 'POST',
-                    data: data,
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.mensaje == null) {
-                            window.location.href = response.redirectUrl;
-                        } else {
-                            alert(response.mensaje);
-                        }
-                    },
-                    error: function (error) {
-                        console.error('Error al crear la campaña:', error.responseText);
+                Swal.fire({
+                    title: "¿Estás seguro de guardar y cerrar la extracción?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, guardar y cerrar",
+                    cancelButtonText: "No, cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/Pret07Extraccion/CrearExtraccionyCerrar', // Ajusta la URL según la estructura de tu aplicación
+                            type: 'POST',
+                            data: data,
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.mensaje == null) {
+                                    Swal.fire({
+                                        title: "¡Registro exitoso!",
+                                        text: "La extracción se ha creado y cerrado correctamente.",
+                                        icon: "success"
+                                    }).then(() => {
+                                        // Redirigir al destino especificado
+                                        window.location.href = response.redirectUrl;
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "¡Error!",
+                                        text: response.mensaje,
+                                        icon: "error"
+                                    });
+                                }
+                            },
+                            error: function (error) {
+                                console.error('Error al crear la extracción:', error.responseText);
+                                Swal.fire({
+                                    title: "¡Error!",
+                                    text: "Ocurrió un error al crear la extracción.",
+                                    icon: "error"
+                                });
+                            }
+                        });
                     }
                 });
             } else {
-                alert('Por favor, complete todos los campos requeridos.');
+                Swal.fire({
+                    title: "¡Faltan campos por llenar!",
+                    text: "Por favor, complete todos los campos requeridos.",
+                    icon: "warning"
+                });
             }
         } else {
-            alert('Registre al menos un tipo de arbol por extracción.')
+            Swal.fire({
+                title: "¡Atención!",
+                text: "Registre al menos un tipo de árbol por extracción.",
+                icon: "warning"
+            });
         }
     } else {
-        alert('Registre al menos un empleado.')
+        Swal.fire({
+            title: "¡Atención!",
+            text: "Registre al menos un empleado para la extracción.",
+            icon: "warning"
+        });
     }
 }
 $(document).ready(function () {
@@ -8030,38 +8168,97 @@ $(document).ready(function () {
     $("#guardarycerrarEnv").click(function () {
         enviarDatosEnvGuardaryCerrar();
     });
+
     $("#cancelarEnv").click(function () {
-        $.ajax({
-            url: "/Pret10Envio/CerrarExtraccionEnv",
-            type: "GET",
-            success: function (response) {
-                if (response.mensaje == null) {
-                    window.location.href = response.redirectUrl;
-                } else {
-                    alert(response.mensaje);
-                }
-            },
-            error: function (response) {
+        Swal.fire({
+            title: "¿Estás seguro de cerrar el envío?",
+            text: "¡Esta acción es irreversible!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cerrar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Pret10Envio/CerrarExtraccionEnv",
+                    type: "GET",
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "¡Cierre exitoso!",
+                                text: "El envío se ha cerrado correctamente.",
+                                icon: "success"
+                            }).then(() => {
+                                // Redirigir al listado de envíos
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "¡Error!",
+                                text: response.mensaje,
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al cerrar el envío.",
+                            icon: "error"
+                        });
+                    }
+                });
             }
         });
     });
     
 
     $("#cancelarRec").click(function () {
-        $.ajax({
-            url: "/Pret11Recepcion/CerrarRecepcion",
-            type: "GET",
-            success: function (response) {
-                if (response.mensaje == null) {
-                    window.location.href = response.redirectUrl;
-                } else {
-                    alert(response.mensaje);
-                }
-            },
-            error: function (response) {
+        Swal.fire({
+            title: "¿Estás seguro de cancelar la recepción?",
+            text: "¡Esta acción es irreversible!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cancelar",
+            cancelButtonText: "No, continuar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Pret11Recepcion/CerrarRecepcion", // Ajusta la URL según tu aplicación
+                    type: "GET",
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "Recepción cancelada",
+                                text: "La recepción se ha cancelado correctamente.",
+                                icon: "success"
+                            }).then(() => {
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "¡Error!",
+                                text: response.mensaje,
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al cancelar la recepción.",
+                            icon: "error"
+                        });
+                    }
+                });
             }
         });
     });
+
 
 });
 
@@ -8483,11 +8680,9 @@ function aplicarCambiosTAEnv() {
 }
 
 
-
 function enviarDatosEnvGuardar() {
     if (arregloenvemp.length > 0) {
         if (ExtracciontipoArbolEnv.length > 0) {
-
 
             if (camposRequeridosLlenos('FormEnvio')) {
                 var formData = new FormData();
@@ -8497,8 +8692,8 @@ function enviarDatosEnvGuardar() {
                     var checkb = true;
                 } else {
                     var checkb = false;
-
                 }
+
                 formData.append('FechaEnvio', $('#fechaenv').val());
                 formData.append('idlocation', parseInt($('#Locationenvid').val()));
                 formData.append('idlocationto', parseInt($('#Locationtoenvid').val()));
@@ -8511,59 +8706,87 @@ function enviarDatosEnvGuardar() {
                 formData.append('tipoEnv', $('#tipoenvioenv').val());
                 formData.append('check', checkb);
 
-
                 // Agregar archivos al FormData
                 for (var i = 0; i < archivosEnv.length; i++) {
                     formData.append('archivos', archivosEnv[i]);
                 }
 
-
-                $.ajax({
-                    url: '/Pret10Envio/CrearEnvio', // Ajusta la URL según la estructura de tu aplicación
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        if (response.mensaje == null) {
-                            window.location.href = response.redirectUrl;
-
-                        } else {
-                            alert(response.mensaje);
-                        }
+                Swal.fire({
+                    title: "¿Estás seguro de guardar el envío?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, guardar",
+                    cancelButtonText: "No, cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         $.ajax({
-                            url: '/Pret10Envio/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
-                            type: 'GET',
+                            url: '/Pret10Envio/CrearEnvio', // Ajusta la URL según la estructura de tu aplicación
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
                             success: function (response) {
-                                if (response.id == 3) {
-                                    document.getElementById('moodNameEnv').innerText = response.name;
-                                    // Supongamos que tienes un input checkbox con el id "miCheckbox"
-                                    $('#checkEstadoEnvio').prop('checked', true);
-                                    $('#checkEstadoEnvio').prop('disabled', false);
-
-                                } else if (response.id == 4) {
-                                    document.getElementById('moodNameEnv').innerText = response.name;
-                                    // Supongamos que tienes un input checkbox con el id "miCheckbox"
-                                    $('#checkEstadoEnvio').prop('checked', true);
-                                    $('#checkEstadoEnvio').prop('disabled', true);
+                                if (response.mensaje == null) {
+                                    Swal.fire({
+                                        title: "¡Registro exitoso!",
+                                        text: "El envío se ha creado correctamente.",
+                                        icon: "success"
+                                    }).then(() => {
+                                        // Redirigir al destino especificado
+                                        window.location.href = response.redirectUrl;
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "¡Guardado exitoso!",
+                                        text: "El envío se ha guardado correctamente.",
+                                        icon: "success"
+                                    });
                                 }
+                                // Se eliminó la llamada ajax innecesaria a Pret10Envio/CargarMood
+                            },
+                            error: function (error) {
+                                console.error('Error al crear el envío:', error.responseText);
+                                Swal.fire({
+                                    title: "¡Error!",
+                                    text: "Ocurrió un error al crear el envío.",
+                                    icon: "error"
+                                });
                             }
-                            });
-                    },
-                    error: function (error) {
-                        console.error('Error al crear la campaña:', error.responseText);
+                        });
                     }
                 });
             } else {
-                alert('Por favor, complete todos los campos requeridos.');
+                Swal.fire({
+                    title: "¡Faltan campos por llenar!",
+                    text: "Por favor, complete todos los campos requeridos.",
+                    icon: "warning"
+                });
             }
         } else {
-            alert('Registre al menos un tipo de arbol por envío.')
+            Swal.fire({
+                title: "¡Atención!",
+                text: "Registre al menos un tipo de árbol por envío.",
+                icon: "warning"
+            });
         }
     } else {
-        alert('Registre al menos un empleado.')
+        Swal.fire({
+            title: "¡Atención!",
+            text: "Registre al menos un empleado para el envío.",
+            icon: "warning"
+        });
     }
 }
+
+
+
+
+
+
+
+
 function enviarDatosEnvGuardaryCerrar() {
     if (arregloenvemp.length > 0) {
         if (ExtracciontipoArbolEnv.length > 0) {
@@ -8576,8 +8799,8 @@ function enviarDatosEnvGuardaryCerrar() {
                     var checkb = true;
                 } else {
                     var checkb = false;
-
                 }
+
                 formData.append('FechaEnvio', $('#fechaenv').val());
                 formData.append('idlocation', parseInt($('#Locationenvid').val()));
                 formData.append('idlocationto', parseInt($('#Locationtoenvid').val()));
@@ -8595,33 +8818,72 @@ function enviarDatosEnvGuardaryCerrar() {
                     formData.append('archivos', archivosEnv[i]);
                 }
 
-                console.log(formData);
-
-                $.ajax({
-                    url: '/Pret10Envio/CrearEnvioycerrar', // Ajusta la URL según la estructura de tu aplicación
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        if (response.mensaje == null) {
-                            window.location.href = response.redirectUrl;
-                        } else {
-                            alert(response.mensaje);
-                        }
-                    },
-                    error: function (error) {
-                        console.error('Error al crear la campaña:', error.responseText);
+                Swal.fire({
+                    title: "¿Estás seguro de guardar y cerrar el envío?",
+                    text: "¡Esta acción es irreversible!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, guardar y cerrar",
+                    cancelButtonText: "No, cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/Pret10Envio/CrearEnvioycerrar', // Ajusta la URL según la estructura de tu aplicación
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function (response) {
+                                if (response.mensaje == null) {
+                                    Swal.fire({
+                                        title: "¡Registro exitoso!",
+                                        text: "El envío se ha creado y cerrado correctamente.",
+                                        icon: "success"
+                                    }).then(() => {
+                                        // Redirigir al listado de envíos
+                                        window.location.href = response.redirectUrl;
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "¡Guardado exitoso!",
+                                        text: "El envío se ha creado y cerrado correctamente.",
+                                        icon: "success"
+                                    });
+                                }
+                            },
+                            error: function (error) {
+                                console.error('Error al crear el envío:', error.responseText);
+                                Swal.fire({
+                                    title: "¡Error!",
+                                    text: "Ocurrió un error al crear el envío.",
+                                    icon: "error"
+                                });
+                            }
+                        });
                     }
                 });
             } else {
-                alert('Por favor, complete todos los campos requeridos.');
+                Swal.fire({
+                    title: "¡Faltan campos por llenar!",
+                    text: "Por favor, complete todos los campos requeridos.",
+                    icon: "warning"
+                });
             }
         } else {
-            alert('Registre al menos un tipo de arbol por envío.')
+            Swal.fire({
+                title: "¡Atención!",
+                text: "Registre al menos un tipo de árbol por envío.",
+                icon: "warning"
+            });
         }
     } else {
-        alert('Registre al menos un empleado.')
+        Swal.fire({
+            title: "¡Atención!",
+            text: "Registre al menos un empleado para el envío.",
+            icon: "warning"
+        });
     }
 }
 
@@ -9550,20 +9812,52 @@ $(document).ready(function () {
     $("#guardarycerrarRec").click(function () {
         enviarDatosRecGuardaryCerrar();
     });
+
     $("#cancelarRec").click(function () {
-        $.ajax({
-            url: "/Pret11Recepcion/CerrarExtraccionRec",
-            type: "GET",
-            success: function (response) {
-                if (response.mensaje == null) {
-                    window.location.href = response.redirectUrl;
-                } else {
-                    alert(response.mensaje);
-                }
-            },
-            error: function (response) {
+        Swal.fire({
+            title: "¿Estás seguro de cancelar la recepción?",
+            text: "Se perderán los datos que no hayas guardado.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cancelar",
+            cancelButtonText: "No, continuar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Pret11Recepcion/CerrarExtraccionRec",
+                    type: "GET",
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "Recepción cancelada",
+                                text: "La recepción se ha cancelado correctamente.",
+                                icon: "success"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "¡Error!",
+                                text: response.mensaje,
+                                icon: "error"
+                            });
+                        }
+                        // Redirigir después de mostrar el mensaje
+                        window.location.href = response.redirectUrl;
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al cancelar la recepción.",
+                            icon: "error"
+                        });
+                    }
+                });
             }
         });
+    });
+
+
 });
 
 
@@ -9582,7 +9876,6 @@ $(document).ready(function () {
         if (arreglorecemp.length > 0) {
             if (EnviotipoArbolRec.length > 0) {
 
-
                 if (camposRequeridosLlenos('FormRecepcion')) {
                     var formData = new FormData();
                     var checkbox = document.getElementById('checkEstadoRecepcion');
@@ -9591,8 +9884,8 @@ $(document).ready(function () {
                         var checkb = true;
                     } else {
                         var checkb = false;
-
                     }
+
                     formData.append('FechaRecepcion', $('#fecharec').val());
                     formData.append('comentarioRec', $('#comentariorec').val());
                     formData.append('arreglorecepcionTA', JSON.stringify(EnviotipoArbolRec));
@@ -9600,64 +9893,86 @@ $(document).ready(function () {
                     formData.append('tipoEnv', $('#tipoenvioenv').val());
                     formData.append('check', checkb);
 
-
                     // Agregar archivos al FormData
                     for (var i = 0; i < archivosRec.length; i++) {
                         formData.append('archivos', archivosRec[i]);
                     }
 
-
-                    $.ajax({
-                        url: '/Pret11Recepcion/CrearRecepcion', // Ajusta la URL según la estructura de tu aplicación
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (response) {
-                            if (response.mensaje == null) {
-                                window.location.href = response.redirectUrl;
-
-                            } else {
-                                alert(response.mensaje);
-                            }
+                    Swal.fire({
+                        title: "¿Estás seguro de guardar la recepción?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Sí, guardar",
+                        cancelButtonText: "No, cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
                             $.ajax({
-                                url: '/Pret11Recepcion/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
-                                type: 'GET',
+                                url: '/Pret11Recepcion/CrearRecepcion', // Ajusta la URL según la estructura de tu aplicación
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
                                 success: function (response) {
-                                    if (response.id == 3) {
-                                        document.getElementById('moodNameRec').innerText = response.name;
-                                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
-                                        $('#checkEstadoRecepcion').prop('checked', true);
-                                        $('#checkEstadoRecepcion').prop('disabled', false);
-
-                                    } else if (response.id == 4) {
-                                        document.getElementById('moodNameRec').innerText = response.name;
-                                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
-                                        $('#checkEstadoRecepcion').prop('checked', true);
-                                        $('#checkEstadoRecepcion').prop('disabled', true);
+                                    if (response.mensaje == null) {
+                                        Swal.fire({
+                                            title: "¡Registro exitoso!",
+                                            text: "La recepción se ha creado correctamente.",
+                                            icon: "success"
+                                        }).then(() => {
+                                            // Redirigir al destino especificado
+                                            window.location.href = response.redirectUrl;
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "¡Error!",
+                                            text: response.mensaje,
+                                            icon: "error"
+                                        });
                                     }
+                                    // Se eliminó la llamada ajax innecesaria a Pret11Recepcion/CargarMood
+                                },
+                                error: function (error) {
+                                    console.error('Error al crear la recepción:', error.responseText);
+                                    Swal.fire({
+                                        title: "¡Error!",
+                                        text: "Ocurrió un error al crear la recepción.",
+                                        icon: "error"
+                                    });
                                 }
                             });
-                        },
-                        error: function (error) {
-                            console.error('Error al crear la campaña:', error.responseText);
                         }
                     });
                 } else {
-                    alert('Por favor, complete todos los campos requeridos.');
+                    Swal.fire({
+                        title: "¡Faltan campos por llenar!",
+                        text: "Por favor, complete todos los campos requeridos.",
+                        icon: "warning"
+                    });
                 }
             } else {
-                alert('Registre al menos un tipo de arbol por envío.')
+                Swal.fire({
+                    title: "¡Atención!",
+                    text: "Registre al menos un tipo de árbol por recepción.",
+                    icon: "warning"
+                });
             }
         } else {
-            alert('Registre al menos un empleado.')
+            Swal.fire({
+                title: "¡Atención!",
+                text: "Registre al menos un empleado para la recepción.",
+                icon: "warning"
+            });
         }
     }
+
+
+
     function enviarDatosRecGuardaryCerrar() {
         if (arreglorecemp.length > 0) {
             if (EnviotipoArbolRec.length > 0) {
 
-
                 if (camposRequeridosLlenos('FormRecepcion')) {
                     var formData = new FormData();
                     var checkbox = document.getElementById('checkEstadoRecepcion');
@@ -9666,8 +9981,8 @@ $(document).ready(function () {
                         var checkb = true;
                     } else {
                         var checkb = false;
-
                     }
+
                     formData.append('FechaRecepcion', $('#fecharec').val());
                     formData.append('comentarioRec', $('#comentariorec').val());
                     formData.append('arreglorecepcionTA', JSON.stringify(EnviotipoArbolRec));
@@ -9675,41 +9990,80 @@ $(document).ready(function () {
                     formData.append('tipoEnv', $('#tipoenvioenv').val());
                     formData.append('check', checkb);
 
-
                     // Agregar archivos al FormData
                     for (var i = 0; i < archivosRec.length; i++) {
                         formData.append('archivos', archivosRec[i]);
                     }
 
-
-                    $.ajax({
-                        url: '/Pret11Recepcion/CrearRecepcionycerrar', // Ajusta la URL según la estructura de tu aplicación
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (response) {
-                            if (response.mensaje == null) {
-                                window.location.href = response.redirectUrl;
-                            } else {
-                                alert(response.mensaje);
-                            }
-                        },
-                        error: function (error) {
-                            console.error('Error al crear la campaña:', error.responseText);
+                    Swal.fire({
+                        title: "¿Estás seguro de guardar y cerrar la recepción?",
+                        text: "¡Esta acción es irreversible!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Sí, guardar y cerrar",
+                        cancelButtonText: "No, cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/Pret11Recepcion/CrearRecepcionycerrar', // Ajusta la URL según la estructura de tu aplicación
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function (response) {
+                                    if (response.mensaje == null) {
+                                        Swal.fire({
+                                            title: "¡Registro exitoso!",
+                                            text: "La recepción se ha creado y cerrado correctamente.",
+                                            icon: "success"
+                                        }).then(() => {
+                                            // Redirigir al listado de recepciones
+                                            window.location.href = response.redirectUrl;
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "¡Error!",
+                                            text: response.mensaje,
+                                            icon: "error"
+                                        });
+                                    }
+                                },
+                                error: function (error) {
+                                    console.error('Error al crear la recepción:', error.responseText);
+                                    Swal.fire({
+                                        title: "¡Error!",
+                                        text: "Ocurrió un error al crear la recepción.",
+                                        icon: "error"
+                                    });
+                                }
+                            });
                         }
                     });
                 } else {
-                    alert('Por favor, complete todos los campos requeridos.');
+                    Swal.fire({
+                        title: "¡Faltan campos por llenar!",
+                        text: "Por favor, complete todos los campos requeridos.",
+                        icon: "warning"
+                    });
                 }
             } else {
-                alert('Registre al menos un tipo de arbol por envío.')
+                Swal.fire({
+                    title: "¡Atención!",
+                    text: "Registre al menos un tipo de árbol por recepción.",
+                    icon: "warning"
+                });
             }
         } else {
-            alert('Registre al menos un empleado.')
+            Swal.fire({
+                title: "¡Atención!",
+                text: "Registre al menos un empleado para la recepción.",
+                icon: "warning"
+            });
         }
     }
-});
+
 
 
 $(document).ready(function () {
@@ -10731,23 +11085,53 @@ $(document).ready(function () {
         enviarDatosProGuardaryCerrar();
     });
     $("#cancelarPro").click(function () {
-        $.ajax({
-            url: "/Pret14Produccion/CerrarExtraccionPro",
-            type: "GET",
-            success: function (response) {
-                if (response.mensaje == null) {
-                    window.location.href = response.redirectUrl;
-                } else {
-                    alert(response.mensaje);
-                }
-            },
-            error: function (response) {
+        Swal.fire({
+            title: "¿Estás seguro de cancelar la producción?",
+            text: "¡Esta acción es irreversible!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cancelar",
+            cancelButtonText: "No, continuar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Pret14Produccion/CerrarExtraccionPro", // Ajusta la URL según tu aplicación
+                    type: "GET",
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "Producción cancelada",
+                                text: "La producción se ha cancelado correctamente.",
+                                icon: "success"
+                            }).then(() => {
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "¡Error!",
+                                text: response.mensaje,
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al cancelar la producción.",
+                            icon: "error"
+                        });
+                    }
+                });
             }
         });
     });
+
     function enviarDatosProGuardar() {
         if (arregloproemp.length > 0) {
             if (ListadoProductospSeleccionados.length > 0) {
+
                 if (camposRequeridosLlenos('FormProduccion')) {
                     var formData = new FormData();
                     var checkbox = document.getElementById('checkEstadoProduccion');
@@ -10757,6 +11141,7 @@ $(document).ready(function () {
                     } else {
                         var checkb = false;
                     }
+
                     formData.append('FechaPro', $('#fechaprod').val());
                     formData.append('comentarioP', $('#comentarioP').val());
                     formData.append('cinsPro', $('#cantpi').val());
@@ -10768,59 +11153,87 @@ $(document).ready(function () {
 
                     // Agregar archivos al FormData
                     //for (var i = 0; i < archivosRec.length; i++) {
-                    //    formData.append('archivos', archivosRec[i]);
+                    //  formData.append('archivos', archivosRec[i]);
                     //}
 
 
-                    $.ajax({
-                        url: '/Pret14Produccion/CrearProduccion', // Ajusta la URL según la estructura de tu aplicación
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (response) {
-                            if (response.mensaje == null) {
-                                window.location.href = response.redirectUrl;
-
-                            } else {
-                                alert(response.mensaje);
-                            }
+                    Swal.fire({
+                        title: "¿Estás seguro de guardar la producción?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Sí, guardar",
+                        cancelButtonText: "No, cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
                             $.ajax({
-                                url: '/Pret14Produccion/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
-                                type: 'GET',
+                                url: '/Pret14Produccion/CrearProduccion', // Ajusta la URL según la estructura de tu aplicación
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
                                 success: function (response) {
-                                    if (response.id == 3) {
-                                        document.getElementById('moodNamePro').innerText = response.name;
-                                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
-                                        $('#checkEstadoProduccion').prop('checked', true);
-                                        $('#checkEstadoProduccion').prop('disabled', false);
-
-                                    } else if (response.id == 4) {
-                                        document.getElementById('moodNamePro').innerText = response.name;
-                                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
-                                        $('#checkEstadoProduccion').prop('checked', true);
-                                        $('#checkEstadoProduccion').prop('disabled', true);
+                                    if (response.mensaje == null) {
+                                        Swal.fire({
+                                            title: "¡Registro exitoso!",
+                                            text: "La producción se ha creado correctamente.",
+                                            icon: "success"
+                                        }).then(() => {
+                                            // Redirigir al destino especificado
+                                            window.location.href = response.redirectUrl;
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "¡Error!",
+                                            text: response.mensaje,
+                                            icon: "error"
+                                        });
                                     }
+                                    // Se eliminó la llamada ajax innecesaria a Pret14Produccion/CargarMood
+                                },
+                                error: function (error) {
+                                    console.error('Error al crear la producción:', error.responseText);
+                                    Swal.fire({
+                                        title: "¡Error!",
+                                        text: "Ocurrió un error al crear la producción.",
+                                        icon: "error"
+                                    });
                                 }
                             });
-                        },
-                        error: function (error) {
-                            console.error('Error al crear la producción, error.responseText');
                         }
                     });
                 } else {
-                    alert('Por favor, complete todos los campos requeridos.');
+                    Swal.fire({
+                        title: "¡Faltan campos por llenar!",
+                        text: "Por favor, complete todos los campos requeridos.",
+                        icon: "warning"
+                    });
                 }
             } else {
-                alert('Registre al menos un producto en el registro de productos para producir.');
+                Swal.fire({
+                    title: "¡Atención!",
+                    text: "Registre al menos un producto en el registro de productos para producir.",
+                    icon: "warning"
+                });
             }
         } else {
-            alert('Registre al menos un empleado.');
+            Swal.fire({
+                title: "¡Atención!",
+                text: "Registre al menos un empleado para la producción.",
+                icon: "warning"
+            });
         }
     }
+
+
+
+
+
     function enviarDatosProGuardaryCerrar() {
         if (arregloproemp.length > 0) {
             if (ListadoProductospSeleccionados.length > 0) {
+
                 if (camposRequeridosLlenos('FormProduccion')) {
                     var formData = new FormData();
                     var checkbox = document.getElementById('checkEstadoProduccion');
@@ -10829,8 +11242,8 @@ $(document).ready(function () {
                         var checkb = true;
                     } else {
                         var checkb = false;
-
                     }
+
                     formData.append('FechaPro', $('#fechaprod').val());
                     formData.append('comentarioP', $('#comentarioP').val());
                     formData.append('cinsPro', $('#cantpi').val());
@@ -10842,38 +11255,79 @@ $(document).ready(function () {
 
                     // Agregar archivos al FormData
                     //for (var i = 0; i < archivosRec.length; i++) {
-                    //    formData.append('archivos', archivosRec[i]);
+                    //  formData.append('archivos', archivosRec[i]);
                     //}
 
 
-                    $.ajax({
-                        url: '/Pret14Produccion/CrearProduccionyCerrar', // Ajusta la URL según la estructura de tu aplicación
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (response) {
-                            if (response.mensaje == null) {
-                                window.location.href = response.redirectUrl;
-
-                            } else {
-                                alert(response.mensaje);
-                            }
-                        },
-                        error: function (error) {
-                            console.error('Error al crear la producción, error.responseText');
+                    Swal.fire({
+                        title: "¿Estás seguro de guardar y cerrar la producción?",
+                        text: "¡Esta acción es irreversible!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Sí, guardar y cerrar",
+                        cancelButtonText: "No, cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/Pret14Produccion/CrearProduccionyCerrar', // Ajusta la URL según la estructura de tu aplicación
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function (response) {
+                                    if (response.mensaje == null) {
+                                        Swal.fire({
+                                            title: "¡Registro exitoso!",
+                                            text: "La producción se ha creado y cerrado correctamente.",
+                                            icon: "success"
+                                        }).then(() => {
+                                            // Redirigir al destino especificado
+                                            window.location.href = response.redirectUrl;
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "¡Error!",
+                                            text: response.mensaje,
+                                            icon: "error"
+                                        });
+                                    }
+                                },
+                                error: function (error) {
+                                    console.error('Error al crear la producción:', error.responseText);
+                                    Swal.fire({
+                                        title: "¡Error!",
+                                        text: "Ocurrió un error al crear la producción.",
+                                        icon: "error"
+                                    });
+                                }
+                            });
                         }
                     });
                 } else {
-                    alert('Por favor, complete todos los campos requeridos.');
+                    Swal.fire({
+                        title: "¡Faltan campos por llenar!",
+                        text: "Por favor, complete todos los campos requeridos.",
+                        icon: "warning"
+                    });
                 }
             } else {
-                alert('Registre al menos un producto en el registro de productos para producir.');
+                Swal.fire({
+                    title: "¡Atención!",
+                    text: "Registre al menos un producto en el registro de productos para producir.",
+                    icon: "warning"
+                });
             }
         } else {
-            alert('Registre al menos un empleado.');
+            Swal.fire({
+                title: "¡Atención!",
+                text: "Registre al menos un empleado para la producción.",
+                icon: "warning"
+            });
         }
     }
+
 });
 
 
