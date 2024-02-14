@@ -2588,6 +2588,8 @@ function seleccionarProducto(modalId, selectId, idcod, idtext, idPro, nombrePro)
 function removeProducto() {
     // Quitar el valor del cliente y ocultar el span
     document.getElementById('ProductoId').value = '';
+    document.getElementById('cantidad').value = "";
+    document.getElementById('descuento').value = "";
     document.getElementById('ProductoNombre').style.display = 'none';
     document.getElementById('removeProductoSpan').style.display = 'none';
     var selectElement = document.getElementById('procbo');
@@ -2718,7 +2720,8 @@ function agregarProducto() {
                 actualizarTablaProductosSeleccionados();
                 removeProducto();
 
-                document.getElementById('cantidad').value = 1;
+                document.getElementById('cantidad').value = "";
+                document.getElementById('descuento').value = "";
                 var descuentoInput = document.getElementById('descuento');
 
                 // Establece el valor en 0
@@ -10394,7 +10397,7 @@ function removeProductop() {
     // Quitar el valor del cliente y ocultar el span
     document.getElementById('ProductopId').value = null;
     document.getElementById('umpp').value = "";
-    document.getElementById('cantpp').value = 1;
+    document.getElementById('cantpp').value = "";
 
     document.getElementById('ProductopNombre').style.display = 'none';
     document.getElementById('removeProductopSpan').style.display = 'none';
@@ -10486,7 +10489,7 @@ function agregarProductop() {
                 actualizarTablaProductosSeleccionadosp();
                 removeProductop();
 
-                document.getElementById('cantpp').value = 1;
+                document.getElementById('cantpp').value = "";
                 document.getElementById('umpp').value = "";
 
             } else {
