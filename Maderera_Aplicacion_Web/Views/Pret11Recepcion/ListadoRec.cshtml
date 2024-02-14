@@ -70,12 +70,12 @@
             </td>
 
             <td>
-                        @if (item.IdEstado == 3)
-                        {
+                        @* @if (item.IdEstado == 3)
+                        { *@
 
                             <a asp-action="EditarRecepcion" asp-route-idrecepcion="@item.IdRecepcion"><i class="fas fa-edit" data-placement="top" title="Edit"></i></a>
-                            <text>|</text>
-                                }
+                          @*   <text>|</text>
+                                } *@
                         <a asp-action="Details" asp-route-id="@item.IdRecepcion"> <i class="fas fa-eye" data-placement="top" title="Details"></i></a> |
                         @if (item.IdEstado == 3)
                         {

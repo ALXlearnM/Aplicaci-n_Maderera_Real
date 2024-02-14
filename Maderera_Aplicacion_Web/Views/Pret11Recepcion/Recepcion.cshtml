@@ -92,7 +92,7 @@
             <div class="form-check d-flex justify-content-start p-0">
                 <div class="">
 
-                    <input class="form-check-input" type="checkbox" id="checkEstadoRecepcion" />
+                    <input checked class="form-check-input" type="checkbox" id="checkEstadoRecepcion" />
 
                     <span class="text-black" id="moodNameRec">BORRADOR</span>
                 </div>
@@ -723,6 +723,7 @@
                 type: 'GET',
                 data: { idEnvio: CompParsed.idEnvio},
                 success: function (response) {
+                    console.log(response);
                     document.getElementById('codCamrec').value = response.codCampana;
                     document.getElementById('unCatrec').value = response.unCatastral;
                     document.getElementById('locenvrec').value = response.nomLoc;

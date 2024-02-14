@@ -58,7 +58,7 @@
                     <dd>
                         @if (!string.IsNullOrEmpty(Model.TxtObserv))
                         {
-                            <input type="text" value="@Model.TxtObserv" disabled />
+                            <input value="@Model.TxtObserv" disabled />
                         }
                         else
                         {
@@ -129,7 +129,7 @@
 
         <div class="col-md-4">
             <dl class="row">
-                <div class="col-sm-12">
+                @* <div class="col-sm-12">
                     <dt>
                         Monto:
                     </dt>
@@ -143,7 +143,7 @@
                             <input type="text" value="No tiene" disabled />
                         }
                     </dd>
-                </div>
+                </div> *@
 
                 <div class="col-sm-12">
                     <dt>

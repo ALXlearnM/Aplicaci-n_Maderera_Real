@@ -31,7 +31,7 @@
             <div class="form-check d-flex justify-content-start p-0">
                 <div class="">
 
-                    <input class="form-check-input" type="checkbox" id="checkEstadoMerma" />
+                    <input checked class="form-check-input" type="checkbox" id="checkEstadoMerma" />
 
                     <span class="text-black" id="moodNameMer">BORRADOR</span>
                 </div>
@@ -72,7 +72,7 @@
 
 
             <div class="tab-content">
-                @* PARA LA TABLA REGISTRO DE EXTRACCION*@
+                @* PARA LA TABLA REGISTRO DE MERMA*@
                 <div class="tab-pane fade in active show" id="regismer">
                     <form id="FormMerma">
 
@@ -281,12 +281,13 @@
                         </div>
                     </div>
                 </div>
+                @* PARA LA TABLA REGISTRO DE DET MERMA*@
 
                 <div class="tab-pane fade" id="detmer">
 
                     <div class="form-row mt-3 container-fluid">
                       
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group row">
 
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Prod. Merma:</label>
@@ -304,11 +305,11 @@
                             </div>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Cantidad :</label>
-                                <div class="col-sm-7 ml-5">
+                                <div class="col-sm-6 ml-5">
                                     <input id="cantpm" type="number" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
                                 </div>
                             </div>
@@ -323,7 +324,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Tipo merma:</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="tipomm" type="text" class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
 
                             <div class="col-sm-8 mt-0 ml-3 mr-3 mb-0">
                                 <button type="button" class="btn btn-success" onclick="agregarProductom()">
@@ -335,7 +345,7 @@
                         <table align="center" border="1" cellspacing="0" class="table table-striped table-bordered m-0" id="">
                             <thead class="HeadTA">
                                 <tr>
-                                    <td class="text-center">cantidad</td>
+                                    <td class="text-center">Cantidad</td>
                                     <td class="text-center">Producto Merma</td>
                                     <td class="text-center">Unidad de Medida</td>
 

@@ -1175,7 +1175,43 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                 if (existingProduccion != null)
                 {
+                    var existingMerma = _context.Pret16Mermas.Where(p => p.IdProduccion == id).ToList();
 
+                    if (existingMerma != null)
+                    {
+                        foreach (Pret16Merma merma in existingMerma)
+                        {
+                            long idmerma = merma.IdMerma;
+                            var existingEmpleadoMer = _context.Pret24MermaEmpleados.Where(p => p.IdMerma == idmerma).ToList();
+
+                            if (existingEmpleadoMer != null)
+                            {
+                                foreach (Pret24MermaEmpleado empleado in existingEmpleadoMer)
+                                {
+                                    //empleado.IdEstado = 0;
+                                    //empleado.TxtEstado = "INACTIVO";
+                                    _context.Pret24MermaEmpleados.Remove(empleado);
+                                    await _context.SaveChangesAsync();
+                                }
+                            }
+                            await _context.SaveChangesAsync();
+                            var existingDtllMer = _context.Pret17MermaDtls.Where(p => p.IdMerma == idmerma).ToList();
+
+                            if (existingDtllMer != null)
+                            {
+                                foreach (Pret17MermaDtl Detalle in existingDtllMer)
+                                {
+                                    //Detalle.IdEstado = 2;
+                                    //Detalle.TxtEstado = "INACTIVO";
+                                    _context.Pret17MermaDtls.Remove(Detalle);
+                                    await _context.SaveChangesAsync();
+                                }
+                            }
+                            _context.Pret16Mermas.Remove(merma);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    await _context.SaveChangesAsync();
                     var existingEmpleado = _context.Pret20ProduccionEmpleados.Where(p=>p.IdProduccion == id).ToList();
 
 
