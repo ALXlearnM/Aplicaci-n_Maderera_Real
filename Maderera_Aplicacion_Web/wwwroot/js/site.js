@@ -3982,12 +3982,12 @@ function seleccionarTA(modalId, selectId, idcod, idtext, idPro, nombrePro) {
 // Función para añadir un producto a la lista de productos seleccionados
 function agregarCampanata() {
     event.preventDefault()
-    var idtipoarbol = parseInt($("#tipoarboltc").val());
-    var numarbol = parseInt($("#nroarboltc").val());
-    var area = parseFloat($("#areatc").val());
-    var numhectareas = parseFloat($("#hectareastc").val());
-    var latitud = ($("#latitudtc").val());
-    var longitud = ($("#longitudtc").val());
+    let idtipoarbol = parseInt($("#tipoarboltc").val());
+    let numarbol = parseInt($("#nroarboltc").val());
+    let area = parseFloat($("#areatc").val());
+    let numhectareas = parseFloat($("#hectareastc").val());
+    let latitud = ($("#latitudtc").val());
+    let longitud = ($("#longitudtc").val());
 
     // Validar que los campos sean números válidos y que el idProducto sea mayor que cero
     if (isNaN(idtipoarbol) || idtipoarbol <= 0 || isNaN(numarbol) || numarbol <= 0 || isNaN(area) || isNaN(numhectareas) || numhectareas <= 0 || area<= 0) {
@@ -4108,9 +4108,9 @@ $(document).ready(function () {
 function removeTipoArbol() {
     // Quitar el valor del cliente y ocultar el span
     document.getElementById('tipoarboltc').value = '';
-    document.getElementById('hectareastc').value = 0;
-    document.getElementById('nroarboltc').value = 1;
-    document.getElementById('areatc').value = 0;
+    document.getElementById('hectareastc').value = "";
+    document.getElementById('nroarboltc').value = "";
+    document.getElementById('areatc').value = "";
     document.getElementById('latitudtc').value = '';
     document.getElementById('longitudtc').value = '';
     document.getElementById('TipoArbolNombre').style.display = 'none';
@@ -4602,9 +4602,9 @@ function seleccionarcampext(modalId, selectId, idcampext, nombrecampext) {
     // Ocultar el seleCAMPEXT
     var selectElement = document.getElementById('campextcbo');
     selectElement.style.display = 'none';
-    document.getElementById('nrotrozasta').value = 1;
-    document.getElementById('alturata').value = 1;
-    document.getElementById('diametrota').value = 1;
+    document.getElementById('nrotrozasta').value = "";
+    document.getElementById('alturata').value = "";
+    document.getElementById('diametrota').value = "";
     document.getElementById('comentariota').value = '';
     // Función para seleccionar la campaña de extracción
     function seleccionarCampExt(idcampext) {
@@ -5757,7 +5757,7 @@ $(document).ready(function () {
     // ...
 
     // Evento que se dispara cuando el modal se está mostrando
-    $('#modalEliminar').on('show.bs.modal', function (event) {
+    $('#confirmarEliminarModal').on('show.bs.modal', function (event) {
         // Botón que activó el modal
         var button = $(event.relatedTarget);
 
@@ -5779,13 +5779,10 @@ $(document).ready(function () {
             type: "POST",
             data: { id: idExtraccion },
             success: function (response) {
-                if (response != null && response.mensaje) {
-                    // Éxito: hacer algo después de la eliminación
-                    alert(response.mensaje);
-                } else {
-                    // Manejar errores si es necesario
-                    alert("Error al eliminar la Extracción");
-                }
+                $('#confirmarEliminar').modal('hide');
+
+                window.location.href = response.redirectUrl;
+
             },
             error: function () {
                 // Manejar errores de la solicitud AJAX
@@ -11455,7 +11452,8 @@ function removeProductom() {
     // Quitar el valor del cliente y ocultar el span
     document.getElementById('ProductomId').value = null;
     document.getElementById('umpm').value = "";
-    document.getElementById('cantpm').value = 1;
+    document.getElementById('cantpm').value = "";
+    document.getElementById('tipomm').value = "";
 
     document.getElementById('ProductomNombre').style.display = 'none';
     document.getElementById('removeProductomSpan').style.display = 'none';
@@ -11512,11 +11510,12 @@ var ListadoProductosmSeleccionados = [];
 
 // Función para añadir un producto a la lista de productos seleccionados
 function agregarProductom() {
-    var idProducto = parseInt($("#ProductomId").val());
-    var cantidad = parseFloat($("#cantpm").val());
-
+    let idProducto = parseInt($("#ProductomId").val());
+    let cantidad = parseFloat($("#cantpm").val());
+    let tipom = $("#tipomm").val();
+    console.log(tipom);
     // Validar que los campos sean números válidos y que el idProducto sea mayor que cero
-    if (isNaN(idProducto) || idProducto <= 0 || isNaN(cantidad) || cantidad <= 0) {
+    if (isNaN(idProducto) || idProducto <= 0 || isNaN(cantidad) || cantidad <= 0 || tipom=="") {
         alert("Por favor, ingrese valores numéricos válidos para el ID, cantidad y descuento.");
         return false; // Detener la ejecución si los campos no son válidos
     }
@@ -11541,14 +11540,15 @@ function agregarProductom() {
                     cantidad: cantidad,
                     um: um,
                     total: total,
-                    tipormerma: ""
+                    tipormerma: tipom
                 });
 
                 actualizarTablaProductosSeleccionadosm();
                 removeProductom();
 
-                document.getElementById('cantpm').value = 1;
+                document.getElementById('cantpm').value = "";
                 document.getElementById('umpm').value = "";
+                document.getElementById('tipomm').value = "";
 
             } else {
                 alert("Producto no encontrado");

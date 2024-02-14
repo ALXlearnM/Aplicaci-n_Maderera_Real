@@ -141,8 +141,10 @@ namespace Maderera_Aplicacion_Web.Controllers
                 codigo = campanaTA.IdEnvioNavigation.NroEnvio,
                 location = campanaTA.IdEnvioNavigation.IdLocationNavigation.TxtDesc,
                 locationto = campanaTA.IdEnvioNavigation.IdLocationToNavigation.TxtDesc,
+                idEnvio=campanaTA.IdEnvio
             })
             .FirstOrDefault();
+
             ViewBag.CodCam = _context.Pret11Recepcions.Include(e=>e.IdEnvioNavigation).ThenInclude(e => e.IdExtraccionNavigation).ThenInclude(e => e.IdCampanaNavigation).ThenInclude(e => e.IdPredioNavigation).Where(e => e.IdEnvio == idrecepcion).Select(e => e.IdEnvioNavigation.IdExtraccionNavigation.IdCampanaNavigation.CodigoCampana).FirstOrDefault();
             ViewBag.UnidCat = _context.Pret11Recepcions.Include(e => e.IdEnvioNavigation).ThenInclude(e => e.IdExtraccionNavigation).ThenInclude(e => e.IdCampanaNavigation).ThenInclude(e => e.IdPredioNavigation).Where(e => e.IdEnvio == idrecepcion).Select(e => e.IdEnvioNavigation.IdExtraccionNavigation.IdCampanaNavigation.IdPredioNavigation.UnidadCatastral).FirstOrDefault();
 
@@ -315,7 +317,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                 IdTemporalEnvio = idEnvio == null ? IdTemporalEnvio : idEnvio;
                 var response = _context.Pret10Envios
-                    .Where(e => e.IdEnvio == IdTemporalEnvio && e.IdEstado == 4)
+                    .Where(e => e.IdEnvio == IdTemporalEnvio && e.IdEstado == 4 || e.IdEstado == 6)
                     .Select(e => new
                     {
                         CodCampana = e.IdExtraccionNavigation.IdCampanaNavigation.CodigoCampana,
@@ -635,10 +637,6 @@ namespace Maderera_Aplicacion_Web.Controllers
                     }
                     await _context.SaveChangesAsync();
 
-
-
-
-
                     //Archivo
 
                     var idarchivosenArreglo = archivos.Select(p => p.FileName).ToList();
@@ -889,15 +887,16 @@ namespace Maderera_Aplicacion_Web.Controllers
                             }
                         }
 
+
+                        if (Pret11Recepcion.IdEstado == 4)
+                        {
+                            existingEnvios.IdEstado = 6;
+                            existingEnvios.TxtEstado = "RECEPCIONADO";
+
+                        }
                     }
 
                     
-
-                }
-                if (existingEnvios.IdEstado == 4)
-                {
-                    existingEnvios.IdEstado = 6;
-                    existingEnvios.TxtEstado = "RECEPCIONADO";
 
                 }
                 await _context.SaveChangesAsync();
@@ -1062,10 +1061,6 @@ namespace Maderera_Aplicacion_Web.Controllers
                     }
                     await _context.SaveChangesAsync();
 
-
-
-
-
                     //Archivo
 
                     var idarchivosenArreglo = archivos.Select(p => p.FileName).ToList();
@@ -1316,12 +1311,16 @@ namespace Maderera_Aplicacion_Web.Controllers
                             }
                         }
 
+
+                        if (Pret11Recepcion.IdEstado == 4)
+                        {
+                            existingEnvios.IdEstado = 6;
+                            existingEnvios.TxtEstado = "RECEPCIONADO";
+
+                        }
                     }
-                }
-                if (existingEnvios.IdEstado == 4)
-                {
-                    existingEnvios.IdEstado = 6;
-                    existingEnvios.TxtEstado = "RECEPCIONADO";
+
+
 
                 }
                 await _context.SaveChangesAsync();

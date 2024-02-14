@@ -1660,7 +1660,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                 await _context.SaveChangesAsync();
 
 
-                var existingEnvio = _context.Pret10Envios.Where(p => p.IdEstado == 3 || p.IdEstado == 4 && p.IdEnvio == id).FirstOrDefault();
+                var existingEnvio = _context.Pret10Envios.Where(p => p.IdEnvio == id).FirstOrDefault();
 
                 if (existingEnvio != null)
                 {
