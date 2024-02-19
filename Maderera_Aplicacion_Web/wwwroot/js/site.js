@@ -2488,67 +2488,125 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    alert(response.mensaje);
+                    Swal.fire({
+                        title: "¡Guardado exitoso!",
+                        text: response.mensaje,
+                        icon: "success"
+                    }).then(() => {
+                        // Opcional: Redirigir a otra página después del éxito
+                        // window.location.href = '/Pret01Predio/ListadoPre';
+                    });
                 },
                 error: function (error) {
                     console.error('Error al crear el predio:', error.responseText);
+                    Swal.fire({
+                        title: "¡Error!",
+                        text: "Ocurrió un error al crear el predio.",
+                        icon: "error"
+                    });
                 }
             });
         } else {
-            alert('Por favor, complete todos los campos requeridos.');
+            Swal.fire({
+                title: "¡Faltan campos por llenar!",
+                text: "Por favor, complete todos los campos requeridos.",
+                icon: "warning"
+            });
         }
     });
+    
     $('#crearPredioyCerrarBtn').click(function () {
-        var confirmar = confirm("¿Seguro que desea guardar y cerrar?");
+        Swal.fire({
+            title: "¿Seguro que desea guardar y cerrar?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, guardar y cerrar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (camposRequeridosLlenos('FormPredio')) {
+                    var formData = new FormData();
 
-        if (confirmar) {
-            if (camposRequeridosLlenos('FormPredio')) {
-                var formData = new FormData();
+                    // Agregar datos del formulario al objeto FormData
+                    formData.append('nroSitio', $('#nrositioPredio').val());
+                    formData.append('area', parseFloat($('#areapredio').val()));
+                    formData.append('unidadCatastral', $('#unidadcat').val());
+                    formData.append('nroHectareas', parseFloat($('#numhectareapredios').val()));
+                    formData.append('latitud', ($('#latitudpred').val()));
+                    formData.append('longitud', ($('#longitudpred').val()));
+                    formData.append('idDistrito', parseInt($('#distritopredio').val()));
+                    formData.append('idInversionista', parseInt($('#inversionistaID').val()));
+                    formData.append('nrocomp', $('#nrocomprobantepred').val());
+                    formData.append('partidaregistral', $('#partidareg').val());
+                    formData.append('idtipoPredio', $('#tipopredio').val());
+                    formData.append('fechaadquisicion', $('#fechaAdquisicion').val());
+                    formData.append('fechacompra', $('#fechaCompra').val());
 
-                // Agregar datos del formulario al objeto FormData
-                formData.append('nroSitio', $('#nrositioPredio').val());
-                formData.append('area', parseFloat($('#areapredio').val()));
-                formData.append('unidadCatastral', $('#unidadcat').val());
-                formData.append('nroHectareas', parseFloat($('#numhectareapredios').val()));
-                formData.append('latitud', ($('#latitudpred').val()));
-                formData.append('longitud', ($('#longitudpred').val()));
-                formData.append('idDistrito', parseInt($('#distritopredio').val()));
-                formData.append('idInversionista', parseInt($('#inversionistaID').val()));
-                formData.append('nrocomp', $('#nrocomprobantepred').val());
-                formData.append('partidaregistral', $('#partidareg').val());
-                formData.append('idtipoPredio', $('#tipopredio').val());
-                formData.append('fechaadquisicion', $('#fechaAdquisicion').val());
-                formData.append('fechacompra', $('#fechaCompra').val());
+                    for (var i = 0; i < archivos.length; i++) {
+                        formData.append('archivos', archivos[i]);
+                    }
 
-                for (var i = 0; i < archivos.length; i++) {
-                    formData.append('archivos', archivos[i]);
+                    $.ajax({
+                        url: '/Pret01Predio/CrearPredioyCerrar',
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response.mensaje == null) {
+                                Swal.fire({
+                                    title: "¡Registro exitoso!",
+                                    text: "El predio se ha creado con éxito.",
+                                    icon: "success"
+                                }).then(() => {
+                                    // Redirigir al listado de predios
+                                    window.location.href = response.redirectUrl;
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "¡Error!",
+                                    text: response.mensaje,
+                                    icon: "error"
+                                });
+                            }
+                        },
+                        error: function (error) {
+                            console.error('Error al crear el predio:', error.responseText);
+                            Swal.fire({
+                                title: "¡Error!",
+                                text: "Ocurrió un error al crear el predio.",
+                                icon: "error"
+                            });
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "¡Faltan campos por llenar!",
+                        text: "Por favor, complete todos los campos requeridos.",
+                        icon: "warning"
+                    });
                 }
-
-                $.ajax({
-                    url: '/Pret01Predio/CrearPredioyCerrar',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        
-                        if (response.mensaje == null) { 
-                        window.location.href = response.redirectUrl;
-                    }else{
-                        alert(response.mensaje);
-                    }
-                    },
-                    error: function (error) {
-                        console.error('Error al crear el predio:', error.responseText);
-                    }
-                });
-            } else {
-                alert('Por favor, complete todos los campos requeridos.');
             }
-        }
         });
+    });
     $("#cancelarPred").click(function () {
-        window.location.href = '/Pret01Predio/ListadoPre';
+        Swal.fire({
+            title: "¿Estás seguro que desea salir de esta página?",
+            text: "",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí",
+            cancelButtonText: "No, volver",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirigir al listado
+                window.location.href = '/Pret01Predio/ListadoPre';
+            }
+        });
     });
 });
 
@@ -3893,17 +3951,46 @@ $(document).ready(function () {
         enviarDatosCTAGuardarYCerrar();
     });
     $("#cancelarCamp").click(function () {
-        $.ajax({
-            url: "/Pret02Campana/CerrarCampana",
-            type: "GET",
-            success: function (response) {
-                if (response.mensaje == null) {
-                    window.location.href = response.redirectUrl;
-                } else {
-                    alert(response.mensaje);
-                }
-            },
-            error: function (response) {
+        Swal.fire({
+            title: "¿Estás seguro de cancelar la campaña?",
+            
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cerrar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Pret02Campana/CerrarCampana",
+                    type: "GET",
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "¡Cancelado exitoso!",
+                                text: "La campaña se ha cancelado correctamente.",
+                                icon: "success"
+                            }).then(() => {
+                                // Redirigir al listado de campañas
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "¡Error!",
+                                text: response.mensaje,
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al cerrar la campaña.",
+                            icon: "error"
+                        });
+                    }
+                });
             }
         });
     });
@@ -3993,8 +4080,12 @@ function agregarCampanata() {
     let longitud = ($("#longitudtc").val());
 
     // Validar que los campos sean números válidos y que el idProducto sea mayor que cero
-    if (isNaN(idtipoarbol) || idtipoarbol <= 0 || isNaN(numarbol) || numarbol <= 0 || isNaN(area) || isNaN(numhectareas) || numhectareas <= 0 || area<= 0) {
-        alert("Por favor, ingrese valores numéricos válidos para la campaña por tipo de arbol");
+    if (isNaN(idtipoarbol) || idtipoarbol <= 0 || isNaN(numarbol) || numarbol <= 0 || isNaN(area) || isNaN(numhectareas) || numhectareas <= 0 || area <= 0) {
+        Swal.fire({
+            title: "¡Faltan campos por llenar!",
+            text: "Por favor, ingrese valores válidos",
+            icon: "warning"
+        });
         return false; // Detener la ejecución si los campos no son válidos
     }
 
@@ -4021,11 +4112,19 @@ function agregarCampanata() {
 
 
             } else {
-                alert("Tipo de Arbol no encontrado");
+                Swal.fire({
+                    title: "¡Error!",
+                    text: "Tipo de Arbol no encontrado, verifique que se encuentre activo",
+                    icon: "warning"
+                });
             }
         },
         error: function (response) {
-            alert("Error al obtener los datos del Tipo de Arbol");
+            Swal.fire({
+                title: "¡Error!",
+                text: "Error al obtener los datos del Tipo de Arbol",
+                icon: "warning"
+            });
         }
     });
 
@@ -4306,50 +4405,77 @@ function enviarDatosCTAGuardar() {
             console.log(CampanatipoArbol);
             var campanaTA = JSON.stringify(CampanatipoArbol);
             console.log(campanaTA);
-            if (camposRequeridosLlenos('FormCampana')) {
-                var data = {
-                    IdTipoCampana: ($('#IdTipoCampana').val()),
-                    NroHectarea: parseInt($('#nrohectareacampana').val()),
-                    NroArboles: parseInt($('#nroarbolcampana').val()),
-                    Area: parseFloat($('#areacampana').val()),
-                    Latitud: ($('#latitudcampana').val()),
-                    Longitud: ($('#longitudcampana').val()),
-                    FechaInicio: $('#fechainiciocampana').val(),
-                    campanatipoarbolSeleccionado: campanaTA, // <-- Este es el campo que se enviará
-                };
+        if (camposRequeridosLlenos('FormCampana')) {
+            var data = {
+                IdTipoCampana: ($('#IdTipoCampana').val()),
+                NroHectarea: parseInt($('#nrohectareacampana').val()),
+                NroArboles: parseInt($('#nroarbolcampana').val()),
+                Area: parseFloat($('#areacampana').val()),
+                Latitud: ($('#latitudcampana').val()),
+                Longitud: ($('#longitudcampana').val()),
+                FechaInicio: $('#fechainiciocampana').val(),
+                campanatipoarbolSeleccionado: campanaTA, // <-- Este es el campo que se enviará
+            };
 
 
-                $.ajax({
-                    url: '/Pret02Campana/CrearCampana', // Ajusta la URL según la estructura de tu aplicación
-                    type: 'POST',
-                    data: data,
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.mensaje == null) {
+            $.ajax({
+                url: '/Pret02Campana/CrearCampana', // Ajusta la URL según la estructura de tu aplicación
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.mensaje == null) {
+                        Swal.fire({
+                            title: "¡Guardado exitoso!",
+                            text: response.mensaje,
+                            icon: "success"
+                        }).then(() => {
                             window.location.href = response.redirectUrl;
-                        } else {
-                            alert(response.mensaje);
-                        }
-                    },
-                    error: function (error) {
-                        console.error('Error al crear la campaña:', error.responseText);
+                        });
+
+                    } else {
+                        alert(response.mensaje);
                     }
-                });
-            } else {
-                alert('Por favor, complete todos los campos requeridos.');
-            }
+                },
+                error: function (error) {
+                    Swal.fire({
+                        title: "¡Error!",
+                        text: "Ocurrió un error al crear el predio.",
+                        icon: "error"
+                    });
+                }
+            });
+        } else {
+                    Swal.fire({
+                        title: "¡Faltan campos por llenar!",
+                        text: "Por favor, complete todos los campos requeridos.",
+                        icon: "warning"
+                    });
+                }
 
     } else {
-        alert('Registre al menos una campaña por tipo de arbol.')
+        Swal.fire({
+            title: "¡Faltan campos por llenar!",
+            text: "Registre al menos una campaña por tipo de arbol",
+            icon: "warning"
+        });
     }
 }
 
 function enviarDatosCTAGuardarYCerrar() {
     
     if (CampanatipoArbol.length > 0) {
-        var confirmar = confirm("¿Seguro que desea guardar y cerrar?");
+        Swal.fire({
+            title: "¿Seguro que desea guardar y cerrar?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, guardar y cerrar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-        if (confirmar) {
 
             var campanaTA = JSON.stringify(CampanatipoArbol);
 
@@ -4381,12 +4507,23 @@ function enviarDatosCTAGuardarYCerrar() {
                         console.error('Error al crear la campaña:', error.responseText);
                     }
                 });
-            } else {
-                alert('Por favor, complete todos los campos requeridos.');
+
+                }
+                else {
+                    Swal.fire({
+                        title: "¡Faltan campos por llenar!",
+                        text: "Por favor, complete todos los campos requeridos.",
+                        icon: "warning"
+                    });
+                }
             }
-        }
+        });
     } else {
-        alert('Registre al menos una campaña por tipo de arbol.')
+        Swal.fire({
+            title: "¡Faltan campos por llenar!",
+            text: "Registre al menos una campaña por tipo de arbol",
+            icon: "warning"
+        });
     }
 }
 
