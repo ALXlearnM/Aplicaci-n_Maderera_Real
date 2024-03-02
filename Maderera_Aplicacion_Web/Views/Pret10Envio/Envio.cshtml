@@ -1,5 +1,399 @@
 ﻿@model Maderera_Aplicacion_Web.Models.Pret10Envio
 <title>@ViewData["Title"] Jhyperionm</title>
+
+<script>
+
+    function cargarArchivoExcelConHoja(file, tabIndex, callback) {
+        if (file) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let data = new Uint8Array(e.target.result);
+
+                // Obtener el libro de trabajo (workbook) del archivo Excel
+                let workbook = XLSX.read(data, { type: 'array' });
+
+                // Iterar sobre cada hoja del libro de trabajo
+                workbook.SheetNames.forEach(function (sheetName, hojaIndex) {
+                    let hoja = workbook.Sheets[sheetName];
+                    // Llamar a la función de callback con la hoja, el índice de la hoja y el índice del tab
+                    callback(hoja, hojaIndex, tabIndex);
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        } else {
+            console.error('No se ha seleccionado ningún archivo.');
+        }
+    }
+
+    function convertirExcelAHTML(hoja, hojaIndex, tabIndex) {
+        // Convertir la hoja de Excel a HTML
+        const htmlTabla = generarHtmlTabla(hoja);
+
+        // Obtener el ID de la tabla
+        const tablaId = `tabla${hojaIndex + 1}`;
+
+        // Insertar la tabla en el elemento HTML
+        insertarTablaEnHtml(tablaId, htmlTabla);
+
+        // **Agregar los datos al arreglo correspondiente**
+        const rango = XLSX.utils.decode_range(hoja['!ref']);
+
+        // Obtener la primera fila (cabecera)
+        const filaCabecera = hoja[rango.s.r];
+
+        // Seleccionar el arreglo a usar según el índice de la hoja
+        let datosArreglo;
+        switch (hojaIndex) {
+            case 0:
+                datosArreglo = datos1;
+                break;
+            case 1:
+                datosArreglo = datos2;
+                break;
+            case 2:
+                datosArreglo = datos3;
+                break;
+        }
+
+        // Recorrer las celdas de la fila cabecera
+        for (let C = rango.s.c; C <= rango.e.c; ++C) {
+            // Obtener la dirección de la celda
+            const direccionCelda = { c: C, r: rango.s.r };
+
+            // Obtener el valor de la celda
+            const valorCelda = hoja[XLSX.utils.encode_cell(direccionCelda)]?.v;
+
+            // Formatear el contenido de la celda
+            const contenidoCelda = valorCelda ? String(valorCelda).trim() : '';
+
+            // Si la celda no está vacía, agregarla al nombre del registro
+            if (contenidoCelda) {
+                datosArreglo.push({ nombre: contenidoCelda, datos: [] });
+            }
+        }
+
+        // Recorrer las filas de la hoja (excepto la cabecera)
+        for (let R = rango.s.r + 1; R <= rango.e.r; ++R) {
+            // Obtener el índice del registro actual
+            const indiceRegistro = R - rango.s.r - 1;
+
+            // Recorrer las celdas de la fila actual
+            for (let C = rango.s.c; C <= rango.e.c; ++C) {
+                // Obtener la dirección de la celda
+                const direccionCelda = { c: C, r: R };
+
+                // Obtener el valor de la celda
+                const valorCelda = hoja[XLSX.utils.encode_cell(direccionCelda)]?.v;
+
+                // Formatear el contenido de la celda
+                const contenidoCelda = valorCelda ? String(valorCelda).trim() : '';
+
+                // Agregar el valor al registro actual
+                datosArreglo[indiceRegistro].datos.push(contenidoCelda);
+            }
+        }
+
+        console.log('dataArreglo:', datosArreglo);
+    }
+
+    // Función para generar el código HTML de la tabla
+    function generarHtmlTabla(hoja) {
+        // Obtener el rango de la hoja
+        const rango = XLSX.utils.decode_range(hoja['!ref']);
+
+        // Iniciar la variable que contendrá el código HTML
+        let htmlTabla = '<table class="display">';
+
+        // Iterar sobre todas las filas de la hoja
+        for (let R = rango.s.r; R <= rango.e.r; ++R) {
+            // Bandera para verificar si la fila está vacía
+            let filaVacia = true;
+
+            // Iniciar la fila HTML
+            htmlTabla += '<tr>';
+
+            // Iterar sobre todas las columnas de la fila actual
+            for (let C = rango.s.c; C <= rango.e.c; ++C) {
+                // Obtener la dirección de la celda
+                const direccionCelda = { c: C, r: R };
+
+                // Obtener el valor de la celda
+                const valorCelda = hoja[XLSX.utils.encode_cell(direccionCelda)]?.v;
+
+                // Formatear el contenido de la celda
+                const contenidoCelda = valorCelda ? String(valorCelda).trim() : ' ' || '';
+
+                // Si la celda no está vacía, agregarla a la fila
+                if (R > 0 && contenidoCelda) {
+                    filaVacia = false;
+                }
+
+                htmlTabla += `<td style="font-size:14px;">${contenidoCelda}</td>`;
+            }
+
+            // Si la fila no está vacía, agregarla a la tabla
+            if (!filaVacia || R === rango.s.r) {
+                htmlTabla += '</tr>';
+            }
+        }
+
+        // Finalizar la tabla HTML
+        htmlTabla += '</table>';
+
+        return htmlTabla;
+    }
+
+    // Función para insertar la tabla en el elemento HTML
+    function insertarTablaEnHtml(tablaId, htmlTabla) {
+        const elementoTabla = document.getElementById(tablaId);
+
+        if (elementoTabla) {
+            elementoTabla.innerHTML = htmlTabla;
+        } else {
+            console.error(`Elemento con ID ${tablaId} no encontrado.`);
+        }
+    }
+
+
+    function cargarHoja(tabIndex) {
+        console.log('Cargando hoja para el tab:', tabIndex);
+        let fileInput = document.getElementById(`fileInput${tabIndex}`);
+        cargarArchivoExcelConHoja(fileInput.files[0], tabIndex, convertirExcelAHTML);
+
+    }
+
+
+    function cargarArchivoExcelConHoja2(file, hojaIndex, callback) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            let data = new Uint8Array(e.target.result);
+
+            // Obtener la hoja específica
+            let workbook = XLSX.read(data, { type: 'array' });
+            let hoja = workbook.Sheets[workbook.SheetNames[hojaIndex]];
+            let sheetNames = workbook.SheetNames;
+            callback(hoja, hojaIndex,sheetNames);
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function convertirExcelAHTML2(hoja, hojaIndex,sheetNames) {
+        let tablaHTML = '<table>';
+        let nombreHoja = sheetNames[0].split(' ')[1];
+
+        console.log(nombreHoja); // Imprime "2335722"
+
+        tablaHTML += `<caption>${nombreHoja}</caption>`; // Agregar el nombre de la hoja como caption
+
+        // Obtener el rango de la hoja
+        let range = XLSX.utils.decode_range(hoja['!ref']);
+
+        // Obtener el número de filas y columnas
+        let numRows = range.e.r + 1;
+        let numCols = range.e.c + 1;
+
+       
+
+        let datos = [];
+        var gh=0;
+          // Recorrer las filas del rango de la hoja
+        let primeraFilaVacia = true;
+
+        // Recorrer las filas del rango de la hoja
+        for (let R = range.s.r; R <= range.e.r; ++R) {
+
+            // Si la primera fila está en blanco y la fila actual también está en blanco, detener la iteración
+            if (primeraFilaVacia ) {
+                break;
+            }
+
+            // Si es la primera fila, almacenar los nombres de las columnas
+            if (R === range.s.r) {
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                    // Obtener la dirección de la celda
+                    var cell_address = { c: C, r: R };
+                    var data = XLSX.utils.encode_cell(cell_address);
+                    let contenidoCelda = hoja[data] ? String(hoja[data].v) : '';
+
+                    // Si la celda no está vacía, agregarla al nombre del registro
+                    if (contenidoCelda.trim() !== '') {
+                        datos4.push({ nombre: contenidoCelda, datos: [] });
+                        primeraFilaVacia = false; // La primera fila no está en blanco
+                    }
+                }
+                continue;
+            }
+
+            // Recorrer las celdas de la fila actual
+            for (let C = range.s.c; C <= range.e.c; ++C) {
+                // Obtener la dirección de la celda
+                const direccionCelda = { c: C, r: R };
+
+                // Obtener el valor de la celda
+                const valorCelda = hoja[XLSX.utils.encode_cell(direccionCelda)]?.v;
+
+                // Formatear el contenido de la celda
+                const contenidoCelda = valorCelda ? String(valorCelda).trim() : '';
+
+                // Agregar el valor al registro actual
+                if (R < numRows) {
+                    datos4[C - range.s.c].datos.push(contenidoCelda);
+                }
+            }
+        }
+          console.log('Datos:', datos4);
+        console.log('Número de filas:', numRows);
+        var g = 0;
+        // Iterar sobre todas las filas del rango de la hoja
+        for (let R = range.s.r; R <= range.e.r; ++R) {
+            let filaVacia = true; // Bandera para verificar si la fila está vacía
+
+            if (g <= 1) {
+                tablaHTML += '<tr>';
+                // Iterar sobre todas las columnas de la fila actual
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                    var cell_address = { c: C, r: R };
+                    var data = XLSX.utils.encode_cell(cell_address);
+                    let contenidoCelda = hoja[data] ? String(hoja[data].v) : '';
+
+                    // Verificar si la celda contiene datos (ignorando la cabecera)
+                    if (contenidoCelda.trim() !== '') {
+                        filaVacia = false;
+                    }
+
+                    tablaHTML += `<td>${contenidoCelda}</td>`;
+                }
+                tablaHTML += '</tr>';
+            }
+            // Si la fila está completamente vacía, detener la iteración
+            if (filaVacia) {
+                if (g > 0) {
+                    g = 0;
+                    break;
+
+                }
+                g++;
+
+            }
+        }
+
+        tablaHTML += '</table>';
+
+        // Determinar el ID de la tabla según el índice de hoja
+        let tablaId = `tabla4`;
+
+
+        console.log('Tabla HTML:', tablaHTML);
+
+        // Insertar la tabla en el elemento con el ID correspondiente
+        document.getElementById(tablaId).innerHTML = tablaHTML;
+    }
+
+    function cargarHoja2() {
+        let fileInput = document.getElementById('fileInput2');
+
+        cargarArchivoExcelConHoja2(fileInput.files[0], 0, convertirExcelAHTML2);
+
+    }
+
+
+
+
+    function cancelar() {
+
+        // Limpiar la tabla
+        document.getElementById(`tabla1`).innerHTML = '';
+        document.getElementById(`tabla2`).innerHTML = '';
+        document.getElementById(`tabla3`).innerHTML = '';
+
+        // Deshacer la selección del archivo
+        document.getElementById(`fileInput1`).value = '';
+
+        // Limpiar el arreglo de datos específico
+
+        datos1 = [];
+
+        datos2 = [];
+
+        datos3 = [];
+
+
+        datosArreglo = [];
+
+    }
+    var datos1 = [];
+    var datos2 = [];
+    var datos3 = [];
+    var datos4 = [];
+    
+    var datosArreglo = [];
+    function guardarE() {
+        for (let i = 1; i <= 3; i++) {
+            // Obtener la tabla
+            let tabla = document.getElementById(`tabla${i}`);
+
+            // Verificar si el elemento existe antes de intentar acceder a él
+            if (tabla) {
+                // Obtener datos de la tabla
+                let filas = tabla.getElementsByTagName('tr');
+
+                // Obtener el arreglo correspondiente según el índice
+                datosArreglo = i === 1 ? datos1 : (i === 2 ? datos2 : datos3);
+
+                // Limpiar el arreglo actual
+                datosArreglo = [];
+
+                // Iterar sobre las filas
+                for (let j = 1; j < filas.length; j++) {
+                    let celdas = filas[j].getElementsByTagName('td');
+                    let filaDatos = [];
+
+                    // Iterar sobre las celdas de la fila
+                    for (let k = 0; k < celdas.length; k++) {
+                        let contenidoCelda = celdas[k].innerText.trim() || ' '; // Si es vacío, llenar con ' '
+
+                        filaDatos.push(contenidoCelda);
+
+                    }
+
+                    datosArreglo.push(filaDatos);
+                }
+
+                // Resto del código para enviar datos al servidor...
+
+                console.log(`Datos a guardar en la base de datos para tabla${i}:`, datosArreglo);
+            } else {
+                console.error(`Elemento con ID tabla${i}1 no encontrado.`);
+            }
+        }
+    }
+
+
+
+</script>
+<style>
+    .tabla-container {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+
+        .tabla-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tabla-container table, .tabla-container th, .tabla-container td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .tabla-container th {
+            background-color: #f2f2f2;
+        }
+
+</style>
 <div class="d-flex ml-3">
     <!-- Primera fila con los botones -->
     <div class="row mb-1 justify-content-end img-fluid ">
@@ -24,10 +418,10 @@
                     <div class="text-sm-center ">
                         @{
                             if(Model!=null){
-                                <input class="form-control" readonly asp-for="NroEnvio" id="nroenvio" type="text">
+                                                <input class="form-control" readonly asp-for="NroEnvio" id="nroenvio" type="text">
                             }
                             else{
-                                <input class="form-control" readonly value=@ViewBag.NroEnv asp-for="NroEnvio" id="nroenvio" type="text">
+                                                <input class="form-control" readonly value=@ViewBag.NroEnv asp-for="NroEnvio" id="nroenvio" type="text">
                             }}
                         </div>
                 </div>
@@ -42,13 +436,13 @@
                         @{
                             if (Model == null)
                             {
-                                <input class="form-control" readonly id="codCam" type="text">
+                                                <input class="form-control" readonly id="codCam" type="text">
 
                             }
                             else
                             {
 
-                            <input value='@ViewBag.CodCam' class="form-control" readonly id="codCam" type="text">
+                                            <input value='@ViewBag.CodCam' class="form-control" readonly id="codCam" type="text">
 
                             }
                         }
@@ -66,14 +460,14 @@
                         @{
                             if (Model == null)
                             {
-                                <input class="form-control" readonly id="unCat" type="text">
+                                                <input class="form-control" readonly id="unCat" type="text">
 
 
                             }
                             else
                             {
 
-                                <input value='@ViewBag.UnidCat' class="form-control" readonly id="unCat" type="text">
+                                                <input value='@ViewBag.UnidCat' class="form-control" readonly id="unCat" type="text">
 
 
                             }
@@ -555,33 +949,88 @@
                     </div>
                 @* PARA LA TABLA REGISTRO DE TIMBETER*@
 
+                @* PARA LA TABLA REGISTRO DE TIMBETER*@
+
                 <div class="tab-pane fade" id="timbeterextrac">
                     <div class="form-row mt-3 container-fluid">
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <!-- Enlace para abrir el modal -->
-                                    <a class="btn btn-primary text-decoration-underline" href="#" id="verArchivosLink" onclick="abrirModalArchivostim()">Ver Archivos</a>
+                        <div class="form-group row">
+                            <!-- Enlace para abrir el modal -->
+                            <div class="col">
+                                <ul class="nav nav-tabs bg-light border-bottom-0 flex-row">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark " id="timbeterextrac-tab1" data-toggle="tab" href="#timbeterextrac1">
+                                            <b>Pagina1</b>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark " id="timbeterextrac-tab2" data-toggle="tab" href="#timbeterextrac2">
+                                            <b>Pagina2</b>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark " id="timbeterextrac-tab3" data-toggle="tab" href="#timbeterextrac3">
+                                            <b>Pagina3</b>
+                                        </a>
+                                    </li>
+                                    <li class="tab-pane fade" id="cuartoTab">
+                                        <p>Contenido del cuarto tab</p>
+                                    </li>
+
+
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade" id="timbeterextrac1">
+                                        <div class="m-3">
+                                            <input type="file" id="fileInput1" onchange="cargarHoja(1)">
+                                        </div>
+                                        <div class="d-inline-flex">
+                                            <div class="text-start m-2">
+                                                <button onclick="guardarE()">Guardar</button>
+                                            </div>
+                                            <div class="text-end m-2">
+                                                <button onclick="cancelar()">Cancelar</button>
+                                            </div>
+                                        </div>
+                                        <div style="align-items:center;justify-content:center;text-align:center;">
+
+                                            <div id="tabla1" class="tabla-container table-responsive-sm"></div>
+                                        </div>
+                                        <div style="align-items:center;justify-content:center;text-align:center;">
+
+                                            <div id="tabla2" class="tabla-container table-responsive-sm"></div>
+                                        </div>
+                                            <div style="align-items:center;justify-content:center;text-align:center;">
+
+                                            <div id="tabla3" class="tabla-container table-responsive-sm"></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="tab-pane fade " id="timbeterextrac2">
+                                        <div class="m-3">
+                                            <input type="file" id="fileInput2" onchange="cargarHoja2()">
+                                        </div>
+                                        <div class="d-inline-flex">
+                                            <div class="text-start m-2">
+                                                <button onclick="guardarE()">Guardar</button>
+                                            </div>
+                                            <div class="text-end m-2">
+                                                <button onclick="cancelar()">Cancelar</button>
+                                            </div>
+                                        </div>
+                                        <div id="tabla4" class="tabla-container"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="timbeterextrac3">
+                                    </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                   @* <div class="form-row mt-3 container-fluid">
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <input type="file" onchange="cargarArchivoExcel(this.files[0], convertirExcelAHTML)">
-                                    <h2>Tabla HTML</h2>
-                                    <table id="tabla"></table>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>*@
                 </div>
-
-               
-                </div>
+            </div>
 
 
 
@@ -630,8 +1079,6 @@
                     </div>
                 </div>
             </div>
-
-
 
 
             @*MODAL PARA EDITAR TIPO ARBOL*@
