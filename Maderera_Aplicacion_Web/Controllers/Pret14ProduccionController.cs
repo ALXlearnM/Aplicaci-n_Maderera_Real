@@ -149,20 +149,20 @@ namespace Maderera_Aplicacion_Web.Controllers
             .Include(t => t.IdCampanaNavigation)
             .Include(c => c.IdUsuarioNavigation)
             .Include(c => c.IdUsuarioModificadorNavigation)
-            .Where(c => c.IdProduccion == idproduccion )
+            .Where(c => c.IdProduccion == idproduccion)
             .Select(campanaTA => new
             {
                 all = campanaTA,
                 CampanaTA = campanaTA,
                 ide = campanaTA.IdExtraccion,
                 codigo = campanaTA.IdExtraccionNavigation.NroExtraccion,
-                predio =campanaTA.IdPredioNavigation.UnidadCatastral,
-                campana=campanaTA.IdCampanaNavigation.CodigoCampana,
-                um=campanaTA.IdUmInsNavigation.TxtDesc,
-                insumo=campanaTA.IdProductoInsNavigation.TxtDesc,
-                idi=campanaTA.IdProductoIns,
-                idc=campanaTA.IdCampana,
-                idp=campanaTA.IdPredio
+                predio = campanaTA.IdPredioNavigation.UnidadCatastral,
+                campana = campanaTA.IdCampanaNavigation.CodigoCampana,
+                um = campanaTA.IdUmInsNavigation.TxtDesc,
+                insumo = campanaTA.IdProductoInsNavigation.TxtDesc,
+                idi = campanaTA.IdProductoIns,
+                idc = campanaTA.IdCampana,
+                idp = campanaTA.IdPredio
             })
             .FirstOrDefault();
             var empleadosventas = _context.Pert04Empleados
@@ -240,16 +240,16 @@ namespace Maderera_Aplicacion_Web.Controllers
                 .Where(detalle => detalle.IdProduccion == idproduccion && detalle.IdEstado == 1)
                 .Select(p => new
                 {
-                    id=p.IdProductoPro,
-                    np=p.TxtProPro,
-                    cu=p.IdProductoProNavigation.MtoPvpuConIgv,
-                    um=p.IdUmProNavigation.TxtDesc,
-                    can=p.CantidadPro,
-                    total=p.TotalProp,
-                    obs=p.TxtComentario
+                    id = p.IdProductoPro,
+                    np = p.TxtProPro,
+                    cu = p.IdProductoProNavigation.MtoPvpuConIgv,
+                    um = p.IdUmProNavigation.TxtDesc,
+                    can = p.CantidadPro,
+                    total = p.TotalProp,
+                    obs = p.TxtComentario
                 }).ToList();
                 var Empproduccion = _context.Pret20ProduccionEmpleados
-                .Where(detalle => detalle.IdProduccion== idproduccion&& detalle.IdEstado == 1)
+                .Where(detalle => detalle.IdProduccion == idproduccion && detalle.IdEstado == 1)
                 .Select(
                     n => new
                     {
@@ -274,8 +274,8 @@ namespace Maderera_Aplicacion_Web.Controllers
                 IdTemporal = produccionvista?.IdProduccion;
                 IdTemporalExtraccion = produccionvista?.IdExtraccion;
                 IdTemporalCampana = produccionvista?.IdCampana;
-                IdTemporalPredio= produccionvista?.IdPredio;
-                IdTemporalIns= produccionvista?.IdProductoIns;
+                IdTemporalPredio = produccionvista?.IdPredio;
+                IdTemporalIns = produccionvista?.IdProductoIns;
                 ViewBag.Produccion = campanaserialized;
                 ViewBag.Detalles = detallesSerialized;
                 ViewBag.Empleados = empleadosSerialized;
@@ -669,7 +669,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                 if (existingProduccion != null)
                 {
-                    var conjuntoproducto = _context.Prot09Productos.Where(p => p.IdProducto == IdTemporalIns).Select(p => new { p.IdUm ,p.TxtDesc}).FirstOrDefault();
+                    var conjuntoproducto = _context.Prot09Productos.Where(p => p.IdProducto == IdTemporalIns).Select(p => new { p.IdUm, p.TxtDesc }).FirstOrDefault();
 
                     existingProduccion.IdExtraccion = IdTemporalExtraccion;
                     existingProduccion.IdPredio = (long)IdTemporalPredio;
@@ -795,7 +795,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                             var Pret22RecEmp = new Pret20ProduccionEmpleado
                             {
                                 IdProduccion = (long)(IdTemporal),
-                                IdEmpleadoPro= EmpleadoExt.idempleado,
+                                IdEmpleadoPro = EmpleadoExt.idempleado,
                                 IdEstado = 1,
                                 TxtEstado = "ACTIVO"
                             };
@@ -839,7 +839,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         FechaProduccion = FechaPro,
                         CantidadIns = cantidad,
                         IdUmIns = (int)conjuntoproducto.IdUm,
-                        TxtProIns= conjuntoproducto.TxtDesc,
+                        TxtProIns = conjuntoproducto.TxtDesc,
                         TipoPro = tipopro,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
@@ -1171,7 +1171,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                var existingProduccion = _context.Pret14Produccions.Where(p =>  p.IdProduccion== id).FirstOrDefault();
+                var existingProduccion = _context.Pret14Produccions.Where(p => p.IdProduccion == id).FirstOrDefault();
 
                 if (existingProduccion != null)
                 {
@@ -1212,7 +1212,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         }
                     }
                     await _context.SaveChangesAsync();
-                    var existingEmpleado = _context.Pret20ProduccionEmpleados.Where(p=>p.IdProduccion == id).ToList();
+                    var existingEmpleado = _context.Pret20ProduccionEmpleados.Where(p => p.IdProduccion == id).ToList();
 
 
                     foreach (Pret20ProduccionEmpleado empleado in existingEmpleado)
@@ -1223,7 +1223,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         await _context.SaveChangesAsync();
                     }
                     await _context.SaveChangesAsync();
-                    var existingDtll = _context.Pret15ProduccionDtls.Where(p =>  p.IdProduccion== id).ToList();
+                    var existingDtll = _context.Pret15ProduccionDtls.Where(p => p.IdProduccion == id).ToList();
 
                     if (existingDtll != null)
                     {
@@ -1265,7 +1265,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                 if (existingPro != null)
                 {
 
-                    var existingEmpleado = _context.Pret20ProduccionEmpleados.Where(p => p.IdEstado == 1 && p.IdProduccion== id).ToList();
+                    var existingEmpleado = _context.Pret20ProduccionEmpleados.Where(p => p.IdEstado == 1 && p.IdProduccion == id).ToList();
 
 
                     foreach (Pret20ProduccionEmpleado empleado in existingEmpleado)
@@ -1276,7 +1276,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         //await _context.SaveChangesAsync();
                     }
                     await _context.SaveChangesAsync();
-                    var existingDtll = _context.Pret15ProduccionDtls.Where(p => p.IdEstado == 1 && p.IdProduccion== id).ToList();
+                    var existingDtll = _context.Pret15ProduccionDtls.Where(p => p.IdEstado == 1 && p.IdProduccion == id).ToList();
 
                     if (existingDtll != null)
                     {

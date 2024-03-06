@@ -192,56 +192,7 @@
         let numRows = range.e.r + 1;
         let numCols = range.e.c + 1;
 
-       
 
-        let datos = [];
-        var gh=0;
-          // Recorrer las filas del rango de la hoja
-        let primeraFilaVacia = true;
-
-        // Recorrer las filas del rango de la hoja
-        for (let R = range.s.r; R <= range.e.r; ++R) {
-
-            // Si la primera fila está en blanco y la fila actual también está en blanco, detener la iteración
-            if (primeraFilaVacia ) {
-                break;
-            }
-
-            // Si es la primera fila, almacenar los nombres de las columnas
-            if (R === range.s.r) {
-                for (let C = range.s.c; C <= range.e.c; ++C) {
-                    // Obtener la dirección de la celda
-                    var cell_address = { c: C, r: R };
-                    var data = XLSX.utils.encode_cell(cell_address);
-                    let contenidoCelda = hoja[data] ? String(hoja[data].v) : '';
-
-                    // Si la celda no está vacía, agregarla al nombre del registro
-                    if (contenidoCelda.trim() !== '') {
-                        datos4.push({ nombre: contenidoCelda, datos: [] });
-                        primeraFilaVacia = false; // La primera fila no está en blanco
-                    }
-                }
-                continue;
-            }
-
-            // Recorrer las celdas de la fila actual
-            for (let C = range.s.c; C <= range.e.c; ++C) {
-                // Obtener la dirección de la celda
-                const direccionCelda = { c: C, r: R };
-
-                // Obtener el valor de la celda
-                const valorCelda = hoja[XLSX.utils.encode_cell(direccionCelda)]?.v;
-
-                // Formatear el contenido de la celda
-                const contenidoCelda = valorCelda ? String(valorCelda).trim() : '';
-
-                // Agregar el valor al registro actual
-                if (R < numRows) {
-                    datos4[C - range.s.c].datos.push(contenidoCelda);
-                }
-            }
-        }
-          console.log('Datos:', datos4);
         console.log('Número de filas:', numRows);
         var g = 0;
         // Iterar sobre todas las filas del rango de la hoja
@@ -287,6 +238,8 @@
 
         // Insertar la tabla en el elemento con el ID correspondiente
         document.getElementById(tablaId).innerHTML = tablaHTML;
+
+
     }
 
     function cargarHoja2() {

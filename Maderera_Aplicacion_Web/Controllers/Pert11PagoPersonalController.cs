@@ -317,7 +317,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                    .Select(e => new
                    {
                        IdEmpleado = e.IdEmpleado,
-                       nombre = String.IsNullOrEmpty(e.TxtRznSocial)? e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}":e.TxtRznSocial,
+                       nombre = String.IsNullOrEmpty(e.TxtRznSocial) ? e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}" : e.TxtRznSocial,
                        apellido = e.TxtApePat,
                        codigo = e.CodEmpleado
                    })

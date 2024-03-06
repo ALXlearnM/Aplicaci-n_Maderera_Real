@@ -323,7 +323,12 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             var campanas_tipo_Arbol = _context.Pert04Empleados
                 .Where(p => p.IdEmpleado == idEmpleado && p.IdEstado == 1)
-                .Select(e => new { txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}", cargo = e.IdCategoriaEmpNavigation.TxtNombre, condicion = e.IdCondicionLaboralNavigation.TxtDesc, nrodoc = String.IsNullOrEmpty(e.NroRuc) ? e.NroDoc : e.NroRuc,
+                .Select(e => new
+                {
+                    txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
+                    cargo = e.IdCategoriaEmpNavigation.TxtNombre,
+                    condicion = e.IdCondicionLaboralNavigation.TxtDesc,
+                    nrodoc = String.IsNullOrEmpty(e.NroRuc) ? e.NroDoc : e.NroRuc,
                     telefono = e.Celular1
                 })
                 .ToList().FirstOrDefault();
@@ -337,11 +342,14 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             var campanas_tipo_Arbol = _context.Pert04Empleados
                 .Where(p => p.IdEmpleado == empleadoID && p.IdEstado == 1)
-                .Select(e => new { txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
+                .Select(e => new
+                {
+                    txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
                     cargo = e.IdCategoriaEmpNavigation.TxtNombre,
-                    condicion = e.IdCondicionLaboralNavigation.TxtDesc, 
+                    condicion = e.IdCondicionLaboralNavigation.TxtDesc,
                     nrodoc = String.IsNullOrEmpty(e.NroRuc) ? e.NroDoc : e.NroRuc,
-                telefono=e.Celular1})
+                    telefono = e.Celular1
+                })
                 .ToList().FirstOrDefault();
 
             return Json(campanas_tipo_Arbol);
@@ -497,7 +505,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                 IdTemporal = extraccionvista?.IdExtraccion;
                 IdTemporalCampana = extraccionvista?.IdCampana;
-                ViewBag.Extraccion= campanaserialized;
+                ViewBag.Extraccion = campanaserialized;
                 ViewBag.Detalles = detallesSerialized;
                 ViewBag.Empleados = empleadosSerialized;
                 return View("Extraccion", extraccionvista);
@@ -514,7 +522,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                
+
                 var campanatipoarbolseleccionadosext = JsonConvert.DeserializeObject<List<TAExtraccion>>(arregloextraccionTA);
                 var empleadosseleccionadosext = JsonConvert.DeserializeObject<List<EmpleadoExt>>(arregloempleadosextraccion);
 
@@ -738,7 +746,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                
+
                 var campanatipoarbolseleccionadosext = JsonConvert.DeserializeObject<List<TAExtraccion>>(arregloextraccionTA);
                 var empleadosseleccionadosext = JsonConvert.DeserializeObject<List<EmpleadoExt>>(arregloempleadosextraccion);
 
@@ -1174,7 +1182,7 @@ namespace Maderera_Aplicacion_Web.Controllers
             {
                 return Json(ex);
             }
-        
+
         }
         [HttpGet]
         public ActionResult GetVarUmbralnroarbol()

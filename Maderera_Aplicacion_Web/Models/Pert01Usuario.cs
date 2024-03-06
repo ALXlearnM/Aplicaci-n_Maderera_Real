@@ -23,6 +23,18 @@ namespace Maderera_Aplicacion_Web.Models
             Pret14ProduccionIdUsuarioNavigations = new HashSet<Pret14Produccion>();
             Pret16MermaIdUsuarioModificadorNavigations = new HashSet<Pret16Merma>();
             Pret16MermaIdUsuarioNavigations = new HashSet<Pret16Merma>();
+            Pret30TipoPrestamoIdUsuarioNavigations = new HashSet<Pret30TipoPrestamo>();
+            Pret30TipoPrestamoIdUsuariomodNavigations = new HashSet<Pret30TipoPrestamo>();
+            Pret31TipoPlazoIdUsuarioNavigations = new HashSet<Pret31TipoPlazo>();
+            Pret31TipoPlazoIdUsuariomodNavigations = new HashSet<Pret31TipoPlazo>();
+            Pret32MotivoIdUsuarioNavigations = new HashSet<Pret32Motivo>();
+            Pret32MotivoIdUsuariomodNavigations = new HashSet<Pret32Motivo>();
+            Pret33PrestamoIdUsuarioNavigations = new HashSet<Pret33Prestamo>();
+            Pret33PrestamoIdUsuariomodNavigations = new HashSet<Pret33Prestamo>();
+            Pret34CronogramaPagoIdUsuarioNavigations = new HashSet<Pret34CronogramaPago>();
+            Pret34CronogramaPagoIdUsuariomodNavigations = new HashSet<Pret34CronogramaPago>();
+            Pret35PagoPrestamoIdUsuarioNavigations = new HashSet<Pret35PagoPrestamo>();
+            Pret35PagoPrestamoIdUsuariomodNavigations = new HashSet<Pret35PagoPrestamo>();
             Tnst01CompRecibidos = new HashSet<Tnst01CompRecibido>();
             Tnst04CompEmitidoIdUsuarioModificadorNavigations = new HashSet<Tnst04CompEmitido>();
             Tnst04CompEmitidoIdUsuarioNavigations = new HashSet<Tnst04CompEmitido>();
@@ -38,6 +50,9 @@ namespace Maderera_Aplicacion_Web.Models
         public int? IdEstado { get; set; }
         public string? TxtEstado { get; set; }
         public long IdEmpleado { get; set; }
+        [NotMapped]
+        public Boolean MantenerActivo { get; set; }
+
         public virtual Pert04Empleado IdEmpleadoNavigation { get; set; } = null!;
         public virtual ICollection<Pert11PagoPersonal> Pert11PagoPersonals { get; set; }
         public virtual ICollection<Pret01Predio> Pret01PredioIdUsuarioModificadorNavigations { get; set; }
@@ -54,10 +69,20 @@ namespace Maderera_Aplicacion_Web.Models
         public virtual ICollection<Pret14Produccion> Pret14ProduccionIdUsuarioNavigations { get; set; }
         public virtual ICollection<Pret16Merma> Pret16MermaIdUsuarioModificadorNavigations { get; set; }
         public virtual ICollection<Pret16Merma> Pret16MermaIdUsuarioNavigations { get; set; }
+        public virtual ICollection<Pret30TipoPrestamo> Pret30TipoPrestamoIdUsuarioNavigations { get; set; }
+        public virtual ICollection<Pret30TipoPrestamo> Pret30TipoPrestamoIdUsuariomodNavigations { get; set; }
+        public virtual ICollection<Pret31TipoPlazo> Pret31TipoPlazoIdUsuarioNavigations { get; set; }
+        public virtual ICollection<Pret31TipoPlazo> Pret31TipoPlazoIdUsuariomodNavigations { get; set; }
+        public virtual ICollection<Pret32Motivo> Pret32MotivoIdUsuarioNavigations { get; set; }
+        public virtual ICollection<Pret32Motivo> Pret32MotivoIdUsuariomodNavigations { get; set; }
+        public virtual ICollection<Pret33Prestamo> Pret33PrestamoIdUsuarioNavigations { get; set; }
+        public virtual ICollection<Pret33Prestamo> Pret33PrestamoIdUsuariomodNavigations { get; set; }
+        public virtual ICollection<Pret34CronogramaPago> Pret34CronogramaPagoIdUsuarioNavigations { get; set; }
+        public virtual ICollection<Pret34CronogramaPago> Pret34CronogramaPagoIdUsuariomodNavigations { get; set; }
+        public virtual ICollection<Pret35PagoPrestamo> Pret35PagoPrestamoIdUsuarioNavigations { get; set; }
+        public virtual ICollection<Pret35PagoPrestamo> Pret35PagoPrestamoIdUsuariomodNavigations { get; set; }
         public virtual ICollection<Tnst01CompRecibido> Tnst01CompRecibidos { get; set; }
         public virtual ICollection<Tnst04CompEmitido> Tnst04CompEmitidoIdUsuarioModificadorNavigations { get; set; }
         public virtual ICollection<Tnst04CompEmitido> Tnst04CompEmitidoIdUsuarioNavigations { get; set; }
-        [NotMapped]
-        public Boolean MantenerActivo { get; set; }
     }
 }

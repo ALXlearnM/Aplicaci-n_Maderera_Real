@@ -9,13 +9,13 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IPert01UsuarioController, Pert01UsuarioController>();
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("conexion");
-builder.Services.AddDbContext<EagleContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+//builder.Services.AddDbContext<EagleContext>(options =>
+//    options.UseSqlServer(connectionString));
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<EagleContext>();
-builder.Services.AddControllersWithViews();
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<EagleContext>();
+//builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
 {
