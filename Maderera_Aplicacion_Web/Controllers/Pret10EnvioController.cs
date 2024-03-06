@@ -39,7 +39,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         // GET: Pret10Envio
         public IActionResult ListadoEnv()
         {
-            var eagleContext = _context.Pret10Envios.Include(p => p.IdExtraccionNavigation).ThenInclude(p=>p.IdCampanaNavigation).ThenInclude(p => p.IdPredioNavigation).Include(p => p.IdLocationNavigation).Include(p => p.IdLocationToNavigation).Include(p => p.IdUsuarioModificadorNavigation).Include(p => p.IdUsuarioNavigation)
+            var eagleContext = _context.Pret10Envios.Include(p => p.IdExtraccionNavigation).ThenInclude(p => p.IdCampanaNavigation).ThenInclude(p => p.IdPredioNavigation).Include(p => p.IdLocationNavigation).Include(p => p.IdLocationToNavigation).Include(p => p.IdUsuarioModificadorNavigation).Include(p => p.IdUsuarioNavigation)
                 .Where(p => p.IdEstado != 2).ToList();
             return View(eagleContext);
         }
@@ -69,24 +69,24 @@ namespace Maderera_Aplicacion_Web.Controllers
             var txt_numero = cantidad.ToString().PadLeft(7, '0');
             string nroenv = txt_serie + "-" + txt_numero;
             ViewBag.NroEnv = nroenv;
-                var Location = _context.Mstt08Locations
-               .Include(p => p.IdTipoLocationNavigation)
-               .Include(e => e.IdDistNavigation)
-                   .ThenInclude(d => d.IdProvNavigation)
-                       .ThenInclude(p => p.IdDptoNavigation)
+            var Location = _context.Mstt08Locations
+           .Include(p => p.IdTipoLocationNavigation)
+           .Include(e => e.IdDistNavigation)
+               .ThenInclude(d => d.IdProvNavigation)
+                   .ThenInclude(p => p.IdDptoNavigation)
 
-               .Where(e => e.TxtDireccion1 != null && e.IdDist != null && e.TxtDireccion1 != "" && e.IdEstado == 1)
-               .Select(e => new
-               {
-                   IdLocation = e.IdLocation,
-                   NombreCompleto = e.TxtDesc,
-                   FechaN = e.FechaNegocio,
-                   Tipol = e.IdTipoLocationNavigation.TxtDesc,
-                   //Telefono = !string.IsNullOrEmpty(e.Fono1) ? e.Fono1: (!string.IsNullOrEmpty(e.Fono2) ? e.Fono2: ""),
-                   Direccion = $"{e.TxtDireccion1} - {e.IdDistNavigation.TxtDesc}, {e.IdDistNavigation.IdProvNavigation.TxtDesc}, {e.IdDistNavigation.IdProvNavigation.IdDptoNavigation.TxtDesc}",
-                   Ruc = e.NroRuc
-               })
-               .ToList();
+           .Where(e => e.TxtDireccion1 != null && e.IdDist != null && e.TxtDireccion1 != "" && e.IdEstado == 1)
+           .Select(e => new
+           {
+               IdLocation = e.IdLocation,
+               NombreCompleto = e.TxtDesc,
+               FechaN = e.FechaNegocio,
+               Tipol = e.IdTipoLocationNavigation.TxtDesc,
+               //Telefono = !string.IsNullOrEmpty(e.Fono1) ? e.Fono1: (!string.IsNullOrEmpty(e.Fono2) ? e.Fono2: ""),
+               Direccion = $"{e.TxtDireccion1} - {e.IdDistNavigation.TxtDesc}, {e.IdDistNavigation.IdProvNavigation.TxtDesc}, {e.IdDistNavigation.IdProvNavigation.IdDptoNavigation.TxtDesc}",
+               Ruc = e.NroRuc
+           })
+           .ToList();
 
             ViewBag.Location = Location;
             ViewBag.Locationto = Location;
@@ -134,16 +134,16 @@ namespace Maderera_Aplicacion_Web.Controllers
                    .ToList();
 
             return View();
-            }
+        }
         [HttpGet]
         public IActionResult SeleccionarExtEnv(long? idExtraccion)
         {
             try
             {
-                
+
                 IdTemporalExtraccion = idExtraccion == null ? IdTemporalExtraccion : idExtraccion;
-                var CodCampana= _context.Pret07Extraccions.Where(e=>e.IdExtraccion==IdTemporalExtraccion).Select(e=>e.IdCampanaNavigation.CodigoCampana).FirstOrDefault();
-                var UnCatastral = _context.Pret07Extraccions.Where(e=>e.IdExtraccion==IdTemporalExtraccion).Select(e=>e.IdCampanaNavigation.IdPredioNavigation.UnidadCatastral).FirstOrDefault();
+                var CodCampana = _context.Pret07Extraccions.Where(e => e.IdExtraccion == IdTemporalExtraccion).Select(e => e.IdCampanaNavigation.CodigoCampana).FirstOrDefault();
+                var UnCatastral = _context.Pret07Extraccions.Where(e => e.IdExtraccion == IdTemporalExtraccion).Select(e => e.IdCampanaNavigation.IdPredioNavigation.UnidadCatastral).FirstOrDefault();
                 var response = new
                 {
                     CodCampana,
@@ -176,20 +176,20 @@ namespace Maderera_Aplicacion_Web.Controllers
                     .Select(group => new IdsTrozasSummary
                     {
                         idTipoArbol = group.Key,
-                        sumNroTrozas= group.Sum(x => x.nroTrozas)
+                        sumNroTrozas = group.Sum(x => x.nroTrozas)
                     })
                     .ToList();
                 Recargarextenv();
                 var campanas_tipo_Arbol = _context.Pret08ExtraccionDtls
                     .Where(p => p.IdExtraccion == IdTemporalExtraccion && p.IdEstado == 1)
-                    .Select(p => new { idta = p.IdTipoArbol, txtdesc = p.TxtTipoArbol, nrotrozas = p.NroTrozos})
+                    .Select(p => new { idta = p.IdTipoArbol, txtdesc = p.TxtTipoArbol, nrotrozas = p.NroTrozos })
                     .ToList();
 
                 var campañasDisponibles = campanas_tipo_Arbol
                 .Where(c =>
                     !ListadoExtraccionTA.Any(id =>
                         id.idTipoArbol == c.idta &&
-                        (id.sumNroTrozas+ _context.Pret13EnvioDtls
+                        (id.sumNroTrozas + _context.Pret13EnvioDtls
                             .Where(item =>
                                 item.IdEnvioNavigation.IdExtraccion == IdTemporalExtraccion &&
                                 item.IdEstado == 1 && item.IdTipoArbol == c.idta &&
@@ -257,10 +257,10 @@ namespace Maderera_Aplicacion_Web.Controllers
                   .Select(p => new
                   {
                       txtdesc = p.TxtTipoArbol,
-                      nrotrozas = p.NroTrozos- ((ListadoExtraccionTA.Count > 0 ? (ListadoExtraccionTA
+                      nrotrozas = p.NroTrozos - ((ListadoExtraccionTA.Count > 0 ? (ListadoExtraccionTA
                                       .Where(item => item.idTipoArbol == p.IdTipoArbol)
                                       .Sum(item => item.sumNroTrozas)) : 0) + (_context.Pret13EnvioDtls
-                                      .Where(item => item.IdTipoArbol == p.IdTipoArbol && item.IdEnvioNavigation.IdExtraccion == IdTemporalExtraccion && item.IdEstado == 1 )
+                                      .Where(item => item.IdTipoArbol == p.IdTipoArbol && item.IdEnvioNavigation.IdExtraccion == IdTemporalExtraccion && item.IdEstado == 1)
                                       .Sum(item => item.NroTrozos)))
                   })
                   .FirstOrDefault();
@@ -272,7 +272,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                    .Select(p => new
                    {
                        txtdesc = p.TxtTipoArbol,
-                       nrotrozas = p.NroTrozos- ((ListadoExtraccionTA.Count > 0 ? (ListadoExtraccionTA
+                       nrotrozas = p.NroTrozos - ((ListadoExtraccionTA.Count > 0 ? (ListadoExtraccionTA
                                        .Where(item => item.idTipoArbol == p.IdTipoArbol)
                                        .Sum(item => item.sumNroTrozas)) : 0) + (_context.Pret13EnvioDtls
                                        .Where(item => item.IdTipoArbol == p.IdTipoArbol && item.IdEnvio != IdTemporal && item.IdEnvioNavigation.IdExtraccion == IdTemporalExtraccion && item.IdEstado == 1)
@@ -448,7 +448,9 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             var campanas_tipo_Arbol = _context.Pert04Empleados
                 .Where(p => p.IdEmpleado == idEmpleado && p.IdEstado == 1)
-                .Select(e => new { txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
+                .Select(e => new
+                {
+                    txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
                     cargo = e.IdCategoriaEmpNavigation.TxtNombre,
                     condicion = e.IdCondicionLaboralNavigation.TxtDesc,
                     nrodoc = String.IsNullOrEmpty(e.NroRuc) ? e.NroDoc : e.NroRuc,
@@ -465,11 +467,14 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             var campanas_tipo_Arbol = _context.Pert04Empleados
                 .Where(p => p.IdEmpleado == empleadoID && p.IdEstado == 1)
-                .Select(e => new { txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
+                .Select(e => new
+                {
+                    txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
                     cargo = e.IdCategoriaEmpNavigation.TxtNombre,
                     condicion = e.IdCondicionLaboralNavigation.TxtDesc,
                     nrodoc = String.IsNullOrEmpty(e.NroRuc) ? e.NroDoc : e.NroRuc,
-                    telefono = !string.IsNullOrEmpty(e.Celular1) ? e.Celular1 : (!string.IsNullOrEmpty(e.Celular2) ? e.Celular2 : e.Celular3) })
+                    telefono = !string.IsNullOrEmpty(e.Celular1) ? e.Celular1 : (!string.IsNullOrEmpty(e.Celular2) ? e.Celular2 : e.Celular3)
+                })
                 .ToList().FirstOrDefault();
 
             return Json(campanas_tipo_Arbol);
@@ -486,22 +491,22 @@ namespace Maderera_Aplicacion_Web.Controllers
             .Where(c => c.IdEnvio == idenvio && c.IdEstado != 2 && c.IdEstado != 5)
             .Select(campanaTA => new
             {
-                all=campanaTA,
+                all = campanaTA,
                 CampanaTA = campanaTA,
                 codigo = campanaTA.IdExtraccionNavigation.NroExtraccion,
                 location = campanaTA.IdLocationNavigation.TxtDesc,
                 locationto = campanaTA.IdLocationToNavigation.TxtDesc,
             })
             .FirstOrDefault();
-            ViewBag.CodCam= _context.Pret10Envios.Include(e=>e.IdExtraccionNavigation).ThenInclude(e => e.IdCampanaNavigation).ThenInclude(e => e.IdPredioNavigation).Where(e => e.IdEnvio==idenvio).Select(e => e.IdExtraccionNavigation.IdCampanaNavigation.CodigoCampana).FirstOrDefault();
-            ViewBag.UnidCat= _context.Pret10Envios.Include(e => e.IdExtraccionNavigation).ThenInclude(e => e.IdCampanaNavigation).ThenInclude(e => e.IdPredioNavigation).Where(e => e.IdEnvio==idenvio).Select(e => e.IdExtraccionNavigation.IdCampanaNavigation.IdPredioNavigation.UnidadCatastral).FirstOrDefault();
+            ViewBag.CodCam = _context.Pret10Envios.Include(e => e.IdExtraccionNavigation).ThenInclude(e => e.IdCampanaNavigation).ThenInclude(e => e.IdPredioNavigation).Where(e => e.IdEnvio == idenvio).Select(e => e.IdExtraccionNavigation.IdCampanaNavigation.CodigoCampana).FirstOrDefault();
+            ViewBag.UnidCat = _context.Pret10Envios.Include(e => e.IdExtraccionNavigation).ThenInclude(e => e.IdCampanaNavigation).ThenInclude(e => e.IdPredioNavigation).Where(e => e.IdEnvio == idenvio).Select(e => e.IdExtraccionNavigation.IdCampanaNavigation.IdPredioNavigation.UnidadCatastral).FirstOrDefault();
 
             var sumarreglo = ListadoExtraccionTA == null ? 0 : ListadoExtraccionTA.Sum(lc => lc.sumNroTrozas);
             ViewBag.Extraccionenv = _context.Pret07Extraccions
                    .Where(c => !_context.Pret10Envios
             .Any(envio =>
-                envio.IdExtraccion == c.IdExtraccion &&  envio.IdExtraccion!=Envio.all.IdExtraccion  &&
-                envio.IdEstado == 3 
+                envio.IdExtraccion == c.IdExtraccion && envio.IdExtraccion != Envio.all.IdExtraccion &&
+                envio.IdEstado == 3
             ) && sumarreglo + _context.Pret13EnvioDtls
                        .Where(item =>
                            item.IdEstado == 1 &&
@@ -560,12 +565,12 @@ namespace Maderera_Aplicacion_Web.Controllers
 
             ViewBag.EmpExt = empleadosextraccion;
             var enviovista = _context.Pret10Envios
-            .Where(c => c.IdEnvio== idenvio && c.IdEstado !=2 && c.IdEstado!=5)
+            .Where(c => c.IdEnvio == idenvio && c.IdEstado != 2 && c.IdEstado != 5)
             .FirstOrDefault();
             if (Envio != null)
             {
                 var archivos = _context.Pret17Archivos
-               .Where(a => a.IdEstado == 1 && a.IdEnvio == idenvio && a.IdPredio==null)
+               .Where(a => a.IdEstado == 1 && a.IdEnvio == idenvio && a.IdPredio == null)
                .ToList();
 
                 var proveedorTipoContenido = new FileExtensionContentTypeProvider();
@@ -598,11 +603,11 @@ namespace Maderera_Aplicacion_Web.Controllers
                 }).ToList();
 
                 var detallesenvio = _context.Pret13EnvioDtls
-                .Where(detalle => detalle.IdEnvio== idenvio && detalle.IdEstado == 1)
+                .Where(detalle => detalle.IdEnvio == idenvio && detalle.IdEstado == 1)
 
                 .ToList();
                 var Empenvio = _context.Pret21EnvioEmpleados
-                .Where(detalle => detalle.IdEnvio== idenvio && detalle.IdEstado == 1)
+                .Where(detalle => detalle.IdEnvio == idenvio && detalle.IdEstado == 1)
                 .Select(
                     n => new
                     {
@@ -626,8 +631,8 @@ namespace Maderera_Aplicacion_Web.Controllers
                 var archivosserialized = Newtonsoft.Json.JsonConvert.SerializeObject(archivosParaVista, settings);
 
                 IdTemporal = enviovista?.IdEnvio;
-                IdTemporalExtraccion= enviovista?.IdExtraccion;
-                ViewBag.Envio= campanaserialized;
+                IdTemporalExtraccion = enviovista?.IdExtraccion;
+                ViewBag.Envio = campanaserialized;
                 ViewBag.Detalles = detallesSerialized;
                 ViewBag.Empleados = empleadosSerialized;
                 ViewBag.ArchivosParaVista = archivosParaVista;
@@ -653,7 +658,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CrearEnvio(DateTime FechaEnvio, int idlocation, int idlocationto,
         string? nroplaca, string? nroguia, string? nroguiat, string? comentarioEnv, string arregloenvioTA,
-        string arregloempleadosenvio, List<IFormFile> archivos,string tipoEnv,bool check)
+        string arregloempleadosenvio, List<IFormFile> archivos, string tipoEnv, bool check)
         {
             try
             {
@@ -943,7 +948,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         EnvioCant = sumaNroTrozas,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
-                        IdEstado = check == true ? 3 : 4,   
+                        IdEstado = check == true ? 3 : 4,
                         TxtEstado = check == true ? "BORRADOR" : "ENVIADO",
                     };
 
@@ -1056,7 +1061,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CrearEnvioycerrar(DateTime FechaEnvio, int idlocation, int idlocationto,
         string? nroplaca, string? nroguia, string? nroguiat, string? comentarioEnv, string arregloenvioTA,
-        string arregloempleadosenvio, List<IFormFile> archivos, string tipoEnv,bool check)
+        string arregloempleadosenvio, List<IFormFile> archivos, string tipoEnv, bool check)
         {
             try
             {
@@ -1462,8 +1467,8 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             if (IdTemporal != null)
             {
-                var estado = _context.Pret10Envios.Where(t => t.IdEnvio== IdTemporal).Select(t => t.IdEstado).FirstOrDefault();
-                var estadoName = _context.Pret10Envios.Where(t => t.IdEnvio== IdTemporal).Select(t => t.TxtEstado).FirstOrDefault();
+                var estado = _context.Pret10Envios.Where(t => t.IdEnvio == IdTemporal).Select(t => t.IdEstado).FirstOrDefault();
+                var estadoName = _context.Pret10Envios.Where(t => t.IdEnvio == IdTemporal).Select(t => t.TxtEstado).FirstOrDefault();
                 var response = new
                 {
                     id = estado,
@@ -1486,8 +1491,8 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                var existingEnvio = _context.Pret10Envios.Where(p =>  p.IdEnvio== id).FirstOrDefault();
-                
+                var existingEnvio = _context.Pret10Envios.Where(p => p.IdEnvio == id).FirstOrDefault();
+
                 if (existingEnvio != null)
                 {
                     var existingRecepcion = _context.Pret11Recepcions.Where(p => p.IdEnvio == id).ToList();
@@ -1544,7 +1549,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         }
                     }
                     await _context.SaveChangesAsync();
-                    var existingArchivo = _context.Pret17Archivos.Where(c => c.IdEnvio== id).ToList();
+                    var existingArchivo = _context.Pret17Archivos.Where(c => c.IdEnvio == id).ToList();
                     if (existingArchivo != null)
                     {
                         foreach (Pret17Archivo archivoReg in existingArchivo)
@@ -1561,7 +1566,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                             await _context.SaveChangesAsync();
                         }
                     }
-                    var existingEmpleado = _context.Pret21EnvioEmpleados.Where(p => p.IdEnvio== id).ToList();
+                    var existingEmpleado = _context.Pret21EnvioEmpleados.Where(p => p.IdEnvio == id).ToList();
 
 
                     foreach (Pret21EnvioEmpleado empleado in existingEmpleado)
@@ -1572,7 +1577,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         await _context.SaveChangesAsync();
                     }
                     await _context.SaveChangesAsync();
-                    var existingDtll = _context.Pret13EnvioDtls.Where(p => p.IdEnvio== id).ToList();
+                    var existingDtll = _context.Pret13EnvioDtls.Where(p => p.IdEnvio == id).ToList();
 
                     if (existingDtll != null)
                     {

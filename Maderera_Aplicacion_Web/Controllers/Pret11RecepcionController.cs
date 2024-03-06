@@ -131,7 +131,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         public IActionResult EditarRecepcion(long idrecepcion)
         {
             var Recepcion = _context.Pret11Recepcions
-            .Include(t => t.IdEnvioNavigation).ThenInclude(t=>t.IdExtraccionNavigation)
+            .Include(t => t.IdEnvioNavigation).ThenInclude(t => t.IdExtraccionNavigation)
             .Include(c => c.IdUsuarioNavigation)
             .Include(c => c.IdUsuarioModificadorNavigation)
             .Where(c => c.IdRecepcion == idrecepcion && c.IdEstado != 2 && c.IdEstado != 5)
@@ -141,11 +141,11 @@ namespace Maderera_Aplicacion_Web.Controllers
                 codigo = campanaTA.IdEnvioNavigation.NroEnvio,
                 location = campanaTA.IdEnvioNavigation.IdLocationNavigation.TxtDesc,
                 locationto = campanaTA.IdEnvioNavigation.IdLocationToNavigation.TxtDesc,
-                idEnvio=campanaTA.IdEnvio
+                idEnvio = campanaTA.IdEnvio
             })
             .FirstOrDefault();
 
-            ViewBag.CodCam = _context.Pret11Recepcions.Include(e=>e.IdEnvioNavigation).ThenInclude(e => e.IdExtraccionNavigation).ThenInclude(e => e.IdCampanaNavigation).ThenInclude(e => e.IdPredioNavigation).Where(e => e.IdEnvio == idrecepcion).Select(e => e.IdEnvioNavigation.IdExtraccionNavigation.IdCampanaNavigation.CodigoCampana).FirstOrDefault();
+            ViewBag.CodCam = _context.Pret11Recepcions.Include(e => e.IdEnvioNavigation).ThenInclude(e => e.IdExtraccionNavigation).ThenInclude(e => e.IdCampanaNavigation).ThenInclude(e => e.IdPredioNavigation).Where(e => e.IdEnvio == idrecepcion).Select(e => e.IdEnvioNavigation.IdExtraccionNavigation.IdCampanaNavigation.CodigoCampana).FirstOrDefault();
             ViewBag.UnidCat = _context.Pret11Recepcions.Include(e => e.IdEnvioNavigation).ThenInclude(e => e.IdExtraccionNavigation).ThenInclude(e => e.IdCampanaNavigation).ThenInclude(e => e.IdPredioNavigation).Where(e => e.IdEnvio == idrecepcion).Select(e => e.IdEnvioNavigation.IdExtraccionNavigation.IdCampanaNavigation.IdPredioNavigation.UnidadCatastral).FirstOrDefault();
 
             var sumarreglo = ListadoExtraccionTA == null ? 0 : ListadoExtraccionTA.Sum(lc => lc.sumNroTrozas);
@@ -200,7 +200,7 @@ namespace Maderera_Aplicacion_Web.Controllers
             if (Recepcion != null)
             {
                 var archivos = _context.Pret17Archivos
-               .Where(a => a.IdEstado == 1 && a.IdRecepcion == idrecepcion )
+               .Where(a => a.IdEstado == 1 && a.IdRecepcion == idrecepcion)
                .ToList();
 
                 var proveedorTipoContenido = new FileExtensionContentTypeProvider();
@@ -237,7 +237,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                 .ToList();
                 var Emprecepcion = _context.Pret22RecepcionEmpleados
-                .Where(detalle => detalle.IdRecepcion== idrecepcion && detalle.IdEstado == 1)
+                .Where(detalle => detalle.IdRecepcion == idrecepcion && detalle.IdEstado == 1)
                 .Select(
                     n => new
                     {
@@ -261,8 +261,8 @@ namespace Maderera_Aplicacion_Web.Controllers
                 var archivosserialized = Newtonsoft.Json.JsonConvert.SerializeObject(archivosParaVista, settings);
 
                 IdTemporal = recepcionvista?.IdRecepcion;
-                IdTemporalEnvio = recepcionvista?.IdEnvio ;
-                ViewBag.Recepcion= campanaserialized;
+                IdTemporalEnvio = recepcionvista?.IdEnvio;
+                ViewBag.Recepcion = campanaserialized;
                 ViewBag.Detalles = detallesSerialized;
                 ViewBag.Empleados = empleadosSerialized;
                 ViewBag.ArchivosParaVista = archivosParaVista;
@@ -896,7 +896,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         }
                     }
 
-                    
+
 
                 }
                 await _context.SaveChangesAsync();
@@ -1325,7 +1325,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                 }
                 await _context.SaveChangesAsync();
                 IdTemporal = null;
-                IdTemporalEnvio= null;
+                IdTemporalEnvio = null;
                 ListadoExtraccionTA = null;
                 return Json(new { redirectUrl = Url.Action("ListadoRec", "Pret11Recepcion") });
 
@@ -1341,7 +1341,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             if (IdTemporal != null)
             {
-                var estado = _context.Pret11Recepcions.Where(t => t.IdRecepcion== IdTemporal).Select(t => t.IdEstado).FirstOrDefault();
+                var estado = _context.Pret11Recepcions.Where(t => t.IdRecepcion == IdTemporal).Select(t => t.IdEstado).FirstOrDefault();
                 var estadoName = _context.Pret11Recepcions.Where(t => t.IdRecepcion == IdTemporal).Select(t => t.TxtEstado).FirstOrDefault();
                 var response = new
                 {
@@ -1382,12 +1382,12 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                var existingRecepcion = _context.Pret11Recepcions.Where(p => p.IdEstado == 3 || p.IdEstado == 4 && p.IdRecepcion== id).FirstOrDefault();
+                var existingRecepcion = _context.Pret11Recepcions.Where(p => p.IdEstado == 3 || p.IdEstado == 4 && p.IdRecepcion == id).FirstOrDefault();
 
                 if (existingRecepcion != null)
                 {
 
-                    var existingArchivo = _context.Pret17Archivos.Where(c => c.IdRecepcion== id).ToList();
+                    var existingArchivo = _context.Pret17Archivos.Where(c => c.IdRecepcion == id).ToList();
                     if (existingArchivo != null)
                     {
                         foreach (Pret17Archivo archivoReg in existingArchivo)
@@ -1404,7 +1404,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                             await _context.SaveChangesAsync();
                         }
                     }
-                    var existingEmpleado = _context.Pret22RecepcionEmpleados.Where(p =>  p.IdRecepcion== id).ToList();
+                    var existingEmpleado = _context.Pret22RecepcionEmpleados.Where(p => p.IdRecepcion == id).ToList();
 
 
                     foreach (Pret22RecepcionEmpleado empleado in existingEmpleado)
@@ -1415,7 +1415,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         await _context.SaveChangesAsync();
                     }
                     await _context.SaveChangesAsync();
-                    var existingDtll = _context.Pret12RecepcionDtls.Where(p => p.IdRecepcion== id).ToList();
+                    var existingDtll = _context.Pret12RecepcionDtls.Where(p => p.IdRecepcion == id).ToList();
 
                     if (existingDtll != null)
                     {
@@ -1446,15 +1446,15 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                var existingRecepcion = _context.Pret11Recepcions.Where(p => p.IdEstado == 3 || p.IdEstado == 4 && p.IdRecepcion== id).FirstOrDefault();
+                var existingRecepcion = _context.Pret11Recepcions.Where(p => p.IdEstado == 3 || p.IdEstado == 4 && p.IdRecepcion == id).FirstOrDefault();
 
                 if (existingRecepcion != null)
                 {
                     var existingEnvios = _context.Pret10Envios.Where(e => e.IdEnvio == existingRecepcion.IdEnvio).ToList();
                     foreach (Pret10Envio envio in existingEnvios)
                     {
-                        envio.IdEstado =4;
-                        envio.TxtEstado="ENVIADO";
+                        envio.IdEstado = 4;
+                        envio.TxtEstado = "ENVIADO";
                     }
                     existingRecepcion.IdEstado = 5;
                     existingRecepcion.TxtEstado = "ANULADO";
@@ -1475,7 +1475,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                             await _context.SaveChangesAsync();
                         }
                     }
-                    var existingEmpleado = _context.Pret22RecepcionEmpleados.Where(p => p.IdEstado == 1 && p.IdRecepcion== id).ToList();
+                    var existingEmpleado = _context.Pret22RecepcionEmpleados.Where(p => p.IdEstado == 1 && p.IdRecepcion == id).ToList();
 
 
                     foreach (Pret22RecepcionEmpleado empleado in existingEmpleado)

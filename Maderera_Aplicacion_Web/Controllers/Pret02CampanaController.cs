@@ -67,9 +67,9 @@ namespace Maderera_Aplicacion_Web.Controllers
 
         public IActionResult Campana(long? id)
         {
-            int CantCamp = _context.Pret02Campanas.Where(c => c.IdPredio == IdPredioTemporal).Count()+1;
+            int CantCamp = _context.Pret02Campanas.Where(c => c.IdPredio == IdPredioTemporal).Count() + 1;
             var txt_numero = CantCamp.ToString().PadLeft(2, '0');
-            var UnidCat = _context.Pret01Predios.Where(p => p.IdPredio == IdPredioTemporal).Select(p=>p.UnidadCatastral).FirstOrDefault();
+            var UnidCat = _context.Pret01Predios.Where(p => p.IdPredio == IdPredioTemporal).Select(p => p.UnidadCatastral).FirstOrDefault();
             string CodigoCampana = UnidCat + "-" + txt_numero;
             ViewBag.CodCamp = CodigoCampana;
 
@@ -308,7 +308,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CrearCampana(int IdTipoCampana,  int NroHectarea, int NroArboles,
+        public async Task<IActionResult> CrearCampana(int IdTipoCampana, int NroHectarea, int NroArboles,
     float Area, string? Latitud, string? Longitud, DateTime FechaInicio, string campanatipoarbolSeleccionado)
         {
             try

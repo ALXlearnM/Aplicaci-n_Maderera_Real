@@ -31,7 +31,7 @@ namespace Aplicacion_Maderera.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private static long? IdTemporal { get; set; }
         private static long? IdTemporalPredio { get; set; }
-        private static long? IdTemporalCampana{ get; set; }
+        private static long? IdTemporalCampana { get; set; }
 
 
         public Tnst04CompEmitidoController(EagleContext context, IPert01UsuarioController pert01UsuarioController, IWebHostEnvironment webHostEnvironment)
@@ -100,7 +100,7 @@ namespace Aplicacion_Maderera.Controllers
             var comprobantesViewModel = listadoComprobantesActivos.Select(comprobante => new
             {
                 Comprobante = comprobante,
-                NombreCompletoCliente = String.IsNullOrEmpty(comprobante.IdClienteNavigation.TxtRznSocial)? $"{comprobante.IdClienteNavigation.TxtApePat} {comprobante.IdClienteNavigation.TxtApeMat}, {comprobante.IdClienteNavigation.TxtPriNom} {comprobante.IdClienteNavigation.TxtSegNom}":comprobante.IdClienteNavigation.TxtRznSocial,
+                NombreCompletoCliente = String.IsNullOrEmpty(comprobante.IdClienteNavigation.TxtRznSocial) ? $"{comprobante.IdClienteNavigation.TxtApePat} {comprobante.IdClienteNavigation.TxtApeMat}, {comprobante.IdClienteNavigation.TxtPriNom} {comprobante.IdClienteNavigation.TxtSegNom}" : comprobante.IdClienteNavigation.TxtRznSocial,
                 FecEmi = comprobante.FecEmi,
                 MontoN = comprobante.MtoNeto,
                 MontoD = comprobante.MtoDsctoTot,
@@ -108,8 +108,8 @@ namespace Aplicacion_Maderera.Controllers
                 MontoI = comprobante.MtoImptoTot,
                 MontoT = comprobante.MtoTotComp,
                 Id = comprobante.IdCompEmitido,
-                ide= comprobante.IdEstado,
-                txte= comprobante.TxtEstado
+                ide = comprobante.IdEstado,
+                txte = comprobante.TxtEstado
 
             }).ToList();
 
@@ -226,15 +226,15 @@ namespace Aplicacion_Maderera.Controllers
                     .ToList();
 
             ViewBag.EmpVen = empleadosventas;
-            var Predios= _context.Pret01Predios
-                    .Where(e => e.IdEstado==1)
+            var Predios = _context.Pret01Predios
+                    .Where(e => e.IdEstado == 1)
                     .Select(e => new
                     {
-                        id=e.IdPredio,
+                        id = e.IdPredio,
                         unidC = e.UnidadCatastral,
-                        nroS= e.NroSitio,
+                        nroS = e.NroSitio,
                         fechA = e.FechaAdquisicion,
-                        fechC= e.FechaCompra,
+                        fechC = e.FechaCompra,
 
                     })
                     .ToList();
@@ -315,8 +315,8 @@ namespace Aplicacion_Maderera.Controllers
         {
             // Obtiene las provincias según el departamento seleccionado
             var campanas = _context.Pret02Campanas
-                .Where(p => p.IdPredio== idPredio)
-                .Select(p => new { idcampana = p.IdCampana, txtDesc = p.CodigoCampana})
+                .Where(p => p.IdPredio == idPredio)
+                .Select(p => new { idcampana = p.IdCampana, txtDesc = p.CodigoCampana })
                 .ToList();
 
             return Json(campanas);
@@ -359,9 +359,12 @@ namespace Aplicacion_Maderera.Controllers
         {
             var campanas_tipo_Arbol = _context.Pert04Empleados
                 .Where(p => p.IdEmpleado == idEmpleado && p.IdEstado == 1)
-                .Select(e => new { txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
-                    cargo = e.IdCategoriaEmpNavigation.TxtNombre, condicion = e.IdCondicionLaboralNavigation.TxtDesc,
-                    nrodoc = String.IsNullOrEmpty(e.NroRuc) ? e.NroDoc : e.NroRuc ,
+                .Select(e => new
+                {
+                    txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
+                    cargo = e.IdCategoriaEmpNavigation.TxtNombre,
+                    condicion = e.IdCondicionLaboralNavigation.TxtDesc,
+                    nrodoc = String.IsNullOrEmpty(e.NroRuc) ? e.NroDoc : e.NroRuc,
                     celular = !string.IsNullOrEmpty(e.Celular1) ? e.Celular1 : (!string.IsNullOrEmpty(e.Celular2) ? e.Celular2 : e.Celular3),
                 })
                 .ToList().FirstOrDefault();
@@ -375,7 +378,8 @@ namespace Aplicacion_Maderera.Controllers
         {
             var campanas_tipo_Arbol = _context.Pert04Empleados
                 .Where(p => p.IdEmpleado == empleadoID && p.IdEstado == 1)
-                .Select(e => new {
+                .Select(e => new
+                {
                     txtnombre = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
                     cargo = e.IdCategoriaEmpNavigation.TxtNombre,
                     condicion = e.IdCondicionLaboralNavigation.TxtDesc,
@@ -532,7 +536,7 @@ namespace Aplicacion_Maderera.Controllers
                     })
                     .ToList();
 
-                ViewBag.Predios =  updatedPredios;
+                ViewBag.Predios = updatedPredios;
 
                 return Json(updatedPredios);
             }
@@ -549,7 +553,7 @@ namespace Aplicacion_Maderera.Controllers
                 if (IdPredio == null)
                 {
                     var updatedCampanas = _context.Pret02Campanas
-                        .Where(e => e.IdEstado == 1 && e.IdPredio ==IdTemporalPredio)
+                        .Where(e => e.IdEstado == 1 && e.IdPredio == IdTemporalPredio)
                         .Select(e => new
                         {
                             id = e.IdCampana,
@@ -595,8 +599,8 @@ namespace Aplicacion_Maderera.Controllers
             var response = new { redirectUrl };
             IdTemporal = null;
             IdTemporalCampana = null;
-            IdTemporalPredio= null;
-                
+            IdTemporalPredio = null;
+
             return Json(response);
         }
         [HttpGet]
@@ -778,11 +782,11 @@ namespace Aplicacion_Maderera.Controllers
             }
         }
         [HttpGet]
-        public IActionResult ProductoDatos(int idProducto,float cantidad,float descuento)
+        public IActionResult ProductoDatos(int idProducto, float cantidad, float descuento)
         {
             try
             {
-                var producto = _context.Prot09Productos.FirstOrDefault(p => p.IdProducto == idProducto && p.IdEstado==1);
+                var producto = _context.Prot09Productos.FirstOrDefault(p => p.IdProducto == idProducto && p.IdEstado == 1);
                 if (producto != null)
                 {
                     var productoDetalles = new
@@ -792,12 +796,12 @@ namespace Aplicacion_Maderera.Controllers
                         Monto_si = producto.MtoPvpuSinIgv,
                         Monto_ci = producto.MtoPvpuConIgv,
                         igv = producto.PorImpto,
-                        neto=(cantidad)*((float)(producto.MtoPvpuSinIgv)),
-                        descuentoPorcentaje=descuento/100,
-                        mtodescuento=((descuento/100))* (float)(producto.MtoPvpuConIgv)*cantidad,
+                        neto = (cantidad) * ((float)(producto.MtoPvpuSinIgv)),
+                        descuentoPorcentaje = descuento / 100,
+                        mtodescuento = ((descuento / 100)) * (float)(producto.MtoPvpuConIgv) * cantidad,
                         mtoigv = (((float)producto.PorImpto / 100) * ((float)(producto.MtoPvpuSinIgv)) * cantidad),
-                        subtotal = (((float)producto.PorImpto / 100)+1)*((cantidad) * ((float)(producto.MtoPvpuSinIgv))),
-                        total= (((float)producto.PorImpto / 100) + 1) * ((cantidad) * ((float)(producto.MtoPvpuSinIgv)))- ((descuento / 100)) * (float)(producto.MtoPvpuConIgv) * cantidad,
+                        subtotal = (((float)producto.PorImpto / 100) + 1) * ((cantidad) * ((float)(producto.MtoPvpuSinIgv))),
+                        total = (((float)producto.PorImpto / 100) + 1) * ((cantidad) * ((float)(producto.MtoPvpuSinIgv))) - ((descuento / 100)) * (float)(producto.MtoPvpuConIgv) * cantidad,
 
                     };
                     // Retorna una respuesta exitosa
@@ -1532,7 +1536,7 @@ namespace Aplicacion_Maderera.Controllers
                         existingCompEmitido.IdEstado = check ? 1 : 3;
                         existingCompEmitido.TxtEstado = check ? "BORRADOR" : "FINALIZADO";
                     }
-                   
+
                     //existingCompEmitido.IdMesa = IdMesa;
                     //existingCompEmitido.IdTurno = IdTurno;
                     existingCompEmitido.IdPredio = IdTemporalPredio;
@@ -2081,7 +2085,7 @@ namespace Aplicacion_Maderera.Controllers
                         existingCompEmitido.IdEstado = check ? 1 : 3;
                         existingCompEmitido.TxtEstado = check ? "BORRADOR" : "FINALIZADO";
                     }
-                   
+
                     //existingCompEmitido.IdMesa = IdMesa;
                     //existingCompEmitido.IdTurno = IdTurno;
                     existingCompEmitido.IdPredio = IdTemporalPredio;
@@ -2587,7 +2591,7 @@ namespace Aplicacion_Maderera.Controllers
             ViewBag.Locationto = Location;
 
             var productos = _context.Prot09Productos.Include(p => p.IdUmNavigation).
-                Where(p => p.MtoPvpuSinIgv != null && p.AlturaProd!=null && p.AnchoProd!=null && p.LargoProd!=null).Select(
+                Where(p => p.MtoPvpuSinIgv != null && p.AlturaProd != null && p.AnchoProd != null && p.LargoProd != null).Select(
                 e => new
                 {
                     IdProducto = e.IdProducto,
@@ -2595,10 +2599,10 @@ namespace Aplicacion_Maderera.Controllers
                     Monto_si = e.MtoPvpuSinIgv,
                     Monto_ci = e.MtoPvpuConIgv,
                     igv = e.PorImpto,
-                    unm=e.IdUmNavigation.TxtDesc,
-                    dimension=e.LargoProd+"x"+e.AnchoProd+"x"+e.AlturaProd,
-                    diametro=e.DiametroProd,
-                    peso=e.PesoProd
+                    unm = e.IdUmNavigation.TxtDesc,
+                    dimension = e.LargoProd + "x" + e.AnchoProd + "x" + e.AlturaProd,
+                    diametro = e.DiametroProd,
+                    peso = e.PesoProd
                 }).ToList();
             ViewBag.Productos = productos;
             ViewData["IdTipoLocation"] = new SelectList(_context.Mstt09TipoLocations, "IdTipoLocation", "TxtDesc");
@@ -2650,14 +2654,14 @@ namespace Aplicacion_Maderera.Controllers
             .Select(comprobante => new
             {
                 Comprobante = comprobante,
-                NombreCompletoCliente = String.IsNullOrEmpty(comprobante.IdClienteNavigation.TxtRznSocial)? $"{comprobante.IdClienteNavigation.TxtApePat} {comprobante.IdClienteNavigation.TxtApeMat}, {comprobante.IdClienteNavigation.TxtPriNom} {comprobante.IdClienteNavigation.TxtSegNom}" : comprobante.IdClienteNavigation.TxtRznSocial,
+                NombreCompletoCliente = String.IsNullOrEmpty(comprobante.IdClienteNavigation.TxtRznSocial) ? $"{comprobante.IdClienteNavigation.TxtApePat} {comprobante.IdClienteNavigation.TxtApeMat}, {comprobante.IdClienteNavigation.TxtPriNom} {comprobante.IdClienteNavigation.TxtSegNom}" : comprobante.IdClienteNavigation.TxtRznSocial,
                 telcliente = comprobante.IdClienteNavigation.Celular1,
                 loc = comprobante.IdLocationNavigation.TxtDesc,
                 locto = comprobante.IdLocationToNavigation.TxtDesc,
                 idlocto = comprobante.IdLocationTo,
                 uniC = comprobante.IdPredioNavigation.UnidadCatastral,
-                codC= comprobante.IdCampanaNavigation.CodigoCampana,
-                dircliente=comprobante.IdClienteNavigation.TxtDireccion1,
+                codC = comprobante.IdCampanaNavigation.CodigoCampana,
+                dircliente = comprobante.IdClienteNavigation.TxtDireccion1,
             })
             .FirstOrDefault();
             //  Creamos nuevas columnas para manejarlas y a parte el mismo registro de comprobante
@@ -2670,7 +2674,7 @@ namespace Aplicacion_Maderera.Controllers
                 .Where(detalle => detalle.IdCompEmitido == id)
                 .ToList();
                 var Empextraccion = _context.Pret23VentaEmpleados
-                .Where(detalle => detalle.IdCompEmitido== id&& detalle.IdEstado == 1)
+                .Where(detalle => detalle.IdCompEmitido == id && detalle.IdEstado == 1)
                 .Select(
                     n => new
                     {
@@ -2816,13 +2820,13 @@ namespace Aplicacion_Maderera.Controllers
         {
             try
             {
-                var existingVenta = _context.Tnst04CompEmitidos.Where(p=>p.IdEstado==1 || p.IdEstado == 3 && p.IdCompEmitido==id).FirstOrDefault();
+                var existingVenta = _context.Tnst04CompEmitidos.Where(p => p.IdEstado == 1 || p.IdEstado == 3 && p.IdCompEmitido == id).FirstOrDefault();
 
                 if (existingVenta != null)
                 {
                     //existingVenta.IdEstado = 2;
                     //existingVenta.TxtEstado = "CANCELADO";
-                    var existingEmpleado= _context.Pret23VentaEmpleados.Where(p => p.IdEstado == 1 || p.IdEstado == 2 && p.IdCompEmitido == id).ToList();
+                    var existingEmpleado = _context.Pret23VentaEmpleados.Where(p => p.IdEstado == 1 || p.IdEstado == 2 && p.IdCompEmitido == id).ToList();
 
                     if (existingEmpleado != null)
                     {
@@ -2835,16 +2839,16 @@ namespace Aplicacion_Maderera.Controllers
                         await _context.SaveChangesAsync();
                     }
                     var existingDtll = _context.Tnst05CompEmitidoDtls.Where(p => p.IdEstado == 1 && p.IdCompEmitido == id).ToList();
-                   
-                    if (existingDtll != null)
-                            {
-                                foreach (Tnst05CompEmitidoDtl Detalle in existingDtll)
-                                {
-                                    //Detalle.IdEstado = 2;
-                                    //Detalle.TxtEstado = "INACTIVO";
-                                    _context.Tnst05CompEmitidoDtls.Remove(Detalle);
 
-                                }
+                    if (existingDtll != null)
+                    {
+                        foreach (Tnst05CompEmitidoDtl Detalle in existingDtll)
+                        {
+                            //Detalle.IdEstado = 2;
+                            //Detalle.TxtEstado = "INACTIVO";
+                            _context.Tnst05CompEmitidoDtls.Remove(Detalle);
+
+                        }
                     }
                     _context.Tnst04CompEmitidos.Remove(existingVenta);
                     await _context.SaveChangesAsync();

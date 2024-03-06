@@ -1,0 +1,217 @@
+﻿@model Maderera_Aplicacion_Web.Models.Pret33Prestamo
+
+@{
+
+    <title>@ViewData["Title"] Jhyperionm</title>
+    @if (Model != null)
+    {
+        Layout = "_Layout"; // Nombre del layout que deseas aplicar
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Título de la página</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+
+
+   
+    <div class="d-flex ml-5">
+        <!-- Primera fila con los botones -->
+        <div class="row mb-1 justify-content-end w-100 ">
+            <div class="col mb-2 mr-5">
+                <img class="img-fluid" style="margin: 0.25% 3.5%;
+             width: 7%;
+             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+            </div>
+
+            <div class="col mb-3 ml-3 mr-3">
+                <div class="d-flex justify-content-between p-0" id="botonesbarra1">
+                    <button id="" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
+                    <button id="" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
+                    <button id="" class="btn btn-danger btn-sm" role="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <hr class="text-decoration-line-through" />
+
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h4>PRESTAMOS</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="container-fluid">
+
+                    <div class="form-row">
+                        <div class="col-md-4 mt-5">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Empleado* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <select required id="campextcbo" class="form-control form-control-sm mx-sm-3 mb-2" data-modal-target="modalcampext" onchange="SelectChange(this,'modalcampext')" required>
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="campextNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                        <span class="btn btn-close" id="removeCampextSpan" style="cursor: pointer; display: none;" onclick="removecampext()"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Total* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nrotrozastotal" required   class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                   
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Tipo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <select class="form-control form-control-sm mx-sm-3 mb-2" id="idtipoPago">
+                                        <option >Personal</option>
+                                        <option >Adelanto</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Plazo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nrotrozastotal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="col-md-4 mt-5">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Tipo Plazo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <select class="form-control form-control-sm mx-sm-3 mb-2" id="idtipoPago">
+                                        <option>Mensual</option>
+                                        <option>Semanal</option>
+                                        <option>Quincenal</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Motivo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <select class="form-control form-control-sm mx-sm-3 mb-2" id="idtipoPago">
+                                        <option>Salud</option>
+                                        <option>Emergencia</option>
+                                       
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Cuota* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nrotrozastotal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Observacion :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nrotrozastotal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <div class="col-md-4 mt-5">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fecha Aprob.* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    
+                                    <input id="nrotrozastotal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" type="date" />
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fecha Vcto* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nrotrozastotal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" type="date" />
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fecha Desembolso* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nrotrozastotal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" type="date" />
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fecha 1er. Pago* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input id="nrotrozastotal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" type="date" />
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+    </html>
+   

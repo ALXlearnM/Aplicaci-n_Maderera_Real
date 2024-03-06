@@ -976,7 +976,8 @@ namespace Aplicacion_Maderera.Controllers
 
                     if (existingMerma != null)
                     {
-                        foreach (Pret16Merma merma in existingMerma) {
+                        foreach (Pret16Merma merma in existingMerma)
+                        {
                             long idmerma = merma.IdMerma;
                             var existingEmpleado = _context.Pret24MermaEmpleados.Where(p => p.IdMerma == idmerma).ToList();
 
@@ -1012,9 +1013,10 @@ namespace Aplicacion_Maderera.Controllers
 
                     if (existingProduccion != null)
                     {
-                        foreach (Pret14Produccion produccion in existingProduccion) {
+                        foreach (Pret14Produccion produccion in existingProduccion)
+                        {
                             long idprod = produccion.IdProduccion;
-                        var existingEmpleado = _context.Pret20ProduccionEmpleados.Where(p => p.IdProduccion == idprod).ToList();
+                            var existingEmpleado = _context.Pret20ProduccionEmpleados.Where(p => p.IdProduccion == idprod).ToList();
 
 
                             foreach (Pret20ProduccionEmpleado empleado in existingEmpleado)
@@ -1047,45 +1049,45 @@ namespace Aplicacion_Maderera.Controllers
                     var existingCampana = _context.Pret02Campanas.Where(c => c.IdEstado == 1 && c.IdPredio == id).ToList();
                     if (existingCampana != null)
                     {
-                    foreach (Pret02Campana campana in existingCampana)
-                    {
-                        //campana.IdEstado = 2;
-                        //campana.TxtEstado = "INACTIVO";
-
-                        long idcampanaeliminar = campana.IdCampana;
-                        var existingCampanaTA = _context.Pret04CampanaTipoArbols.Where(tc => tc.IdEstado == 1 && tc.IdCampana == idcampanaeliminar).ToList();
-                        if (existingCampanaTA != null)
+                        foreach (Pret02Campana campana in existingCampana)
                         {
-                            foreach (Pret04CampanaTipoArbol campTA in existingCampanaTA)
+                            //campana.IdEstado = 2;
+                            //campana.TxtEstado = "INACTIVO";
+
+                            long idcampanaeliminar = campana.IdCampana;
+                            var existingCampanaTA = _context.Pret04CampanaTipoArbols.Where(tc => tc.IdEstado == 1 && tc.IdCampana == idcampanaeliminar).ToList();
+                            if (existingCampanaTA != null)
                             {
-                                //campTA.IdEstado = 2;
-                                //campTA.TxtEstado = "INACTIVO";
-                                _context.Pret04CampanaTipoArbols.Remove(campTA);
-                                await _context.SaveChangesAsync();
+                                foreach (Pret04CampanaTipoArbol campTA in existingCampanaTA)
+                                {
+                                    //campTA.IdEstado = 2;
+                                    //campTA.TxtEstado = "INACTIVO";
+                                    _context.Pret04CampanaTipoArbols.Remove(campTA);
+                                    await _context.SaveChangesAsync();
+                                }
                             }
-                        }
-                        var existingPagoP = _context.Pert11PagoPersonals.Where(tc => tc.IdEstado == 1 && tc.IdCampaña == idcampanaeliminar).ToList();
-                        if (existingPagoP != null)
-                        {
-                            foreach (Pert11PagoPersonal PagoPersonal in existingPagoP)
+                            var existingPagoP = _context.Pert11PagoPersonals.Where(tc => tc.IdEstado == 1 && tc.IdCampaña == idcampanaeliminar).ToList();
+                            if (existingPagoP != null)
                             {
-                                //campTA.IdEstado = 2;
-                                //campTA.TxtEstado = "INACTIVO";
-                                _context.Pert11PagoPersonals.Remove(PagoPersonal);
-                                await _context.SaveChangesAsync();
+                                foreach (Pert11PagoPersonal PagoPersonal in existingPagoP)
+                                {
+                                    //campTA.IdEstado = 2;
+                                    //campTA.TxtEstado = "INACTIVO";
+                                    _context.Pert11PagoPersonals.Remove(PagoPersonal);
+                                    await _context.SaveChangesAsync();
+                                }
                             }
-                        }
 
-                        var existingExtraccion = _context.Pret07Extraccions.Where(c => c.IdEstado == 1 && c.IdCampana == idcampanaeliminar).ToList();
-                        if (existingExtraccion != null)
-                        {
-                            foreach (Pret07Extraccion ExtReg in existingExtraccion)
+                            var existingExtraccion = _context.Pret07Extraccions.Where(c => c.IdEstado == 1 && c.IdCampana == idcampanaeliminar).ToList();
+                            if (existingExtraccion != null)
                             {
-                                //ExtReg.IdEstado = 2;
-                                //ExtReg.TxtEstado = "INACTIVO";
+                                foreach (Pret07Extraccion ExtReg in existingExtraccion)
+                                {
+                                    //ExtReg.IdEstado = 2;
+                                    //ExtReg.TxtEstado = "INACTIVO";
 
-                                var idextraccioneliminar = ExtReg.IdExtraccion;
-                                var ExistingExtDtll = _context.Pret08ExtraccionDtls.Where(c => /*c.IdEstado == 1 &&*/ c.IdExtraccion == idextraccioneliminar).ToList();
+                                    var idextraccioneliminar = ExtReg.IdExtraccion;
+                                    var ExistingExtDtll = _context.Pret08ExtraccionDtls.Where(c => /*c.IdEstado == 1 &&*/ c.IdExtraccion == idextraccioneliminar).ToList();
                                     if (ExistingExtDtll != null)
                                     {
                                         foreach (Pret08ExtraccionDtl detalleext in ExistingExtDtll)
@@ -1096,7 +1098,7 @@ namespace Aplicacion_Maderera.Controllers
                                             await _context.SaveChangesAsync();
                                         }
                                     }
-                                var ExistingExtEmp = _context.Pret19ExtraccionEmpleados.Where(c => /*c.IdEstado == 1 &&*/ c.IdExtraccion == idextraccioneliminar).ToList();
+                                    var ExistingExtEmp = _context.Pret19ExtraccionEmpleados.Where(c => /*c.IdEstado == 1 &&*/ c.IdExtraccion == idextraccioneliminar).ToList();
                                     if (ExistingExtEmp != null)
                                     {
                                         foreach (Pret19ExtraccionEmpleado empleadoext in ExistingExtEmp)
@@ -1107,14 +1109,14 @@ namespace Aplicacion_Maderera.Controllers
                                             await _context.SaveChangesAsync();
                                         }
                                     }
-                                var ExistingEnvio = _context.Pret10Envios.Where(c => /*c.IdEstado == 1 &&*/ c.IdExtraccion == idextraccioneliminar).ToList();
-                                if (ExistingEnvio!= null)
-                                {
-                                    foreach (Pret10Envio envioext in ExistingEnvio)
+                                    var ExistingEnvio = _context.Pret10Envios.Where(c => /*c.IdEstado == 1 &&*/ c.IdExtraccion == idextraccioneliminar).ToList();
+                                    if (ExistingEnvio != null)
                                     {
-                                        //empleadoext.IdEstado = 2;
-                                        //empleadoext.TxtEstado = "INACTIVO";
-                                        var idenvio= envioext.IdEnvio;
+                                        foreach (Pret10Envio envioext in ExistingEnvio)
+                                        {
+                                            //empleadoext.IdEstado = 2;
+                                            //empleadoext.TxtEstado = "INACTIVO";
+                                            var idenvio = envioext.IdEnvio;
                                             var ExistingRecepcion = _context.Pret11Recepcions.Where(c => /*c.IdEstado == 1 &&*/ c.IdEnvio == idenvio).ToList();
                                             if (ExistingEnvio != null)
                                             {
@@ -1123,7 +1125,7 @@ namespace Aplicacion_Maderera.Controllers
                                                     //empleadoext.IdEstado = 2;
                                                     //empleadoext.TxtEstado = "INACTIVO";
                                                     var idrecepcion = recepcion.IdRecepcion;
-                                                    var existingArchivoRec = _context.Pret17Archivos.Where(c => c.IdRecepcion== idrecepcion).ToList();
+                                                    var existingArchivoRec = _context.Pret17Archivos.Where(c => c.IdRecepcion == idrecepcion).ToList();
                                                     if (existingArchivoRec != null)
                                                     {
                                                         foreach (Pret17Archivo archivoReg in existingArchivoRec)
@@ -1151,7 +1153,7 @@ namespace Aplicacion_Maderera.Controllers
                                                             await _context.SaveChangesAsync();
                                                         }
                                                     }
-                                                    var ExistingRecEmp= _context.Pret22RecepcionEmpleados.Where(c => /*c.IdEstado == 1 &&*/ c.IdRecepcion == idrecepcion).ToList();
+                                                    var ExistingRecEmp = _context.Pret22RecepcionEmpleados.Where(c => /*c.IdEstado == 1 &&*/ c.IdRecepcion == idrecepcion).ToList();
                                                     if (ExistingRecEmp != null)
                                                     {
                                                         foreach (Pret22RecepcionEmpleado empleadorec in ExistingRecEmp)
@@ -1167,67 +1169,67 @@ namespace Aplicacion_Maderera.Controllers
                                                 }
                                             }
 
-                                        var existingArchivoEnv = _context.Pret17Archivos.Where(c => c.IdEnvio == idenvio).ToList();
-                                        if (existingArchivoEnv != null)
-                                        {
-                                            foreach (Pret17Archivo archivoReg in existingArchivoEnv)
+                                            var existingArchivoEnv = _context.Pret17Archivos.Where(c => c.IdEnvio == idenvio).ToList();
+                                            if (existingArchivoEnv != null)
                                             {
-                                                //archivoReg.IdEstado = 2;
-                                                //archivoReg.TxtEstado = "INACTIVO";
-                                                string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
-
-                                                if (System.IO.File.Exists(rutaArchivoEliminar))
+                                                foreach (Pret17Archivo archivoReg in existingArchivoEnv)
                                                 {
-                                                    System.IO.File.Delete(rutaArchivoEliminar);
+                                                    //archivoReg.IdEstado = 2;
+                                                    //archivoReg.TxtEstado = "INACTIVO";
+                                                    string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
+
+                                                    if (System.IO.File.Exists(rutaArchivoEliminar))
+                                                    {
+                                                        System.IO.File.Delete(rutaArchivoEliminar);
+                                                    }
+                                                    _context.Pret17Archivos.Remove(archivoReg);
+                                                    await _context.SaveChangesAsync();
                                                 }
-                                                _context.Pret17Archivos.Remove(archivoReg);
-                                                await _context.SaveChangesAsync();
                                             }
-                                        }
-                                        var ExistingEnvDtll = _context.Pret13EnvioDtls.Where(c => /*c.IdEstado == 1 &&*/ c.IdEnvio== idenvio).ToList();
-                                        if (ExistingEnvDtll != null)
-                                        {
-                                            foreach (Pret13EnvioDtl detallenv in ExistingEnvDtll)
+                                            var ExistingEnvDtll = _context.Pret13EnvioDtls.Where(c => /*c.IdEstado == 1 &&*/ c.IdEnvio == idenvio).ToList();
+                                            if (ExistingEnvDtll != null)
                                             {
-                                                //detalleext.IdEstado = 2;
-                                                //detalleext.TxtEstado = "INACTIVO";
-                                                _context.Pret13EnvioDtls.Remove(detallenv);
-                                                await _context.SaveChangesAsync();
+                                                foreach (Pret13EnvioDtl detallenv in ExistingEnvDtll)
+                                                {
+                                                    //detalleext.IdEstado = 2;
+                                                    //detalleext.TxtEstado = "INACTIVO";
+                                                    _context.Pret13EnvioDtls.Remove(detallenv);
+                                                    await _context.SaveChangesAsync();
+                                                }
                                             }
-                                        }
-                                        var ExistingEnvEmp= _context.Pret21EnvioEmpleados.Where(c => /*c.IdEstado == 1 &&*/ c.IdEnvio== idenvio).ToList();
-                                        if (ExistingEnvEmp != null)
-                                        {
-                                            foreach (Pret21EnvioEmpleado empleadoenv in ExistingEnvEmp)
+                                            var ExistingEnvEmp = _context.Pret21EnvioEmpleados.Where(c => /*c.IdEstado == 1 &&*/ c.IdEnvio == idenvio).ToList();
+                                            if (ExistingEnvEmp != null)
                                             {
-                                                //empleadoext.IdEstado = 2;
-                                                //empleadoext.TxtEstado = "INACTIVO";
-                                                _context.Pret21EnvioEmpleados.Remove(empleadoenv);
-                                                await _context.SaveChangesAsync();
+                                                foreach (Pret21EnvioEmpleado empleadoenv in ExistingEnvEmp)
+                                                {
+                                                    //empleadoext.IdEstado = 2;
+                                                    //empleadoext.TxtEstado = "INACTIVO";
+                                                    _context.Pret21EnvioEmpleados.Remove(empleadoenv);
+                                                    await _context.SaveChangesAsync();
+                                                }
                                             }
+                                            _context.Pret10Envios.Remove(envioext);
+                                            await _context.SaveChangesAsync();
+
                                         }
-                                        _context.Pret10Envios.Remove(envioext);
-                                        await _context.SaveChangesAsync();
 
                                     }
-                                        
+                                    _context.Pret07Extraccions.Remove(ExtReg);
+                                    await _context.SaveChangesAsync();
                                 }
-                                _context.Pret07Extraccions.Remove(ExtReg);
-                                await _context.SaveChangesAsync();
                             }
+                            _context.Pret02Campanas.Remove(campana);
+                            await _context.SaveChangesAsync();
                         }
-                        _context.Pret02Campanas.Remove(campana);
-                        await _context.SaveChangesAsync();
-                    }
-                }   
-                   
-
-                        _context.Pret01Predios.Remove(existingPredio);
-                        await _context.SaveChangesAsync();
                     }
 
 
+                    _context.Pret01Predios.Remove(existingPredio);
                     await _context.SaveChangesAsync();
+                }
+
+
+                await _context.SaveChangesAsync();
                 return Json(new { redirectUrl = Url.Action("ListadoPre", "Pret01Predio") });
             }
             catch (Exception ex)

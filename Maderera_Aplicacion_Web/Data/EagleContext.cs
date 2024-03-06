@@ -113,6 +113,12 @@ namespace Maderera_Aplicacion_Web.Data
         public virtual DbSet<Pret22RecepcionEmpleado> Pret22RecepcionEmpleados { get; set; } = null!;
         public virtual DbSet<Pret23VentaEmpleado> Pret23VentaEmpleados { get; set; } = null!;
         public virtual DbSet<Pret24MermaEmpleado> Pret24MermaEmpleados { get; set; } = null!;
+        public virtual DbSet<Pret30TipoPrestamo> Pret30TipoPrestamos { get; set; } = null!;
+        public virtual DbSet<Pret31TipoPlazo> Pret31TipoPlazos { get; set; } = null!;
+        public virtual DbSet<Pret32Motivo> Pret32Motivos { get; set; } = null!;
+        public virtual DbSet<Pret33Prestamo> Pret33Prestamos { get; set; } = null!;
+        public virtual DbSet<Pret34CronogramaPago> Pret34CronogramaPagos { get; set; } = null!;
+        public virtual DbSet<Pret35PagoPrestamo> Pret35PagoPrestamos { get; set; } = null!;
         public virtual DbSet<Prot01Marca> Prot01Marcas { get; set; } = null!;
         public virtual DbSet<Prot02Modelo> Prot02Modelos { get; set; } = null!;
         public virtual DbSet<Prot03Familium> Prot03Familia { get; set; } = null!;
@@ -5880,6 +5886,456 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasForeignKey(d => d.IdMerma)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__PREt24_Me__id_me__31CD3CEC");
+            });
+
+            modelBuilder.Entity<Pret30TipoPrestamo>(entity =>
+            {
+                entity.HasKey(e => e.IdTipoPrestamo)
+                    .HasName("PK__Pret30Ti__F2AF27F93E1B6C61");
+
+                entity.ToTable("Pret30Tipo_Prestamo");
+
+                entity.Property(e => e.IdTipoPrestamo)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_TipoPrestamo");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_creacion");
+
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
+                entity.Property(e => e.IdEstado).HasColumnName("id_Estado");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuariomod).HasColumnName("id_usuariomod");
+
+                entity.Property(e => e.TxtEstado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_Estado");
+
+                entity.Property(e => e.TxtTipoPrestamo)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("Txt_TipoPrestamo");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuariomod)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuariomod");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Pret30TipoPrestamoIdUsuarioNavigations)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TPrestamos_usuario");
+
+                entity.HasOne(d => d.IdUsuariomodNavigation)
+                    .WithMany(p => p.Pret30TipoPrestamoIdUsuariomodNavigations)
+                    .HasForeignKey(d => d.IdUsuariomod)
+                    .HasConstraintName("FK_TPrestamos_usuariomod");
+            });
+
+            modelBuilder.Entity<Pret31TipoPlazo>(entity =>
+            {
+                entity.HasKey(e => e.IdTipoPlazo)
+                    .HasName("PK__Pret31Ti__32AD742EDDBEF39E");
+
+                entity.ToTable("Pret31Tipo_Plazo");
+
+                entity.Property(e => e.IdTipoPlazo)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_TipoPlazo");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_creacion");
+
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
+                entity.Property(e => e.IdEstado).HasColumnName("id_Estado");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuariomod).HasColumnName("id_usuariomod");
+
+                entity.Property(e => e.TxtEstado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_Estado");
+
+                entity.Property(e => e.TxtTipoPlazo)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("Txt_TipoPlazo");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuariomod)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuariomod");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Pret31TipoPlazoIdUsuarioNavigations)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TPlazo_usuario");
+
+                entity.HasOne(d => d.IdUsuariomodNavigation)
+                    .WithMany(p => p.Pret31TipoPlazoIdUsuariomodNavigations)
+                    .HasForeignKey(d => d.IdUsuariomod)
+                    .HasConstraintName("FK_TPlazo_usuariomod");
+            });
+
+            modelBuilder.Entity<Pret32Motivo>(entity =>
+            {
+                entity.HasKey(e => e.IdMotivo)
+                    .HasName("PK__Pret32Mo__021C03B9C09FA276");
+
+                entity.ToTable("Pret32Motivo");
+
+                entity.Property(e => e.IdMotivo)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_Motivo");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_creacion");
+
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
+                entity.Property(e => e.IdEstado).HasColumnName("id_Estado");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuariomod).HasColumnName("id_usuariomod");
+
+                entity.Property(e => e.TxtEstado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_Estado");
+
+                entity.Property(e => e.TxtMotivo)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("Txt_Motivo");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuariomod)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuariomod");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Pret32MotivoIdUsuarioNavigations)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Motivo_usuario");
+
+                entity.HasOne(d => d.IdUsuariomodNavigation)
+                    .WithMany(p => p.Pret32MotivoIdUsuariomodNavigations)
+                    .HasForeignKey(d => d.IdUsuariomod)
+                    .HasConstraintName("FK_Motivo_usuariomod");
+            });
+
+            modelBuilder.Entity<Pret33Prestamo>(entity =>
+            {
+                entity.HasKey(e => e.IdPrestamo)
+                    .HasName("PK__Pret33Pr__B41FF2E5B934C36C");
+
+                entity.ToTable("Pret33Prestamo");
+
+                entity.Property(e => e.IdPrestamo)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_Prestamo");
+
+                entity.Property(e => e.Comisiones)
+                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnName("comisiones");
+
+                entity.Property(e => e.CuotaDoble).HasColumnName("cuota_doble");
+
+                entity.Property(e => e.FechaAprobPrestamo)
+                    .HasColumnType("date")
+                    .HasColumnName("Fecha_Aprob_Prestamo");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_creacion");
+
+                entity.Property(e => e.FechaDesembolso)
+                    .HasColumnType("date")
+                    .HasColumnName("fecha_desembolso");
+
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
+                entity.Property(e => e.FechaPrimPago)
+                    .HasColumnType("date")
+                    .HasColumnName("fecha_prim_pago");
+
+                entity.Property(e => e.FechaVtoProg)
+                    .HasColumnType("date")
+                    .HasColumnName("Fecha_Vto_Prog");
+
+                entity.Property(e => e.IdAutorizador).HasColumnName("id_autorizador");
+
+                entity.Property(e => e.IdEmpleado).HasColumnName("id_Empleado");
+
+                entity.Property(e => e.IdEstado).HasColumnName("id_Estado");
+
+                entity.Property(e => e.IdMotivo).HasColumnName("id_motivo");
+
+                entity.Property(e => e.IdTipoPlazo).HasColumnName("id_Tipo_Plazo");
+
+                entity.Property(e => e.IdTipoPrestamo).HasColumnName("id_Tipo_Prestamo");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuariomod).HasColumnName("id_usuariomod");
+
+                entity.Property(e => e.MontoTcea)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("monto_tcea");
+
+                entity.Property(e => e.MontoTea)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("monto_tea");
+
+                entity.Property(e => e.MontoTotal)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("Monto_Total");
+
+                entity.Property(e => e.NroCuotasGracia).HasColumnName("Nro_Cuotas_Gracia");
+
+                entity.Property(e => e.Posteo).HasColumnName("posteo");
+
+                entity.Property(e => e.TxtEstado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_Estado");
+
+                entity.Property(e => e.TxtObservacion)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("Txt_Observacion");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuariomod)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuariomod");
+
+                entity.HasOne(d => d.IdAutorizadorNavigation)
+                    .WithMany(p => p.Pret33PrestamoIdAutorizadorNavigations)
+                    .HasForeignKey(d => d.IdAutorizador)
+                    .HasConstraintName("FK_Prestamos_autorizador");
+
+                entity.HasOne(d => d.IdEmpleadoNavigation)
+                    .WithMany(p => p.Pret33PrestamoIdEmpleadoNavigations)
+                    .HasForeignKey(d => d.IdEmpleado)
+                    .HasConstraintName("FK_Prestamos_Empleados");
+
+                entity.HasOne(d => d.IdMotivoNavigation)
+                    .WithMany(p => p.Pret33Prestamos)
+                    .HasForeignKey(d => d.IdMotivo)
+                    .HasConstraintName("FK_Prestamos_motivo");
+
+                entity.HasOne(d => d.IdTipoPlazoNavigation)
+                    .WithMany(p => p.Pret33Prestamos)
+                    .HasForeignKey(d => d.IdTipoPlazo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Prestamos_TipoPlazo");
+
+                entity.HasOne(d => d.IdTipoPrestamoNavigation)
+                    .WithMany(p => p.Pret33Prestamos)
+                    .HasForeignKey(d => d.IdTipoPrestamo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Prestamos_TipoPrestamo");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Pret33PrestamoIdUsuarioNavigations)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Prestamos_usuario");
+
+                entity.HasOne(d => d.IdUsuariomodNavigation)
+                    .WithMany(p => p.Pret33PrestamoIdUsuariomodNavigations)
+                    .HasForeignKey(d => d.IdUsuariomod)
+                    .HasConstraintName("FK_Prestamos_usuariomod");
+            });
+
+            modelBuilder.Entity<Pret34CronogramaPago>(entity =>
+            {
+                entity.HasKey(e => e.IdCronograma)
+                    .HasName("PK__Pret34Cr__80F70FADCC846D50");
+
+                entity.ToTable("Pret34CronogramaPago");
+
+                entity.Property(e => e.IdCronograma)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_Cronograma");
+
+                entity.Property(e => e.Amortizacion)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("amortizacion");
+
+                entity.Property(e => e.Cuota)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("cuota");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_creacion");
+
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
+                entity.Property(e => e.FechaPago)
+                    .HasColumnType("date")
+                    .HasColumnName("fecha_pago");
+
+                entity.Property(e => e.IdEstado).HasColumnName("id_Estado");
+
+                entity.Property(e => e.IdPrestamo).HasColumnName("id_Prestamo");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuariomod).HasColumnName("id_usuariomod");
+
+                entity.Property(e => e.Interes)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("interes");
+
+                entity.Property(e => e.SaldoInicial)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("saldo_inicial");
+
+                entity.Property(e => e.TxtEstado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_Estado");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuariomod)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuariomod");
+
+                entity.HasOne(d => d.IdPrestamoNavigation)
+                    .WithMany(p => p.Pret34CronogramaPagos)
+                    .HasForeignKey(d => d.IdPrestamo)
+                    .HasConstraintName("FK_Cronograma_Prestamo");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Pret34CronogramaPagoIdUsuarioNavigations)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cronograma_usuario");
+
+                entity.HasOne(d => d.IdUsuariomodNavigation)
+                    .WithMany(p => p.Pret34CronogramaPagoIdUsuariomodNavigations)
+                    .HasForeignKey(d => d.IdUsuariomod)
+                    .HasConstraintName("FK_Cronograma_usuariomod");
+            });
+
+            modelBuilder.Entity<Pret35PagoPrestamo>(entity =>
+            {
+                entity.HasKey(e => e.IdPagoPrestamo)
+                    .HasName("PK__Pret35Pa__49CFAB380C44C513");
+
+                entity.ToTable("Pret35PagoPrestamo");
+
+                entity.Property(e => e.IdPagoPrestamo)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_PagoPrestamo");
+
+                entity.Property(e => e.Cuota)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("cuota");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_creacion");
+
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
+                entity.Property(e => e.FechaPagoReal)
+                    .HasColumnType("date")
+                    .HasColumnName("fecha_pago_real");
+
+                entity.Property(e => e.IdCronograma).HasColumnName("id_Cronograma");
+
+                entity.Property(e => e.IdEstado).HasColumnName("id_Estado");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuariomod).HasColumnName("id_usuariomod");
+
+                entity.Property(e => e.TxtEstado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_Estado");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuariomod)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuariomod");
+
+                entity.HasOne(d => d.IdCronogramaNavigation)
+                    .WithMany(p => p.Pret35PagoPrestamos)
+                    .HasForeignKey(d => d.IdCronograma)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cronograma_PagoP");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Pret35PagoPrestamoIdUsuarioNavigations)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PagoP_usuario");
+
+                entity.HasOne(d => d.IdUsuariomodNavigation)
+                    .WithMany(p => p.Pret35PagoPrestamoIdUsuariomodNavigations)
+                    .HasForeignKey(d => d.IdUsuariomod)
+                    .HasConstraintName("FK_PagoP_usuariomod");
             });
 
             modelBuilder.Entity<Prot01Marca>(entity =>

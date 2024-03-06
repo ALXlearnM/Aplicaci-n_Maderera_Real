@@ -24,6 +24,8 @@ namespace Maderera_Aplicacion_Web.Models
             Pret22RecepcionEmpleados = new HashSet<Pret22RecepcionEmpleado>();
             Pret23VentaEmpleados = new HashSet<Pret23VentaEmpleado>();
             Pret24MermaEmpleados = new HashSet<Pret24MermaEmpleado>();
+            Pret33PrestamoIdAutorizadorNavigations = new HashSet<Pret33Prestamo>();
+            Pret33PrestamoIdEmpleadoNavigations = new HashSet<Pret33Prestamo>();
             Tnst08DescuentoDtls = new HashSet<Tnst08DescuentoDtl>();
         }
 
@@ -139,6 +141,8 @@ namespace Maderera_Aplicacion_Web.Models
         public virtual ICollection<Pret22RecepcionEmpleado> Pret22RecepcionEmpleados { get; set; }
         public virtual ICollection<Pret23VentaEmpleado> Pret23VentaEmpleados { get; set; }
         public virtual ICollection<Pret24MermaEmpleado> Pret24MermaEmpleados { get; set; }
+        public virtual ICollection<Pret33Prestamo> Pret33PrestamoIdAutorizadorNavigations { get; set; }
+        public virtual ICollection<Pret33Prestamo> Pret33PrestamoIdEmpleadoNavigations { get; set; }
         public virtual ICollection<Tnst08DescuentoDtl> Tnst08DescuentoDtls { get; set; }
     }
 }

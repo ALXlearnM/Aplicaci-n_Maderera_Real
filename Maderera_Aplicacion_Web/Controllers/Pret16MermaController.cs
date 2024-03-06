@@ -204,7 +204,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                 })
                 .ToList();
             var mermavista = _context.Pret16Mermas
-            .Where(c => c.IdMerma== idmerma)
+            .Where(c => c.IdMerma == idmerma)
             .FirstOrDefault();
             if (merma != null)
             {
@@ -249,7 +249,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                 IdTemporalProduccion = mermavista?.IdProduccion;
                 IdTemporalCampana = mermavista?.IdCampana;
                 IdTemporalPredio = mermavista?.IdPredio;
-                ViewBag.Merma= campanaserialized;
+                ViewBag.Merma = campanaserialized;
                 ViewBag.Detalles = detallesSerialized;
                 ViewBag.Empleados = empleadosSerialized;
                 return View("merma", mermavista);
@@ -265,7 +265,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                
+
                 var updatedExtenv = _context.Pret14Produccions.Select(c => new
                 {
                     id = c.IdProduccion,
@@ -1055,8 +1055,8 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             if (IdTemporal != null)
             {
-                var estado = _context.Pret16Mermas.Where(t => t.IdMerma== IdTemporal).Select(t => t.IdEstado).FirstOrDefault();
-                var estadoName = _context.Pret16Mermas.Where(t => t.IdMerma== IdTemporal).Select(t => t.TxtEstado).FirstOrDefault();
+                var estado = _context.Pret16Mermas.Where(t => t.IdMerma == IdTemporal).Select(t => t.IdEstado).FirstOrDefault();
+                var estadoName = _context.Pret16Mermas.Where(t => t.IdMerma == IdTemporal).Select(t => t.TxtEstado).FirstOrDefault();
                 var response = new
                 {
                     id = estado,
@@ -1081,7 +1081,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                var existingMerma = _context.Pret16Mermas.Where(p => p.IdMerma== id).FirstOrDefault();
+                var existingMerma = _context.Pret16Mermas.Where(p => p.IdMerma == id).FirstOrDefault();
 
                 if (existingMerma != null)
                 {
@@ -1097,7 +1097,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         await _context.SaveChangesAsync();
                     }
                     await _context.SaveChangesAsync();
-                    var existingDtll = _context.Pret17MermaDtls.Where(p => p.IdMerma== id).ToList();
+                    var existingDtll = _context.Pret17MermaDtls.Where(p => p.IdMerma == id).ToList();
 
                     if (existingDtll != null)
                     {

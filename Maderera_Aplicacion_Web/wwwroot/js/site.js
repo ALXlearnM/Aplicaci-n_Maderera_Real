@@ -2593,13 +2593,13 @@ $(document).ready(function () {
     });
     $("#cancelarPred").click(function () {
         Swal.fire({
-            title: "¿Estás seguro de cancelar el registro?",
-            text: "Esta acción no se puede deshacer.",
+            title: "¿Estás seguro que desea salir de esta página?",
+            text: "",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Sí, cancelar",
+            confirmButtonText: "Sí",
             cancelButtonText: "No, volver",
         }).then((result) => {
             if (result.isConfirmed) {
@@ -4080,8 +4080,12 @@ function agregarCampanata() {
     let longitud = ($("#longitudtc").val());
 
     // Validar que los campos sean números válidos y que el idProducto sea mayor que cero
-    if (isNaN(idtipoarbol) || idtipoarbol <= 0 || isNaN(numarbol) || numarbol <= 0 || isNaN(area) || isNaN(numhectareas) || numhectareas <= 0 || area<= 0) {
-        alert("Por favor, ingrese valores numéricos válidos para la campaña por tipo de arbol");
+    if (isNaN(idtipoarbol) || idtipoarbol <= 0 || isNaN(numarbol) || numarbol <= 0 || isNaN(area) || isNaN(numhectareas) || numhectareas <= 0 || area <= 0) {
+        Swal.fire({
+            title: "¡Faltan campos por llenar!",
+            text: "Por favor, ingrese valores válidos",
+            icon: "warning"
+        });
         return false; // Detener la ejecución si los campos no son válidos
     }
 
@@ -4108,11 +4112,19 @@ function agregarCampanata() {
 
 
             } else {
-                alert("Tipo de Arbol no encontrado");
+                Swal.fire({
+                    title: "¡Error!",
+                    text: "Tipo de Arbol no encontrado, verifique que se encuentre activo",
+                    icon: "warning"
+                });
             }
         },
         error: function (response) {
-            alert("Error al obtener los datos del Tipo de Arbol");
+            Swal.fire({
+                title: "¡Error!",
+                text: "Error al obtener los datos del Tipo de Arbol",
+                icon: "warning"
+            });
         }
     });
 
@@ -4266,7 +4278,12 @@ function cargarDatosTipoArbol() {
             });
         },
         error: function (error) {
-            console.error('Error al cargar los datos del tipo de árbol:', error.responseText);
+            Swal.fire({
+                title: "¡Error!",
+                text: "Error al cargar los datos del tipo de árbol.",
+                icon: "error"
+            });
+
         }
     });
 }
@@ -4318,7 +4335,11 @@ function eliminarTipoArbol(idTipoArbol) {
             }
         }
     } else {
-        alert("Registro no encontrado en la lista.");
+        Swal.fire({
+            title: "¡Error!",
+            text: "Registro no encontrado en la lista.",
+            icon: "error"
+        });
     }
 }
 
@@ -4377,10 +4398,20 @@ function aplicarCambiosTA() {
             actualizarTablaTipoArbolSeleccionados();
             cerrarModal('editarTAModal');
         } else {
-            alert("Edición cancelada. Los cambios no se aplicaron.");
+            Swal.fire({
+                title: "¡Error!",
+                text: "Edición cancelada. Los cambios no se aplicaron.",
+                icon: "error"
+            });
+
         }
     } else {
-        alert("Por favor, ingresa valores numéricos válidos para los campos.");
+        Swal.fire({
+            title: "¡Error!",
+            text: "Por favor, ingresa valores numéricos válidos para los campos.",
+            icon: "error"
+        });
+
     }
 }
 
@@ -4393,50 +4424,77 @@ function enviarDatosCTAGuardar() {
             console.log(CampanatipoArbol);
             var campanaTA = JSON.stringify(CampanatipoArbol);
             console.log(campanaTA);
-            if (camposRequeridosLlenos('FormCampana')) {
-                var data = {
-                    IdTipoCampana: ($('#IdTipoCampana').val()),
-                    NroHectarea: parseInt($('#nrohectareacampana').val()),
-                    NroArboles: parseInt($('#nroarbolcampana').val()),
-                    Area: parseFloat($('#areacampana').val()),
-                    Latitud: ($('#latitudcampana').val()),
-                    Longitud: ($('#longitudcampana').val()),
-                    FechaInicio: $('#fechainiciocampana').val(),
-                    campanatipoarbolSeleccionado: campanaTA, // <-- Este es el campo que se enviará
-                };
+        if (camposRequeridosLlenos('FormCampana')) {
+            var data = {
+                IdTipoCampana: ($('#IdTipoCampana').val()),
+                NroHectarea: parseInt($('#nrohectareacampana').val()),
+                NroArboles: parseInt($('#nroarbolcampana').val()),
+                Area: parseFloat($('#areacampana').val()),
+                Latitud: ($('#latitudcampana').val()),
+                Longitud: ($('#longitudcampana').val()),
+                FechaInicio: $('#fechainiciocampana').val(),
+                campanatipoarbolSeleccionado: campanaTA, // <-- Este es el campo que se enviará
+            };
 
 
-                $.ajax({
-                    url: '/Pret02Campana/CrearCampana', // Ajusta la URL según la estructura de tu aplicación
-                    type: 'POST',
-                    data: data,
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.mensaje == null) {
+            $.ajax({
+                url: '/Pret02Campana/CrearCampana', // Ajusta la URL según la estructura de tu aplicación
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.mensaje == null) {
+                        Swal.fire({
+                            title: "¡Guardado exitoso!",
+                            text: response.mensaje,
+                            icon: "success"
+                        }).then(() => {
                             window.location.href = response.redirectUrl;
-                        } else {
-                            alert(response.mensaje);
-                        }
-                    },
-                    error: function (error) {
-                        console.error('Error al crear la campaña:', error.responseText);
+                        });
+
+                    } else {
+                        alert(response.mensaje);
                     }
-                });
-            } else {
-                alert('Por favor, complete todos los campos requeridos.');
-            }
+                },
+                error: function (error) {
+                    Swal.fire({
+                        title: "¡Error!",
+                        text: "Ocurrió un error al crear el predio.",
+                        icon: "error"
+                    });
+                }
+            });
+        } else {
+                    Swal.fire({
+                        title: "¡Faltan campos por llenar!",
+                        text: "Por favor, complete todos los campos requeridos.",
+                        icon: "warning"
+                    });
+                }
 
     } else {
-        alert('Registre al menos una campaña por tipo de arbol.')
+        Swal.fire({
+            title: "¡Faltan campos por llenar!",
+            text: "Registre al menos una campaña por tipo de arbol",
+            icon: "warning"
+        });
     }
 }
 
 function enviarDatosCTAGuardarYCerrar() {
     
     if (CampanatipoArbol.length > 0) {
-        var confirmar = confirm("¿Seguro que desea guardar y cerrar?");
+        Swal.fire({
+            title: "¿Seguro que desea guardar y cerrar?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, guardar y cerrar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-        if (confirmar) {
 
             var campanaTA = JSON.stringify(CampanatipoArbol);
 
@@ -4468,12 +4526,23 @@ function enviarDatosCTAGuardarYCerrar() {
                         console.error('Error al crear la campaña:', error.responseText);
                     }
                 });
-            } else {
-                alert('Por favor, complete todos los campos requeridos.');
+
+                }
+                else {
+                    Swal.fire({
+                        title: "¡Faltan campos por llenar!",
+                        text: "Por favor, complete todos los campos requeridos.",
+                        icon: "warning"
+                    });
+                }
             }
-        }
+        });
     } else {
-        alert('Registre al menos una campaña por tipo de arbol.')
+        Swal.fire({
+            title: "¡Faltan campos por llenar!",
+            text: "Registre al menos una campaña por tipo de arbol",
+            icon: "warning"
+        });
     }
 }
 
@@ -4705,7 +4774,6 @@ function seleccionarcampext(modalId, selectId, idcampext, nombrecampext) {
                 data: { idtCampana: idcampext },
                 success: function (response) {
                     var idtemporalCampana = response;
-                    console.log('Valor de idtemporalCampana:', idtemporalCampana);
                     resolve(idtemporalCampana);
                 },
                 error: function (error) {
@@ -5324,8 +5392,12 @@ function agregarCampanataExt() {
 
     // Validar que los campos sean números válidos y que el idProducto sea mayor que cero
     if (isNaN(idtipoarbol) || idtipoarbol <= 0 || isNaN(altura) || isNaN(diametro) || isNaN(nrotrozas) || !Number.isInteger(numarbol) || !Number.isInteger(nrotrozas)
-        || numarbol <= 0 || nrotrozas <= 0 || altura <= 0 || diametro<= 0) {
-        alert("Por favor, ingrese valores numéricos para la extracción por tipo de arbol");
+        || numarbol <= 0 || nrotrozas <= 0 || altura <= 0 || diametro <= 0) {
+        Swal.fire({
+            title: "¡Error!",
+            text: "Por favor, ingrese valores numéricos para la extracción por tipo de arbol.",
+            icon: "error"
+        });
         return false; // Detener la ejecución si los campos no son válidos
     }
     $.ajax({
@@ -5349,11 +5421,19 @@ function agregarCampanataExt() {
 
                 actualizarTablaTipoArbolSeleccionadosExt();
             } else {
-                alert("Tipo de Arbol no encontrado");
+                Swal.fire({
+                    title: "¡Error!",
+                    text: "Tipo de Arbol no encontrado.",
+                    icon: "error"
+                });
             }
         },
         error: function (response) {
-            alert("Error al obtener los datos del Tipo de Arbol");
+            Swal.fire({
+                title: "¡Error!",
+                text: "Error al obtener los datos del Tipo de Arbol.",
+                icon: "error"
+            });
         }
     });
 
@@ -5392,32 +5472,45 @@ function actualizarTotalesTAExt() {
 
 // Función para eliminar un producto del arreglo de productos seleccionados
 function eliminarTipoArbolExt(idTipoArbolExt) {
-    if (typeof idTipoArbolExt !== 'string') {
-        console.error('El ID no es una cadena.');
-        console.error(idTipoArbolExt);
-        return;
-    }
     var campanaTAExt = CampanatipoArbolExt.find(function (campTA) {
         return campTA.idunico === idTipoArbolExt;
     });
     console.log(idTipoArbolExt);
     console.log("conj" + campanaTAExt);
     if (campanaTAExt) {
-        // Pide confirmación antes de eliminar
-        var confirmar = confirm("¿Deseas eliminar este registro de la lista?");
+        Swal.fire({
+            title: "¿Seguro que desea eliminar este registro?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var campTAExtindex = CampanatipoArbolExt.findIndex(function (campTA) {
+                    return campTA.idunico === idTipoArbolExt;
+                });
 
-        if (confirmar) {
-            var campTAExtindex = CampanatipoArbolExt.findIndex(function (campTA) {
-                return campTA.idunico === idTipoArbolExt;
-            });
-
-            if (campTAExtindex !== -1) {
-                CampanatipoArbolExt.splice(campTAExtindex, 1);
-                actualizarTablaTipoArbolSeleccionadosExt();
+                if (campTAExtindex !== -1) {
+                    CampanatipoArbolExt.splice(campTAExtindex, 1);
+                    actualizarTablaTipoArbolSeleccionadosExt();
+                }
             }
-        }
+            else {
+                Swal.fire({
+                    title: "¡Error!",
+                    text: "Se canceló exitósamente.",
+                    icon: "error"
+                });
+            }
+        });
     } else {
-        alert("Registro no encontrado en la lista.");
+        Swal.fire({
+            title: "¡Error!",
+            text: "Registro no encontrado en la lista.",
+            icon: "error"
+        });
     }
 }
 
@@ -5483,10 +5576,18 @@ function aplicarCambiosTAExt() {
             actualizarTablaTipoArbolSeleccionadosExt();
             cerrarModal('editarTAEXTModal');
         } else {
-            alert("Edición cancelada. Los cambios no se aplicaron.");
+            Swal.fire({
+                title: "¡Error!",
+                text: "Edición cancelada. Los cambios no se aplicaron.",
+                icon: "error"
+            });
         }
     } else {
-        alert("Por favor, ingresa valores numéricos válidos para los campos.");
+        Swal.fire({
+            title: "¡Error!",
+            text: "Por favor, ingresa valores numéricos válidos para los campos.",
+            icon: "error"
+        });
     }
 }
 
