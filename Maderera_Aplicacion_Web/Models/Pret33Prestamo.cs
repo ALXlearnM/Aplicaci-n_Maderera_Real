@@ -37,6 +37,7 @@ namespace Maderera_Aplicacion_Web.Models
         public long? IdUsuariomod { get; set; }
         public string? TxtUsuariomod { get; set; }
         public DateTime? FechaModificacion { get; set; }
+        public decimal? MontoCuota { get; set; }
 
         public virtual Pert04Empleado? IdAutorizadorNavigation { get; set; }
         public virtual Pert04Empleado? IdEmpleadoNavigation { get; set; }

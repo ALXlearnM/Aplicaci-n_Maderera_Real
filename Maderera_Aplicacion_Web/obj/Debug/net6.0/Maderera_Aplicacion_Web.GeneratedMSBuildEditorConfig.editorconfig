@@ -152,10 +152,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE2TWVybWFcTWVybWEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -168,8 +164,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cSW5kZXguY3NodG1s
+[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/ListadoPrestamo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cTGlzdGFkb1ByZXN0YW1vLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/Prestamo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cUHJlc3RhbW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Mad/Desktop/MADERERA/HOLA/Aplicaciòn_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/Error.cshtml]

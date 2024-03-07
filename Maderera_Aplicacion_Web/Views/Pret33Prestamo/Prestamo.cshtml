@@ -1,0 +1,356 @@
+﻿@model Maderera_Aplicacion_Web.Models.Pret33Prestamo
+
+@{
+
+    <title>@ViewData["Title"] Jhyperionm</title>
+    @if (Model != null)
+    {
+        Layout = "_Layout"; // Nombre del layout que deseas aplicar
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Título de la página</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+
+
+   
+    <div class="d-flex ml-5">
+        <!-- Primera fila con los botones -->
+        <div class="row mb-1 justify-content-end w-100 ">
+            <div class="col mb-2 mr-5">
+                <img class="img-fluid" style="margin: 0.25% 3.5%;
+             width: 7%;
+             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+            </div>
+
+            <div class="col mb-3 ml-3 mr-3">
+                <div class="d-flex justify-content-between p-0" id="botonesbarra1">
+                    <button id="guardarPre" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
+                    <button id="guardarycerrarPre" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
+                    <button id="cancelarPre" class="btn btn-danger btn-sm" role="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <hr class="text-decoration-line-through" />
+
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header text-nowrap" >
+                <div class="d-inline-flex">
+                <h4>PRESTAMOS</h4>
+                    <div class="d-inline-flex text-nowrap ml-5 mb-0">
+                        <input class="form-check" type="checkbox" id="cuotadoble">
+                        <p class="ml-2 mb-0 mt-1">Cuota Doble</p>
+                    </div>
+                    <div class="d-inline-flex text-nowrap ml-5 mb-0">
+                        <input class="form-check" type="checkbox" id="post">
+                        <p class="ml-2 mb-0 mt-1">Posteado</p>
+                    </div>
+                    <div class="d-inline-flex text-nowrap ml-5 mb-0">
+                        <input class="form-check" type="checkbox" id="estadoP">
+                        <span class="text-black ml-2 mb-0 mt-1" id="moodNamePre">BORRADOR</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="container-fluid">
+                    <form id="FormPrestamo">
+                    <div class="form-row">
+                        <div class="col-md-4 mt-5">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Empleado* :</label>
+                                <div class="col-sm-7 ml-5">
+                                        <select required id="epcbo" class="form-control form-control-sm mx-sm-3 mb-2" data-modal-target="modalempleadoP" onchange="SelectChange(this,'modalempleadoP')" required>
+                                        <option selected value="none">Seleccionar opción</option>
+                                        <option value="buscar">Buscar</option>
+                                    </select>
+                                    <div style="display: flex; align-items: center;">
+                                        <span id="empleadoPNombre" class="form-control form-control-sm mx-sm-3 mb-2 small text-nowrap" style="display: none;"></span>
+                                            <span class="btn btn-close" id="removeEmpPSpan" style="cursor: pointer; display: none;" onclick="removeempleadoP()"></span>
+                                    </div>
+                                    <input asp-for="IdEmpleado" id="empleadoPID" hidden/>
+                                </div>
+
+                            </div>
+                                
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Tipo* :</label>
+                                <div class="col-sm-7 ml-5">
+
+                                    <select asp-for="IdTipoPrestamo" class="form-control form-control-sm mx-sm-3 mb-2" id="tipoprestamo" class="form-control form-control-sm" asp-items="ViewBag.IdTipoPrestamo" required></select>
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Tipo Plazo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <select asp-for="IdTipoPlazo" class="form-control form-control-sm mx-sm-3 mb-2" id="tipoplazo" class="form-control form-control-sm" asp-items="ViewBag.IdTipoPlazo" required></select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Motivo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <select asp-for="IdMotivo" class="form-control form-control-sm mx-sm-3 mb-2" id="motivo" class="form-control form-control-sm" asp-items="ViewBag.IdMotivo" required></select>
+
+                                </div>
+
+                            </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TEA($):</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input asp-for="MontoTea" type="number" oninput="calcularTcea()" id="tea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+
+                                    </div>
+
+                                </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Observacion :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input asp-for="TxtObservacion" id="comentario"  class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="col-md-4 mt-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Total($)* :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input asp-for="MontoTotal" type="number" id="montototal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
+
+                                    </div>
+
+                                </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Plazo* :</label>
+                                <div class="col-sm-7 ml-5">
+                                        <input asp-for="Plazo" type="number" id="plazo" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Cuota($)* :</label>
+                                <div class="col-sm-7 ml-5">
+                                        <input asp-for="MontoCuota" type="number" id="montocuota" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly />
+
+
+                                </div>
+
+                            </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Cuotas de Gracia:</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input asp-for="NroCuotasGracia" type="number" id="cuotagracia" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Comisiones($):</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input asp-for="Comisiones" oninput="calcularTcea()" type="number" id="comisiones" r class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+
+                                    </div>
+
+                                </div>
+
+
+
+                        </div>
+
+
+
+                        <div class="col-md-4 mt-5">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fec Aprob.* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    
+                                    <input asp-for="FechaAprobPrestamo" id="fechaaprob" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" type="date" />
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fec Vcto* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input asp-for="FechaVtoProg" id="fechavcto" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" type="date" />
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fec Desembolso* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input asp-for="FechaDesembolso"  id="fechadesembolso" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" type="date" />
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Fec 1er. Pago* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input asp-for="FechaPrimPago" id="fecha1pago" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" type="date" />
+
+                                </div>
+
+                            </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TCEA($):</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input asp-for="MontoTcea" type="number" id="tcea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly/>
+
+                                    </div>
+
+                                </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                    </form>
+                    <div class="modal modal-xl custom-modal" id="modalempleadoP" tabindex="-1" role="dialog" aria-labelledby="modalempleadoPLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalempleadoPLabel">Empleado</h5>
+                                    <button type="button" onclick="closeModal('modalempleadoP','epcbo')" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body custom">
+                                    <div class="inversionista-container">
+
+                                        <table class="display" id="tablaEmpleadoP">
+                                            <thead>
+                                                <tr align="center">
+                                                    <th class="client-cell text-center">Empleado</th>
+                                                    <th class="client-cell text-center">Teléfono</th>
+                                                    <th class="client-cell text-center">Doc. Identidad</th>
+                                                    <th class="client-cell text-center">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bodyempleadoP">
+                                                @foreach (var empleado in ViewBag.EmpleadoP)
+                                                {
+                                                    <tr>
+                                                        <td align="center" class="client-cell">@empleado.NombreCompleto</td>
+                                                        <td align="center" class="client-cell">@empleado.telefono</td>
+                                                        <td align="center" class="client-cell">@empleado.ruc</td>
+                                                        <td align="center" class="client-cell">
+                                                            <button class="btn btn-primary" onclick="seleccionarempleadoP('modalempleadoP','epcbo','empleadoPID','empleadoPNombre', '@empleado.Idempleado', '@empleado.NombreCompleto')">Seleccionar</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" onclick="closeModal('modalempleadoP', 'epcbo')" class="btn btn-secondary">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+    </html>
+   
+<script>
+
+    function calcularTcea() {
+        // Obtener valores de los inputs
+        let tea = parseFloat($('#tea').val() || 0);
+        let comisiones = parseFloat($('#comisiones').val() || 0);
+
+        // Calcular el TCEA
+        let tcea = tea + comisiones;
+
+        // Mostrar el TCEA en el input correspondiente
+        $('#tcea').val(tcea);
+    }
+    function calcularcuota() {
+        // Obtener valores de los inputs
+        let montoT = parseFloat($('#montototal').val() || 0);
+        let plazo = parseFloat($('#plazo').val() || 0);
+        if (plazo != 0 && montoT != 0) {
+            let montoc = montoT / plazo;
+            $('#montocuota').val(montoc);
+        } else {
+            $('#montocuota').val(0);
+        }
+
+
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = jQuery('#tablaEmpleadoP').DataTable(
+
+            {
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Empleado",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Empleado",
+                    "infoFiltered": "(Filtrado de _MAX_ total Empleado)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Empleado",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            }
+        );
+            // function calculartcea() {
+        //     let tea = $('#tea').value != null ? $('#tea').value : 0;
+        //     let comisiones = $('#comisiones').value != null ? $('#comisiones').value : 0;
+        //     $('#tcea').value = parseFloat(tea) + parseFloat(comisiones);
+        // }
+    });
+</script>
