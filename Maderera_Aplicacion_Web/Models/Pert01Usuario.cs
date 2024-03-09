@@ -50,8 +50,6 @@ namespace Maderera_Aplicacion_Web.Models
         public int? IdEstado { get; set; }
         public string? TxtEstado { get; set; }
         public long IdEmpleado { get; set; }
-        [NotMapped]
-        public Boolean MantenerActivo { get; set; }
 
         public virtual Pert04Empleado IdEmpleadoNavigation { get; set; } = null!;
         public virtual ICollection<Pert11PagoPersonal> Pert11PagoPersonals { get; set; }
@@ -84,5 +82,7 @@ namespace Maderera_Aplicacion_Web.Models
         public virtual ICollection<Tnst01CompRecibido> Tnst01CompRecibidos { get; set; }
         public virtual ICollection<Tnst04CompEmitido> Tnst04CompEmitidoIdUsuarioModificadorNavigations { get; set; }
         public virtual ICollection<Tnst04CompEmitido> Tnst04CompEmitidoIdUsuarioNavigations { get; set; }
+        [NotMapped]
+        public Boolean MantenerActivo { get; set; }
     }
 }

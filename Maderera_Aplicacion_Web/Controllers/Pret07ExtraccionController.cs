@@ -1008,7 +1008,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                                 {
                                     foreach (Pret17MermaDtl Detalle in existingDtllMer)
                                     {
-                                        //Detalle.IdEstado = 2;
+                                        //Detalle.IdEstado = 0;
                                         //Detalle.TxtEstado = "INACTIVO";
                                         _context.Pret17MermaDtls.Remove(Detalle);
                                         await _context.SaveChangesAsync();
@@ -1034,7 +1034,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         {
                             foreach (Pret15ProduccionDtl Detalle in existingDtll)
                             {
-                                //Detalle.IdEstado = 2;
+                                //Detalle.IdEstado = 0;
                                 //Detalle.TxtEstado = "INACTIVO";
                                 _context.Pret15ProduccionDtls.Remove(Detalle);
                                 await _context.SaveChangesAsync();
@@ -1063,7 +1063,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                                 {
                                     foreach (Pret17Archivo archivoReg in existingArchivorec)
                                     {
-                                        //archivoReg.IdEstado = 2;
+                                        //archivoReg.IdEstado = 0;
                                         //archivoReg.TxtEstado = "INACTIVO";
                                         string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
 
@@ -1092,7 +1092,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                                 {
                                     foreach (Pret12RecepcionDtl Detalle in existingDtllrec)
                                     {
-                                        //Detalle.IdEstado = 2;
+                                        //Detalle.IdEstado = 0;
                                         //Detalle.TxtEstado = "INACTIVO";
                                         _context.Pret12RecepcionDtls.Remove(Detalle);
                                         await _context.SaveChangesAsync();
@@ -1109,7 +1109,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         {
                             foreach (Pret17Archivo archivoReg in existingArchivo)
                             {
-                                //archivoReg.IdEstado = 2;
+                                //archivoReg.IdEstado = 0;
                                 //archivoReg.TxtEstado = "INACTIVO";
                                 string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
 
@@ -1138,7 +1138,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         {
                             foreach (Pret13EnvioDtl Detalle in existingDtll)
                             {
-                                //Detalle.IdEstado = 2;
+                                //Detalle.IdEstado = 0;
                                 //Detalle.TxtEstado = "INACTIVO";
                                 _context.Pret13EnvioDtls.Remove(Detalle);
                                 await _context.SaveChangesAsync();

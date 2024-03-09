@@ -1,0 +1,99 @@
+﻿@model Maderera_Aplicacion_Web.Models.Pret34CronogramaPago
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Pret34CronogramaPago</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdCronograma" />
+            <div class="form-group">
+                <label asp-for="IdPrestamo" class="control-label"></label>
+                <select asp-for="IdPrestamo" class="form-control" asp-items="ViewBag.IdPrestamo"></select>
+                <span asp-validation-for="IdPrestamo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaPago" class="control-label"></label>
+                <input asp-for="FechaPago" class="form-control" />
+                <span asp-validation-for="FechaPago" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SaldoInicial" class="control-label"></label>
+                <input asp-for="SaldoInicial" class="form-control" />
+                <span asp-validation-for="SaldoInicial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amortizacion" class="control-label"></label>
+                <input asp-for="Amortizacion" class="form-control" />
+                <span asp-validation-for="Amortizacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Interes" class="control-label"></label>
+                <input asp-for="Interes" class="form-control" />
+                <span asp-validation-for="Interes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cuota" class="control-label"></label>
+                <input asp-for="Cuota" class="form-control" />
+                <span asp-validation-for="Cuota" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaCreacion" class="control-label"></label>
+                <input asp-for="FechaCreacion" class="form-control" />
+                <span asp-validation-for="FechaCreacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdEstado" class="control-label"></label>
+                <input asp-for="IdEstado" class="form-control" />
+                <span asp-validation-for="IdEstado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TxtEstado" class="control-label"></label>
+                <input asp-for="TxtEstado" class="form-control" />
+                <span asp-validation-for="TxtEstado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdUsuario" class="control-label"></label>
+                <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuario"></select>
+                <span asp-validation-for="IdUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TxtUsuario" class="control-label"></label>
+                <input asp-for="TxtUsuario" class="form-control" />
+                <span asp-validation-for="TxtUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdUsuariomod" class="control-label"></label>
+                <select asp-for="IdUsuariomod" class="form-control" asp-items="ViewBag.IdUsuariomod"></select>
+                <span asp-validation-for="IdUsuariomod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TxtUsuariomod" class="control-label"></label>
+                <input asp-for="TxtUsuariomod" class="form-control" />
+                <span asp-validation-for="TxtUsuariomod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaModificacion" class="control-label"></label>
+                <input asp-for="FechaModificacion" class="form-control" />
+                <span asp-validation-for="FechaModificacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

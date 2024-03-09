@@ -684,7 +684,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                     existingProduccion.TxtProIns = conjuntoproducto.TxtDesc;
                     if (existingProduccion.IdEstado == 3)
                     {
-                        existingProduccion.IdEstado = check == true ? 3 : 4;
+                        existingProduccion.IdEstado = check == true ? 3 : 1;
                         existingProduccion.TxtEstado = check == true ? "BORRADOR" : "ACTIVO";
                     }
                     existingProduccion.TxtUsuarioModificador = txtusuario;
@@ -843,7 +843,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         TipoPro = tipopro,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
-                        IdEstado = check == true ? 3 : 4,
+                        IdEstado = check == true ? 3 : 1,
                         TxtEstado = check == true ? "BORRADOR" : "ACTIVO",
                     };
 
@@ -937,7 +937,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                     existingProduccion.TxtProIns = conjuntoproducto.TxtDesc;
                     if (existingProduccion.IdEstado == 3)
                     {
-                        existingProduccion.IdEstado = check == true ? 3 : 4;
+                        existingProduccion.IdEstado = check == true ? 3 : 1;
                         existingProduccion.TxtEstado = check == true ? "BORRADOR" : "ACTIVO";
                     }
                     existingProduccion.TxtUsuarioModificador = txtusuario;
@@ -1096,7 +1096,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         TipoPro = tipopro,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
-                        IdEstado = check == true ? 3 : 4,
+                        IdEstado = check == true ? 3 : 1,
                         TxtEstado = check == true ? "BORRADOR" : "ACTIVO",
                     };
 
@@ -1201,7 +1201,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                             {
                                 foreach (Pret17MermaDtl Detalle in existingDtllMer)
                                 {
-                                    //Detalle.IdEstado = 2;
+                                    //Detalle.IdEstado = 0;
                                     //Detalle.TxtEstado = "INACTIVO";
                                     _context.Pret17MermaDtls.Remove(Detalle);
                                     await _context.SaveChangesAsync();
@@ -1229,7 +1229,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                     {
                         foreach (Pret15ProduccionDtl Detalle in existingDtll)
                         {
-                            //Detalle.IdEstado = 2;
+                            //Detalle.IdEstado = 0;
                             //Detalle.TxtEstado = "INACTIVO";
                             _context.Pret15ProduccionDtls.Remove(Detalle);
                             await _context.SaveChangesAsync();
@@ -1270,7 +1270,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                     foreach (Pret20ProduccionEmpleado empleado in existingEmpleado)
                     {
-                        empleado.IdEstado = 2;
+                        empleado.IdEstado = 0;
                         empleado.TxtEstado = "INACTIVO";
                         //_context.Pret21EnvioEmpleados.Remove(empleado);
                         //await _context.SaveChangesAsync();
@@ -1282,7 +1282,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                     {
                         foreach (Pret15ProduccionDtl Detalle in existingDtll)
                         {
-                            Detalle.IdEstado = 2;
+                            Detalle.IdEstado = 0;
                             Detalle.TxtEstado = "INACTIVO";
                             //_context.Pret13EnvioDtls.Remove(Detalle);
                             //await _context.SaveChangesAsync();

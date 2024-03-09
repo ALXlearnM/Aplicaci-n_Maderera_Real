@@ -28,7 +28,6 @@ namespace Maderera_Aplicacion_Web.Models
         public decimal MontoTcea { get; set; }
         public DateTime? FechaDesembolso { get; set; }
         public DateTime? FechaPrimPago { get; set; }
-        public decimal? Comisiones { get; set; }
         public DateTime FechaCreacion { get; set; }
         public long IdEstado { get; set; }
         public string TxtEstado { get; set; } = null!;
@@ -37,6 +36,9 @@ namespace Maderera_Aplicacion_Web.Models
         public long? IdUsuariomod { get; set; }
         public string? TxtUsuariomod { get; set; }
         public DateTime? FechaModificacion { get; set; }
+        public decimal? MontoCuota { get; set; }
+        public decimal MontoPrestamo { get; set; }
+        public decimal Comisiones { get; set; }
 
         public virtual Pert04Empleado? IdAutorizadorNavigation { get; set; }
         public virtual Pert04Empleado? IdEmpleadoNavigation { get; set; }

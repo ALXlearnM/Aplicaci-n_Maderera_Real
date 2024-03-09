@@ -5891,13 +5891,11 @@ namespace Maderera_Aplicacion_Web.Data
             modelBuilder.Entity<Pret30TipoPrestamo>(entity =>
             {
                 entity.HasKey(e => e.IdTipoPrestamo)
-                    .HasName("PK__Pret30Ti__F2AF27F93E1B6C61");
+                    .HasName("PK__Pret30Ti__F2AF27F94CA4BA86");
 
                 entity.ToTable("Pret30Tipo_Prestamo");
 
-                entity.Property(e => e.IdTipoPrestamo)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id_TipoPrestamo");
+                entity.Property(e => e.IdTipoPrestamo).HasColumnName("id_TipoPrestamo");
 
                 entity.Property(e => e.FechaCreacion)
                     .HasColumnType("datetime")
@@ -5948,13 +5946,11 @@ namespace Maderera_Aplicacion_Web.Data
             modelBuilder.Entity<Pret31TipoPlazo>(entity =>
             {
                 entity.HasKey(e => e.IdTipoPlazo)
-                    .HasName("PK__Pret31Ti__32AD742EDDBEF39E");
+                    .HasName("PK__Pret31Ti__32AD742E206CEFA8");
 
                 entity.ToTable("Pret31Tipo_Plazo");
 
-                entity.Property(e => e.IdTipoPlazo)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id_TipoPlazo");
+                entity.Property(e => e.IdTipoPlazo).HasColumnName("id_TipoPlazo");
 
                 entity.Property(e => e.FechaCreacion)
                     .HasColumnType("datetime")
@@ -6005,13 +6001,11 @@ namespace Maderera_Aplicacion_Web.Data
             modelBuilder.Entity<Pret32Motivo>(entity =>
             {
                 entity.HasKey(e => e.IdMotivo)
-                    .HasName("PK__Pret32Mo__021C03B9C09FA276");
+                    .HasName("PK__Pret32Mo__021C03B9133FCD57");
 
                 entity.ToTable("Pret32Motivo");
 
-                entity.Property(e => e.IdMotivo)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id_Motivo");
+                entity.Property(e => e.IdMotivo).HasColumnName("id_Motivo");
 
                 entity.Property(e => e.FechaCreacion)
                     .HasColumnType("datetime")
@@ -6062,16 +6056,14 @@ namespace Maderera_Aplicacion_Web.Data
             modelBuilder.Entity<Pret33Prestamo>(entity =>
             {
                 entity.HasKey(e => e.IdPrestamo)
-                    .HasName("PK__Pret33Pr__B41FF2E5B934C36C");
+                    .HasName("PK__Pret33Pr__B41FF2E58071E4F4");
 
                 entity.ToTable("Pret33Prestamo");
 
-                entity.Property(e => e.IdPrestamo)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id_Prestamo");
+                entity.Property(e => e.IdPrestamo).HasColumnName("id_Prestamo");
 
                 entity.Property(e => e.Comisiones)
-                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnType("decimal(18, 8)")
                     .HasColumnName("comisiones");
 
                 entity.Property(e => e.CuotaDoble).HasColumnName("cuota_doble");
@@ -6115,6 +6107,14 @@ namespace Maderera_Aplicacion_Web.Data
                 entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
 
                 entity.Property(e => e.IdUsuariomod).HasColumnName("id_usuariomod");
+
+                entity.Property(e => e.MontoCuota)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("monto_cuota");
+
+                entity.Property(e => e.MontoPrestamo)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("monto_prestamo");
 
                 entity.Property(e => e.MontoTcea)
                     .HasColumnType("decimal(18, 8)")
@@ -6194,13 +6194,11 @@ namespace Maderera_Aplicacion_Web.Data
             modelBuilder.Entity<Pret34CronogramaPago>(entity =>
             {
                 entity.HasKey(e => e.IdCronograma)
-                    .HasName("PK__Pret34Cr__80F70FADCC846D50");
+                    .HasName("PK__Pret34Cr__80F70FAD7D7A367C");
 
                 entity.ToTable("Pret34CronogramaPago");
 
-                entity.Property(e => e.IdCronograma)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id_Cronograma");
+                entity.Property(e => e.IdCronograma).HasColumnName("id_Cronograma");
 
                 entity.Property(e => e.Amortizacion)
                     .HasColumnType("decimal(18, 8)")
@@ -6273,13 +6271,11 @@ namespace Maderera_Aplicacion_Web.Data
             modelBuilder.Entity<Pret35PagoPrestamo>(entity =>
             {
                 entity.HasKey(e => e.IdPagoPrestamo)
-                    .HasName("PK__Pret35Pa__49CFAB380C44C513");
+                    .HasName("PK__Pret35Pa__49CFAB382982A7F3");
 
                 entity.ToTable("Pret35PagoPrestamo");
 
-                entity.Property(e => e.IdPagoPrestamo)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id_PagoPrestamo");
+                entity.Property(e => e.IdPagoPrestamo).HasColumnName("id_PagoPrestamo");
 
                 entity.Property(e => e.Cuota)
                     .HasColumnType("decimal(18, 8)")
