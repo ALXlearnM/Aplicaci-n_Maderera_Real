@@ -174,7 +174,7 @@
 
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Comisiones($):</label>
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Comisiones(%):</label>
                                     <div class="col-sm-7 ml-5">
                                         <input asp-for="Comisiones" oninput="calcularTcea()" type="number" id="comisiones" r class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
 
@@ -184,7 +184,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Total($)* :</label>
                                     <div class="col-sm-7 ml-5">
-                                        <input asp-for="MontoTotal" type="number" id="montototal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
+                                        <input asp-for="MontoTotal" type="number" readonly id="montototal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
 
                                     </div>
 
