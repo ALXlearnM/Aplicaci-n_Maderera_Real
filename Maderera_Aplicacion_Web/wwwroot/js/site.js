@@ -12764,10 +12764,10 @@ function enviarDatosPreGuardar() {
                 formData.append('idtipomotivo', $('#motivo').val());
                 formData.append('tea', $('#tea').val());
                 formData.append('observacion', $('#comentario').val());
-                formData.append('montototal', parseFloat($('#montototal').val()));
+                formData.append('montoprestamo', parseFloat($('#montoprestamo').val()));
                 formData.append('plazo', $('#plazo').val());
                 formData.append('montocuota', $('#montocuota').val());
-                formData.append('cuotasgracia', $('#cuotagracia').val());
+                formData.append('cuotasgracia', $('#cuotagracia').val()||0);
                 formData.append('comisiones', $('#comisiones').val());
                 formData.append('tcea', $('#tcea').val());
                 formData.append('Fechaaprob', $('#fechaaprob').val());
@@ -12813,10 +12813,10 @@ function enviarDatosPreGuardar() {
                                             if (response.id == 3) {
                                                 document.getElementById('moodNamePre').innerText = response.name;
                                                 // Supongamos que tienes un input checkbox con el id "miCheckbox"
-                                                $('#estadoP').prop('checked', false);
+                                                $('#estadoP').prop('checked', true);
                                                 $('#estadoP').prop('disabled', false);
 
-                                            } else if (response.id == 4) {
+                                            } else if (response.id == 6) {
                                                 document.getElementById('moodNamePre').innerText = response.name;
                                                 // Supongamos que tienes un input checkbox con el id "miCheckbox"
                                                 $('#estadoP').prop('checked', true);
@@ -12825,7 +12825,7 @@ function enviarDatosPreGuardar() {
 
                                             if (response.poste) {
                                                 $('#post').prop('checked', true);
-                                                $('#post').prop('disabled', true);
+                                                $('#post').prop('disabled', false);
                                             } else {
                                                 $('#post').prop('checked', false);
                                                 $('#post').prop('disabled', false);
@@ -12833,7 +12833,7 @@ function enviarDatosPreGuardar() {
 
                                             if (response.cuotad) {
                                                 $('#cuotadoble').prop('checked', true);
-                                                $('#cuotadoble').prop('disabled', true);
+                                                $('#cuotadoble').prop('disabled', false);
                                             } else {
                                                 $('#cuotadoble').prop('checked', false);
                                                 $('#cuotadoble').prop('disabled', false);
@@ -12889,10 +12889,10 @@ function enviarDatosPreGuardaryCerrar() {
         formData.append('idtipomotivo', $('#motivo').val());
         formData.append('tea', $('#tea').val());
         formData.append('observacion', $('#comentario').val());
-        formData.append('montototal', parseFloat($('#montototal').val()));
+        formData.append('montoprestamo', parseFloat($('#montoprestamo').val()));
         formData.append('plazo', $('#plazo').val());
         formData.append('montocuota', $('#montocuota').val());
-        formData.append('cuotasgracia', $('#cuotagracia').val());
+        formData.append('cuotasgracia', $('#cuotagracia').val()||0);
         formData.append('comisiones', $('#comisiones').val());
         formData.append('tcea', $('#tcea').val());
         formData.append('Fechaaprob', $('#fechaaprob').val());
@@ -12954,3 +12954,87 @@ function enviarDatosPreGuardaryCerrar() {
     }
 }
 
+$(document).ready(function () {
+    $('#confirmarEliminarPrestamo').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let idPrestamo= button.data('id');
+        $(this).data('id', idPrestamo);
+    });
+    $('#confirmarAnularPrestamo').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let idPrestamo = button.data('id');
+        $(this).data('id', idPrestamo);
+    });
+});
+
+
+function eliminarPrestamo() {
+
+    let idPrestamo = $('#confirmarEliminarPrestamo').data('id');
+    $.ajax({
+        url: '/Pret33Prestamo/EliminarPrestamo', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'POST',
+        data: { id: idPrestamo },
+        success: function (response) {
+            if (response.mensaje == null) {
+                $('#confirmarEliminarPrestamo').modal('hide');
+                Swal.fire({
+                    title: "¡Eliminación exitosa!",
+                    text: "",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = response.redirectUrl;
+                });
+                
+
+            } else {
+
+
+            }
+
+        },
+        error: function (error) {
+            Swal.fire({
+                title: "¡Error!",
+                text: "Ocurrió un error al eliminar el préstamo.",
+                icon: "error"
+            });
+
+        }
+    });
+}
+function anularPrestamo() {
+
+    let idVentas = $('#confirmarAnularPrestamo').data('id');
+    $.ajax({
+        url: '/Pret33Prestamo/AnularPrestamo', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+        type: 'POST',
+        data: { id: idVentas },
+        success: function (response) {
+            if (response.mensaje == null) {
+                $('#confirmarAnularPrestamo').modal('hide');
+                Swal.fire({
+                    title: "¡Anulación exitosa!",
+                    text: "",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = response.redirectUrl;
+                });
+               
+
+            } else {
+
+
+            }
+
+        },
+        error: function (error) {
+            Swal.fire({
+                title: "¡Error!",
+                text: "Ocurrió un error al anular el préstamo.",
+                icon: "error"
+            });
+
+        }
+    });
+}

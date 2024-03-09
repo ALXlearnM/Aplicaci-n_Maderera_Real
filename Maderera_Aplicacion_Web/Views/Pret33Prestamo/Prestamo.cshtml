@@ -116,7 +116,7 @@
 
                             </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TEA($):</label>
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TEA(%):</label>
                                     <div class="col-sm-7 ml-5">
                                         <input asp-for="MontoTea" type="number" oninput="calcularTcea()" id="tea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
 
@@ -138,14 +138,14 @@
 
 
                         <div class="col-md-4 mt-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Total($)* :</label>
-                                    <div class="col-sm-7 ml-5">
-                                        <input asp-for="MontoTotal" type="number" id="montototal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
-
-                                    </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Prest($)* :</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input asp-for="MontoPrestamo" type="number" id="montoprestamo" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
 
                                 </div>
+
+                            </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Plazo* :</label>
                                 <div class="col-sm-7 ml-5">
@@ -168,7 +168,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Cuotas de Gracia:</label>
                                     <div class="col-sm-7 ml-5">
-                                        <input asp-for="NroCuotasGracia" type="number" id="cuotagracia" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <input asp-for="NroCuotasGracia" type="number" id="cuotagracia"  class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
 
                                     </div>
 
@@ -181,7 +181,14 @@
                                     </div>
 
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Total($)* :</label>
+                                    <div class="col-sm-7 ml-5">
+                                        <input asp-for="MontoTotal" type="number" id="montototal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
 
+                                    </div>
+
+                                </div>
 
 
                         </div>
@@ -226,7 +233,7 @@
 
                             </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TCEA($):</label>
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TCEA(%):</label>
                                     <div class="col-sm-7 ml-5">
                                         <input asp-for="MontoTcea" type="number" id="tcea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly/>
 
@@ -306,15 +313,47 @@
         let tcea = tea + comisiones;
 
         // Mostrar el TCEA en el input correspondiente
-        $('#tcea').val(tcea);
+        $('#tcea').val(parseFloat(tcea));
+
+        let montoP = parseFloat($('#montoprestamo').val() || 0);
+        let plazo = parseFloat($('#plazo').val() || 0);
+        let impuestos = tcea;
+        if (plazo != 0 && montoP != 0) {
+            if (impuestos == NaN || impuestos == 0) {
+                let montoc = montoP / plazo;
+                let montoT = montoP;
+                $('#montocuota').val(montoc);
+                $('#montototal').val(montoT);
+            } else {
+                let montoc = (montoP * (1 + (impuestos / 100))) / plazo;
+                let montoT = montoP * (1 + (impuestos / 100));
+                $('#montocuota').val(montoc);
+                $('#montototal').val(montoT);
+            }
+
+        } else {
+            $('#montocuota').val(0);
+        }
+
     }
     function calcularcuota() {
         // Obtener valores de los inputs
-        let montoT = parseFloat($('#montototal').val() || 0);
+        let montoP = parseFloat($('#montoprestamo').val() || 0);
         let plazo = parseFloat($('#plazo').val() || 0);
-        if (plazo != 0 && montoT != 0) {
-            let montoc = montoT / plazo;
-            $('#montocuota').val(montoc);
+        if (plazo != 0 && montoP != 0) {
+            let impuestos = parseFloat($('#tcea').val()) || 0;
+            if (impuestos == NaN || impuestos == 0) {
+                let montoc = montoP / plazo;
+                let montoT = montoP;
+                $('#montocuota').val(montoc);
+                $('#montototal').val(montoT);
+            } else {
+                let montoc = (montoP*(1+(impuestos/100)) )/ plazo;
+                let montoT = montoP * (1 + (impuestos / 100));
+                $('#montocuota').val(montoc);
+                $('#montototal').val(montoT);
+            }
+            
         } else {
             $('#montocuota').val(0);
         }
@@ -347,10 +386,62 @@
                 }
             }
         );
-            // function calculartcea() {
-        //     let tea = $('#tea').value != null ? $('#tea').value : 0;
-        //     let comisiones = $('#comisiones').value != null ? $('#comisiones').value : 0;
-        //     $('#tcea').value = parseFloat(tea) + parseFloat(comisiones);
-        // }
+        
+         var prestamo= @Html.Raw(Json.Serialize(ViewBag.Prestamo));
+        var CompParsed = JSON.parse(prestamo);
+
+        if (CompParsed !== null) {
+            console.log(CompParsed);
+            actualizartablameremp();
+            $.ajax({
+                url: '/Pret33Prestamo/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+                type: 'GET',
+                success: function (response) {
+                    if (response.id == 3) {
+                        document.getElementById('moodNamePre').innerText = response.name;
+                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                        $('#estadoP').prop('checked', true);
+                        $('#estadoP').prop('disabled', false);
+
+                    } else if (response.id == 6) {
+                        document.getElementById('moodNamePre').innerText = response.name;
+                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                        $('#estadoP').prop('checked', true);
+                        $('#estadoP').prop('disabled', true);
+                    }
+
+                    if (response.poste) {
+                        $('#post').prop('checked', true);
+                        $('#post').prop('disabled', false);
+                    } else {
+                        $('#post').prop('checked', false);
+                        $('#post').prop('disabled', false);
+                    }
+
+                    if (response.cuotad) {
+                        $('#cuotadoble').prop('checked', true);
+                        $('#cuotadoble').prop('disabled', false);
+                    } else {
+                        $('#cuotadoble').prop('checked', false);
+                        $('#cuotadoble').prop('disabled', false);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error al cargar los datos del Cargador:', error.responseText);
+                }
+            });
+
+            //EMPLEADO
+
+            var inversionistaNombreSpan = document.getElementById('empleadoPNombre');
+            var removeInversionistaSpan = document.getElementById('removeEmpPSpan');
+            inversionistaNombreSpan.innerText = CompParsed.empleado;
+            inversionistaNombreSpan.style.display = 'inline-block';
+            removeInversionistaSpan.style.display = 'inline-block';
+            // Ocultar el seleCAMPEXT
+            var selectElement = document.getElementById('epcbo');
+            selectElement.style.display = 'none';
+        }
+
     });
 </script>

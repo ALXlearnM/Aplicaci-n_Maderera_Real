@@ -31,15 +31,14 @@
                         <th class="text-center">
                             Fecha Aprobamiento
                         </th>
-
-                        <th class="text-center">
-                            Monto Cuotas
-                        </th>
                         <th class="text-center">
                             Monto Total
                         </th>
                         <th class="text-center">
                             Plazo
+                        </th>
+                        <th class="text-center">
+                            Monto Cuotas
                         </th>
                         <th class="text-center">
                             Empleado
@@ -61,13 +60,17 @@
                                 @item.FechaAprobPrestamo
                             </td>
                             <td class="text-center">
-                                @item.MontoCuota
-                            </td>
-                            <td class="text-center">
-                                @(item.MontoTotal)
+                                @item.MontoTotal.ToString("0.00") 
                             </td>
                             <td class="text-center">
                                 @item.Plazo
+                            </td>
+                            <td class="text-center">
+
+                                @{
+                                    string montoCuotaFormateado = item.MontoCuota?.ToString("N2") ?? "0.00";
+                                    <text>@montoCuotaFormateado</text>
+                                }
                             </td>
                             <td class="text-center">
                                 @item.IdEmpleadoNavigation.TxtApePat @item.IdEmpleadoNavigation.TxtApeMat , @item.IdEmpleadoNavigation.TxtPriNom @item.IdEmpleadoNavigation.TxtSegNom
@@ -78,15 +81,15 @@
                             <td>
                                 @if (item.IdEstado == 3)
                                 {
-                                    <a asp-controller="Pret16Merma" asp-action="EditarMerma" asp-route-idmerma="@item.IdPrestamo" class="btn btn-primary btn-sm">
+                                    <a asp-controller="Pret33Prestamo" asp-action="EditarPrestamo" asp-route-idprestamo="@item.IdPrestamo" class="btn btn-primary btn-sm">
                                         <i class="fas fa-edit" data-placement="top" title="Edit"></i>
                                     </a>
                                     <text>|</text>
                                 }
-                                <a asp-controller="Pret16Merma" asp-action="Details" asp-route-idmerma="@item.IdPrestamo" class="btn btn-info btn-sm">
+                                <a asp-controller="Pret33Prestamo" asp-action="Details" asp-route-idprestamo="@item.IdPrestamo" class="btn btn-info btn-sm">
                                     <i class="fas fa-eye" data-placement="top" title="Details"></i>
                                 </a>
-                                @if (item.IdEstado == 3)
+                                @if (item.IdEstado == 3 || item.IdEstado == 5)//PREGUNTAR AL INGENIERO
                                 {
                                     <text>|</text>
 
@@ -94,7 +97,7 @@
 
                                     @* < !--Botón que activa el modal --> *@
 
-                                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarEliminarMerma" data-id="@item.IdPrestamo">
+                                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarEliminarPrestamo" data-id="@item.IdPrestamo">
                                         <i class="fas fa-trash alt"></i>
 
                                     </a>
@@ -102,7 +105,7 @@
 
 
                                 <!-- Modal de advertencia -->
-                                <div class="modal" id="confirmarEliminarMerma" tabindex="-1" role="dialog">
+                                <div class="modal" id="confirmarEliminarPrestamo" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -117,7 +120,7 @@
                                             <div class="modal-footer">
                                                 <!-- Botón de cancelar -->
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="button" class="btn btn-danger" onclick="eliminarMerma()">Eliminar</button>
+                                                <button type="button" class="btn btn-danger" onclick="eliminarPrestamo()">Eliminar</button>
 
 
                                             </div>
@@ -126,16 +129,16 @@
                                 </div>
 
 
-                                @if (item.IdEstado == 4)
+                                @if (item.IdEstado == 6)
                                 {
                                     <text>|</text>
 
-                                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarAnularMerma" data-id="@item.IdPrestamo">
+                                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarAnularPrestamo" data-id="@item.IdPrestamo">
                                         <i class="fas fa-ban"></i>
 
                                     </a>
                                 }
-                                <div class="modal fade" id="confirmarAnularMerma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="confirmarAnularPrestamo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -145,11 +148,11 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                ¿Está seguro de que desea anular esta merma?
+                                                ¿Está seguro de que desea anular este préstamo?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="button" class="btn btn-danger" onclick="anularMerma()">Anular</button>
+                                                <button type="button" class="btn btn-danger" onclick="anularPrestamo()">Anular</button>
                                             </div>
                                         </div>
                                     </div>

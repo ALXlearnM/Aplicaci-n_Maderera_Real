@@ -762,7 +762,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                     if (existingRecepcion.IdEstado == 4)
                     {
-                        existingEnvios.IdEstado = 6;
+                        existingEnvios.IdEstado = 4;
                         existingEnvios.TxtEstado = "RECEPCIONADO";
 
                     }
@@ -890,7 +890,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                         if (Pret11Recepcion.IdEstado == 4)
                         {
-                            existingEnvios.IdEstado = 6;
+                            existingEnvios.IdEstado = 4;
                             existingEnvios.TxtEstado = "RECEPCIONADO";
 
                         }
@@ -1186,7 +1186,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                     if (existingRecepcion.IdEstado == 4)
                     {
-                        existingEnvios.IdEstado = 6;
+                        existingEnvios.IdEstado = 4;
                         existingEnvios.TxtEstado = "RECEPCIONADO";
 
                     }
@@ -1314,7 +1314,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                         if (Pret11Recepcion.IdEstado == 4)
                         {
-                            existingEnvios.IdEstado = 6;
+                            existingEnvios.IdEstado = 4;
                             existingEnvios.TxtEstado = "RECEPCIONADO";
 
                         }
@@ -1392,7 +1392,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                     {
                         foreach (Pret17Archivo archivoReg in existingArchivo)
                         {
-                            //archivoReg.IdEstado = 2;
+                            //archivoReg.IdEstado = 0;
                             //archivoReg.TxtEstado = "INACTIVO";
                             string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
 
@@ -1421,7 +1421,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                     {
                         foreach (Pret12RecepcionDtl Detalle in existingDtll)
                         {
-                            //Detalle.IdEstado = 2;
+                            //Detalle.IdEstado = 0;
                             //Detalle.TxtEstado = "INACTIVO";
                             _context.Pret12RecepcionDtls.Remove(Detalle);
                             await _context.SaveChangesAsync();
@@ -1453,7 +1453,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                     var existingEnvios = _context.Pret10Envios.Where(e => e.IdEnvio == existingRecepcion.IdEnvio).ToList();
                     foreach (Pret10Envio envio in existingEnvios)
                     {
-                        envio.IdEstado = 4;
+                        envio.IdEstado = 2;
                         envio.TxtEstado = "ENVIADO";
                     }
                     existingRecepcion.IdEstado = 5;
@@ -1463,7 +1463,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                     {
                         foreach (Pret17Archivo archivoReg in existingArchivo)
                         {
-                            //archivoReg.IdEstado = 2;
+                            //archivoReg.IdEstado = 0;
                             //archivoReg.TxtEstado = "INACTIVO";
                             string rutaArchivoEliminar = Path.Combine(_webHostEnvironment.WebRootPath, archivoReg.RutaArchivo);
 
@@ -1480,7 +1480,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                     foreach (Pret22RecepcionEmpleado empleado in existingEmpleado)
                     {
-                        empleado.IdEstado = 2;
+                        empleado.IdEstado = 0;
                         empleado.TxtEstado = "INACTIVO";
                         //_context.Pret21EnvioEmpleados.Remove(empleado);
                         //await _context.SaveChangesAsync();
@@ -1494,7 +1494,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                     {
                         foreach (Pret12RecepcionDtl Detalle in existingDtll)
                         {
-                            Detalle.IdEstado = 2;
+                            Detalle.IdEstado = 0;
                             Detalle.TxtEstado = "INACTIVO";
                             //_context.Pret13EnvioDtls.Remove(Detalle);
                             //await _context.SaveChangesAsync();

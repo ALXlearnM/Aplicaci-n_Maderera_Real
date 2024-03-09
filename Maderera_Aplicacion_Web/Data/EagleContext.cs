@@ -6063,7 +6063,7 @@ namespace Maderera_Aplicacion_Web.Data
                 entity.Property(e => e.IdPrestamo).HasColumnName("id_Prestamo");
 
                 entity.Property(e => e.Comisiones)
-                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnType("decimal(18, 8)")
                     .HasColumnName("comisiones");
 
                 entity.Property(e => e.CuotaDoble).HasColumnName("cuota_doble");
@@ -6111,6 +6111,10 @@ namespace Maderera_Aplicacion_Web.Data
                 entity.Property(e => e.MontoCuota)
                     .HasColumnType("decimal(18, 8)")
                     .HasColumnName("monto_cuota");
+
+                entity.Property(e => e.MontoPrestamo)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("monto_prestamo");
 
                 entity.Property(e => e.MontoTcea)
                     .HasColumnType("decimal(18, 8)")
