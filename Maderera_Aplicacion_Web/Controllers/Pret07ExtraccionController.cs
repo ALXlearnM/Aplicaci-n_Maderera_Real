@@ -674,6 +674,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         TxtSerie = txt_serie,
                         TxtNumero = txt_numero,
                         NroExtraccion = nroext,
+                        Post = 0,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
                         IdEstado = 1,
@@ -882,7 +883,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                 }
                 else
                 {
-                    var cantidad = _context.Pret07Extraccions.Where(e => e.IdEstado == 1).Count() + 1;
+                    var cantidad = _context.Pret07Extraccions.Count() + 1;
                     var txt_serie = "001";
                     var txt_numero = cantidad.ToString().PadLeft(7, '0');
                     string nroext = txt_serie + "-" + txt_numero;
@@ -898,6 +899,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         TxtSerie = txt_serie,
                         TxtNumero = txt_numero,
                         NroExtraccion = nroext,
+                        Post = 0,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
                         IdEstado = 1,

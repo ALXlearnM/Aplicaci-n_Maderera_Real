@@ -51,15 +51,15 @@
             <div class="card-header text-nowrap" >
                 <div class="d-inline-flex">
                 <h4>PRESTAMOS</h4>
-                    <div class="d-inline-flex text-nowrap ml-5 mb-0">
-                        <input class="form-check" type="checkbox" id="cuotadoble">
-                        <p class="ml-2 mb-0 mt-1">Cuota Doble</p>
+                    <div class="d-inline-flex text-nowrap ml-5 mb-0" >
+                        <input class="form-check" type="checkbox" id="cuotadoble" hidden>
+                        <p class="ml-2 mb-0 mt-1" hidden>Cuota Doble</p>
                     </div>
-                    <div class="d-inline-flex text-nowrap ml-5 mb-0">
+                    @* <div class="d-inline-flex text-nowrap ml-5 mb-0" hidden>
                         <input class="form-check" type="checkbox" id="post">
                         <p class="ml-2 mb-0 mt-1">Posteado</p>
-                    </div>
-                    <div class="d-inline-flex text-nowrap ml-5 mb-0">
+                    </div> *@
+                    <div class="d-inline-flex text-nowrap ml-5 mb-0" >
                         <input class="form-check" type="checkbox" id="estadoP">
                         <span class="text-black ml-2 mb-0 mt-1" id="moodNamePre">BORRADOR</span>
                     </div>
@@ -101,7 +101,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Tipo Plazo* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <select asp-for="IdTipoPlazo" class="form-control form-control-sm mx-sm-3 mb-2" id="tipoplazo" class="form-control form-control-sm" asp-items="ViewBag.IdTipoPlazo" required></select>
+                                    <select asp-for="IdTipoPlazo" class="form-control form-control-sm mx-sm-3 mb-2" id="tipoplazo" onchange="calcularcuota()" class="form-control form-control-sm" asp-items="ViewBag.IdTipoPlazo" required></select>
 
                                 </div>
 
@@ -232,14 +232,18 @@
                                 </div>
 
                             </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TCEA(%):</label>
-                                    <div class="col-sm-7 ml-5">
-                                        <input asp-for="MontoTcea" type="number" id="tcea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly/>
-
-                                    </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TCEA(%):</label>
+                                <div class="col-sm-7 ml-5">
+                                    <input asp-for="MontoTcea" type="number" id="tcea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly/>
 
                                 </div>
+
+                            </div>
+                                
+                            <div class="form-group row ml-3 mr-3" style="display:none" id="botoncrono">
+                                    <a asp-controller="Pret33Prestamo" asp-action="Cronograma" class="btn btn-success btn-sm">Ver Cronograma de Pago</a>
+                            </div>
 
 
                         </div>
@@ -285,7 +289,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
+                                <div class="modal-footer" style="display:none;">
                                     <button type="button" onclick="closeModal('modalempleadoP', 'epcbo')" class="btn btn-secondary">Cerrar</button>
                                 </div>
                             </div>
@@ -316,46 +320,57 @@
         $('#tcea').val(parseFloat(tcea));
 
         let montoP = parseFloat($('#montoprestamo').val() || 0);
-        let plazo = parseFloat($('#plazo').val() || 0);
+        let plazo = parseInt($('#plazo').val() || 0);
         let impuestos = tcea;
-        if (plazo != 0 && montoP != 0) {
-            if (impuestos == NaN || impuestos == 0) {
-                let montoc = montoP / plazo;
-                let montoT = montoP;
-                $('#montocuota').val(montoc);
-                $('#montototal').val(montoT);
-            } else {
-                let montoc = (montoP * (1 + (impuestos / 100))) / plazo;
-                let montoT = montoP * (1 + (impuestos / 100));
-                $('#montocuota').val(montoc);
-                $('#montototal').val(montoT);
-            }
+        let tipoP = parseInt($('#tipoplazo').val());
+        if (plazo != 0 && montoP != 0 ) {
+            $.ajax({
+                url: "/Pret33Prestamo/CalcularPrestamo",
+                type: "GET",
+                data: {
+                    interes: impuestos,
+                    monto: montoP,
+                    plazo: plazo,
+                    tipoplazo: tipoP,
+                },
+                success: function (response) {
+                    $('#montocuota').val(response.cuota);
+                    $('#montototal').val(response.montoT);
+                },
+            });
 
         } else {
             $('#montocuota').val(0);
+            $('#montototal').val(0);
+
         }
 
     }
     function calcularcuota() {
-        // Obtener valores de los inputs
         let montoP = parseFloat($('#montoprestamo').val() || 0);
-        let plazo = parseFloat($('#plazo').val() || 0);
-        if (plazo != 0 && montoP != 0) {
-            let impuestos = parseFloat($('#tcea').val()) || 0;
-            if (impuestos == NaN || impuestos == 0) {
-                let montoc = montoP / plazo;
-                let montoT = montoP;
-                $('#montocuota').val(montoc);
-                $('#montototal').val(montoT);
-            } else {
-                let montoc = (montoP*(1+(impuestos/100)) )/ plazo;
-                let montoT = montoP * (1 + (impuestos / 100));
-                $('#montocuota').val(montoc);
-                $('#montototal').val(montoT);
-            }
-            
+        let plazo = parseInt($('#plazo').val() || 0);
+        let impuestos = parseFloat($('#tcea').val()) || 0;
+        let tipoP = parseInt($('#tipoplazo').val());
+        if (plazo != 0 && montoP != 0 ) {
+        $.ajax({
+                url: "/Pret33Prestamo/CalcularPrestamo",
+            type: "GET",
+            data:{
+            interes: impuestos,
+            monto: montoP, 
+            plazo: plazo,
+            tipoplazo:tipoP,
+            },
+            success: function (response) {
+                $('#montocuota').val(response.cuota);
+                $('#montototal').val(response.montoT);
+            },
+        });
+
         } else {
             $('#montocuota').val(0);
+            $('#montototal').val(0);
+
         }
 
 
@@ -391,8 +406,9 @@
         var CompParsed = JSON.parse(prestamo);
 
         if (CompParsed !== null) {
-            console.log(CompParsed);
-            actualizartablameremp();
+            $('#botoncrono').css('display', 'block');
+
+
             $.ajax({
                 url: '/Pret33Prestamo/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
                 type: 'GET',
@@ -410,13 +426,13 @@
                         $('#estadoP').prop('disabled', true);
                     }
 
-                    if (response.poste) {
-                        $('#post').prop('checked', true);
-                        $('#post').prop('disabled', false);
-                    } else {
-                        $('#post').prop('checked', false);
-                        $('#post').prop('disabled', false);
-                    }
+                    // if (response.poste) {
+                    //     $('#post').prop('checked', true);
+                    //     $('#post').prop('disabled', false);
+                    // } else {
+                    //     $('#post').prop('checked', false);
+                    //     $('#post').prop('disabled', false);
+                    // }
 
                     if (response.cuotad) {
                         $('#cuotadoble').prop('checked', true);
@@ -441,6 +457,12 @@
             // Ocultar el seleCAMPEXT
             var selectElement = document.getElementById('epcbo');
             selectElement.style.display = 'none';
+        } else {
+            $('#fechaaprob').val(returndatenow());
+            $('#tea').val(0);
+            $('#tcea').val(0);
+            $('#comisiones').val(0);
+            $('#cuotagracia').val(0);
         }
 
     });

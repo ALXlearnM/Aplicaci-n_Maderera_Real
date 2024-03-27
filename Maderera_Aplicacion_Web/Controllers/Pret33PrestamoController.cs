@@ -24,6 +24,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         private readonly DateTime fechaHoy;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private static long? IdTemporal { get; set; }
+        private static long? IdTemporalCrono { get; set; }
 
         public Pret33PrestamoController(EagleContext context, IPert01UsuarioController pert01UsuarioController, IWebHostEnvironment webHostEnvironment)
         {
@@ -70,7 +71,8 @@ namespace Maderera_Aplicacion_Web.Controllers
         // GET: Pret33Prestamo/Create
         public IActionResult Prestamo()
         {
-            IdTemporal = 0;
+            IdTemporal = null;
+            IdTemporalCrono = null;
             ViewBag.EmpleadoP = _context.Pert04Empleados
                     .Include(e => e.IdNacionalidadNavigation)
                     .Include(e => e.IdDistNavigation)
@@ -99,6 +101,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         public IActionResult EditarPrestamo(long idprestamo)
         {
             IdTemporal = null;
+            IdTemporalCrono = null;
             ViewBag.EmpleadoP = _context.Pert04Empleados
                     .Include(e => e.IdNacionalidadNavigation)
                     .Include(e => e.IdDistNavigation)
@@ -188,12 +191,81 @@ namespace Maderera_Aplicacion_Web.Controllers
         [HttpGet]
         public IActionResult CerrarPrestamo()
         {
+            IdTemporal = null;
+            IdTemporalCrono = null;
             var redirectUrl = Url.Action("ListadoPrestamo", "Pret33Prestamo");
             var response = new { redirectUrl };
             return Json(response);
         }
 
 
+        [HttpGet]
+        public IActionResult CerrarCronograma()
+        {
+            IdTemporalCrono = null;
+            var redirectUrl = Url.Action("ListadoCrono", "Pret33Prestamo");
+            var response = new { redirectUrl };
+            return Json(response);
+        }
+        [HttpGet]
+        public IActionResult CalcularPrestamo(double interes, double monto, int plazo, int tipoplazo)
+        {
+            try
+            {
+                double cuota = 0;
+
+                switch (tipoplazo)
+                {
+                    case 1:
+                        {
+                            if (interes == 0)
+                            {
+                                cuota = monto/plazo;
+                            }
+                            else { 
+                            var interesc = Math.Pow(1 + ((double)(interes / 100) * 1 / 12), plazo);
+                            cuota = (monto * (interes / 1200) * interesc) / (interesc - 1);
+                            }
+                        }
+                        break;
+                    case 2:
+                        {
+                            if (interes == 0)
+                            {
+                                cuota = monto / plazo;
+                            }
+                            else
+                            {
+                                var interesc = Math.Pow(1 + ((double)(interes / 100) * 1 / 52), plazo);
+                                cuota = (monto * (interes / 5200) * interesc) / (interesc - 1);
+                            }
+                        }
+                        break;
+                    case 3:
+                        {
+                            if (interes == 0)
+                            {
+                                cuota = monto / plazo;
+                            }
+                            else
+                            {
+                                var interesc = Math.Pow(1 + ((double)(interes / 100) * 1 / 24), plazo);
+                                cuota = (monto * (interes / 2400) * interesc) / (interesc - 1);
+                            }
+
+                        }
+                        break;
+                }
+
+                var montoT = cuota * plazo;
+                var response = new { cuota, montoT };
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { errores = new List<string> { ex.Message, ex.StackTrace } });
+            }
+        }
 
         // GET: Pret33Prestamo/Edit/5
         public async Task<IActionResult> Edit(long? id)
@@ -220,15 +292,65 @@ namespace Maderera_Aplicacion_Web.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CrearPrestamo(int idempleado, int idtipoprestamo, int idtipoplazo, int idtipomotivo, decimal tea,
-            string observacion, decimal montoprestamo, int plazo, decimal montocuota, int cuotasgracia, decimal comisiones, decimal tcea,
+            string observacion, decimal montoprestamo, int plazo, int cuotasgracia, decimal comisiones, decimal tcea,
             DateTime Fechaaprob, DateTime Fechavto, DateTime Fechades, DateTime Fechaprimp,
             bool estado, bool cuotadoble, bool post)
         {
             try
             {
+                DateTime fechavencimiento = Fechaprimp;
+                decimal montoinicial = 0;
+                decimal montointeres = 0;
+                decimal montoamortizacion = 0;
+                decimal saldoinicial = 0;
                 var existingPrestamo = _context.Pret33Prestamos.AsNoTracking()
            .FirstOrDefault(c => c.IdPrestamo == IdTemporal);
-
+                decimal cuota = 0;
+                decimal interess = 0;
+                switch (idtipoplazo)
+                {
+                    case 1:
+                        {
+                            if (tcea==0)
+                            {
+                                cuota = montoprestamo / plazo;
+                            }
+                            else {
+                                var interesc = Math.Pow(1 + ((double)(tcea / 100) * 1 / 12), plazo);
+                                cuota = (montoprestamo * (tcea / 1200) * (decimal)interesc) / ((decimal)interesc - 1);
+                                interess = (tcea / 1200);
+                            }
+                        }
+                        break;
+                    case 2:
+                        {
+                            if (tcea == 0)
+                            {
+                                cuota = montoprestamo / plazo;
+                            }
+                            else
+                            {
+                                var interesc = Math.Pow(1 + ((double)(tcea / 100) * 1 / 52), plazo);
+                                cuota = (montoprestamo * (tcea / 5200) * (decimal)interesc) / ((decimal)interesc - 1);
+                                interess = (tcea / 5200);
+                            }
+                        }
+                        break;
+                    case 3:
+                        {
+                            if (tcea == 0)
+                            {
+                                cuota = montoprestamo / plazo;
+                            }
+                            else
+                            {
+                                var interesc = Math.Pow(1 + ((double)(tcea / 100) * 1 / 24), plazo);
+                                cuota = (montoprestamo * (tcea / 2400) * (decimal)interesc) / ((decimal)interesc - 1);
+                                interess = (tcea / 2400);
+                            }
+                        }
+                        break;
+                }
                 if (existingPrestamo != null)
                 {
                     existingPrestamo.IdEmpleado = idempleado;
@@ -239,47 +361,108 @@ namespace Maderera_Aplicacion_Web.Controllers
                     existingPrestamo.MontoTea = tea;
                     existingPrestamo.TxtObservacion = observacion;
                     existingPrestamo.MontoPrestamo = montoprestamo;
-                    existingPrestamo.MontoTotal = montoprestamo * (1 + (tcea / 100));
+                    existingPrestamo.MontoTotal = cuota * plazo;
                     existingPrestamo.Plazo = plazo;
-                    existingPrestamo.MontoCuota = montocuota;
+                    existingPrestamo.MontoCuota = cuota;
                     existingPrestamo.NroCuotasGracia = cuotasgracia;
                     existingPrestamo.Comisiones = comisiones;
-                    existingPrestamo.MontoTcea = tcea;//Preguntar al ingeniero si guardarlo entre 100 o como un decimal porcentuado
+                    existingPrestamo.MontoTcea = tcea;
                     existingPrestamo.FechaAprobPrestamo = Fechaaprob;
                     existingPrestamo.FechaVtoProg = Fechavto;
                     existingPrestamo.FechaDesembolso = Fechades;
                     existingPrestamo.FechaPrimPago = Fechaprimp;
                     existingPrestamo.CuotaDoble = cuotadoble;
-                    existingPrestamo.Posteo = post;
+                    //existingPrestamo.Posteo = post;
                     if (existingPrestamo.IdEstado == 3)
                     {
                         existingPrestamo.IdEstado = estado == true ? 3 : 6;
                         existingPrestamo.TxtEstado = estado == true ? "BORRADOR" : "PRESTADO";
                     }
+                    existingPrestamo.IdUsuariomod = idusuario;
                     existingPrestamo.TxtUsuariomod = txtusuario;
                     existingPrestamo.FechaModificacion = fechaHoy;
                     _context.Pret33Prestamos.Update(existingPrestamo);
                     await _context.SaveChangesAsync();
                     IdTemporal = existingPrestamo.IdPrestamo;
 
+                    var existingCronogramaPrestamo = _context.Pret34CronogramaPagos.Where(P => P.IdPrestamo == IdTemporal).ToList();
+                    //invalidar anteriores cronogramas
+                    foreach (Pret34CronogramaPago item in existingCronogramaPrestamo)
+                    {
+                        item.IdEstado = 5;
+                        item.TxtEstado = "ANULADO";
+                    }
+                    //CREACION DE CRONOGRAMA
+                    for (int i = 1; i <= plazo; i++)
+                    {
+
+                        if (i == 1)
+                        {
+                            montoinicial = montoprestamo;
+                            montointeres = montoinicial * interess;
+                            montoamortizacion = cuota - (montointeres);
+                            saldoinicial = montoinicial - montoamortizacion;
+
+                        }
+                        else
+                        {
+                            switch (idtipoplazo)
+                            {
+                                case 1:
+                                    fechavencimiento = fechavencimiento.AddMonths(1);
+                                    break;
+                                case 2:
+                                    fechavencimiento = fechavencimiento.AddDays(7);
+                                    break;
+                                case 3:
+                                    fechavencimiento = fechavencimiento.AddDays(15);
+                                    break;
+                            }
+                            montointeres = saldoinicial * interess;
+                            montoamortizacion = cuota - (montointeres);
+                            saldoinicial = saldoinicial - montoamortizacion;
+
+                        }
+
+
+                        var Pret34Cronograma = new Pret34CronogramaPago
+                        {
+                            IdPrestamo = IdTemporal,
+                            FechaPago = null,
+                            SaldoInicial = saldoinicial,
+                            Amortizacion = montoamortizacion,
+                            Interes = montointeres,
+                            Cuota = cuota,
+                            FechaVencimiento = fechavencimiento,
+                            //Posteo = post,
+                            FechaCreacion = fechaHoy,
+                            IdEstado = estado == true ? 3 : 7,
+                            TxtEstado = estado == true ? "BORRADOR" : "PENDIENTE",
+                            IdUsuario = idusuario,
+                            TxtUsuario = txtusuario,
+                        };
+                        _context.Pret34CronogramaPagos.Add(Pret34Cronograma);
+                        await _context.SaveChangesAsync();
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 else
                 {
-
+                    //CREACION DE PRESTAMO
                     var Pret33Prestamo = new Pret33Prestamo
                     {
                         IdEmpleado = idempleado,
                         IdAutorizador = _context.Pert01Usuarios.Where(p => p.IdUsuario == idusuario).Select(p => p.IdEmpleado).FirstOrDefault(),
-                        IdTipoPrestamo = idtipoplazo,
+                        IdTipoPrestamo = idtipoprestamo,
                         IdTipoPlazo = idtipoplazo,
                         IdMotivo = idtipomotivo,
                         MontoTea = tea,
                         TxtObservacion = observacion,
                         MontoPrestamo = montoprestamo,
-                        MontoTotal = montoprestamo * (1 + (tcea / 100)),
+                        MontoTotal = cuota * plazo,
                         Plazo = plazo,
-                        MontoCuota = montocuota,
+                        MontoCuota = cuota,
                         NroCuotasGracia = cuotasgracia,
                         Comisiones = comisiones,
                         MontoTcea = tcea,
@@ -288,7 +471,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         FechaDesembolso = Fechades,
                         FechaPrimPago = Fechaprimp,
                         CuotaDoble = cuotadoble,
-                        Posteo = post,
+                        Post=0,
                         FechaCreacion = fechaHoy,
                         IdEstado = estado == true ? 3 : 6,
                         TxtEstado = estado == true ? "BORRADOR" : "PRESTADO",
@@ -299,8 +482,57 @@ namespace Maderera_Aplicacion_Web.Controllers
                     _context.Pret33Prestamos.Add(Pret33Prestamo);
                     await _context.SaveChangesAsync();
                     IdTemporal = Pret33Prestamo.IdPrestamo;
+                    //CREACION DE CRONOGRAMA
+                    for (int i = 1; i <= plazo; i++)
+                    {
+
+                        if (i == 1)
+                        {
+                            montoinicial = montoprestamo;
+                            montointeres = montoinicial * interess;
+                            montoamortizacion = cuota - (montointeres);
+                            saldoinicial = montoinicial - montoamortizacion;
+                        }
+                        else
+                        {
+                            switch (idtipoplazo)
+                            {
+                                case 1:
+                                    fechavencimiento = fechavencimiento.AddMonths(1);
+                                    break;
+                                case 2:
+                                    fechavencimiento = fechavencimiento.AddDays(7);
+                                    break;
+                                case 3:
+                                    fechavencimiento = fechavencimiento.AddDays(15);
+                                    break;
+                            }
+                            montointeres = saldoinicial * interess;
+                            montoamortizacion = cuota - (montointeres);
+                            saldoinicial = saldoinicial - montoamortizacion;
+
+                        }
 
 
+                        var Pret34Cronograma = new Pret34CronogramaPago
+                        {
+                            IdPrestamo = IdTemporal,
+                            FechaPago = null,
+                            SaldoInicial = saldoinicial,
+                            Amortizacion = montoamortizacion,
+                            Interes = montointeres,
+                            Cuota = cuota,
+                            FechaVencimiento = fechavencimiento,
+                            //Posteo = post,
+                            FechaCreacion = fechaHoy,
+                            IdEstado = estado == true ? 3 : 7,
+                            TxtEstado = estado == true ? "BORRADOR" : "PENDIENTE",
+                            IdUsuario = idusuario,
+                            TxtUsuario = txtusuario,
+                        };
+                        _context.Pret34CronogramaPagos.Add(Pret34Cronograma);
+                        await _context.SaveChangesAsync();
+                    }
 
                 }
                 return Json(new { mensaje = "Guardado correctamente" });
@@ -316,16 +548,66 @@ namespace Maderera_Aplicacion_Web.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CrearPrestamoycerrar(int idempleado, int idtipoprestamo, int idtipoplazo, int idtipomotivo, decimal tea,
-            string observacion, decimal montoprestamo, int plazo, decimal montocuota, int cuotasgracia, decimal comisiones, decimal tcea,
+            string observacion, decimal montoprestamo, int plazo, int cuotasgracia, decimal comisiones, decimal tcea,
             DateTime Fechaaprob, DateTime Fechavto, DateTime Fechades, DateTime Fechaprimp,
-            bool estado, bool cuotadoble, bool post)
+            bool estado, bool cuotadoble/*, bool post*/)
         {
             try
             {
-
+                DateTime fechavencimiento = Fechaprimp;
+                decimal montoinicial = 0;
+                decimal montointeres = 0;
+                decimal montoamortizacion = 0;
+                decimal saldoinicial = 0;
                 var existingPrestamo = _context.Pret33Prestamos.AsNoTracking()
            .FirstOrDefault(c => c.IdPrestamo == IdTemporal);
-
+                decimal cuota = 0;
+                decimal interess = 0;
+                switch (idtipoplazo)
+                {
+                    case 1:
+                        {
+                            if (tcea == 0)
+                            {
+                                cuota = montoprestamo / plazo;
+                            }
+                            else
+                            {
+                                var interesc = Math.Pow(1 + ((double)(tcea / 100) * 1 / 12), plazo);
+                                cuota = (montoprestamo * (tcea / 1200) * (decimal)interesc) / ((decimal)interesc - 1);
+                                interess = (tcea / 1200);
+                            }
+                        }
+                        break;
+                    case 2:
+                        {
+                            if (tcea == 0)
+                            {
+                                cuota = montoprestamo / plazo;
+                            }
+                            else
+                            {
+                                var interesc = Math.Pow(1 + ((double)(tcea / 100) * 1 / 52), plazo);
+                                cuota = (montoprestamo * (tcea / 5200) * (decimal)interesc) / ((decimal)interesc - 1);
+                                interess = (tcea / 5200);
+                            }
+                        }
+                        break;
+                    case 3:
+                        {
+                            if (tcea == 0)
+                            {
+                                cuota = montoprestamo / plazo;
+                            }
+                            else
+                            {
+                                var interesc = Math.Pow(1 + ((double)(tcea / 100) * 1 / 24), plazo);
+                                cuota = (montoprestamo * (tcea / 2400) * (decimal)interesc) / ((decimal)interesc - 1);
+                                interess = (tcea / 2400);
+                            }
+                        }
+                        break;
+                }
                 if (existingPrestamo != null)
                 {
                     existingPrestamo.IdEmpleado = idempleado;
@@ -336,9 +618,9 @@ namespace Maderera_Aplicacion_Web.Controllers
                     existingPrestamo.MontoTea = tea;
                     existingPrestamo.TxtObservacion = observacion;
                     existingPrestamo.MontoPrestamo = montoprestamo;
-                    existingPrestamo.MontoTotal = montoprestamo * (1 + (tcea / 100));
+                    existingPrestamo.MontoTotal = cuota * plazo;
                     existingPrestamo.Plazo = plazo;
-                    existingPrestamo.MontoCuota = montocuota;
+                    existingPrestamo.MontoCuota = cuota;
                     existingPrestamo.NroCuotasGracia = cuotasgracia;
                     existingPrestamo.Comisiones = comisiones;
                     existingPrestamo.MontoTcea = tcea;
@@ -347,36 +629,97 @@ namespace Maderera_Aplicacion_Web.Controllers
                     existingPrestamo.FechaDesembolso = Fechades;
                     existingPrestamo.FechaPrimPago = Fechaprimp;
                     existingPrestamo.CuotaDoble = cuotadoble;
-                    existingPrestamo.Posteo = post;
+                    //existingPrestamo.Posteo = post;
                     if (existingPrestamo.IdEstado == 3)
                     {
                         existingPrestamo.IdEstado = estado == true ? 3 : 6;
                         existingPrestamo.TxtEstado = estado == true ? "BORRADOR" : "PRESTADO";
                     }
+                    existingPrestamo.IdUsuariomod = idusuario;
                     existingPrestamo.TxtUsuariomod = txtusuario;
                     existingPrestamo.FechaModificacion = fechaHoy;
                     _context.Pret33Prestamos.Update(existingPrestamo);
                     await _context.SaveChangesAsync();
                     IdTemporal = existingPrestamo.IdPrestamo;
 
+                    var existingCronogramaPrestamo = _context.Pret34CronogramaPagos.Where(P => P.IdPrestamo == IdTemporal).ToList();
+                    //invalidar anteriores cronogramas
+                    foreach (Pret34CronogramaPago item in existingCronogramaPrestamo)
+                    {
+                        item.IdEstado = 5;
+                        item.TxtEstado = "ANULADO";
+                    }
+                    //CREACION DE CRONOGRAMA
+                    for (int i = 1; i <= plazo; i++)
+                    {
+
+                        if (i == 1)
+                        {
+                            montoinicial = montoprestamo;
+                            montointeres = montoinicial * interess;
+                            montoamortizacion = cuota - (montointeres);
+                            saldoinicial = montoinicial - montoamortizacion;
+
+                        }
+                        else
+                        {
+                            switch (idtipoplazo)
+                            {
+                                case 1:
+                                    fechavencimiento = fechavencimiento.AddMonths(1);
+                                    break;
+                                case 2:
+                                    fechavencimiento = fechavencimiento.AddDays(7);
+                                    break;
+                                case 3:
+                                    fechavencimiento = fechavencimiento.AddDays(15);
+                                    break;
+                            }
+                            montointeres = saldoinicial * interess;
+                            montoamortizacion = cuota - (montointeres);
+                            saldoinicial = saldoinicial - montoamortizacion;
+
+                        }
+
+
+                        var Pret34Cronograma = new Pret34CronogramaPago
+                        {
+                            IdPrestamo = IdTemporal,
+                            FechaPago = null,
+                            SaldoInicial = saldoinicial,
+                            Amortizacion = montoamortizacion,
+                            Interes = montointeres,
+                            Cuota = cuota,
+                            FechaVencimiento = fechavencimiento,
+                            //Posteo = post,
+                            FechaCreacion = fechaHoy,
+                            IdEstado = estado == true ? 3 : 7,
+                            TxtEstado = estado == true ? "BORRADOR" : "PENDIENTE",
+                            IdUsuario = idusuario,
+                            TxtUsuario = txtusuario,
+                        };
+                        _context.Pret34CronogramaPagos.Add(Pret34Cronograma);
+                        await _context.SaveChangesAsync();
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 else
                 {
-
+                    //CREACION DE PRESTAMO
                     var Pret33Prestamo = new Pret33Prestamo
                     {
                         IdEmpleado = idempleado,
                         IdAutorizador = _context.Pert01Usuarios.Where(p => p.IdUsuario == idusuario).Select(p => p.IdEmpleado).FirstOrDefault(),
-                        IdTipoPrestamo = idtipoplazo,
+                        IdTipoPrestamo = idtipoprestamo,
                         IdTipoPlazo = idtipoplazo,
                         IdMotivo = idtipomotivo,
                         MontoTea = tea,
                         TxtObservacion = observacion,
                         MontoPrestamo = montoprestamo,
-                        MontoTotal = montoprestamo * (1 + (tcea / 100)),
+                        MontoTotal = cuota * plazo,
                         Plazo = plazo,
-                        MontoCuota = montocuota,
+                        MontoCuota = cuota,
                         NroCuotasGracia = cuotasgracia,
                         Comisiones = comisiones,
                         MontoTcea = tcea,
@@ -385,7 +728,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         FechaDesembolso = Fechades,
                         FechaPrimPago = Fechaprimp,
                         CuotaDoble = cuotadoble,
-                        Posteo = post,
+                        Post=0,
                         FechaCreacion = fechaHoy,
                         IdEstado = estado == true ? 3 : 6,
                         TxtEstado = estado == true ? "BORRADOR" : "PRESTADO",
@@ -396,11 +739,61 @@ namespace Maderera_Aplicacion_Web.Controllers
                     _context.Pret33Prestamos.Add(Pret33Prestamo);
                     await _context.SaveChangesAsync();
                     IdTemporal = Pret33Prestamo.IdPrestamo;
+                    //CREACION DE CRONOGRAMA
+                    for (int i = 1; i <= plazo; i++)
+                    {
+
+                        if (i == 1)
+                        {
+                            montoinicial = montoprestamo;
+                            montointeres = montoinicial * interess;
+                            montoamortizacion = cuota - (montointeres);
+                            saldoinicial = montoinicial - montoamortizacion;
+                        }
+                        else
+                        {
+                            switch (idtipoplazo)
+                            {
+                                case 1:
+                                    fechavencimiento = fechavencimiento.AddMonths(1);
+                                    break;
+                                case 2:
+                                    fechavencimiento = fechavencimiento.AddDays(7);
+                                    break;
+                                case 3:
+                                    fechavencimiento = fechavencimiento.AddDays(15);
+                                    break;
+                            }
+                            montointeres = saldoinicial * interess;
+                            montoamortizacion = cuota - (montointeres);
+                            saldoinicial = saldoinicial - montoamortizacion;
+
+                        }
 
 
+                        var Pret34Cronograma = new Pret34CronogramaPago
+                        {
+                            IdPrestamo = IdTemporal,
+                            FechaPago = null,
+                            SaldoInicial = saldoinicial,
+                            Amortizacion = montoamortizacion,
+                            Interes = montointeres,
+                            Cuota = cuota,
+                            FechaVencimiento = fechavencimiento,
+                            //Posteo = post,
+                            FechaCreacion = fechaHoy,
+                            IdEstado = estado == true ? 3 : 7,
+                            TxtEstado = estado == true ? "BORRADOR" : "PENDIENTE",
+                            IdUsuario = idusuario,
+                            TxtUsuario = txtusuario,
+                        };
+                        _context.Pret34CronogramaPagos.Add(Pret34Cronograma);
+                        await _context.SaveChangesAsync();
+                    }
 
                 }
                 IdTemporal = null;
+                IdTemporalCrono = null;
                 return Json(new { redirectUrl = Url.Action("ListadoPrestamo", "Pret33Prestamo") });
 
             }
@@ -416,7 +809,7 @@ namespace Maderera_Aplicacion_Web.Controllers
             {
                 var estado = _context.Pret33Prestamos.Where(t => t.IdPrestamo == IdTemporal).Select(t => t.IdEstado).FirstOrDefault();
                 var estadoName = _context.Pret33Prestamos.Where(t => t.IdPrestamo == IdTemporal).Select(t => t.TxtEstado).FirstOrDefault();
-                var post = _context.Pret33Prestamos.Where(t => t.IdPrestamo == IdTemporal).Select(t => t.Posteo).FirstOrDefault();
+                var post = _context.Pret33Prestamos.Where(t => t.IdPrestamo == IdTemporal).Select(t => t.Post).FirstOrDefault();
                 var cuotadoble = _context.Pret33Prestamos.Where(t => t.IdPrestamo == IdTemporal).Select(t => t.CuotaDoble).FirstOrDefault();
                 var response = new
                 {
@@ -467,7 +860,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
-                var existingprestamo = _context.Pret33Prestamos.Where(c => c.IdPrestamo== id).ToList();
+                var existingprestamo = _context.Pret33Prestamos.Where(c => c.IdPrestamo == id).ToList();
                 foreach (Pret33Prestamo prestamo in existingprestamo)
                 {
                     prestamo.IdEstado = 5;
@@ -485,6 +878,52 @@ namespace Maderera_Aplicacion_Web.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult VolverPrestamo()
+        {
+            try
+            {
+
+                return Json(new { redirectUrl = Url.Action("EditarPrestamo", "Pret33Prestamo", new { idprestamo = IdTemporal }) });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
+        //CRONOGRAMA
+
+        public IActionResult Cronograma()
+        {
+            IdTemporalCrono = null;
+            ViewBag.ListadoPers = _context.Pret34CronogramaPagos.Where(P => (P.IdEstado == 3 ||P.IdEstado == 7 || P.IdEstado == 8) && P.IdPrestamo==IdTemporal).ToList();
+            return View();
+        }
+        public async Task<IActionResult> ListadoCrono()
+        {
+            var eagleContext = _context.Pret34CronogramaPagos.Include(p => p.IdPrestamoNavigation).Include(p => p.IdUsuarioNavigation).Include(p => p.IdUsuariomodNavigation).Where(p => p.IdPrestamo == IdTemporal);
+            return View(await eagleContext.ToListAsync());
+        }
+        public IActionResult cargaprestamo()
+        {
+            decimal? amortizacion = 0;
+            var prestamo = _context.Pret33Prestamos.Where(p => p.IdPrestamo == IdTemporal && (p.IdEstado == 6 || p.IdEstado == 3)).FirstOrDefault();
+            var existingCronoPrestamo = _context.Pret34CronogramaPagos.Where(p => p.IdPrestamo == IdTemporal).Count();
+            if (existingCronoPrestamo > 0)
+            {
+                amortizacion = prestamo.MontoPrestamo - prestamo.MontoCuota;
+            }
+            else
+            {
+                amortizacion = prestamo.MontoPrestamo - prestamo.MontoCuota;
+            }
+
+            var response = new { cuota = prestamo.MontoCuota, amortizacion = amortizacion };
+            return Json(response);
+        }
+
     }
+
 
 }

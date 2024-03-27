@@ -21,7 +21,6 @@ namespace Maderera_Aplicacion_Web.Models
         public DateTime FechaVtoProg { get; set; }
         public int NroCuotasGracia { get; set; }
         public long IdTipoPlazo { get; set; }
-        public bool? Posteo { get; set; }
         public long? IdMotivo { get; set; }
         public bool? CuotaDoble { get; set; }
         public decimal MontoTea { get; set; }
@@ -39,6 +38,8 @@ namespace Maderera_Aplicacion_Web.Models
         public decimal? MontoCuota { get; set; }
         public decimal MontoPrestamo { get; set; }
         public decimal Comisiones { get; set; }
+        public int? Post { get; set; }
+        public DateTime? PostDate { get; set; }
 
         public virtual Pert04Empleado? IdAutorizadorNavigation { get; set; }
         public virtual Pert04Empleado? IdEmpleadoNavigation { get; set; }

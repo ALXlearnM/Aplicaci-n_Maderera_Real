@@ -12,7 +12,6 @@ namespace Maderera_Aplicacion_Web.Models
 
         public long IdCronograma { get; set; }
         public long? IdPrestamo { get; set; }
-        public DateTime FechaPago { get; set; }
         public decimal SaldoInicial { get; set; }
         public decimal Amortizacion { get; set; }
         public decimal Interes { get; set; }
@@ -25,6 +24,8 @@ namespace Maderera_Aplicacion_Web.Models
         public long? IdUsuariomod { get; set; }
         public string? TxtUsuariomod { get; set; }
         public DateTime? FechaModificacion { get; set; }
+        public DateTime? FechaPago { get; set; }
+        public DateTime FechaVencimiento { get; set; }
 
         public virtual Pret33Prestamo? IdPrestamoNavigation { get; set; }
         public virtual Pert01Usuario IdUsuarioNavigation { get; set; } = null!;
