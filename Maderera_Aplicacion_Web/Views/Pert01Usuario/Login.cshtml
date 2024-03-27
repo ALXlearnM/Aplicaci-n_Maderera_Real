@@ -10,36 +10,46 @@
 
     <style>
         body {
-            background-color: #F1FCF3 !important; 
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            background:url('img.jpg') no-repeat;
+            background-size:cover;
+            background-position:center;
+          /*  background-color: #F1FCF3 !important; */
         }
 
     </style>
 </head>
 <body>
+
+
+
+
     <div class="container">
         <div class="row justify-content-center align-items-center">
-            <div style="margin-top:180px;">
+            <div style="margin-top: 50px;">
+                <!-- Reduje el margen superior para centrar mejor el card -->
                 <form method="post" asp-action="Login" asp-controller="Pert01Usuario" class="container container-fluid align-items-center">
 
                     <section class="container-fluid">
-                        <div class="container ">
-                            <div class="row d-flex justify-content-center align-items-center h-100">
-                                <div class="col-12 col-md-8 col-lg-6 col-xl-5 ">
-                                    <div class="card shadow-2-strong" style="border-radius: 1rem">
+                        <div class="container">
+                            <div class="row justify-content-center align-items-center h-100">
+                                <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+                                    <!-- Modifiqué los tamaños de las columnas para ajustar la anchura del card -->
+                                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
                                         <div class="row">
                                             <div class="col-4">
-                                                <!-- Agrega una imagen a la derecha dentro del card shadow al inicio -->
-                                                <img src="~/jhyperionm.png" alt="Imagen a la derecha" class="imglogin " />
+                                                <img src="~/jhyperionm.png" alt="Imagen a la derecha" class="img-fluid" style="max-height: 100%; max-width: 100%;" />
                                             </div>
                                             <div class="col-8">
-                                                <div class="card-body p-4 text-center">
-
-                                                    <h3 class="mb-5" style="color: #76b5c5; font-size:40px;">Log In</h3>
-
+                                                <div class="card-body p-5 text-center">
+                                                    <!-- Aumenté el padding del card-body -->
+                                                    <h3 class="mb-4" style="color: #76b5c5; font-size: 40px;">Log In</h3>
                                                     <div class="form-outline mb-4">
                                                         <input type="text" class="form-control" required asp-for="TxtUsuario" id="TxtUsuario" placeholder="Ingresar Usuario">
                                                     </div>
-
                                                     <div class="form-outline mb-4">
                                                         <input type="password" class="form-control" required asp-for="TxtClave" id="TxtClave" placeholder="Ingresar Clave">
                                                     </div>
@@ -47,19 +57,19 @@
                                                         <input type="checkbox" class="form-check-input" asp-for="MantenerActivo" id="MantenerActivo">
                                                         <label class="form-check-label" for="MantenerActivo">Recordar sesión</label>
                                                     </div>
-
-                                                    <button type="submit" class="btn btn-primary h-100 w-100">Ingresar</button>
-                                                    <label class="text-danger">@ViewBag.Error</label>
-                                                    <label class="text-danger">@ViewBag.Paso1</label>
-                                                    <label class="text-danger">@ViewBag.Paso2</label>
-                                                    <label class="text-danger">@ViewBag.Paso3</label>
-                                                    <label class="text-danger">@ViewBag.Paso4</label>
-                                                    <label class="text-danger">@ViewBag.Paso5</label>
-                                                    <label class="text-danger">@ViewBag.Paso6</label>
-                                                    <label class="text-danger">@ViewBag.Paso7</label>
-                                                    <label class="text-danger">@ViewBag.Paso8</label>
-
-
+                                                    <button type="submit" class="btn btn-primary btn-block">Ingresar</button> <!-- Utilicé btn-block para que el botón ocupe todo el ancho -->
+                                                    <div class="text-danger mt-3">
+                                                        <!-- Añadí un margen superior al mensaje de error -->
+                                                        @ViewBag.Error
+                                                        @ViewBag.Paso1
+                                                        @ViewBag.Paso2
+                                                        @ViewBag.Paso3
+                                                        @ViewBag.Paso4
+                                                        @ViewBag.Paso5
+                                                        @ViewBag.Paso6
+                                                        @ViewBag.Paso7
+                                                        @ViewBag.Paso8
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -72,6 +82,8 @@
             </div>
         </div>
     </div>
+
+
 
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
