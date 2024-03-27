@@ -35,6 +35,8 @@ namespace Maderera_Aplicacion_Web.Models
         public string TxtUsuario { get; set; } = null!;
         public string? TxtUsuarioModificador { get; set; }
         public DateTime? FechaModificacion { get; set; }
+        public int? Post { get; set; }
+        public DateTime? PostDate { get; set; }
 
         public virtual Pret02Campana IdCampanaNavigation { get; set; } = null!;
         public virtual Pert01Usuario? IdUsuarioModificadorNavigation { get; set; }

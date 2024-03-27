@@ -4607,6 +4607,10 @@ namespace Maderera_Aplicacion_Web.Data
 
                 entity.Property(e => e.NroTrozosTotal).HasColumnName("nro_trozos_total");
 
+                entity.Property(e => e.Post).HasColumnName("post");
+
+                entity.Property(e => e.PostDate).HasColumnName("post_date");
+
                 entity.Property(e => e.TxtEstado)
                     .HasMaxLength(100)
                     .IsUnicode(false)
@@ -4805,6 +4809,10 @@ namespace Maderera_Aplicacion_Web.Data
                     .IsUnicode(false)
                     .HasColumnName("nro_placa");
 
+                entity.Property(e => e.Post).HasColumnName("post");
+
+                entity.Property(e => e.PostDate).HasColumnName("post_date");
+
                 entity.Property(e => e.TipoEnvio)
                     .HasMaxLength(100)
                     .IsUnicode(false)
@@ -4925,6 +4933,10 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("nro_recepcion");
+
+                entity.Property(e => e.Post).HasColumnName("post");
+
+                entity.Property(e => e.PostDate).HasColumnName("post_date");
 
                 entity.Property(e => e.RecepcionCant).HasColumnName("recepcion_cant");
 
@@ -5198,6 +5210,10 @@ namespace Maderera_Aplicacion_Web.Data
                     .IsUnicode(false)
                     .HasColumnName("nro_pro");
 
+                entity.Property(e => e.Post).HasColumnName("post");
+
+                entity.Property(e => e.PostDate).HasColumnName("post_date");
+
                 entity.Property(e => e.TipoPro)
                     .HasMaxLength(100)
                     .IsUnicode(false)
@@ -5354,6 +5370,10 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("nro_mer");
+
+                entity.Property(e => e.Post).HasColumnName("post");
+
+                entity.Property(e => e.PostDate).HasColumnName("post_date");
 
                 entity.Property(e => e.TipoMerma)
                     .HasMaxLength(100)
@@ -6130,7 +6150,9 @@ namespace Maderera_Aplicacion_Web.Data
 
                 entity.Property(e => e.NroCuotasGracia).HasColumnName("Nro_Cuotas_Gracia");
 
-                entity.Property(e => e.Posteo).HasColumnName("posteo");
+                entity.Property(e => e.Post).HasColumnName("post");
+
+                entity.Property(e => e.PostDate).HasColumnName("post_date");
 
                 entity.Property(e => e.TxtEstado)
                     .HasMaxLength(50)
@@ -6217,8 +6239,12 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasColumnName("fecha_modificacion");
 
                 entity.Property(e => e.FechaPago)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("fecha_pago");
+
+                entity.Property(e => e.FechaVencimiento)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_vencimiento");
 
                 entity.Property(e => e.IdEstado).HasColumnName("id_Estado");
 

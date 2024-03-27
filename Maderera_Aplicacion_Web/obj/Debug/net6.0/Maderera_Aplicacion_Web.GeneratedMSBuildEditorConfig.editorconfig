@@ -152,6 +152,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDE2TWVybWFcTWVybWEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/Cronograma.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cQ3Jvbm9ncmFtYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -162,6 +166,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/ListadoCrono.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDMzUHJlc3RhbW9cTGlzdGFkb0Nyb25vLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret33Prestamo/ListadoPrestamo.cshtml]
@@ -186,10 +194,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret34CronogramaPago/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDM0Q3Jvbm9ncmFtYVBhZ29cRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Pret34CronogramaPago/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJldDM0Q3Jvbm9ncmFtYVBhZ29cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Walter/source/repos/Aplicaci-n_Maderera_Real/Maderera_Aplicacion_Web/Views/Shared/Error.cshtml]

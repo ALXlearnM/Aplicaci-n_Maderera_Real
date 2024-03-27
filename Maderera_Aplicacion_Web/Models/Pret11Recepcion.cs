@@ -33,6 +33,8 @@ namespace Maderera_Aplicacion_Web.Models
         public string? TxtSerie { get; set; }
         public int? IdLocation { get; set; }
         public int? IdLocationTo { get; set; }
+        public int? Post { get; set; }
+        public DateTime? PostDate { get; set; }
 
         public virtual Pret10Envio? IdEnvioNavigation { get; set; }
         public virtual Mstt08Location? IdLocationNavigation { get; set; }

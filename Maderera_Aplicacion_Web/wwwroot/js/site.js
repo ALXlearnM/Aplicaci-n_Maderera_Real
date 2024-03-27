@@ -12717,7 +12717,7 @@ $(document).ready(function () {
                         if (response.mensaje == null) {
                             Swal.fire({
                                 title: "¡Cierre exitoso!",
-                                text: "El envío se ha cerrado correctamente.",
+                                text: "El préstamo se ha cerrado correctamente.",
                                 icon: "success"
                             }).then(() => {
                                 // Redirigir al listado de envíos
@@ -12734,7 +12734,7 @@ $(document).ready(function () {
                     error: function (response) {
                         Swal.fire({
                             title: "¡Error!",
-                            text: "Ocurrió un error al cerrar el envío.",
+                            text: "Ocurrió un error al cerrar el préstamo.",
                             icon: "error"
                         });
                     }
@@ -12743,30 +12743,29 @@ $(document).ready(function () {
         });
     });
 
-
+    
 
 });
 
 function enviarDatosPreGuardar() {
 
-                if (camposRequeridosLlenos('FormPrestamo')) {
+    if (camposRequeridosLlenos('FormPrestamo') && $('#montototal').val() != 0 && $('#montocuota').val() != 0) {
                 let formData = new FormData();
                     let checkestado = document.getElementById('estadoP');
                     let checkcd = document.getElementById('cuotadoble');
-                    let checkpost = document.getElementById('post');
+                    /*let checkpost = document.getElementById('post');*/
                     let checke = checkestado.checked?true:false;
                     let checkcud = checkcd.checked?true: false;
-                    let checkp = checkpost.checked ? true: false;
+                    /*let checkp = checkpost.checked ? true: false;*/
 
                 formData.append('idempleado', $('#empleadoPID').val());
                 formData.append('idtipoprestamo', $('#tipoprestamo').val());
                 formData.append('idtipoplazo', $('#tipoplazo').val());
                 formData.append('idtipomotivo', $('#motivo').val());
                 formData.append('tea', $('#tea').val());
-                formData.append('observacion', $('#comentario').val());
+                formData.append('observacion', $('#comentario').val()||"");
                 formData.append('montoprestamo', parseFloat($('#montoprestamo').val()));
                 formData.append('plazo', $('#plazo').val());
-                formData.append('montocuota', $('#montocuota').val());
                 formData.append('cuotasgracia', $('#cuotagracia').val()||0);
                 formData.append('comisiones', $('#comisiones').val());
                 formData.append('tcea', $('#tcea').val());
@@ -12776,7 +12775,7 @@ function enviarDatosPreGuardar() {
                 formData.append('Fechaprimp', $('#fecha1pago').val());
                 formData.append('estado', checke);
                 formData.append('cuotadoble', checkcud);
-                formData.append('post', checkp);
+                /*formData.append('post', checkp);*/
 
 
                 Swal.fire({
@@ -12806,6 +12805,8 @@ function enviarDatosPreGuardar() {
                                         window.location.href = response.redirectUrl;
                                     });
                                 } else {
+                                    $('#botoncrono').css('display', 'block');
+
                                     $.ajax({
                                         url: '/Pret33Prestamo/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
                                         type: 'GET',
@@ -12874,24 +12875,23 @@ function enviarDatosPreGuardar() {
 
 
 function enviarDatosPreGuardaryCerrar() {
-    if (camposRequeridosLlenos('FormPrestamo')) {
+    if (camposRequeridosLlenos('FormPrestamo') && $('#montototal').val() != 0 && $('#montocuota').val() != 0) {
         let formData = new FormData();
         let checkestado = document.getElementById('estadoP');
         let checkcd = document.getElementById('cuotadoble');
-        let checkpost = document.getElementById('post');
+        /*let checkpost = document.getElementById('post');*/
         let checke = checkestado.checked ? true : false;
         let checkcud = checkcd.checked ? true : false;
-        let checkp = checkpost.checked ? true : false;
+        /*let checkp = checkpost.checked ? true : false;*/
 
         formData.append('idempleado', $('#empleadoPID').val());
         formData.append('idtipoprestamo', $('#tipoprestamo').val());
         formData.append('idtipoplazo', $('#tipoplazo').val());
         formData.append('idtipomotivo', $('#motivo').val());
         formData.append('tea', $('#tea').val());
-        formData.append('observacion', $('#comentario').val());
+        formData.append('observacion', $('#comentario').val()||"");
         formData.append('montoprestamo', parseFloat($('#montoprestamo').val()));
         formData.append('plazo', $('#plazo').val());
-        formData.append('montocuota', $('#montocuota').val());
         formData.append('cuotasgracia', $('#cuotagracia').val()||0);
         formData.append('comisiones', $('#comisiones').val());
         formData.append('tcea', $('#tcea').val());
@@ -12901,7 +12901,7 @@ function enviarDatosPreGuardaryCerrar() {
         formData.append('Fechaprimp', $('#fecha1pago').val());
         formData.append('estado', checke);
         formData.append('cuotadoble', checkcud);
-        formData.append('post', checkp);
+       /* formData.append('post', checkp);*/
 
         Swal.fire({
             title: "¿Estás seguro de guardar el prestamo?",
@@ -12969,7 +12969,6 @@ $(document).ready(function () {
 
 
 function eliminarPrestamo() {
-
     let idPrestamo = $('#confirmarEliminarPrestamo').data('id');
     $.ajax({
         url: '/Pret33Prestamo/EliminarPrestamo', // Reemplaza 'TuControlador' con el nombre real de tu controlador
@@ -12991,7 +12990,6 @@ function eliminarPrestamo() {
 
 
             }
-
         },
         error: function (error) {
             Swal.fire({
@@ -13037,4 +13035,317 @@ function anularPrestamo() {
 
         }
     });
+}
+
+function VolverPrestamo() {
+    Swal.fire({
+        title: "¿Estás seguro de salir?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, guardar",
+        cancelButtonText: "No, cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/Pret33Prestamo/VolverPrestamo', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+                type: 'GET',
+                success: function (response) {
+                    if (response.mensaje == null) {
+                        $('#confirmarAnularPrestamo').modal('hide');
+                        Swal.fire({
+                            title: "¡Salida exitosa!",
+                            text: "",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.href = response.redirectUrl;
+                        });
+
+
+                    } else {
+
+
+                    }
+                },
+                error: function (error) {
+                    Swal.fire({
+                        title: "¡Error!",
+                        text: "Ocurrió un error al anular el préstamo.",
+                        icon: "error"
+                    });
+
+                }
+            });
+        }
+        });
+
+
+}
+
+
+$(document).ready(function () {
+    $("#guardarCrono").click(function () {
+        enviarDatosCronoGuardar();
+    });
+    $("#guardarycerrarCrono").click(function () {
+        enviarDatosCronoGuardaryCerrar();
+    });
+
+    $("#cancelarCrono").click(function () {
+        Swal.fire({
+            title: "¿Estás seguro de cerrar el cronograma?",
+            text: "¡Esta acción es irreversible si no ha sido guardada!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cerrar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Pret33Prestamo/CerrarCronograma",
+                    type: "GET",
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "¡Cierre exitoso!",
+                                text: "El cronograma se ha cerrado correctamente.",
+                                icon: "success"
+                            }).then(() => {
+                                // Redirigir al listado de envíos
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "¡Error!",
+                                text: response.mensaje,
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al cerrar el cronograma.",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+
+
+});
+
+function enviarDatosCronoGuardar() {
+
+    if (camposRequeridosLlenos('FormCronograma') ) {
+        let formData = new FormData();
+        let checkestado = document.getElementById('estadoP');
+        let checkcd = document.getElementById('cuotadoble');
+        let checkpost = document.getElementById('post');
+        let checke = checkestado.checked ? true : false;
+        let checkcud = checkcd.checked ? true : false;
+        let checkp = checkpost.checked ? true : false;
+
+        formData.append('idempleado', $('#empleadoPID').val());
+        formData.append('idtipoprestamo', $('#tipoprestamo').val());
+        formData.append('idtipoplazo', $('#tipoplazo').val());
+        formData.append('idtipomotivo', $('#motivo').val());
+        formData.append('tea', $('#tea').val());
+        formData.append('observacion', $('#comentario').val());
+        formData.append('montoprestamo', parseFloat($('#montoprestamo').val()));
+        formData.append('plazo', $('#plazo').val());
+        formData.append('montocuota', $('#montocuota').val());
+        formData.append('cuotasgracia', $('#cuotagracia').val() || 0);
+        formData.append('comisiones', $('#comisiones').val());
+        formData.append('tcea', $('#tcea').val());
+        formData.append('Fechaaprob', $('#fechaaprob').val());
+        formData.append('Fechavto', $('#fechavcto').val());
+        formData.append('Fechades', $('#fechadesembolso').val());
+        formData.append('Fechaprimp', $('#fecha1pago').val());
+        formData.append('estado', checke);
+        formData.append('cuotadoble', checkcud);
+        /*formData.append('post', checkp);*/
+
+
+        Swal.fire({
+            title: "¿Estás seguro de guardar el envío?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, guardar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/Pret33Prestamo/CrearPrestamo', // Ajusta la URL según la estructura de tu aplicación
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "¡Registro exitoso!",
+                                text: "El prestamo se ha creado correctamente.",
+                                icon: "success"
+                            }).then(() => {
+                                // Redirigir al destino especificado
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            $('#botoncrono').css('display', 'block');
+
+                            $.ajax({
+                                url: '/Pret33Prestamo/CargarMood', // Reemplaza 'TuControlador' con el nombre real de tu controlador
+                                type: 'GET',
+                                success: function (response) {
+                                    if (response.id == 3) {
+                                        document.getElementById('moodNamePre').innerText = response.name;
+                                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                                        $('#estadoP').prop('checked', true);
+                                        $('#estadoP').prop('disabled', false);
+
+                                    } else if (response.id == 6) {
+                                        document.getElementById('moodNamePre').innerText = response.name;
+                                        // Supongamos que tienes un input checkbox con el id "miCheckbox"
+                                        $('#estadoP').prop('checked', true);
+                                        $('#estadoP').prop('disabled', true);
+                                    }
+
+                                    //if (response.poste) {
+                                    //    $('#post').prop('checked', true);
+                                    //    $('#post').prop('disabled', false);
+                                    //} else {
+                                    //    $('#post').prop('checked', false);
+                                    //    $('#post').prop('disabled', false);
+                                    //}
+
+                                    if (response.cuotad) {
+                                        $('#cuotadoble').prop('checked', true);
+                                        $('#cuotadoble').prop('disabled', false);
+                                    } else {
+                                        $('#cuotadoble').prop('checked', false);
+                                        $('#cuotadoble').prop('disabled', false);
+                                    }
+                                },
+                                error: function (error) {
+                                    console.error('Error al cargar los datos del Cargador:', error.responseText);
+                                }
+                            });
+                            Swal.fire({
+                                title: "¡Guardado exitoso!",
+                                text: "El prestamo se ha guardado correctamente.",
+                                icon: "success"
+                            });
+                        }
+                        // Se eliminó la llamada ajax innecesaria a Pret10Envio/CargarMood
+                    },
+                    error: function (error) {
+                        console.error('Error al crear el prestamo:', error.responseText);
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al crear el prestamo.",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+    } else {
+        Swal.fire({
+            title: "¡Faltan campos por llenar!",
+            text: "Por favor, complete todos los campos requeridos.",
+            icon: "warning"
+        });
+    }
+}
+
+
+
+function enviarDatosCronoGuardaryCerrar() {
+    if (camposRequeridosLlenos('FormPrestamo')) {
+        let formData = new FormData();
+        let checkestado = document.getElementById('estadoP');
+        let checkcd = document.getElementById('cuotadoble');
+        let checkpost = document.getElementById('post');
+        let checke = checkestado.checked ? true : false;
+        let checkcud = checkcd.checked ? true : false;
+        let checkp = checkpost.checked ? true : false;
+
+        formData.append('idempleado', $('#empleadoPID').val());
+        formData.append('idtipoprestamo', $('#tipoprestamo').val());
+        formData.append('idtipoplazo', $('#tipoplazo').val());
+        formData.append('idtipomotivo', $('#motivo').val());
+        formData.append('tea', $('#tea').val());
+        formData.append('observacion', $('#comentario').val());
+        formData.append('montoprestamo', parseFloat($('#montoprestamo').val()));
+        formData.append('plazo', $('#plazo').val());
+        formData.append('montocuota', $('#montocuota').val());
+        formData.append('cuotasgracia', $('#cuotagracia').val() || 0);
+        formData.append('comisiones', $('#comisiones').val());
+        formData.append('tcea', $('#tcea').val());
+        formData.append('Fechaaprob', $('#fechaaprob').val());
+        formData.append('Fechavto', $('#fechavcto').val());
+        formData.append('Fechades', $('#fechadesembolso').val());
+        formData.append('Fechaprimp', $('#fecha1pago').val());
+        formData.append('estado', checke);
+        formData.append('cuotadoble', checkcud);
+        /*formData.append('post', checkp);*/
+
+        Swal.fire({
+            title: "¿Estás seguro de guardar el prestamo?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, guardar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/Pret33Prestamo/CrearPrestamoycerrar', // Ajusta la URL según la estructura de tu aplicación
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.mensaje == null) {
+                            Swal.fire({
+                                title: "¡Registro exitoso!",
+                                text: "Se cerrará esta página al dar click.",
+                                icon: "success"
+                            }).then(() => {
+                                // Redirigir al destino especificado
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+
+                        }
+                        // Se eliminó la llamada ajax innecesaria a Pret10Envio/CargarMood
+                    },
+                    error: function (error) {
+                        console.error('Error al crear el prestamo:', error.responseText);
+                        Swal.fire({
+                            title: "¡Error!",
+                            text: "Ocurrió un error al crear el prestamo.",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+    } else {
+        Swal.fire({
+            title: "¡Faltan campos por llenar!",
+            text: "Por favor, complete todos los campos requeridos.",
+            icon: "warning"
+        });
+    }
 }
