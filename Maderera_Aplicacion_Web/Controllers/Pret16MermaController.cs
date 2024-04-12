@@ -738,6 +738,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         Post=0,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
+                        FechaCreacion=fechaHoy,
                         IdEstado = check == true ? 3 : 1,
                         TxtEstado = check == true ? "BORRADOR" : "ACTIVO",
                     };
@@ -982,6 +983,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         Post=0,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
+                        FechaCreacion=fechaHoy,
                         IdEstado = check == true ? 3 : 1,
                         TxtEstado = check == true ? "BORRADOR" : "ACTIVO",
                     };

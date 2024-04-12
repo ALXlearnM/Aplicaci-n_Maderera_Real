@@ -37,6 +37,7 @@ namespace Maderera_Aplicacion_Web.Models
         public string? TxtUsuarioModificador { get; set; }
         public DateTime? FechaModificacion { get; set; }
         public string? PartidaRegistral { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public virtual Sntt33Distrito? IdDistritoNavigation { get; set; }
         public virtual Pert09Inversionistum? IdInversionistaNavigation { get; set; }

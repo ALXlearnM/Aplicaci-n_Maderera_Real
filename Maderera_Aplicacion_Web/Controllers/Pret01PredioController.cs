@@ -456,6 +456,7 @@ namespace Aplicacion_Maderera.Controllers
                         FechaAdquisicion = fechaadquisicion,
                         IdEstado = 1,
                         TxtEstado = "ACTIVO",
+                        FechaCreacion=fechaHoy,
                         IdTipoPredio = (long)idtipoPredio,
                         NroComprobante = nrocomp,
                         FechaCompra = fechacompra,
@@ -714,6 +715,7 @@ namespace Aplicacion_Maderera.Controllers
                         FechaAdquisicion = fechaadquisicion,
                         IdEstado = 1,
                         TxtEstado = "ACTIVO",
+                        FechaCreacion=fechaHoy,
                         IdTipoPredio = (long)idtipoPredio,
                         NroComprobante = nrocomp,
                         FechaCompra = fechacompra,
@@ -828,7 +830,9 @@ namespace Aplicacion_Maderera.Controllers
                     TxtEstado = "ACTIVO",
                     NroDoc = nro_doc,
                     Celular1 = numtelefono,
-                    TxtDireccion1 = direccioninv
+                    TxtDireccion1 = direccioninv,
+                    FechaCreacion=fechaHoy
+
                 };
 
                 // Agrega el cliente a tu contexto y guarda los cambios
@@ -1066,7 +1070,7 @@ namespace Aplicacion_Maderera.Controllers
                                     await _context.SaveChangesAsync();
                                 }
                             }
-                            var existingPagoP = _context.Pert11PagoPersonals.Where(tc => tc.IdEstado == 1 && tc.IdCampaña == idcampanaeliminar).ToList();
+                            var existingPagoP = _context.Pert11PagoPersonals.Where(tc => tc.IdEstado == 1 && tc.IdCampana == idcampanaeliminar).ToList();
                             if (existingPagoP != null)
                             {
                                 foreach (Pert11PagoPersonal PagoPersonal in existingPagoP)

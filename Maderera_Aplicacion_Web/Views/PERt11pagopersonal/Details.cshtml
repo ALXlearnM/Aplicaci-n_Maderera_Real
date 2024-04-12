@@ -52,9 +52,9 @@
                         Tipo:
                     </dt>
                     <dd>
-                        @if (!string.IsNullOrEmpty(Model.Tipo))
+                        @if (!string.IsNullOrEmpty(Model.IdTipopagoNavigation.TxtDesc))
                         {
-                            <input type="text" value="@Model.Tipo" disabled />
+                            <input type="text" value="@Model.IdTipopagoNavigation.TxtDesc" disabled />
                         }
                         else
                         {
@@ -92,9 +92,9 @@
                         Promedio Monto:
                     </dt>
                     <dd>
-                        @if (Model.Monto != null)
+                        @if (Model.MontoTotal != null)
                         {
-                            <input type="text" value="@Model.Monto" disabled />
+                            <input type="text" value="@Model.MontoTotal" disabled />
                         }
                         else
                         {

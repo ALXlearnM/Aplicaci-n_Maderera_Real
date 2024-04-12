@@ -37,6 +37,7 @@ namespace Maderera_Aplicacion_Web.Models
         public string? NroPlaca { get; set; }
         public int? Post { get; set; }
         public DateTime? PostDate { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public virtual Pret07Extraccion? IdExtraccionNavigation { get; set; }
         public virtual Mstt08Location IdLocationNavigation { get; set; } = null!;

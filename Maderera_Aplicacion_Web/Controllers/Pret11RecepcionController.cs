@@ -105,7 +105,7 @@ namespace Maderera_Aplicacion_Web.Controllers
             var sumarreglo = ListadoExtraccionTA == null ? 0 : ListadoExtraccionTA.Sum(lc => lc.sumNroTrozas);
 
             ViewBag.EnvioRecepcion = _context.Pret10Envios
-                   .Where(c => c.IdEstado == 4 && sumarreglo + _context.Pret12RecepcionDtls
+                   .Where(c => c.IdEstado == 2 && sumarreglo + _context.Pret12RecepcionDtls
                        .Where(item =>
                            item.IdEstado == 1 &&
                            c.IdExtraccion == item.IdRecepcionNavigation.IdEnvio &&
@@ -150,7 +150,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
             var sumarreglo = ListadoExtraccionTA == null ? 0 : ListadoExtraccionTA.Sum(lc => lc.sumNroTrozas);
             ViewBag.EnvioRecepcion = _context.Pret10Envios
-                   .Where(c => c.IdEstado == 4 && sumarreglo + _context.Pret12RecepcionDtls
+                   .Where(c => c.IdEstado == 2 && sumarreglo + _context.Pret12RecepcionDtls
                        .Where(item =>
                            item.IdEstado == 1 &&
                            c.IdExtraccion == item.IdRecepcionNavigation.IdEnvio &&
@@ -282,7 +282,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                 var sumarreglo = ListadoExtraccionTA == null ? 0 : ListadoExtraccionTA.Sum(lc => lc.sumNroTrozas);
                 var updatedEnvrec = _context.Pret10Envios
-                   .Where(c => c.IdEstado == 4 && sumarreglo + _context.Pret12RecepcionDtls
+                   .Where(c => c.IdEstado == 2 && sumarreglo + _context.Pret12RecepcionDtls
                        .Where(item =>
                            item.IdEstado == 1 &&
                            c.IdExtraccion == item.IdRecepcionNavigation.IdEnvio &&
@@ -317,7 +317,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                 IdTemporalEnvio = idEnvio == null ? IdTemporalEnvio : idEnvio;
                 var response = _context.Pret10Envios
-                    .Where(e => e.IdEnvio == IdTemporalEnvio && e.IdEstado == 4 || e.IdEstado == 6)
+                    .Where(e => e.IdEnvio == IdTemporalEnvio && e.IdEstado == 2)
                     .Select(e => new
                     {
                         CodCampana = e.IdExtraccionNavigation.IdCampanaNavigation.CodigoCampana,
@@ -792,6 +792,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         Post=0,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
+                        FechaCreacion=fechaHoy,
                         IdEstado = check == true ? 3 : 4,
                         TxtEstado = check == true ? "BORRADOR" : "RECEPCIONADO",
                     };
@@ -1217,6 +1218,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         Post=0,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
+                        FechaCreacion=fechaHoy,
                         IdEstado = check == true ? 3 : 4,
                         TxtEstado = check == true ? "BORRADOR" : "RECEPCIONADO",
                     };

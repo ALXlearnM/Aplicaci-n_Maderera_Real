@@ -37,6 +37,7 @@ namespace Maderera_Aplicacion_Web.Models
         public string NroPro { get; set; } = null!;
         public int? Post { get; set; }
         public DateTime? PostDate { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public virtual Pret02Campana IdCampanaNavigation { get; set; } = null!;
         public virtual Pret07Extraccion? IdExtraccionNavigation { get; set; }

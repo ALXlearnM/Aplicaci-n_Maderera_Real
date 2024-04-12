@@ -679,6 +679,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         TxtUsuario = txtusuario,
                         IdEstado = 1,
                         TxtEstado = "ACTIVO",
+                        FechaCreacion=fechaHoy
                     };
 
                     _context.Pret07Extraccions.Add(Pret07Extraccion);
@@ -904,6 +905,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         TxtUsuario = txtusuario,
                         IdEstado = 1,
                         TxtEstado = "ACTIVO",
+                        FechaCreacion=fechaHoy
                     };
 
                     _context.Pret07Extraccions.Add(Pret07Extraccion);

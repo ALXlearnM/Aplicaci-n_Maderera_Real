@@ -27,7 +27,6 @@ namespace Maderera_Aplicacion_Web.Models
         public decimal MontoTcea { get; set; }
         public DateTime? FechaDesembolso { get; set; }
         public DateTime? FechaPrimPago { get; set; }
-        public DateTime FechaCreacion { get; set; }
         public long IdEstado { get; set; }
         public string TxtEstado { get; set; } = null!;
         public long IdUsuario { get; set; }
@@ -40,12 +39,16 @@ namespace Maderera_Aplicacion_Web.Models
         public decimal Comisiones { get; set; }
         public int? Post { get; set; }
         public DateTime? PostDate { get; set; }
+        public int? IdTiporazonAnulacion { get; set; }
+        public string? TxtRazon { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public virtual Pert04Empleado? IdAutorizadorNavigation { get; set; }
         public virtual Pert04Empleado? IdEmpleadoNavigation { get; set; }
         public virtual Pret32Motivo? IdMotivoNavigation { get; set; }
         public virtual Pret31TipoPlazo IdTipoPlazoNavigation { get; set; } = null!;
         public virtual Pret30TipoPrestamo IdTipoPrestamoNavigation { get; set; } = null!;
+        public virtual Pret35TipoRazonAnulacion? IdTiporazonAnulacionNavigation { get; set; }
         public virtual Pert01Usuario IdUsuarioNavigation { get; set; } = null!;
         public virtual Pert01Usuario? IdUsuariomodNavigation { get; set; }
         public virtual ICollection<Pret34CronogramaPago> Pret34CronogramaPagos { get; set; }

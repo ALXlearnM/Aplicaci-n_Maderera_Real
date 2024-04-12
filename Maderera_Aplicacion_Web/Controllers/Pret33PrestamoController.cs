@@ -25,6 +25,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private static long? IdTemporal { get; set; }
         private static long? IdTemporalCrono { get; set; }
+        private static long? IdTemporalrefinancia { get; set; }
 
         public Pret33PrestamoController(EagleContext context, IPert01UsuarioController pert01UsuarioController, IWebHostEnvironment webHostEnvironment)
         {
@@ -39,7 +40,8 @@ namespace Maderera_Aplicacion_Web.Controllers
         // GET: Pret33Prestamo
         public async Task<IActionResult> ListadoPrestamo()
         {
-            var eagleContext = _context.Pret33Prestamos.Include(p => p.IdAutorizadorNavigation).Include(p => p.IdEmpleadoNavigation).Include(p => p.IdMotivoNavigation).Include(p => p.IdTipoPlazoNavigation).Include(p => p.IdTipoPrestamoNavigation).Include(p => p.IdUsuarioNavigation).Include(p => p.IdUsuariomodNavigation);
+            var eagleContext = _context.Pret33Prestamos.Include(p => p.IdTiporazonAnulacionNavigation).Include(p => p.IdAutorizadorNavigation).Include(p => p.IdEmpleadoNavigation).Include(p => p.IdMotivoNavigation).Include(p => p.IdTipoPlazoNavigation).Include(p => p.IdTipoPrestamoNavigation).Include(p => p.IdUsuarioNavigation).Include(p => p.IdUsuariomodNavigation);
+            ViewData["Idtiporazon"] = new SelectList(_context.Pret35TipoRazonAnulacions, "IdTiporazonAnulacion", "TxtDesc");
             return View(await eagleContext.ToListAsync());
         }
 
@@ -67,11 +69,13 @@ namespace Maderera_Aplicacion_Web.Controllers
 
             return View(pret33Prestamo);
         }
-
+        [HttpGet]
         // GET: Pret33Prestamo/Create
         public IActionResult Prestamo()
         {
+            ViewData["Idtiporazon"] = new SelectList(_context.Pret35TipoRazonAnulacions, "IdTiporazonAnulacion", "TxtDesc");
             IdTemporal = null;
+            IdTemporalrefinancia = null;
             IdTemporalCrono = null;
             ViewBag.EmpleadoP = _context.Pert04Empleados
                     .Include(e => e.IdNacionalidadNavigation)
@@ -100,6 +104,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         [HttpGet]
         public IActionResult EditarPrestamo(long idprestamo)
         {
+            ViewData["Idtiporazon"] = new SelectList(_context.Pret35TipoRazonAnulacions, "IdTiporazonAnulacion", "TxtDesc");
             IdTemporal = null;
             IdTemporalCrono = null;
             ViewBag.EmpleadoP = _context.Pert04Empleados
@@ -133,6 +138,13 @@ namespace Maderera_Aplicacion_Web.Controllers
                 all = campanaTA,
                 CampanaTA = campanaTA,
                 empleado = campanaTA.IdEmpleadoNavigation.TxtPriNom + " " + campanaTA.IdEmpleadoNavigation.TxtApePat,
+                montop = campanaTA.MontoPrestamo,
+                montoc = campanaTA.MontoCuota,
+                tea = campanaTA.MontoTea,
+                comisiones = campanaTA.Comisiones,
+                tcea = campanaTA.MontoTcea,
+                plazo = campanaTA.Plazo,
+                montot = campanaTA.MontoTotal,
 
             })
             .FirstOrDefault();
@@ -152,6 +164,7 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                 IdTemporal = prestamovista?.IdPrestamo;
                 ViewBag.Prestamo = campanaserialized;
+                ViewBag.tipo = 1;
                 return View("Prestamo", prestamovista);
             }
             else
@@ -159,6 +172,88 @@ namespace Maderera_Aplicacion_Web.Controllers
                 return NotFound(); // O redirigir a otra página
             }
         }
+
+        [HttpGet]
+        public IActionResult RefinanciarPrestamo()
+        {
+            try
+            {
+                ViewData["Idtiporazon"] = new SelectList(_context.Pret35TipoRazonAnulacions, "IdTiporazonAnulacion", "TxtDesc");
+                IdTemporalrefinancia = IdTemporal;
+                IdTemporal = null;
+                IdTemporalCrono = null;
+                ViewBag.EmpleadoP = _context.Pert04Empleados
+                        .Include(e => e.IdNacionalidadNavigation)
+                        .Include(e => e.IdDistNavigation)
+                            .ThenInclude(d => d.IdProvNavigation)
+                                .ThenInclude(p => p.IdDptoNavigation)
+                        .Where(e => e.IdDist != null && !string.IsNullOrEmpty(e.Celular1) && !string.IsNullOrEmpty(e.TxtDireccion1))
+                        .Select(e => new
+                        {
+                            Idempleado = e.IdEmpleado,
+                            NombreCompleto = e.TxtPriNom == null ? e.TxtRznSocial : $"{e.TxtPriNom} {e.TxtApePat}",
+                            cargo = e.IdCategoriaEmpNavigation.TxtNombre,
+                            telefono = !string.IsNullOrEmpty(e.Celular1) ? e.Celular1 : (!string.IsNullOrEmpty(e.Celular2) ? e.Celular2 : e.Celular3),
+                            Direccion = $"{e.TxtDireccion1} - {e.IdDistNavigation.TxtDesc}, {e.IdDistNavigation.IdProvNavigation.TxtDesc}, {e.IdDistNavigation.IdProvNavigation.IdDptoNavigation.TxtDesc}",
+                            ruc = String.IsNullOrEmpty(e.NroRuc) ? e.NroDoc : e.NroRuc
+                        })
+                        .ToList();
+                ViewData["IdEmpleado"] = new SelectList(_context.Pert04Empleados, "IdEmpleado", "IdEmpleado");
+                ViewData["IdMotivo"] = new SelectList(_context.Pret32Motivos, "IdMotivo", "TxtMotivo");
+                ViewData["IdTipoPlazo"] = new SelectList(_context.Pret31TipoPlazos, "IdTipoPlazo", "TxtTipoPlazo");
+                ViewData["IdTipoPrestamo"] = new SelectList(_context.Pret30TipoPrestamos, "IdTipoPrestamo", "TxtTipoPrestamo");
+                ViewData["IdUsuario"] = new SelectList(_context.Pert01Usuarios, "IdUsuario", "IdUsuario");
+                ViewData["IdUsuariomod"] = new SelectList(_context.Pert01Usuarios, "IdUsuario", "IdUsuario");
+                var prestamo = _context.Pret33Prestamos
+                .Include(c => c.IdUsuarioNavigation)
+                .Include(c => c.IdUsuariomodNavigation)
+                .Where(c => c.IdPrestamo == IdTemporalrefinancia)
+                .Select(campanaTA => new
+                {
+                    all = campanaTA,
+                    CampanaTA = campanaTA,
+                    empleado = campanaTA.IdEmpleadoNavigation.TxtPriNom + " " + campanaTA.IdEmpleadoNavigation.TxtApePat,
+                    montop = campanaTA.MontoPrestamo,
+                    montoc = campanaTA.MontoCuota,
+                    tea= campanaTA.MontoTea,
+                    comisiones= campanaTA.Comisiones,
+                    tcea= campanaTA.MontoTcea,
+                    plazo= campanaTA.Plazo,
+                    montot= campanaTA.MontoTotal,
+
+                })
+                .FirstOrDefault();
+
+                var prestamovista = _context.Pret33Prestamos
+                .Where(c => c.IdPrestamo == IdTemporalrefinancia)
+                .FirstOrDefault();
+                if (prestamo != null)
+                {
+
+                    var settings = new Newtonsoft.Json.JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    };
+
+                    var campanaserialized = Newtonsoft.Json.JsonConvert.SerializeObject(prestamo, settings);
+
+                    ViewBag.Prestamo = campanaserialized;
+                    ViewBag.monto = (prestamo.CampanaTA.MontoPrestamo) - _context.Pret34CronogramaPagos.Where(p => p.IdPrestamo == IdTemporalrefinancia && p.IdEstado == 8).Sum(p => p.Cuota);
+                    ViewBag.tipo = 2;
+                    ViewBag.countdtl = (prestamo.CampanaTA.Plazo)-_context.Pret34CronogramaPagos.Where(p => p.IdPrestamo == IdTemporalrefinancia && p.IdEstado == 8).Count();
+                    return View("Prestamo", prestamovista);
+                }
+                else
+                {
+                    return NotFound(); // O redirigir a otra página
+                }
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
+        }
+
         [HttpGet]
         public IActionResult RecargarEmpleadoP()
         {
@@ -193,6 +288,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             IdTemporal = null;
             IdTemporalCrono = null;
+            IdTemporalrefinancia= null;
             var redirectUrl = Url.Action("ListadoPrestamo", "Pret33Prestamo");
             var response = new { redirectUrl };
             return Json(response);
@@ -267,29 +363,6 @@ namespace Maderera_Aplicacion_Web.Controllers
             }
         }
 
-        // GET: Pret33Prestamo/Edit/5
-        public async Task<IActionResult> Edit(long? id)
-        {
-            if (id == null || _context.Pret33Prestamos == null)
-            {
-                return NotFound();
-            }
-
-            var pret33Prestamo = await _context.Pret33Prestamos.FindAsync(id);
-            if (pret33Prestamo == null)
-            {
-                return NotFound();
-            }
-            ViewData["IdAutorizador"] = new SelectList(_context.Pert04Empleados, "IdEmpleado", "IdEmpleado", pret33Prestamo.IdAutorizador);
-            ViewData["IdEmpleado"] = new SelectList(_context.Pert04Empleados, "IdEmpleado", "IdEmpleado", pret33Prestamo.IdEmpleado);
-            ViewData["IdMotivo"] = new SelectList(_context.Pret32Motivos, "IdMotivo", "IdMotivo", pret33Prestamo.IdMotivo);
-            ViewData["IdTipoPlazo"] = new SelectList(_context.Pret31TipoPlazos, "IdTipoPlazo", "IdTipoPlazo", pret33Prestamo.IdTipoPlazo);
-            ViewData["IdTipoPrestamo"] = new SelectList(_context.Pret30TipoPrestamos, "IdTipoPrestamo", "IdTipoPrestamo", pret33Prestamo.IdTipoPrestamo);
-            ViewData["IdUsuario"] = new SelectList(_context.Pert01Usuarios, "IdUsuario", "IdUsuario", pret33Prestamo.IdUsuario);
-            ViewData["IdUsuariomod"] = new SelectList(_context.Pert01Usuarios, "IdUsuario", "IdUsuario", pret33Prestamo.IdUsuariomod);
-            return View(pret33Prestamo);
-        }
-
         [HttpPost]
         public async Task<IActionResult> CrearPrestamo(int idempleado, int idtipoprestamo, int idtipoplazo, int idtipomotivo, decimal tea,
             string observacion, decimal montoprestamo, int plazo, int cuotasgracia, decimal comisiones, decimal tcea,
@@ -298,6 +371,24 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
+                if (IdTemporalrefinancia != null)
+                {
+                    var prestamorefinanciado = _context.Pret33Prestamos
+                .Where(c => c.IdPrestamo == IdTemporalrefinancia)
+                .FirstOrDefault();
+                    prestamorefinanciado.IdEstado = 5;
+                    prestamorefinanciado.TxtEstado= "ANULADO";
+                    var existingdtlprestamo= _context.Pret34CronogramaPagos
+                .Where(c => c.IdPrestamo == IdTemporalrefinancia && c.IdEstado!= 8)
+                .ToList();
+                    foreach (Pret34CronogramaPago unidad in existingdtlprestamo) { 
+                    unidad.IdEstado= 5;
+                    unidad.TxtEstado= "ANULADO";
+
+                    }
+                    _context.SaveChanges();
+                    IdTemporalrefinancia = null;
+                }
                 DateTime fechavencimiento = Fechaprimp;
                 decimal montoinicial = 0;
                 decimal montointeres = 0;
@@ -554,6 +645,25 @@ namespace Maderera_Aplicacion_Web.Controllers
         {
             try
             {
+                if (IdTemporalrefinancia != null)
+                {
+                    var prestamorefinanciado = _context.Pret33Prestamos
+                .Where(c => c.IdPrestamo == IdTemporalrefinancia)
+                .FirstOrDefault();
+                    prestamorefinanciado.IdEstado = 5;
+                    prestamorefinanciado.TxtEstado = "ANULADO";
+                    var existingdtlprestamo = _context.Pret34CronogramaPagos
+                .Where(c => c.IdPrestamo == IdTemporalrefinancia && c.IdEstado != 8)
+                .ToList();
+                    foreach (Pret34CronogramaPago unidad in existingdtlprestamo)
+                    {
+                        unidad.IdEstado = 5;
+                        unidad.TxtEstado = "ANULADO";
+
+                    }
+                    _context.SaveChanges();
+                    IdTemporalrefinancia = null;
+                }
                 DateTime fechavencimiento = Fechaprimp;
                 decimal montoinicial = 0;
                 decimal montointeres = 0;
@@ -840,8 +950,12 @@ namespace Maderera_Aplicacion_Web.Controllers
 
                 if (existingPrestamo != null)
                 {
+                    var existingDtlPrestamo = _context.Pret34CronogramaPagos.Where(c => c.IdPrestamo == id).ToList();
+                    foreach (Pret34CronogramaPago unidad in existingDtlPrestamo)
+                    {
+                        _context.Pret34CronogramaPagos.Remove(unidad);
 
-
+                    }
                     _context.Pret33Prestamos.Remove(existingPrestamo);
                     await _context.SaveChangesAsync();
                 }
@@ -856,7 +970,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AnularPrestamo(long id)
+        public async Task<IActionResult> AnularPrestamo(long id,int? idtiporazon,string txttiporazon)
         {
             try
             {
@@ -865,6 +979,45 @@ namespace Maderera_Aplicacion_Web.Controllers
                 {
                     prestamo.IdEstado = 5;
                     prestamo.TxtEstado = "ANULADO";
+                    prestamo.IdTiporazonAnulacion= idtiporazon;
+                    prestamo.TxtRazon=txttiporazon;
+                }
+                var existingDtlPrestamo = _context.Pret34CronogramaPagos.Where(c => c.IdPrestamo == id).ToList();
+                foreach (Pret34CronogramaPago unidad in existingDtlPrestamo)
+                {
+                    unidad.IdEstado = 5;
+                    unidad.TxtEstado = "ANULADO";
+                }
+                await _context.SaveChangesAsync();
+
+
+                return Json(new { redirectUrl = Url.Action("ListadoPrestamo", "Pret33Prestamo") }); // Redirige a donde quieras después de la eliminación
+            }
+            catch (Exception ex)
+            {
+                // Manejar el error, redirigir a una vista de error, o realizar otras acciones según tu lógica
+                return RedirectToAction("Error");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> AnularPrestamopro(int? idtiporazon, string txttiporazon)
+        {
+            try
+            {
+                long? id =IdTemporal;
+                var existingprestamo = _context.Pret33Prestamos.Where(c => c.IdPrestamo == id).ToList();
+                foreach (Pret33Prestamo prestamo in existingprestamo)
+                {
+                    prestamo.IdEstado = 5;
+                    prestamo.TxtEstado = "ANULADO";
+                    prestamo.IdTiporazonAnulacion = idtiporazon;
+                    prestamo.TxtRazon = txttiporazon;
+                }
+                var existingDtlPrestamo = _context.Pret34CronogramaPagos.Where(c => c.IdPrestamo == id).ToList();
+                foreach (Pret34CronogramaPago unidad in existingDtlPrestamo)
+                {
+                    unidad.IdEstado = 5;
+                    unidad.TxtEstado= "ANULADO";
                 }
                 await _context.SaveChangesAsync();
 

@@ -102,6 +102,7 @@ namespace Maderera_Aplicacion_Web.Models
         public int IdLocationTo { get; set; }
         public long? IdPredio { get; set; }
         public long? IdCampana { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public virtual Pret02Campana? IdCampanaNavigation { get; set; }
         public virtual Mstt04CanalVtum? IdCanVtaNavigation { get; set; }
