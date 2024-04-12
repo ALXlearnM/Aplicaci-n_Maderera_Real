@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo se usa en el proceso de publicación y empaquetado del proyecto web. Para personalizar el comportamiento de este proceso,
+edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 para obtener más información. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbSICdk+yJUyKkLmlWs1sFQAAAAACAAAAAAAQZgAAAAEAACAAAABG9V4X0hDedQgwyduv/z/nS46WyOn/+L/mzhB6YpmohAAAAAAOgAAAAAIAACAAAACL6duowbrt9tJ212XymOLxsrHJxmwabWbdOMpSjy3fIyAAAAATZID6OYaIWMU8kRXWoCW3x3UaDmm6Fantqcey47YIs0AAAAA8/UlYQ/UqAT3Fs2Hk4RQnbIFcCGnoFKWruWjBk+gK0++Wl0qhEMczDgiEPFA1Q+2toC1QOOuio+JFg9dcmc9U</EncryptedPassword>
+    <History>True|2024-04-06T21:42:40.5701355Z;True|2024-04-06T07:17:14.6557530-05:00;True|2024-04-06T00:16:29.3177625-05:00;True|2024-04-06T00:05:28.4156556-05:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="conexion">
+      <Value>Data Source=SQL9001.site4now.net%3bInitial Catalog=db_aa6a6b_eagle%3bUser Id=db_aa6a6b_eagle_admin%3bPassword=admineagle19</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

@@ -1,14 +1,14 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj": {}
+    "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj": {
+    "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj",
+        "projectUniqueName": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj",
         "projectName": "ConfigUtilitarios",
-        "projectPath": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj",
+        "projectPath": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {}
@@ -19,14 +19,14 @@
         "net472": {}
       }
     },
-    "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj": {
+    "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj",
+        "projectUniqueName": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj",
         "projectName": "Maderera_Aplicacion_Web",
-        "projectPath": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj",
+        "projectPath": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\Maderera_Aplicacion_Web.csproj",
         "packagesPath": "C:\\Users\\Walter\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\obj\\",
+        "outputPath": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\Maderera_Aplicacion_Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -48,8 +48,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj": {
-                "projectPath": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj"
+              "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj": {
+                "projectPath": "C:\\Users\\Walter\\source\\repos\\Aplicaci-n_Maderera_Real\\Aplicaci-n_Maderera_Real\\ConfigUtilitarios\\ConfigUtilitarios.csproj"
               }
             }
           }
