@@ -28,6 +28,7 @@ namespace Maderera_Aplicacion_Web.Models
         public DateTime? FechaModificacion { get; set; }
         public int? Post { get; set; }
         public DateTime? PostDate { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public virtual Pret02Campana IdCampanaNavigation { get; set; } = null!;
         public virtual Pret01Predio IdPredioNavigation { get; set; } = null!;

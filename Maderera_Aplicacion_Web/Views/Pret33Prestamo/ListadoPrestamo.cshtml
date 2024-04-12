@@ -79,7 +79,7 @@
                                 @item.TxtEstado
                             </td>
                             <td>
-                                @if (item.IdEstado == 3)
+                                @if (item.IdEstado == 3 || item.IdEstado == 6)
                                 {
                                     <a asp-controller="Pret33Prestamo" asp-action="EditarPrestamo" asp-route-idprestamo="@item.IdPrestamo" class="btn btn-primary btn-sm">
                                         <i class="fas fa-edit" data-placement="top" title="Edit"></i>
@@ -150,7 +150,18 @@
                                             <div class="modal-body">
                                                 ¿Está seguro de que desea anular este préstamo?
                                             </div>
-                                            <div class="modal-footer">
+
+                                            <div class="col-sm-9 ml-5 ">
+                                                <label @* class="form-control" *@>Tipo:</label>
+                                                <select class="form-control form-control-sm mx-sm-3 mb-2 " id="tiporazonanu" asp-items="ViewBag.Idtiporazon"></select>
+
+                                            </div>
+                                            <div class="col-sm-9 ml-5 ">
+                                                <label>Observación:</label>
+                                                <textarea class="form-control form-control-sm mx-sm-3 mb-2"  id="txtrazonanu"></textarea>
+
+                                            </div>
+                                            <div class="modal-footer ">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                                 <button type="button" class="btn btn-danger" onclick="anularPrestamo()">Anular</button>
                                             </div>

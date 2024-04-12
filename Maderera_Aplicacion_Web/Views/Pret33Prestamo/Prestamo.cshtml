@@ -28,13 +28,58 @@
             <div class="col mb-2 mr-5">
                 <img class="img-fluid" style="margin: 0.25% 3.5%;
              width: 7%;
-             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+             position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa">
             </div>
 
             <div class="col mb-3 ml-3 mr-3">
                 <div class="d-flex justify-content-between p-0" id="botonesbarra1">
-                    <button id="guardarPre" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
-                    <button id="guardarycerrarPre" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
+
+                    
+                        @* Botones Borrador *@
+                        <button id="guardarPre" class="btn btn-success btn-sm mr-2" role="button">Guardar</button>
+                        <button id="guardarycerrarPre" class="btn btn-primary btn-sm mr-2" role="button">Guardar y Cerrar</button>
+
+                        @* Botones ACTIVO *@
+
+                        <a id="refinanciarPre" asp-controller="Pret33Prestamo" asp-action="RefinanciarPrestamo" class="btn btn-primary btn-sm">Refinanciar</a>
+                        <a id="anularviewPre" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmarAnularPrestamopro" >Anular</a>
+                    
+
+                    <div class="modal fade" id="confirmarAnularPrestamopro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirmar Anulación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Está seguro de que desea anular este préstamo?
+                                </div>
+
+                                <div class="col-sm-9 ml-5 ">
+                                    <label @* class="form-control" *@>Tipo:</label>
+                                    <select class="form-control form-control-sm mx-sm-3 mb-2 " id="tiporazonanupro" asp-items="ViewBag.Idtiporazon"></select>
+
+                                </div>
+                                <div class="col-sm-9 ml-5 ">
+                                    <label>Observación:</label>
+                                    <textarea class="form-control form-control-sm mx-sm-3 mb-2" id="txtrazonanupro"></textarea>
+
+                                </div>
+                                <div class="modal-footer ">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger" onclick="anularPrestamopro()">Anular</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    
+
+
                     <button id="cancelarPre" class="btn btn-danger btn-sm" role="button">Cancelar</button>
                 </div>
             </div>
@@ -118,7 +163,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TEA(%):</label>
                                     <div class="col-sm-7 ml-5">
-                                        <input asp-for="MontoTea" type="number" oninput="calcularTcea()" id="tea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <input  type="number" oninput="calcularTcea()" id="tea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
 
                                     </div>
 
@@ -141,7 +186,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Prest($)* :</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input asp-for="MontoPrestamo" type="number" id="montoprestamo" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
+                                    <input  type="number" id="montoprestamo" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
 
                                 </div>
 
@@ -149,7 +194,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Plazo* :</label>
                                 <div class="col-sm-7 ml-5">
-                                        <input asp-for="Plazo" type="number" id="plazo" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
+                                        <input  type="number" id="plazo" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
 
                                 </div>
 
@@ -158,7 +203,7 @@
                             <div class="form-group row">
                                     <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Cuota($)* :</label>
                                 <div class="col-sm-7 ml-5">
-                                        <input asp-for="MontoCuota" type="number" id="montocuota" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly />
+                                        <input  type="number" id="montocuota" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly />
 
 
                                 </div>
@@ -176,7 +221,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Comisiones(%):</label>
                                     <div class="col-sm-7 ml-5">
-                                        <input asp-for="Comisiones" oninput="calcularTcea()" type="number" id="comisiones" r class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
+                                        <input  oninput="calcularTcea()" type="number" id="comisiones" r class="form-control form-control-sm mx-sm-3 mb-2 p-0" />
 
                                     </div>
 
@@ -184,7 +229,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> Monto Total($)* :</label>
                                     <div class="col-sm-7 ml-5">
-                                        <input asp-for="MontoTotal" type="number" readonly id="montototal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
+                                        <input  type="number" readonly id="montototal" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" oninput="calcularcuota()" />
 
                                     </div>
 
@@ -235,7 +280,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label col-form-label-sm text-nowrap" style="font-size:16px;"> TCEA(%):</label>
                                 <div class="col-sm-7 ml-5">
-                                    <input asp-for="MontoTcea" type="number" id="tcea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly/>
+                                    <input  type="number" id="tcea" required class="form-control form-control-sm mx-sm-3 mb-2 p-0" readonly/>
 
                                 </div>
 
@@ -376,6 +421,8 @@
 
     }
     document.addEventListener("DOMContentLoaded", function () {
+        $('#refinanciarPre').hide();
+        $('#anularviewPre').hide();
         var table = jQuery('#tablaEmpleadoP').DataTable(
 
             {
@@ -401,8 +448,9 @@
                 }
             }
         );
-        
-         var prestamo= @Html.Raw(Json.Serialize(ViewBag.Prestamo));
+
+        var prestamo = @Html.Raw(Json.Serialize(ViewBag.Prestamo));
+        var tipo = @Html.Raw(Json.Serialize(ViewBag.tipo));
         var CompParsed = JSON.parse(prestamo);
 
         if (CompParsed !== null) {
@@ -418,12 +466,18 @@
                         // Supongamos que tienes un input checkbox con el id "miCheckbox"
                         $('#estadoP').prop('checked', true);
                         $('#estadoP').prop('disabled', false);
+                        // $('#refinanciarPre').toggle();
+                        // $('#anularviewPre').toggle();
 
                     } else if (response.id == 6) {
                         document.getElementById('moodNamePre').innerText = response.name;
                         // Supongamos que tienes un input checkbox con el id "miCheckbox"
                         $('#estadoP').prop('checked', true);
                         $('#estadoP').prop('disabled', true);
+                        $('#guardarPre').hide();
+                        $('#guardarycerrarPre').hide();
+                        $('#refinanciarPre').show();
+                        $('#anularviewPre').show();
                     }
 
                     // if (response.poste) {
@@ -457,6 +511,33 @@
             // Ocultar el seleCAMPEXT
             var selectElement = document.getElementById('epcbo');
             selectElement.style.display = 'none';
+            if(tipo ==2){
+                console.log("sad");
+                let monto = @Html.Raw(Json.Serialize(ViewBag.monto));
+                // let montoDouble = Convert.ToDouble(monto);
+                // console.log(monto);
+                console.log(monto);
+                $('#montoprestamo').val(monto);
+                let cantidadprestpagados= @Html.Raw(Json.Serialize(ViewBag.countdtl));
+                // let cantidadcronopag= Convert.ToInt(cantidadprestpagados);
+                // console.log(cantidadprestpagados);
+                console.log(cantidadprestpagados);
+                $('#plazo').val(cantidadprestpagados);
+                $('#tea').val(CompParsed.tea);
+                $('#comisiones').val(CompParsed.comisiones);
+                $('#tcea').val(CompParsed.tcea);
+                calcularcuota();
+            }else{
+               
+                $('#montoprestamo').val(CompParsed.montop);
+                $('#montocuota').val(CompParsed.montoc);
+                $('#montototal').val(CompParsed.montot);
+                $('#tea').val(CompParsed.tea);
+                $('#comisiones').val(CompParsed.comisiones);
+                $('#tcea').val(CompParsed.tcea);
+                $('#monotototal').val(CompParsed.montot);
+                $('#plazo').val(CompParsed.plazo);
+            }
         } else {
             $('#fechaaprob').val(returndatenow());
             $('#tea').val(0);

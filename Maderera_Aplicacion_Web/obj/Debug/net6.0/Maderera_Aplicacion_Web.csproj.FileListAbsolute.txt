@@ -790,6 +790,7 @@ C:\Users\Walter\source\repos\Aplicaciòn_Maderera_Real\Maderera_Aplicacion_Web\b
 C:\Users\Walter\source\repos\Aplicaciòn_Maderera_Real\Maderera_Aplicacion_Web\bin\Debug\net6.0\ConfigUtilitarios.dll
 C:\Users\Walter\source\repos\Aplicaciòn_Maderera_Real\Maderera_Aplicacion_Web\bin\Debug\net6.0\ConfigUtilitarios.pdb
 C:\Users\Walter\source\repos\Aplicaciòn_Maderera_Real\Maderera_Aplicacion_Web\bin\Debug\net6.0\ConfigUtilitarios.dll.config
+<<<<<<< HEAD
 C:\Users\Mad\Desktop\MADERERA\HOLA\Aplicaciòn_Maderera_Real\Maderera_Aplicacion_Web\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Mad\Desktop\MADERERA\HOLA\Aplicaciòn_Maderera_Real\Maderera_Aplicacion_Web\bin\Debug\net6.0\appsettings.json
 C:\Users\Mad\Desktop\MADERERA\HOLA\Aplicaciòn_Maderera_Real\Maderera_Aplicacion_Web\bin\Debug\net6.0\Maderera_Aplicacion_Web.staticwebassets.runtime.json
@@ -1380,3 +1381,5 @@ C:\Users\Walter\source\repos\Aplicaci-n_Maderera_Real\Aplicaci-n_Maderera_Real\M
 C:\Users\Walter\source\repos\Aplicaci-n_Maderera_Real\Aplicaci-n_Maderera_Real\Maderera_Aplicacion_Web\obj\Debug\net6.0\Maderera_Aplicacion_Web.pdb
 C:\Users\Walter\source\repos\Aplicaci-n_Maderera_Real\Aplicaci-n_Maderera_Real\Maderera_Aplicacion_Web\obj\Debug\net6.0\Maderera_Aplicacion_Web.genruntimeconfig.cache
 C:\Users\Walter\source\repos\Aplicaci-n_Maderera_Real\Aplicaci-n_Maderera_Real\Maderera_Aplicacion_Web\obj\Debug\net6.0\ref\Maderera_Aplicacion_Web.dll
+=======
+>>>>>>> 18870375b30e4388882e4323fb4684ac68c8891c

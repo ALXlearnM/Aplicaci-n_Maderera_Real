@@ -36,6 +36,7 @@ namespace Maderera_Aplicacion_Web.Models
         public string? Info04 { get; set; }
         public int IdEstado { get; set; }
         public string TxtEstado { get; set; } = null!;
+        public DateTime FechaCreacion { get; set; }
 
         public virtual Sntt02TipoDocIdentidad IdTipoDocumentoNavigation { get; set; } = null!;
         public virtual ICollection<Pret01Predio> Pret01Predios { get; set; }

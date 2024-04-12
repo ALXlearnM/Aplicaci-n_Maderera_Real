@@ -35,6 +35,7 @@ namespace Maderera_Aplicacion_Web.Models
         public int? IdLocationTo { get; set; }
         public int? Post { get; set; }
         public DateTime? PostDate { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public virtual Pret10Envio? IdEnvioNavigation { get; set; }
         public virtual Mstt08Location? IdLocationNavigation { get; set; }

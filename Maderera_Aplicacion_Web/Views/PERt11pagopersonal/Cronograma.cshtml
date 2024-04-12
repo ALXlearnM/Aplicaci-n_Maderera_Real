@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Maderera_Aplicacion_Web.Models.Pret34CronogramaPago>
+@{
+
+    <title>@ViewData["Title"] Jhyperionm</title>
+    @if (Model != null)
+    {
+        Layout = "_Layout"; // Nombre del layout que deseas aplicar
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Título de la página</title>
+
+    <style>
+        /* Optional: Remove table cell borders */
+        .table td,
+        .table th {
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="d-flex ml-5">
+        <div class="row mb-1 justify-content-end w-100 ">
+            <div class="col mb-2 mr-5">
+                <img class="img-fluid" style="margin: 0.25% 3.5%;
+            width: 7%;
+            position: absolute;" src="~/jhyperionm.png" alt="Logo de la empresa )">
+            </div>
+
+            <div class="col mb-3 ml-3 mr-3">
+                <div class="d-flex justify-content-between p-0" id="botonesbarra1">
+                    <button onclick="VolverPago()" class="btn btn-danger btn-sm" role="button">Volver al Pago</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="text-decoration-line-through" />
+
+    <div class="col">
+        <div class="card">
+            @* <div class="card-header text-nowrap">
+                <div class="d-inline-flex">
+                    <h4>CRONOGRAMA</h4>
+
+                    <div class="d-inline-flex text-nowrap ml-5 mb-0">
+                        <input class="form-check" type="checkbox" id="estadoCrono">
+                        <span class="text-black ml-2 mb-0 mt-1" id="moodNamePre">BORRADOR</span>
+                    </div>
+
+                </div>
+            </div> *@
+
+            <div class="table-responsive-lg">
+                <table class="table table-striped table-bordered border-top border-bottom m-0">
+                    <thead>
+                        <tr>
+                            <th class="text-sm-center" scope="col">MES</th>
+                            <th class="text-sm-center" scope="col">VENCIMIENTO</th>
+                            <th class="text-sm-center" scope="col">AMORTIZACION</th>
+                            <th class="text-sm-center" scope="col">INTERÉS</th>
+                            <th class="text-sm-center" scope="col">CUOTA</th>
+                            <th class="text-sm-center" scope="col">SALDO</th>
+                            <th class="text-sm-center" scope="col">FECHA PAGO</th>
+                            <th class="text-sm-center" scope="col">ESTADO</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int cont = 1;
+                        }
+                        @foreach (var item in ViewBag.ListadoPers)
+                        {
+                            <tr>
+                                <td class="text-sm-center">@cont</td>
+                                <td class="text-sm-center">@item.FechaVencimiento</td>
+                                <td class="text-sm-center">
+                                    @{
+                                        
+                                        @item.Amortizacion.ToString("F2");
+                                    }
+                                </td>
+                                <td class="text-sm-center">
+                                    @{
+                                        @item.Interes.ToString("F2")
+                                    }
+                                </td>
+                                <td class="text-sm-center">
+                                    @{
+                                        @item.Cuota.ToString("F2")
+                                    }
+                                </td>
+                                <td class="sm-text-center">
+                                    @{
+                                        @item.SaldoInicial.ToString("F2")
+                                    }
+                                </td>
+
+                                <td class="text-sm-center">@{
+                                        if (item.FechaPago == null)
+                                        {
+                                            <text>Falta pagar</text>
+                                        }
+                                        else
+                                        {
+                                            @item.FechaPago;
+                                        }
+
+                                    }</td>
+                                <td class="text-sm-center">@item.TxtEstado</td>
+                            
+                            </tr>
+                            cont++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+<script>
+
+
+
+
+</script>

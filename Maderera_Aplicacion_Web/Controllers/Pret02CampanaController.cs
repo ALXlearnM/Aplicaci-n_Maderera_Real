@@ -432,6 +432,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         TxtUsuario = txtusuario,
                         IdEstado = 1,
                         TxtEstado = "ACTIVO",
+                        FechaCreacion=fechaHoy,
                         IdDistrito = (int)IdDistrito,
                         FechaInicio = FechaInicio,
                     };
@@ -606,6 +607,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         TxtUsuario = txtusuario,
                         IdEstado = 1,
                         TxtEstado = "ACTIVO",
+                        FechaCreacion=fechaHoy,
                         IdDistrito = (int)IdDistrito,
                         FechaInicio = FechaInicio,
                     };

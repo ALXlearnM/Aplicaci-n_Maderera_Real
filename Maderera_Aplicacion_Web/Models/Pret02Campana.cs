@@ -20,7 +20,6 @@ namespace Maderera_Aplicacion_Web.Models
         public long IdTipoCampana { get; set; }
         public string? CodigoCampana { get; set; }
         public double Area { get; set; }
-        public int NroHectarea { get; set; }
         public int NroArboles { get; set; }
         public string Coordenadas { get; set; } = null!;
         public string? Latitud { get; set; }
@@ -39,6 +38,8 @@ namespace Maderera_Aplicacion_Web.Models
         public string TxtUsuario { get; set; } = null!;
         public string? TxtUsuarioModificador { get; set; }
         public DateTime? FechaModificacion { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public decimal NroHectarea { get; set; }
 
         public virtual Sntt33Distrito IdDistritoNavigation { get; set; } = null!;
         public virtual Pret01Predio IdPredioNavigation { get; set; } = null!;

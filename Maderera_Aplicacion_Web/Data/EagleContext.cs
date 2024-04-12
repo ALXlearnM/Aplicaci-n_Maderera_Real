@@ -119,6 +119,8 @@ namespace Maderera_Aplicacion_Web.Data
         public virtual DbSet<Pret33Prestamo> Pret33Prestamos { get; set; } = null!;
         public virtual DbSet<Pret34CronogramaPago> Pret34CronogramaPagos { get; set; } = null!;
         public virtual DbSet<Pret35PagoPrestamo> Pret35PagoPrestamos { get; set; } = null!;
+        public virtual DbSet<Pret35TipoRazonAnulacion> Pret35TipoRazonAnulacions { get; set; } = null!;
+        public virtual DbSet<Pret36TipoPago> Pret36TipoPagos { get; set; } = null!;
         public virtual DbSet<Prot01Marca> Prot01Marcas { get; set; } = null!;
         public virtual DbSet<Prot02Modelo> Prot02Modelos { get; set; } = null!;
         public virtual DbSet<Prot03Familium> Prot03Familia { get; set; } = null!;
@@ -3910,6 +3912,8 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasColumnType("date")
                     .HasColumnName("fech_nac");
 
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
+
                 entity.Property(e => e.IdEstado).HasColumnName("id_estado");
 
                 entity.Property(e => e.IdTipoDocumento).HasColumnName("id_tipo_documento");
@@ -4041,6 +4045,11 @@ namespace Maderera_Aplicacion_Web.Data
 
                 entity.Property(e => e.IdPagoPersonal).HasColumnName("Id_pago_personal");
 
+                entity.Property(e => e.Anho)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("anho");
+
                 entity.Property(e => e.Estado)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -4049,33 +4058,63 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasColumnType("date")
                     .HasColumnName("fecha");
 
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_creacion");
+
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
                 entity.Property(e => e.IdAutorizador).HasColumnName("id_autorizador");
 
-                entity.Property(e => e.IdCampaña).HasColumnName("id_campaña");
+                entity.Property(e => e.IdCampana).HasColumnName("id_campana");
 
                 entity.Property(e => e.IdConcepto).HasColumnName("id_concepto");
 
                 entity.Property(e => e.IdEmpleado).HasColumnName("id_empleado");
 
+                entity.Property(e => e.IdEstado).HasColumnName("id_estado");
+
                 entity.Property(e => e.IdPredio).HasColumnName("id_predio");
+
+                entity.Property(e => e.IdTipopago).HasColumnName("id_tipopago");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuarioModificador).HasColumnName("id_usuario_modificador");
 
                 entity.Property(e => e.Mes)
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("mes");
 
-                entity.Property(e => e.Monto)
-                    .HasColumnType("decimal(10, 2)")
-                    .HasColumnName("monto");
+                entity.Property(e => e.MontoDeposito)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("monto_deposito");
 
-                entity.Property(e => e.Tipo)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("tipo");
+                entity.Property(e => e.MontoPrestamo)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("monto_prestamo");
+
+                entity.Property(e => e.MontoTotal)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("monto_total");
 
                 entity.Property(e => e.TxtEstado)
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_estado");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuarioModificador)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario_modificador");
 
                 entity.HasOne(d => d.IdAutorizadorNavigation)
                     .WithMany(p => p.Pert11PagoPersonals)
@@ -4083,11 +4122,11 @@ namespace Maderera_Aplicacion_Web.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__PERt11_pa__id_au__24DD5622");
 
-                entity.HasOne(d => d.IdCampañaNavigation)
+                entity.HasOne(d => d.IdCampanaNavigation)
                     .WithMany(p => p.Pert11PagoPersonals)
-                    .HasForeignKey(d => d.IdCampaña)
+                    .HasForeignKey(d => d.IdCampana)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PERt11_pa__id_ca__26C59E94");
+                    .HasConstraintName("FK__PERt11_pa__id_ca__23150941");
 
                 entity.HasOne(d => d.IdConceptoNavigation)
                     .WithMany(p => p.Pert11PagoPersonals)
@@ -4106,6 +4145,12 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasForeignKey(d => d.IdPredio)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__PERt11_pa__id_pr__25D17A5B");
+
+                entity.HasOne(d => d.IdTipopagoNavigation)
+                    .WithMany(p => p.Pert11PagoPersonals)
+                    .HasForeignKey(d => d.IdTipopago)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PagoPersonal_TipoPago");
             });
 
             modelBuilder.Entity<Pret01Predio>(entity =>
@@ -4136,6 +4181,8 @@ namespace Maderera_Aplicacion_Web.Data
                 entity.Property(e => e.FechaCompra)
                     .HasColumnType("date")
                     .HasColumnName("fecha_compra");
+
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
 
                 entity.Property(e => e.FechaModificacion)
                     .HasColumnType("datetime")
@@ -4251,6 +4298,8 @@ namespace Maderera_Aplicacion_Web.Data
                     .IsUnicode(false)
                     .HasColumnName("coordenadas");
 
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
+
                 entity.Property(e => e.FechaFina)
                     .HasColumnType("datetime")
                     .HasColumnName("fecha_fina");
@@ -4307,7 +4356,9 @@ namespace Maderera_Aplicacion_Web.Data
 
                 entity.Property(e => e.NroArboles).HasColumnName("nro_arboles");
 
-                entity.Property(e => e.NroHectarea).HasColumnName("nro_hectarea");
+                entity.Property(e => e.NroHectarea)
+                    .HasColumnType("decimal(18, 8)")
+                    .HasColumnName("nro_hectarea");
 
                 entity.Property(e => e.TxtEstado)
                     .HasMaxLength(100)
@@ -4562,6 +4613,8 @@ namespace Maderera_Aplicacion_Web.Data
 
                 entity.Property(e => e.DiamProTotal).HasColumnName("diam_pro_total");
 
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
+
                 entity.Property(e => e.FechaExtraccion)
                     .HasColumnType("datetime")
                     .HasColumnName("fecha_extraccion");
@@ -4767,6 +4820,8 @@ namespace Maderera_Aplicacion_Web.Data
 
                 entity.Property(e => e.EnvioCant).HasColumnName("envio_cant");
 
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
+
                 entity.Property(e => e.FechaEnvio)
                     .HasColumnType("date")
                     .HasColumnName("fecha_envio");
@@ -4891,6 +4946,8 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasMaxLength(500)
                     .IsUnicode(false)
                     .HasColumnName("comentario");
+
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
 
                 entity.Property(e => e.FechaModificacion)
                     .HasColumnType("datetime")
@@ -5161,6 +5218,8 @@ namespace Maderera_Aplicacion_Web.Data
                     .IsUnicode(false)
                     .HasColumnName("comentario_pro");
 
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
+
                 entity.Property(e => e.FechaModificacion)
                     .HasColumnType("datetime")
                     .HasColumnName("fecha_modificacion");
@@ -5345,6 +5404,8 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasMaxLength(600)
                     .IsUnicode(false)
                     .HasColumnName("comentario");
+
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
 
                 entity.Property(e => e.FechaMerma)
                     .HasColumnType("date")
@@ -6092,9 +6153,7 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasColumnType("date")
                     .HasColumnName("Fecha_Aprob_Prestamo");
 
-                entity.Property(e => e.FechaCreacion)
-                    .HasColumnType("datetime")
-                    .HasColumnName("fecha_creacion");
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
 
                 entity.Property(e => e.FechaDesembolso)
                     .HasColumnType("date")
@@ -6123,6 +6182,8 @@ namespace Maderera_Aplicacion_Web.Data
                 entity.Property(e => e.IdTipoPlazo).HasColumnName("id_Tipo_Plazo");
 
                 entity.Property(e => e.IdTipoPrestamo).HasColumnName("id_Tipo_Prestamo");
+
+                entity.Property(e => e.IdTiporazonAnulacion).HasColumnName("id_tiporazon_anulacion");
 
                 entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
 
@@ -6164,6 +6225,11 @@ namespace Maderera_Aplicacion_Web.Data
                     .IsUnicode(false)
                     .HasColumnName("Txt_Observacion");
 
+                entity.Property(e => e.TxtRazon)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_razon");
+
                 entity.Property(e => e.TxtUsuario)
                     .HasMaxLength(100)
                     .IsUnicode(false)
@@ -6200,6 +6266,11 @@ namespace Maderera_Aplicacion_Web.Data
                     .HasForeignKey(d => d.IdTipoPrestamo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Prestamos_TipoPrestamo");
+
+                entity.HasOne(d => d.IdTiporazonAnulacionNavigation)
+                    .WithMany(p => p.Pret33Prestamos)
+                    .HasForeignKey(d => d.IdTiporazonAnulacion)
+                    .HasConstraintName("FK_Pret33Prestamo_Pret35_tipo_razon_anulacion");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Pret33PrestamoIdUsuarioNavigations)
@@ -6358,6 +6429,94 @@ namespace Maderera_Aplicacion_Web.Data
                     .WithMany(p => p.Pret35PagoPrestamoIdUsuariomodNavigations)
                     .HasForeignKey(d => d.IdUsuariomod)
                     .HasConstraintName("FK_PagoP_usuariomod");
+            });
+
+            modelBuilder.Entity<Pret35TipoRazonAnulacion>(entity =>
+            {
+                entity.HasKey(e => e.IdTiporazonAnulacion)
+                    .HasName("PK__Pret35_t__22A15E3F81C69427");
+
+                entity.ToTable("Pret35_tipo_razon_anulacion");
+
+                entity.Property(e => e.IdTiporazonAnulacion).HasColumnName("id_tiporazon_anulacion");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_creacion");
+
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
+                entity.Property(e => e.IdEstado).HasColumnName("id_estado");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuarioModificador).HasColumnName("id_usuario_modificador");
+
+                entity.Property(e => e.TxtDesc)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_desc");
+
+                entity.Property(e => e.TxtEstado)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_estado");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuarioModificador)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario_modificador");
+            });
+
+            modelBuilder.Entity<Pret36TipoPago>(entity =>
+            {
+                entity.HasKey(e => e.IdTipopago)
+                    .HasName("PK__Pret36_t__1B8FBF57F142C82C");
+
+                entity.ToTable("Pret36_tipo_pago");
+
+                entity.Property(e => e.IdTipopago).HasColumnName("id_tipopago");
+
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_creacion");
+
+                entity.Property(e => e.FechaModificacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fecha_modificacion");
+
+                entity.Property(e => e.IdEstado).HasColumnName("id_estado");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+                entity.Property(e => e.IdUsuarioModificador).HasColumnName("id_usuario_modificador");
+
+                entity.Property(e => e.TxtDesc)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_desc");
+
+                entity.Property(e => e.TxtEstado)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_estado");
+
+                entity.Property(e => e.TxtUsuario)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario");
+
+                entity.Property(e => e.TxtUsuarioModificador)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("txt_usuario_modificador");
             });
 
             modelBuilder.Entity<Prot01Marca>(entity =>
@@ -8888,6 +9047,8 @@ namespace Maderera_Aplicacion_Web.Data
 
                 entity.Property(e => e.FecVcto).HasColumnName("fec_vcto");
 
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
+
                 entity.Property(e => e.FechaModificacion).HasColumnName("fecha_modificacion");
 
                 entity.Property(e => e.IdCliente).HasColumnName("id_cliente");
@@ -9444,6 +9605,8 @@ namespace Maderera_Aplicacion_Web.Data
                 entity.Property(e => e.FecRegistro).HasColumnName("fec_registro");
 
                 entity.Property(e => e.FecVcto).HasColumnName("fec_vcto");
+
+                entity.Property(e => e.FechaCreacion).HasColumnName("fecha_creacion");
 
                 entity.Property(e => e.FechaModificacion).HasColumnName("fecha_modificacion");
 

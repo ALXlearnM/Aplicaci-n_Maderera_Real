@@ -91,6 +91,7 @@ namespace Maderera_Aplicacion_Web.Models
         public int IdLocation { get; set; }
         public long? IdCliente { get; set; }
         public string? TipoCompra { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public virtual Pert02Cliente? IdClienteNavigation { get; set; }
         public virtual Mstt08Location IdLocationNavigation { get; set; } = null!;

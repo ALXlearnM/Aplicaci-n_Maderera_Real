@@ -40,7 +40,7 @@ namespace Maderera_Aplicacion_Web.Controllers
         public IActionResult ListadoEnv()
         {
             var eagleContext = _context.Pret10Envios.Include(p => p.IdExtraccionNavigation).ThenInclude(p => p.IdCampanaNavigation).ThenInclude(p => p.IdPredioNavigation).Include(p => p.IdLocationNavigation).Include(p => p.IdLocationToNavigation).Include(p => p.IdUsuarioModificadorNavigation).Include(p => p.IdUsuarioNavigation)
-                .Where(p => p.IdEstado != 2).ToList();
+                .ToList();
             return View(eagleContext);
         }
 
@@ -951,6 +951,7 @@ namespace Maderera_Aplicacion_Web.Controllers
                         TxtUsuario = txtusuario,
                         IdEstado = check == true ? 3 : 2,
                         TxtEstado = check == true ? "BORRADOR" : "ENVIADO",
+                        FechaCreacion=fechaHoy
                     };
 
                     _context.Pret10Envios.Add(Pret10Envio);
@@ -1354,6 +1355,8 @@ namespace Maderera_Aplicacion_Web.Controllers
                         Post=0,
                         IdUsuario = idusuario,
                         TxtUsuario = txtusuario,
+
+                        FechaCreacion=fechaHoy,
                         IdEstado = check == true ? 3 : 2,
                         TxtEstado = check == true ? "BORRADOR" : "ENVIADO",
                     };
